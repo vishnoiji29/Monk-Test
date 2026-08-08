@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Monk Test — Practice Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================================
+     CONFIG — sirf yahan values badalni hain (script ke bottom mein bhi)
+
+     GITHUB REPO STRUCTURE (isi tarah folders banao):
+
+     courses/
+       <Course Name>/
+         <Subject Name>/
+           tests/            <- yahan quiz/test .html files daalo
+             chapter-1.html
+             chapter-2.html
+           notes/            <- yahan notes .pdf files daalo
+             chapter-1.pdf
+
+     Example:
+     courses/SSC CGL/History/tests/mughal-empire.html
+     courses/SSC CGL/History/notes/mughal-empire.pdf
+     courses/SSC CGL/Maths/tests/algebra-basics.html
+
+     Folder ka naam "tests" ya "quiz" ho to wo Test Series maana jaayega.
+     Folder ka naam "notes" ho to wo Notes PDF maana jaayega.
+     ============================================================ */
+
+  :root{
+    --ink:#0f0d0b;
+    --ink-2:#181410;
+    --ink-3:#201a14;
+    --paper:#f3ecdd;
+    --paper-dim:#a89c85;
+    --seal:#c1442d;
+    --gold:#d3ac68;
+    --gold-dim:#8a7749;
+    --moss:#84a06a;
+    --line: rgba(211,172,104,0.16);
+    --line-strong: rgba(211,172,104,0.32);
+    --appbar-h: 60px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Manrope',sans-serif;
+    min-height:100vh;
+    -webkit-tap-highlight-color:transparent;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--seal);color:var(--paper);}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;}
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+  /* ambient glow background */
+  .glow{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(650px circle at 15% 8%, rgba(193,68,45,0.13), transparent 60%),
+      radial-gradient(550px circle at 90% 15%, rgba(211,172,104,0.09), transparent 55%),
+      radial-gradient(700px circle at 50% 100%, rgba(132,160,106,0.06), transparent 60%);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes drift{ from{opacity:0.85;} to{opacity:1; transform:translateY(-10px);} }
+
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:26px 20px 60px; }
+  .wrap.with-appbar{ padding-top:calc(var(--appbar-h) + 22px); }
+
+  /* ---------- app bar (inner pages) ---------- */
+  .appbar{
+    position:fixed; top:0; left:0; right:0; height:var(--appbar-h); z-index:40;
+    background:rgba(15,13,11,0.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:10px; padding:0 14px;
+  }
+  .appbar-btn{
+    width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
+    background:var(--ink-2); color:var(--paper); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; flex-shrink:0; transition:border-color .2s, color .2s;
+  }
+  .appbar-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .appbar-btn svg{ width:17px; height:17px; }
+  .appbar-title{
+    flex:1; min-width:0; font-family:'Fraunces',serif; font-weight:600; font-size:1rem;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .appbar-sub{
+    font-size:0.66rem; color:var(--paper-dim); letter-spacing:0.04em; text-transform:uppercase;
+    display:block; margin-top:1px;
+  }
+
+  /* ---------- breadcrumb ---------- */
+  .crumbs{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:22px; font-size:0.78rem; color:var(--paper-dim); }
+  .crumbs a{ color:var(--paper-dim); transition:color .2s; }
+  .crumbs a:hover{ color:var(--gold); }
+  .crumbs .sep{ opacity:0.4; }
+  .crumbs .current{ color:var(--gold); }
+
+  /* ---------- page head (course/subject views) ---------- */
+  .page-head{ margin-bottom:26px; }
+  .page-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--gold); margin-bottom:8px;
+  }
+  .page-head h1{
+    font-family:'Fraunces',serif; font-weight:700; font-size:clamp(1.6rem,6vw,2.3rem);
+    margin:0 0 8px; line-height:1.15;
+  }
+  .page-head p{ color:var(--paper-dim); font-size:0.92rem; margin:0; }
+
+  /* ---------- nav (home) ---------- */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom:20px; margin-bottom:36px;
+  }
+  .logo{ display:flex; align-items:center; gap:11px; cursor:pointer; }
+  .logo-mark{
+    width:38px; height:38px; border-radius:11px;
+    background:linear-gradient(155deg, var(--seal), #8a3120);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:700; font-size:1.1rem; color:var(--paper);
+    box-shadow:0 6px 18px rgba(193,68,45,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+    flex-shrink:0;
+  }
+  .logo-text b{
+    display:block; font-family:'Fraunces',serif; font-weight:700; font-size:1.05rem; letter-spacing:0.01em;
+  }
+  .logo-text span{
+    display:block; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--paper-dim);
+  }
+  .nav-right{ display:flex; align-items:center; gap:8px; }
+  .pill{
+    font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--moss); border:1px solid rgba(132,160,106,0.35);
+    padding:6px 12px; border-radius:20px; display:flex; align-items:center; gap:6px;
+    background:transparent; cursor:default;
+  }
+  .pill::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--moss); box-shadow:0 0 8px rgba(132,160,106,0.7); }
+  .icon-btn{
+    width:38px; height:38px; border-radius:11px; border:1px solid var(--line); background:var(--ink-2);
+    color:var(--paper-dim); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .2s, color .2s;
+  }
+  .icon-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .icon-btn svg{ width:16px; height:16px; }
+
+  /* ---------- hero ---------- */
+  .hero{ text-align:center; padding:14px 0 36px; }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--gold);
+    opacity:0; animation:fadeUp .7s ease forwards;
+  }
+  .hero h1{
+    font-family:'Fraunces',serif; font-optical-sizing:auto; font-weight:800;
+    font-size:clamp(2.3rem, 9vw, 3.6rem); line-height:1.05; margin:16px 0 16px;
+    opacity:0; animation:fadeUp .8s ease .1s forwards;
+  }
+  .hero h1 em{ font-style:italic; color:var(--seal); }
+  .hero p{
+    max-width:500px; margin:0 auto; color:var(--paper-dim); font-size:1rem; line-height:1.65;
+    opacity:0; animation:fadeUp .8s ease .2s forwards;
+  }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+  .seal-mark{
+    width:92px; height:92px; margin:0 auto 20px; position:relative;
+    opacity:0; animation:stampIn .65s cubic-bezier(.2,1.6,.4,1) .45s forwards;
+  }
+  @keyframes stampIn{
+    0%{opacity:0; transform:scale(2.6) rotate(-20deg);}
+    60%{opacity:1;} 100%{opacity:1; transform:scale(1) rotate(-5deg);}
+  }
+  .seal-mark svg{ width:100%; height:100%; filter:url(#roughen); }
+
+  .stats-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    max-width:560px; margin:34px auto 0;
+    background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    opacity:0; animation:fadeUp .8s ease .32s forwards;
+  }
+  .stat-box{ background:var(--ink-2); padding:16px 8px; text-align:center; }
+  .stat-box b{
+    display:block; font-family:'Fraunces',serif; font-weight:700; font-size:1.5rem; color:var(--gold);
+  }
+  .stat-box span{ font-size:0.6rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--paper-dim); }
+
+  /* ---------- divider ---------- */
+  .divider{ display:block; width:100%; max-width:340px; margin:46px auto; opacity:0.55; }
+
+  /* ---------- toolbar ---------- */
+  .toolbar{ display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+  .search-wrap{ position:relative; flex:1; min-width:200px; }
+  .search-wrap svg{
+    position:absolute; left:13px; top:50%; transform:translateY(-50%);
+    width:15px; height:15px; color:var(--paper-dim); pointer-events:none;
+  }
+  .search{
+    width:100%; background:var(--ink-2); border:1px solid var(--line); border-radius:11px;
+    padding:12px 14px 12px 38px; color:var(--paper); font-size:0.9rem; font-family:'Manrope',sans-serif;
+    transition:border-color .2s;
+  }
+  .search:focus{ border-color:var(--gold-dim); }
+  .search::placeholder{ color:var(--paper-dim); }
+  .refresh-btn{
+    background:transparent; border:1px solid var(--line); color:var(--paper-dim);
+    border-radius:11px; padding:12px 16px; font-size:0.82rem; cursor:pointer;
+    display:flex; align-items:center; gap:7px; transition:border-color .2s, color .2s;
+  }
+  .refresh-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .refresh-btn svg{ width:14px; height:14px; }
+  .refresh-btn.spinning svg{ animation:spin .8s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .chips{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px; }
+  .chip{
+    font-size:0.76rem; padding:7px 14px; border-radius:20px;
+    border:1px solid var(--line); color:var(--paper-dim); cursor:pointer;
+    background:transparent; transition:.2s;
+  }
+  .chip.active{ border-color:var(--gold); color:var(--gold); background:rgba(211,172,104,0.08); }
+  .chip:hover{ border-color:var(--gold-dim); }
+
+  /* ---------- grid ---------- */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:16px; }
+
+  .card{
+    position:relative; background:linear-gradient(160deg, var(--ink-2), var(--ink-3));
+    border:1px solid var(--line); border-radius:16px; padding:20px 18px 18px;
+    display:flex; flex-direction:column; gap:12px; text-align:left;
+    opacity:0; transform:translateY(10px); animation:cardIn .5s ease forwards;
+    transition:border-color .25s, transform .25s, box-shadow .25s;
+    cursor:pointer;
+  }
+  .card:hover{
+    border-color:var(--gold-dim); transform:translateY(-4px);
+    box-shadow:0 14px 30px rgba(0,0,0,0.35);
+  }
+  @keyframes cardIn{ to{ opacity:1; transform:translateY(0); } }
+
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+  .card-index{ font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--paper-dim); letter-spacing:0.05em; }
+  .badge-cat{
+    font-size:0.62rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--gold);
+    border:1px solid rgba(211,172,104,0.35); padding:3px 9px; border-radius:20px;
+  }
+  .card-icon{
+    width:40px; height:40px; border-radius:11px; background:rgba(211,172,104,0.09);
+    border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; color:var(--gold);
+    flex-shrink:0;
+  }
+  .card-icon svg{ width:19px; height:19px; }
+
+  .card h3{
+    font-family:'Fraunces',serif; font-weight:600; font-size:1.14rem; margin:0; line-height:1.3; color:var(--paper);
+  }
+  .card-meta{
+    display:flex; align-items:center; gap:6px; font-size:0.74rem; color:var(--paper-dim); flex-wrap:wrap;
+  }
+  .card-meta svg{ width:13px; height:13px; }
+  .card-meta .dot{ opacity:0.4; }
+
+  .card-open{
+    margin-top:auto; display:flex; align-items:center; justify-content:space-between;
+    padding-top:12px; border-top:1px dashed var(--line); font-size:0.83rem; color:var(--gold); font-weight:600;
+  }
+  .card-open svg{ width:15px; height:15px; transition:transform .2s; }
+  .card:hover .card-open svg{ transform:translateX(3px); }
+
+  /* ---------- section tiles (Test Series / Notes) ---------- */
+  .section-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+  .section-tile{
+    position:relative; overflow:hidden; border-radius:18px; padding:26px 22px;
+    border:1px solid var(--line); cursor:pointer;
+    display:flex; flex-direction:column; gap:14px; min-height:150px;
+    transition:border-color .25s, transform .25s, box-shadow .25s;
+    opacity:0; transform:translateY(10px); animation:cardIn .5s ease forwards;
+  }
+  .section-tile.tests{ background:linear-gradient(155deg, rgba(193,68,45,0.14), var(--ink-2) 65%); }
+  .section-tile.notes{ background:linear-gradient(155deg, rgba(132,160,106,0.13), var(--ink-2) 65%); }
+  .section-tile:hover{ transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,0.4); border-color:var(--gold-dim); }
+  .section-tile .st-icon{
+    width:48px; height:48px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+    background:rgba(0,0,0,0.25); border:1px solid var(--line-strong); color:var(--gold);
+  }
+  .section-tile .st-icon svg{ width:22px; height:22px; }
+  .section-tile h3{ font-family:'Fraunces',serif; font-size:1.25rem; font-weight:700; margin:0; }
+  .section-tile p{ font-size:0.82rem; color:var(--paper-dim); margin:0; line-height:1.5; }
+  .section-tile .st-count{
+    margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--gold);
+    display:flex; align-items:center; gap:6px;
+  }
+
+  /* ---------- file list rows (tests / notes) ---------- */
+  .file-list{ display:flex; flex-direction:column; gap:10px; }
+  .file-row{
+    display:flex; align-items:center; gap:14px; padding:14px 16px;
+    background:var(--ink-2); border:1px solid var(--line); border-radius:13px; cursor:pointer;
+    transition:border-color .2s, transform .2s, background .2s;
+    opacity:0; transform:translateY(8px); animation:cardIn .4s ease forwards;
+  }
+  .file-row:hover{ border-color:var(--gold-dim); background:var(--ink-3); transform:translateX(2px); }
+  .file-row .fr-icon{
+    width:38px; height:38px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; color:var(--gold);
+    background:rgba(211,172,104,0.09); border:1px solid var(--line-strong);
+  }
+  .file-row .fr-icon svg{ width:17px; height:17px; }
+  .file-row .fr-body{ flex:1; min-width:0; }
+  .file-row .fr-body b{ display:block; font-family:'Fraunces',serif; font-weight:600; font-size:0.98rem; color:var(--paper); }
+  .file-row .fr-body span{ font-size:0.72rem; color:var(--paper-dim); font-family:'JetBrains Mono',monospace; }
+  .file-row .fr-arrow{ color:var(--paper-dim); flex-shrink:0; transition:transform .2s, color .2s; }
+  .file-row .fr-arrow svg{ width:16px; height:16px; }
+  .file-row:hover .fr-arrow{ color:var(--gold); transform:translateX(3px); }
+
+  /* ---------- viewer overlay (test / pdf) ---------- */
+  .viewer{
+    position:fixed; inset:0; z-index:100; background:var(--ink); display:flex; flex-direction:column;
+  }
+  .viewer-bar{
+    height:var(--appbar-h); flex-shrink:0; display:flex; align-items:center; gap:10px; padding:0 12px;
+    background:rgba(15,13,11,0.92); border-bottom:1px solid var(--line); backdrop-filter:blur(14px);
+  }
+  .viewer-title{ flex:1; min-width:0; }
+  .viewer-title b{
+    display:block; font-family:'Fraunces',serif; font-weight:600; font-size:0.92rem;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .viewer-title span{ font-size:0.64rem; color:var(--paper-dim); text-transform:uppercase; letter-spacing:0.05em; }
+  .viewer-actions{ display:flex; gap:8px; }
+  .viewer-frame-wrap{ flex:1; position:relative; background:#0a0908; }
+  .viewer-frame-wrap iframe{ width:100%; height:100%; border:0; background:var(--paper); }
+  .viewer-loading{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:12px; color:var(--paper-dim); background:var(--ink);
+  }
+  .spinner{
+    width:30px; height:30px; border-radius:50%; border:2.5px solid var(--line-strong); border-top-color:var(--gold);
+    animation:spin .8s linear infinite;
+  }
+  .viewer-note-hint{
+    padding:10px 16px; font-size:0.72rem; color:var(--paper-dim); text-align:center;
+    border-top:1px solid var(--line); background:var(--ink-2); flex-shrink:0;
+  }
+  .viewer-note-hint a{ color:var(--gold); font-weight:600; }
+
+  /* ---------- search overlay ---------- */
+  .search-overlay{
+    position:fixed; inset:0; z-index:90; background:rgba(10,9,8,0.97); backdrop-filter:blur(6px);
+    display:flex; flex-direction:column; padding:16px 18px 24px;
+  }
+  .search-overlay .toolbar{ margin-bottom:14px; }
+  .search-results{ flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; }
+  .sr-item{
+    display:flex; align-items:center; gap:12px; padding:12px 14px; border:1px solid var(--line);
+    border-radius:12px; background:var(--ink-2); cursor:pointer; transition:border-color .2s;
+  }
+  .sr-item:hover{ border-color:var(--gold-dim); }
+  .sr-item .fr-icon{ width:34px; height:34px; }
+  .sr-item b{ display:block; font-size:0.9rem; font-family:'Fraunces',serif; }
+  .sr-item span{ font-size:0.7rem; color:var(--paper-dim); }
+
+  /* ---------- states ---------- */
+  .state{ text-align:center; padding:60px 20px; color:var(--paper-dim); grid-column:1/-1; }
+  .state h3{ font-family:'Fraunces',serif; color:var(--paper); font-size:1.3rem; margin:14px 0 8px; }
+  .state p{ font-size:0.9rem; line-height:1.6; max-width:440px; margin:0 auto; }
+  .state pre{
+    text-align:left; font-size:0.68rem; background:var(--ink-2); border:1px solid var(--line);
+    border-radius:10px; padding:12px 14px; max-width:420px; margin:16px auto 0; color:var(--gold-dim);
+    white-space:pre-wrap; font-family:'JetBrains Mono',monospace; line-height:1.6;
+  }
+  .state .retry-btn{
+    margin-top:18px; background:var(--seal); color:var(--paper); border:none; border-radius:10px;
+    padding:11px 20px; font-size:0.85rem; font-weight:700; cursor:pointer;
+  }
+
+  .skel{
+    height:130px; border-radius:16px;
+    background:linear-gradient(90deg, var(--ink-2) 25%, var(--ink-3) 37%, var(--ink-2) 63%);
+    background-size:400% 100%; animation:shimmer 1.4s ease infinite;
+  }
+  @keyframes shimmer{ 0%{ background-position:100% 0; } 100%{ background-position:-100% 0; } }
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:64px; padding-top:26px; border-top:1px solid var(--line);
+    text-align:center;
+  }
+  .footer-mark{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Fraunces',serif; font-weight:600; font-size:0.85rem; color:var(--paper-dim);
+    margin-bottom:6px;
+  }
+  .footer-mark .dot{ width:5px; height:5px; border-radius:50%; background:var(--gold); }
+  footer .credit{
+    font-size:0.72rem; letter-spacing:0.04em; color:var(--paper-dim); opacity:0.85;
+  }
+  footer .credit b{ color:var(--gold); font-weight:700; }
+
+  .view{ animation:viewIn .28s ease forwards; }
+  @keyframes viewIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .eyebrow,.hero h1,.hero p,.stats-row,.seal-mark,.card,.section-tile,.file-row{ opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+<div class="grain"></div>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="roughen">
+    <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="6"/>
+  </filter>
+</svg>
+
+<!-- inner-page app bar (shown on all non-home routes) -->
+<div class="appbar" id="appbar" style="display:none">
+  <button class="appbar-btn" id="backBtn" title="Back" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  </button>
+  <div class="appbar-title" id="appbarTitle">—</div>
+  <button class="appbar-btn" id="homeBtn" title="Home" aria-label="Home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
+  </button>
+</div>
+
+<div class="wrap" id="wrap">
+
+  <nav class="nav" id="homeNav">
+    <div class="logo" onclick="navigate([])">
+      <div class="logo-mark">म</div>
+      <div class="logo-text"><b>Monk Test</b><span>Practice Platform</span></div>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" id="searchToggle" title="Search" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+      <div class="pill">Synced</div>
+    </div>
+  </nav>
+
+  <div id="content"></div>
+
+  <footer>
+    <div class="footer-mark"><span>Monk Test</span><span class="dot"></span><span>Quiz Platform</span></div>
+    <div class="credit">Design by <b>KD Khilery</b></div>
+  </footer>
+</div>
+
+<!-- fullscreen search overlay -->
+<div class="search-overlay" id="searchOverlay" style="display:none">
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input class="search" id="globalSearch" type="text" placeholder="Course, subject, test ya notes khojein…" oninput="renderSearchResults()">
+    </div>
+    <button class="refresh-btn" onclick="closeSearch()">Band karein</button>
+  </div>
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<!-- fullscreen viewer (test html / notes pdf) -->
+<div class="viewer" id="viewer" style="display:none">
+  <div class="viewer-bar">
+    <button class="appbar-btn" id="viewerBack" title="Back" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="viewer-title">
+      <b id="viewerTitleText">—</b>
+      <span id="viewerTitleSub">—</span>
+    </div>
+    <div class="viewer-actions">
+      <button class="appbar-btn" id="viewerOpenNew" title="Naye tab me kholein" aria-label="Open in new tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+      </button>
+      <button class="appbar-btn" id="viewerReload" title="Reload" aria-label="Reload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="viewer-frame-wrap">
+    <div class="viewer-loading" id="viewerLoading"><div class="spinner"></div><span>Load ho raha hai…</span></div>
+    <iframe id="viewerFrame" src="about:blank" title="content"></iframe>
+  </div>
+  <div class="viewer-note-hint" id="viewerHint" style="display:none">
+    Preview nahi dikh raha? <a id="viewerHintLink" href="#" target="_blank" rel="noopener">Yahan tap karke naye tab me kholein</a>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG — sirf yahan values badalni hain
+   ============================================================ */
+const GITHUB_USER   = "vishnoiji29";
+const GITHUB_REPO   = "Monk-Test";
+const GITHUB_BRANCH = "main";
+const ROOT_FOLDER   = "courses";   // courses/<Course>/<Subject>/<tests|notes>/<file>
+
+/* ---------- icons ---------- */
+const ICON_COURSE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
+const ICON_SUBJECT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>`;
+const ICON_TEST = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
+const ICON_NOTE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>`;
+const ICON_CHEVRON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>`;
+
+const contentEl   = document.getElementById('content');
+const appbar      = document.getElementById('appbar');
+const appbarTitle = document.getElementById('appbarTitle');
+const homeNav     = document.getElementById('homeNav');
+const wrapEl      = document.getElementById('wrap');
+
+let courses = {};        // { courseName: { subjects: { subjectName: { tests:[], notes:[] } } } }
+let loaded  = false;
+let loadErr = null;
+
+/* ============================================================
+   helpers
+   ============================================================ */
+function toTitle(name){
+  return name.replace(/\.html?$/i,'').replace(/\.pdf$/i,'').replace(/[-_]+/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+function rawUrl(path){
+  return `https://cdn.jsdelivr.net/gh/${GITHUB_USER}/${GITHUB_REPO}@${GITHUB_BRANCH}/` + path.split('/').map(encodeURIComponent).join('/');
+}
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ============================================================
+   fetch + build tree
+   ============================================================ */
+async function fetchTree(){
+  const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
+  const res = await fetch(url, { headers: { 'Accept':'application/vnd.github.v3+json' } });
+  if(!res.ok) throw { status: res.status };
+  return res.json();
+}
+
+function buildStructure(tree){
+  const files = (tree.tree || []).filter(f => f.type === 'blob' && f.path.startsWith(ROOT_FOLDER + '/'));
+  const out = {};
+  files.forEach(f => {
+    const rel = f.path.slice(ROOT_FOLDER.length + 1);
+    const parts = rel.split('/');
+    if(parts.length < 4) return; // Course/Subject/section/file(s)
+    const courseName  = parts[0];
+    const subjectName = parts[1];
+    const sectionRaw  = parts[2].toLowerCase();
+    const fileName    = parts[parts.length - 1];
+    if(!/\.(html?|pdf)$/i.test(fileName)) return;
+
+    const sectionKey = sectionRaw.includes('note') ? 'notes' : 'tests';
+
+    out[courseName] = out[courseName] || { subjects: {} };
+    out[courseName].subjects[subjectName] = out[courseName].subjects[subjectName] || { tests: [], notes: [] };
+    out[courseName].subjects[subjectName][sectionKey].push({
+      name: toTitle(fileName),
+      path: f.path,
+      ext: fileName.split('.').pop().toLowerCase()
+    });
+  });
+  Object.values(out).forEach(course => {
+    Object.values(course.subjects).forEach(subj => {
+      subj.tests.sort((a,b) => a.name.localeCompare(b.name));
+      subj.notes.sort((a,b) => a.name.localeCompare(b.name));
+    });
+  });
+  return out;
+}
+
+function flattenAll(){
+  const items = [];
+  Object.keys(courses).forEach(courseName => {
+    Object.keys(courses[courseName].subjects).forEach(subjectName => {
+      const subj = courses[courseName].subjects[subjectName];
+      subj.tests.forEach((t,i) => items.push({ type:'tests', course:courseName, subject:subjectName, name:t.name, index:i }));
+      subj.notes.forEach((n,i) => items.push({ type:'notes', course:courseName, subject:subjectName, name:n.name, index:i }));
+    });
+  });
+  return items;
+}
+
+async function loadAll(){
+  loaded = false; loadErr = null;
+  render();
+  try{
+    const tree = await fetchTree();
+    courses = buildStructure(tree);
+    loaded = true;
+  }catch(err){
+    loadErr = err;
+    loaded = true;
+  }
+  render();
+}
+
+/* ============================================================
+   router
+   ============================================================ */
+function currentRoute(){
+  const h = location.hash.replace(/^#\/?/, '');
+  if(!h) return [];
+  return h.split('/').filter(Boolean).map(decodeURIComponent);
+}
+function navigate(segments){
+  location.hash = '/' + segments.map(encodeURIComponent).join('/');
+}
+window.addEventListener('hashchange', render);
+
+/* ============================================================
+   shared UI bits
+   ============================================================ */
+function setChrome(showAppbar, title, sub){
+  if(showAppbar){
+    appbar.style.display = 'flex';
+    homeNav.style.display = 'none';
+    wrapEl.classList.add('with-appbar');
+    appbarTitle.innerHTML = sub
+      ? `${esc(title)}<span class="appbar-sub">${esc(sub)}</span>`
+      : esc(title);
+  }else{
+    appbar.style.display = 'none';
+    homeNav.style.display = 'flex';
+    wrapEl.classList.remove('with-appbar');
+  }
+}
+function crumbsHTML(trail){
+  // trail: [{label, segments}]
+  return `<div class="crumbs">` + trail.map((c,i) => {
+    const isLast = i === trail.length - 1;
+    if(isLast) return `<span class="current">${esc(c.label)}</span>`;
+    return `<a href="javascript:void(0)" onclick='navigate(${JSON.stringify(c.segments)})'>${esc(c.label)}</a><span class="sep">›</span>`;
+  }).join('') + `</div>`;
+}
+function stateBlock(icon, title, text, retry){
+  return `<div class="state">
+    <div style="font-size:2rem">${icon}</div>
+    <h3>${esc(title)}</h3>
+    <p>${text}</p>
+    ${retry ? `<button class="retry-btn" onclick="loadAll()">Refresh karein</button>` : ''}
+  </div>`;
+}
+function skeletons(n){
+  return `<div class="grid">` + Array.from({length:n}).map(()=>`<div class="skel"></div>`).join('') + `</div>`;
+}
+
+/* ============================================================
+   view: HOME
+   ============================================================ */
+function renderHome(){
+  setChrome(false);
+  const courseNames = Object.keys(courses);
+  const totalSubjects = courseNames.reduce((s,c)=>s+Object.keys(courses[c].subjects).length,0);
+  const totalTests = flattenAll().filter(i=>i.type==='tests').length;
+  const totalNotes = flattenAll().filter(i=>i.type==='notes').length;
+
+  let body = '';
+  if(!loaded){
+    body = `
+      ${heroHTML()}
+      <svg class="divider" viewBox="0 0 340 20" preserveAspectRatio="none"><path d="M2 12 Q 40 2, 80 11 T 160 10 T 240 13 T 338 8" fill="none" stroke="#d3ac68" stroke-width="1.6" stroke-linecap="round"/></svg>
+      ${skeletons(3)}`;
+  }else if(loadErr){
+    body = `
+      ${heroHTML()}
+      <svg class="divider" viewBox="0 0 340 20" preserveAspectRatio="none"><path d="M2 12 Q 40 2, 80 11 T 160 10 T 240 13 T 338 8" fill="none" stroke="#d3ac68" stroke-width="1.6" stroke-linecap="round"/></svg>
+      ${stateBlock('⚠️','Load nahi ho paaya','Kuch der baad Refresh button dabayein, ya connection check karein.', true)}`;
+  }else if(courseNames.length === 0){
+    body = `
+      ${heroHTML()}
+      <svg class="divider" viewBox="0 0 340 20" preserveAspectRatio="none"><path d="M2 12 Q 40 2, 80 11 T 160 10 T 240 13 T 338 8" fill="none" stroke="#d3ac68" stroke-width="1.6" stroke-linecap="round"/></svg>
+      ${stateBlock('📜','Abhi koi course available nahi', `GitHub repo me <b>${esc(ROOT_FOLDER)}/&lt;Course&gt;/&lt;Subject&gt;/tests/</b> aur <b>notes/</b> folders me files daalein.<pre>${esc(ROOT_FOLDER)}/SSC CGL/History/tests/ch1.html
+${esc(ROOT_FOLDER)}/SSC CGL/History/notes/ch1.pdf</pre>`, true)}`;
+  }else{
+    body = `
+      ${heroHTML(totalTests + totalNotes, totalTests, totalNotes, courseNames.length, totalSubjects)}
+      <svg class="divider" viewBox="0 0 340 20" preserveAspectRatio="none"><path d="M2 12 Q 40 2, 80 11 T 160 10 T 240 13 T 338 8" fill="none" stroke="#d3ac68" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="toolbar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input class="search" id="homeSearchBox" type="text" placeholder="Course khojein…" oninput="applyHomeFilter()">
+        </div>
+        <button class="refresh-btn" id="refreshBtn" onclick="loadAll()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+          Refresh
+        </button>
+      </div>
+      <div class="grid" id="courseGrid"></div>`;
+  }
+
+  contentEl.innerHTML = `<div class="view">${body}</div>`;
+  if(loaded && !loadErr && courseNames.length){
+    renderCourseGrid(courseNames);
+  }
+}
+function heroHTML(total, tests, notes, courseCount, subjCount){
+  return `
+  <div class="hero">
+    <div class="eyebrow">Daily Practice · No Distractions</div>
+    <div class="seal-mark">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#c1442d" stroke-width="3"/>
+        <circle cx="50" cy="50" r="32" fill="none" stroke="#d3ac68" stroke-width="1.5"/>
+        <text x="50" y="58" text-anchor="middle" font-family="Fraunces, serif" font-size="30" font-weight="700" fill="#d3ac68">म</text>
+      </svg>
+    </div>
+    <h1>Practice like a <em>monk</em>.</h1>
+    <p>Course chuno, subject chuno — test series ya notes, jo chahiye wahi milega. Ek focused jagah, bina kisi distraction ke.</p>
+    <div class="stats-row">
+      <div class="stat-box"><b>${courseCount ?? '—'}</b><span>Courses</span></div>
+      <div class="stat-box"><b>${subjCount ?? '—'}</b><span>Subjects</span></div>
+      <div class="stat-box"><b>${tests ?? '—'}</b><span>Tests</span></div>
+      <div class="stat-box"><b>${notes ?? '—'}</b><span>Notes</span></div>
+    </div>
+  </div>`;
+}
+function renderCourseGrid(courseNames){
+  const grid = document.getElementById('courseGrid');
+  if(!grid) return;
+  grid.innerHTML = courseNames.map((name, idx) => {
+    const subjCount = Object.keys(courses[name].subjects).length;
+    let t=0,n=0;
+    Object.values(courses[name].subjects).forEach(s=>{ t+=s.tests.length; n+=s.notes.length; });
+    return `
+      <div class="card" data-name="${esc(name.toLowerCase())}" style="animation-delay:${idx*0.04}s" onclick='navigate(["course", ${JSON.stringify(name)}])'>
+        <div class="card-top">
+          <div class="card-icon">${ICON_COURSE}</div>
+          <span class="badge-cat">${subjCount} Subject${subjCount!==1?'s':''}</span>
+        </div>
+        <h3>${esc(name)}</h3>
+        <div class="card-meta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          ${t} Tests <span class="dot">·</span> ${n} Notes
+        </div>
+        <div class="card-open">Explore Course ${ICON_CHEVRON}</div>
+      </div>`;
+  }).join('');
+}
+function applyHomeFilter(){
+  const q = document.getElementById('homeSearchBox').value.trim().toLowerCase();
+  const names = Object.keys(courses).filter(n => n.toLowerCase().includes(q));
+  const grid = document.getElementById('courseGrid');
+  if(names.length === 0){
+    grid.innerHTML = stateBlock('🔍','Kuch nahi mila','Dusra keyword try karein.');
+    return;
+  }
+  renderCourseGrid(names);
+}
+
+/* ============================================================
+   view: COURSE (subjects list)
+   ============================================================ */
+function renderCourseView(courseName){
+  const course = courses[courseName];
+  setChrome(true, courseName, 'Course');
+  if(!course){
+    contentEl.innerHTML = `<div class="view">${crumbsHTML([{label:'Home',segments:[]},{label:courseName,segments:[]}])}${stateBlock('❓','Course nahi mila','Yeh course maujood nahi hai.')}</div>`;
+    return;
+  }
+  const subjectNames = Object.keys(course.subjects);
+  const trail = [{label:'Home',segments:[]},{label:courseName,segments:['course',courseName]}];
+
+  let body;
+  if(subjectNames.length === 0){
+    body = stateBlock('📁','Is course me abhi koi subject nahi', 'GitHub repo me is course ke andar subject folders daalein.');
+  }else{
+    body = `
+      <div class="page-head">
+        <div class="page-eyebrow">Course</div>
+        <h1>${esc(courseName)}</h1>
+        <p>Subject chunein — har subject me Test Series aur Notes dono milenge.</p>
+      </div>
+      <div class="grid">
+        ${subjectNames.map((s, idx) => {
+          const subj = course.subjects[s];
+          return `
+          <div class="card" style="animation-delay:${idx*0.04}s" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(s)}])'>
+            <div class="card-top">
+              <div class="card-icon">${ICON_SUBJECT}</div>
+              <span class="badge-cat">Subject</span>
+            </div>
+            <h3>${esc(s)}</h3>
+            <div class="card-meta">
+              ${ICON_TEST} ${subj.tests.length} Tests <span class="dot">·</span> ${ICON_NOTE} ${subj.notes.length} Notes
+            </div>
+            <div class="card-open">Open Subject ${ICON_CHEVRON}</div>
+          </div>`;
+        }).join('')}
+      </div>`;
+  }
+  contentEl.innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+}
+
+/* ============================================================
+   view: SUBJECT (Test Series / Notes tiles)
+   ============================================================ */
+function renderSubjectView(courseName, subjectName){
+  const course = courses[courseName];
+  const subj = course && course.subjects[subjectName];
+  setChrome(true, subjectName, courseName);
+  const trail = [
+    {label:'Home',segments:[]},
+    {label:courseName,segments:['course',courseName]},
+    {label:subjectName,segments:['course',courseName,'subject',subjectName]}
+  ];
+  if(!subj){
+    contentEl.innerHTML = `<div class="view">${crumbsHTML(trail)}${stateBlock('❓','Subject nahi mila','Yeh subject maujood nahi hai.')}</div>`;
+    return;
+  }
+  let body;
+  if(subj.tests.length === 0 && subj.notes.length === 0){
+    body = stateBlock('📂','Is subject me abhi content nahi', 'Tests ya notes GitHub repo me daalein.');
+  }else{
+    body = `
+      <div class="page-head">
+        <div class="page-eyebrow">${esc(courseName)}</div>
+        <h1>${esc(subjectName)}</h1>
+        <p>Test Series se practice karein ya Notes se revise karein.</p>
+      </div>
+      <div class="section-grid">
+        <div class="section-tile tests" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, "tests"])'>
+          <div class="st-icon">${ICON_TEST}</div>
+          <h3>Test Series</h3>
+          <p>Topic-wise quiz attempt karein aur apni practice track karein.</p>
+          <div class="st-count">${subj.tests.length} Test${subj.tests.length!==1?'s':''} available ${ICON_CHEVRON}</div>
+        </div>
+        <div class="section-tile notes" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, "notes"])'>
+          <div class="st-icon">${ICON_NOTE}</div>
+          <h3>Notes PDF</h3>
+          <p>Chapter-wise notes padhein ya download karein.</p>
+          <div class="st-count">${subj.notes.length} Note${subj.notes.length!==1?'s':''} available ${ICON_CHEVRON}</div>
+        </div>
+      </div>`;
+  }
+  contentEl.innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+}
+
+/* ============================================================
+   view: LIST (tests or notes list)
+   ============================================================ */
+function renderListView(courseName, subjectName, section){
+  const course = courses[courseName];
+  const subj = course && course.subjects[subjectName];
+  const isTests = section === 'tests';
+  setChrome(true, isTests ? 'Test Series' : 'Notes PDF', `${courseName} · ${subjectName}`);
+  const trail = [
+    {label:'Home',segments:[]},
+    {label:courseName,segments:['course',courseName]},
+    {label:subjectName,segments:['course',courseName,'subject',subjectName]},
+    {label:isTests?'Test Series':'Notes PDF',segments:[]}
+  ];
+  if(!subj){
+    contentEl.innerHTML = `<div class="view">${crumbsHTML(trail)}${stateBlock('❓','Subject nahi mila','Yeh subject maujood nahi hai.')}</div>`;
+    return;
+  }
+  const items = isTests ? subj.tests : subj.notes;
+  let body;
+  if(items.length === 0){
+    body = stateBlock(isTests?'📝':'📄', `Abhi koi ${isTests?'test':'note'} nahi`, `Is subject ke ${isTests?'tests':'notes'} folder me files daalein.`);
+  }else{
+    body = `
+      <div class="page-head">
+        <div class="page-eyebrow">${esc(courseName)} · ${esc(subjectName)}</div>
+        <h1>${isTests?'Test Series':'Notes PDF'}</h1>
+        <p>${items.length} item${items.length!==1?'s':''} available.</p>
+      </div>
+      <div class="toolbar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input class="search" id="listSearchBox" type="text" placeholder="${isTests?'Test':'Note'} khojein…" oninput="applyListFilter()">
+        </div>
+      </div>
+      <div class="file-list" id="fileList"></div>`;
+  }
+  contentEl.innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+  if(items.length){
+    renderFileList(items, courseName, subjectName, section);
+  }
+}
+function renderFileList(items, courseName, subjectName, section){
+  const el = document.getElementById('fileList');
+  if(!el) return;
+  const icon = section === 'tests' ? ICON_TEST : ICON_NOTE;
+  const tag  = section === 'tests' ? 'Quiz / Test' : 'PDF';
+  el.innerHTML = items.map((it, idx) => `
+    <div class="file-row" data-name="${esc(it.name.toLowerCase())}" style="animation-delay:${idx*0.03}s"
+      onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, ${JSON.stringify(section)}, ${JSON.stringify(String(idx))}])'>
+      <div class="fr-icon">${icon}</div>
+      <div class="fr-body"><b>${esc(it.name)}</b><span>${tag}</span></div>
+      <div class="fr-arrow">${ICON_CHEVRON}</div>
+    </div>`).join('');
+}
+function applyListFilter(){
+  const box = document.getElementById('listSearchBox');
+  const q = box.value.trim().toLowerCase();
+  document.querySelectorAll('#fileList .file-row').forEach(row => {
+    row.style.display = row.dataset.name.includes(q) ? '' : 'none';
+  });
+}
+
+/* ============================================================
+   view: VIEWER (open test html / note pdf)
+   ============================================================ */
+const viewerEl      = document.getElementById('viewer');
+const viewerFrame    = document.getElementById('viewerFrame');
+const viewerLoading  = document.getElementById('viewerLoading');
+const viewerHint     = document.getElementById('viewerHint');
+const viewerHintLink = document.getElementById('viewerHintLink');
+const viewerTitleText= document.getElementById('viewerTitleText');
+const viewerTitleSub = document.getElementById('viewerTitleSub');
+
+function openViewer(courseName, subjectName, section, index){
+  const course = courses[courseName];
+  const subj = course && course.subjects[subjectName];
+  const items = subj ? (section === 'tests' ? subj.tests : subj.notes) : [];
+  const item = items[index];
+
+  if(!item){
+    viewerEl.style.display = 'none';
+    return false;
+  }
+
+  const url = rawUrl(item.path);
+  viewerTitleText.textContent = item.name;
+  viewerTitleSub.textContent = `${courseName} · ${subjectName}`;
+  viewerHintLink.href = url;
+  viewerHint.style.display = section === 'notes' ? 'block' : 'none';
+
+  viewerLoading.style.display = 'flex';
+  viewerFrame.src = url;
+  viewerEl.style.display = 'flex';
+  return true;
+}
+document.getElementById('viewerFrame').addEventListener('load', () => {
+  viewerLoading.style.display = 'none';
+});
+document.getElementById('viewerBack').addEventListener('click', () => history.back());
+document.getElementById('viewerOpenNew').addEventListener('click', () => {
+  if(viewerFrame.src && viewerFrame.src !== 'about:blank') window.open(viewerFrame.src, '_blank');
+});
+document.getElementById('viewerReload').addEventListener('click', () => {
+  viewerLoading.style.display = 'flex';
+  const src = viewerFrame.src;
+  viewerFrame.src = 'about:blank';
+  setTimeout(()=>{ viewerFrame.src = src; }, 30);
+});
+
+/* ============================================================
+   global search overlay
+   ============================================================ */
+const searchOverlay = document.getElementById('searchOverlay');
+const searchToggle  = document.getElementById('searchToggle');
+const globalSearch   = document.getElementById('globalSearch');
+searchToggle.addEventListener('click', () => {
+  searchOverlay.style.display = 'flex';
+  globalSearch.value = '';
+  globalSearch.focus();
+  renderSearchResults();
+});
+function closeSearch(){ searchOverlay.style.display = 'none'; }
+function renderSearchResults(){
+  const q = globalSearch.value.trim().toLowerCase();
+  const resultsEl = document.getElementById('searchResults');
+  if(!q){ resultsEl.innerHTML = `<div class="state"><p>Course, subject, test ya notes ka naam type karein.</p></div>`; return; }
+  const all = flattenAll().filter(i =>
+    i.name.toLowerCase().includes(q) || i.course.toLowerCase().includes(q) || i.subject.toLowerCase().includes(q)
+  ).slice(0, 40);
+  if(all.length === 0){ resultsEl.innerHTML = `<div class="state"><p>Kuch nahi mila.</p></div>`; return; }
+  resultsEl.innerHTML = all.map(i => `
+    <div class="sr-item" onclick='closeSearch(); navigate(["course", ${JSON.stringify(i.course)}, "subject", ${JSON.stringify(i.subject)}, ${JSON.stringify(i.type)}, ${JSON.stringify(String(i.index))}])'>
+      <div class="fr-icon">${i.type === 'tests' ? ICON_TEST : ICON_NOTE}</div>
+      <div class="fr-body"><b>${esc(i.name)}</b><span>${esc(i.course)} · ${esc(i.subject)}</span></div>
+      <div class="fr-arrow">${ICON_CHEVRON}</div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   master render
+   ============================================================ */
+document.getElementById('backBtn').addEventListener('click', () => history.back());
+document.getElementById('homeBtn').addEventListener('click', () => navigate([]));
+
+function render(){
+  const seg = currentRoute();
+  viewerEl.style.display = 'none';
+  searchOverlay.style.display = 'none';
+
+  if(!loaded){
+    if(seg.length === 0){ renderHome(); } else { setChrome(true, 'Load ho raha hai…'); contentEl.innerHTML = `<div class="view">${skeletons(3)}</div>`; }
+    return;
+  }
+
+  if(seg.length === 0){
+    renderHome();
+  }else if(seg[0] === 'course' && seg.length === 2){
+    renderCourseView(seg[1]);
+  }else if(seg[0] === 'course' && seg[2] === 'subject' && seg.length === 4){
+    renderSubjectView(seg[1], seg[3]);
+  }else if(seg[0] === 'course' && seg[2] === 'subject' && seg.length === 5 && (seg[4] === 'tests' || seg[4] === 'notes')){
+    renderListView(seg[1], seg[3], seg[4]);
+  }else if(seg[0] === 'course' && seg[2] === 'subject' && seg.length === 6 && (seg[4] === 'tests' || seg[4] === 'notes')){
+    // render underlying list first (for back-nav context), then open viewer on top
+    renderListView(seg[1], seg[3], seg[4]);
+    const ok = openViewer(seg[1], seg[3], seg[4], parseInt(seg[5], 10));
+    if(!ok){
+      contentEl.innerHTML += stateBlock('❓','Item nahi mila','Yeh test/note maujood nahi hai.');
+    }
+  }else{
+    setChrome(true, 'Nahi mila');
+    contentEl.innerHTML = `<div class="view">${stateBlock('❓','Page nahi mila','Home par wapas jaayein.')}</div>`;
+  }
+}
+
+loadAll();
+</script>
+</body>
+</html>
