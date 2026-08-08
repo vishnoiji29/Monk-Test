@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light" style="--tiger-500: #f59e0b; --tiger-600: #c98209; --tiger-700: #9f6707; --navy-950: #008064; --navy-900: #008064; --navy-800: #14284a;"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" id="metaThemeColor" content="#008064">
+    <title>SI 2021 TIGERS Batch | Test Series</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts — Poppins for UI chrome, Hind (best-in-class Devanagari + Latin) for question/answer text -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Hind:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-950: #0b1220;
+            --navy-900: #0f1e33;
+            --navy-800: #14284a;
+            --tiger-500: #f59e0b;
+            --tiger-600: #ea7c17;
+            --tiger-700: #c2620b;
+            --ink: #1b2333;
+            --muted: #64748b;
+            --bg: #eef1f6;
+            --card: #ffffff;
+            --line: #e4e8f0;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+        }
+        html[data-theme="dark"] {
+            --ink: #e9eef8;
+            --muted: #93a4c3;
+            --bg: #0a1120;
+            --card: #101b31;
+            --line: #22314f;
+            --success-bg: rgba(22,163,74,0.16);
+            --danger-bg: rgba(220,38,38,0.16);
+        }
+        html[data-theme="dark"] body { background-image: radial-gradient(circle at top, #142238 0%, var(--bg) 55%); }
+        html[data-theme="dark"] .option-btn { background:#0d1729; border-color:var(--line); color:var(--ink); }
+        html[data-theme="dark"] .quiz-pagination .page-box { background:#0d1729; border-color:var(--line); color:var(--ink); }
+        html[data-theme="dark"] .question-reference { background:#0d1729; color:var(--muted); }
+        html[data-theme="dark"] .summary-card, html[data-theme="dark"] .result-card { background:var(--card); }
+        html[data-theme="dark"] .card { background: var(--card); color: var(--ink); }
+        html[data-theme="dark"] .code-input::placeholder { color:#5b6f92; }
+        html, body { transition: background-color 0.3s ease, color 0.3s ease; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { -webkit-text-size-adjust: 100%; }
+        body { font-family:'Poppins',sans-serif; background: var(--bg); background-image: radial-gradient(circle at top, #f4f6fb 0%, var(--bg) 55%); min-height: 100vh; padding-bottom: 20px; color: var(--ink); }
+
+        .quiz-container { max-width:800px; margin: 10px auto; background:var(--card); border-radius:22px; box-shadow:0 20px 50px rgba(15,30,51,0.14); overflow:hidden; animation:fadeIn 0.35s ease-out; touch-action:pan-y; border: 1px solid var(--line); transition: background-color 0.3s ease, border-color 0.3s ease; }
+        @keyframes fadeIn {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes slideIn {from{transform:translateX(10px);opacity:0}to{transform:translateX(0);opacity:1}}
+        @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+
+        /* App Bar & Telegram Link */
+        .app-top-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--card); padding: 8px 12px; border-radius: 30px; margin-bottom: 8px; box-shadow: 0 2px 10px rgba(15,30,51,0.06); flex-wrap: nowrap; max-width: 800px; margin-left:auto; margin-right:auto; border: 1px solid var(--line); transition: background-color 0.3s ease, border-color 0.3s ease; }
+        .brand-block { display:flex; align-items:center; gap:6px; min-width:0; }
+        .brand-icon { width:30px; height:30px; flex:0 0 auto; border-radius:9px; background:linear-gradient(135deg,var(--navy-900),var(--navy-800)); color:var(--tiger-500); display:flex; align-items:center; justify-content:center; font-size:0.85rem; box-shadow: inset 0 0 0 1px rgba(245,158,11,0.35); }
+        .brand-text { display:flex; flex-direction:column; line-height:1.05; min-width:0; }
+        .brand-text .b1 { font-weight:700; font-size:0.74rem; color: var(--ink); letter-spacing:0.2px; white-space:nowrap; }
+        .brand-text .b2 { font-weight:700; font-size:0.62rem; color: var(--tiger-600); letter-spacing:0.6px; white-space:nowrap; }
+
+        .telegram-btn { background: linear-gradient(135deg, #0088cc, #24A1DE); color: white !important; font-size: 0.72rem; font-weight: 600; border-radius: 18px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s; flex: 0 0 auto; white-space: nowrap; }
+        .telegram-btn:hover, .telegram-btn:active { box-shadow: 0 3px 10px rgba(36,161,222,0.35); transform: translateY(-1px); }
+        .telegram-btn .tg-label { display:inline; }
+
+        /* Instagram follow button */
+        .instagram-btn { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4); color: white !important; font-size: 0.72rem; font-weight: 600; border-radius: 18px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s; flex: 0 0 auto; white-space: nowrap; }
+        .instagram-btn:hover, .instagram-btn:active { box-shadow: 0 3px 10px rgba(221,42,123,0.35); transform: translateY(-1px); }
+        .instagram-btn .ig-label { display:inline; }
+        @media (max-width:390px) { .instagram-btn .ig-label { display:none; } }
+
+        /* Small stylish "Design by" credit — always in the bottom-right corner */
+        .dev-credit-badge {
+            position: fixed; bottom: 8px; left: 10px; z-index: 500;
+            font-size: 0.6rem; font-weight: 600; letter-spacing: 0.3px;
+            color: var(--muted); background: var(--card); opacity: 0.75;
+            padding: 3px 10px; border-radius: 12px; border: 1px solid var(--line);
+            pointer-events: none; font-family:'Poppins',sans-serif;
+        }
+        .dev-credit-badge b { background: linear-gradient(135deg,var(--tiger-500),var(--tiger-700)); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight: 700; }
+
+        /* Theme toggle */
+        .theme-toggle-btn { flex:0 0 auto; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; background:var(--card); color:var(--ink); border:1px solid var(--line); transition: all 0.2s; }
+        .theme-toggle-btn:hover { transform: rotate(15deg); }
+
+        /* Font Size Control */
+        .font-ctrl-group { flex: 0 0 auto; }
+        .font-ctrl-btn { font-size: 0.68rem; padding: 3px 7px; border-radius: 10px; line-height:1.3; color: var(--ink); border-color: var(--line); }
+        .font-ctrl-btn.active { background: var(--tiger-500); border-color: var(--tiger-500); color: #fff; }
+        .q-number-badge { display:inline-flex; align-items:baseline; gap:2px; font-family:'Poppins',sans-serif; font-weight:700; font-size:0.78rem; color:#fff; background: linear-gradient(135deg,var(--navy-800),var(--navy-950)); padding: 3px 11px; border-radius: 999px; letter-spacing:0.3px; box-shadow: 0 2px 6px rgba(11,18,32,0.18); }
+        .q-number-badge .q-number-total { font-size:0.64rem; font-weight:500; opacity:0.7; }
+        .kbd-hint { justify-content:center; gap:16px; margin-top:8px; font-size:0.7rem; color:var(--muted); font-family:'Poppins',sans-serif; }
+        .kbd-hint kbd { background:var(--card); border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; padding:1px 6px; font-size:0.68rem; font-family:'Poppins',sans-serif; color:var(--ink); margin:0 1px; }
+
+        /* Sticky Mobile App Top Header */
+        .quiz-header { position:sticky; top:0; z-index:1000; background:linear-gradient(120deg, var(--navy-950), var(--navy-800)); padding: 12px 16px; color:#fff; border-bottom: 2px solid var(--tiger-500); box-shadow: 0 2px 14px rgba(11,18,32,0.25); }
+        .quiz-header #quizTitleHead { color:#fff; letter-spacing:0.2px; }
+        .quiz-header .subline { font-size:0.68rem; color:#a9b8d1; font-weight:500; letter-spacing:0.3px; margin-top:1px; }
+        .timer { font-size:15px; font-weight:700; color:#1a1206; background:linear-gradient(135deg,var(--tiger-500),var(--tiger-600)); padding: 4px 12px; border-radius: 20px; box-shadow: 0 2px 8px rgba(245,158,11,0.35); }
+        .timer.text-danger { background: linear-gradient(135deg,#ef4444,#b91c1c) !important; color:#fff !important; animation: pulseWarn 1s infinite; }
+        @keyframes pulseWarn { 0%,100%{opacity:1} 50%{opacity:0.7} }
+        .progress { height:5px; border-radius:3px; overflow:hidden; background: rgba(255,255,255,0.15); }
+        .progress .progress-bar { background: linear-gradient(90deg,var(--tiger-500),var(--tiger-600)) !important; }
+        .progress .progress-bar.bg-warning { background: linear-gradient(90deg,#f6ad37,#dd6b20) !important; }
+        .progress .progress-bar.bg-danger { background: linear-gradient(90deg,#ef4444,#b91c1c) !important; }
+        .attempt-pill { font-size:0.65rem; font-weight:600; background:rgba(255,255,255,0.12); color:#e6ecf7; padding:3px 9px; border-radius:12px; display:inline-flex; align-items:center; gap:4px; }
+
+        /* Question Display Box */
+        .question-card { border:none; margin-bottom: 10px; border-radius:16px; animation:slideIn 0.25s ease-out; position:relative; overflow:hidden; box-shadow: 0 6px 22px rgba(15,30,51,0.07); }
+        .question-card .card-body { position: relative; z-index: 1; }
+
+        /* Single configurable watermark — one instance only, positioned/sized/faded via admin controls (or drag) */
+        #customWatermark {
+            position: fixed; left:50%; top:50%; z-index: 5;
+            font-family:'Poppins',sans-serif; font-weight:700; letter-spacing:2px;
+            white-space: nowrap; pointer-events:none; user-select:none;
+            transform: translate(-50%,-50%) rotate(-28deg);
+            transition: font-size 0.15s ease, opacity 0.15s ease;
+        }
+        #customWatermark.wm-draggable { pointer-events:auto; cursor:grab; outline: 1.5px dashed rgba(245,158,11,0.7); outline-offset:6px; }
+        #customWatermark.wm-draggable:active { cursor:grabbing; }
+        .question-reference { background-color:#f1f5fb; border-left:4px solid var(--navy-800); padding:9px 12px; margin-bottom:9px; border-radius:6px; font-size:0.82rem; line-height: 1.45; color: var(--ink); font-family:'Hind','Poppins',sans-serif; font-weight:500; }
+        .question-text { font-size: 0.88rem; line-height: 1.5; margin-bottom: 10px; color: var(--ink); font-family:'Hind','Poppins',sans-serif; font-weight:600; }
+        .q-badge { font-size:0.68rem; font-weight:700; color: var(--tiger-700); background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); padding:3px 10px; border-radius:20px; letter-spacing:0.3px; white-space:nowrap; }
+        html[data-theme="dark"] .q-badge { color: var(--tiger-500); background: rgba(245,158,11,0.14); }
+
+        /* Compact Responsive Options — thumb-friendly touch targets */
+        .option-btn { text-align:left; padding:10px 12px; margin-bottom:8px; border-radius:12px; transition:all 0.18s ease; position:relative; overflow:hidden; border:1.5px solid var(--line); font-size: 0.82rem; font-family:'Hind','Poppins',sans-serif; font-weight:500; background: var(--card); width: 100%; min-height:42px; display: flex; align-items: center; cursor: pointer; color: var(--ink); box-shadow: 0 1px 2px rgba(15,30,51,0.04); }
+        .option-btn:hover { background-color:#f7fafc; border-color:#c7d0e0; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15,30,51,0.08); }
+        html[data-theme="dark"] .option-btn:hover { background-color:#132038; border-color:#2c4370; }
+        .option-btn:active { transform: scale(0.99); }
+        .option-btn .opt-letter { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:7px; background:#eef2f9; color:var(--navy-800); font-weight:700; font-size:0.72rem; margin-right:9px; flex:0 0 auto; transition:all 0.15s ease; }
+        .option-btn.selected { background-color:#fff7ec; border-color:var(--tiger-500); font-weight:600; color:var(--tiger-700); box-shadow:0 2px 10px rgba(245,158,11,0.18); }
+        .option-btn.selected .opt-letter { background:var(--tiger-500); color:#fff; }
+        .option-btn.correct { background-color:var(--success-bg) !important; border-color:var(--success) !important; color:#14532d !important; font-weight: 600; }
+        .option-btn.correct .opt-letter { background:var(--success) !important; color:#fff !important; }
+        .option-btn.incorrect { background-color:var(--danger-bg) !important; border-color:var(--danger) !important; color:#7f1d1d !important; }
+        .option-btn.incorrect .opt-letter { background:var(--danger) !important; color:#fff !important; }
+
+        .result-card { display:none; animation:fadeIn 0.4s; }
+        .score-highlight { font-size:34px; font-weight:800; color:var(--navy-900); text-align:center; margin:6px 0 2px; }
+        .score-sub { text-align:center; font-size:0.78rem; color:var(--muted); font-weight:600; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
+
+        /* Question Palette / Grid — single scrollable row, current question auto-centers */
+        .quiz-pagination { display:flex; justify-content:flex-start; flex-wrap:nowrap; align-items:center; gap:6px; margin: 10px 0; padding: 4px 6px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color: var(--line) transparent; -webkit-overflow-scrolling:touch; }
+        .quiz-pagination::-webkit-scrollbar { height:4px; }
+        .quiz-pagination::-webkit-scrollbar-thumb { background: var(--line); border-radius:4px; }
+        .quiz-pagination .page-box { width:29px; height:29px; flex:0 0 auto; scroll-snap-align:center; font-size:0.72rem; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; background-color:#f4f6fb; color:#5b6578; border:1px solid var(--line); cursor:pointer; transition:all 0.18s ease; }
+        html[data-theme="dark"] .quiz-pagination .page-box.answered { background-color: rgba(245,158,11,0.14); }
+        .quiz-pagination .page-box.active { background: linear-gradient(135deg,var(--navy-900),var(--navy-800)); border-color:var(--navy-900); color:white; transform:scale(1.12); }
+        .quiz-pagination .page-box.correct { background-color:var(--success); border-color:var(--success); color:white; }
+        .quiz-pagination .page-box.incorrect { background-color:var(--danger); border-color:var(--danger); color:white; }
+        .quiz-pagination .page-box.answered { background-color:#fff2dc; border-color:var(--tiger-500); color:var(--tiger-700); }
+        .quiz-pagination .page-box.bookmarked { box-shadow: 0 0 0 2px var(--tiger-600) inset; }
+
+        .explanation { background-color:#f6f8fc; padding:10px 12px; border-radius:10px; margin-top:9px; border-left:3px solid var(--navy-800); font-size:0.8rem; line-height: 1.45; font-family:'Hind','Poppins',sans-serif; }
+        .analysis-panel { background-color:#f6f8fc; border-radius:12px; padding:10px 12px; margin-top:10px; border:1px solid var(--line); font-size:0.82rem; }
+        .analysis-item { display:flex; align-items:center; margin-bottom:6px; }
+        .analysis-item:last-child { margin-bottom:0; }
+        .analysis-icon { width:22px; height:22px; font-size:0.72rem; margin-right:9px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:white; flex:0 0 auto; }
+
+        /* Bottom Compact Actions — sticky app-style footer nav on mobile */
+        .action-bar { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 10px; position: sticky; bottom: 0; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 22%); padding-top: 10px; }
+        .btn-compact { padding: 7px 12px; font-size: 0.78rem; border-radius: 20px; font-weight: 600; border-width:1.5px; }
+        .btn-submit { background: linear-gradient(135deg,var(--navy-900),var(--navy-800)); color: white; border: none; padding: 8px 20px; border-radius: 22px; font-weight: 700; font-size: 0.82rem; box-shadow: 0 4px 14px rgba(15,30,51,0.28); transition: all 0.18s ease; }
+        .btn-submit:hover, .btn-submit:active { background: var(--navy-950); color: white; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(15,30,51,0.35); }
+        .btn-outline-primary.btn-compact { color: var(--navy-900); border-color: var(--navy-900); }
+        .btn-outline-primary.btn-compact:hover { background: var(--navy-900); border-color: var(--navy-900); }
+        .btn-outline-warning.btn-compact { color: var(--tiger-700); border-color: var(--tiger-500); }
+        .btn-outline-warning.btn-compact:hover { background: var(--tiger-500); border-color: var(--tiger-500); color:#fff; }
+
+        .confetti { position:fixed; width:8px; height:8px; z-index:9999; }
+        .chart-container { height:170px; position: relative; }
+        .badge-avg { background-color:#eef2f9; color:var(--navy-800); font-weight:600; padding:2px 7px; border-radius:10px; font-size:0.68rem; }
+        .badge-fast { background-color:var(--success-bg); color:#14532d; font-weight:600; padding:2px 7px; border-radius:10px; font-size:0.68rem; }
+        .badge-slow { background-color:var(--danger-bg); color:#7f1d1d; font-weight:600; padding:2px 7px; border-radius:10px; font-size:0.68rem; }
+        .badge-average { background-color:#eef2f9; color:var(--navy-800); font-weight:600; padding:2px 7px; border-radius:10px; font-size:0.68rem; }
+
+        .summary-card { border-radius:14px; }
+        .footer-note { text-align:center; font-size:0.68rem; color:var(--muted); margin-top:14px; letter-spacing:0.3px; }
+
+        /* Mobile-first tightening */
+        @media (max-width: 480px) {
+            .container { padding-left:8px !important; padding-right:8px !important; }
+            .app-top-bar { padding: 6px 8px; border-radius:22px; }
+            .brand-text .b1 { font-size:0.66rem; }
+            .brand-text .b2 { font-size:0.56rem; }
+            .brand-icon { width:26px; height:26px; font-size:0.72rem; }
+            .telegram-btn { padding:5px 9px; font-size:0.66rem; }
+            .font-ctrl-btn { padding:2px 6px; font-size:0.62rem; }
+            .quiz-header { padding: 10px 12px; }
+            #quizTitleHead { font-size:0.85rem; max-width:60vw; }
+            .timer { font-size:13px; padding:3px 9px; }
+            .question-card .card-body { padding: 10px !important; }
+            .question-text { font-size:0.82rem; line-height: 1.42; }
+            .question-reference { font-size:0.76rem; padding:8px 10px; }
+            .option-btn { padding:9px 10px; font-size:0.78rem; min-height:38px; }
+            .option-btn .opt-letter { width:19px; height:19px; font-size:0.68rem; margin-right:7px; }
+            .btn-compact { padding:6px 9px; font-size:0.7rem; }
+            .btn-submit { padding:7px 16px; font-size:0.74rem; }
+            .btn-compact span.btn-label { display:none; }
+            .quiz-pagination .page-box { width:26px; height:26px; font-size:0.66rem; }
+            .score-highlight { font-size:26px; }
+        }
+        @media (max-width: 360px) {
+            .telegram-btn .tg-label { display:none; }
+        }
+
+        /* ============ Admin / Editor Panel — creator-only, never present in exported student file ============ */
+        .code-input { font-family: 'SF Mono', 'Consolas', monospace; font-size: 0.8rem; background: #f8f9fc; color: #1b2333; border-radius: 10px; padding: 12px; border: 1px solid #dfe4ee !important; line-height: 1.55; }
+        .code-input:focus { background:#ffffff; color:#1b2333; border-color: var(--tiger-500) !important; box-shadow: 0 0 0 3px rgba(245,158,11,0.18) !important; }
+        .code-input::placeholder { color:#94a3b8; }
+        .admin-gear-btn { flex: 0 0 auto; position: relative; }
+        .admin-gear-btn.needs-attention::after { content:''; position:absolute; top:2px; right:2px; width:8px; height:8px; border-radius:50%; background: var(--tiger-500); box-shadow:0 0 0 2px #fff; animation: pulseDot 1.4s infinite; }
+
+        /* Small floating "Export HTML" quick button — shows the moment questions are loaded,
+           so the teacher can export in one tap without opening the full admin panel. */
+        #quickExportFab {
+            position: fixed; right: 12px; bottom: 52px; z-index: 600;
+            display: none; align-items: center; gap: 6px;
+            background: linear-gradient(135deg,#16a34a,#15803d); color:#fff;
+            border: none; border-radius: 999px; padding: 9px 14px;
+            font-family:'Poppins',sans-serif; font-size: 0.72rem; font-weight: 700;
+            box-shadow: 0 6px 18px rgba(21,128,61,0.4);
+            animation: fadeIn 0.25s ease-out;
+        }
+        #quickExportFab:active { transform: scale(0.96); }
+        #quickExportFab i { font-size: 0.8rem; }
+        @keyframes pulseDot { 0%{transform:scale(1); opacity:1;} 70%{transform:scale(1.9); opacity:0;} 100%{opacity:0;} }
+
+        #adminPanelArea {
+            display: none; position: relative; overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e4e8f0; border-top: 3px solid var(--tiger-500); border-radius: 18px; margin-bottom: 15px; padding: 18px;
+            max-width: 800px; margin-left:auto; margin-right:auto;
+            box-shadow: 0 18px 40px rgba(15,30,51,0.16);
+            animation: adminOpen 0.28s ease-out;
+        }
+        /* Admin editor always stays white/light — independent of the site's day/dark toggle */
+        html[data-theme="dark"] #adminPanelArea { background:#ffffff; border-color:#e4e8f0; }
+        @keyframes adminOpen { from{opacity:0; transform:translateY(-8px) scale(0.99);} to{opacity:1; transform:translateY(0) scale(1);} }
+        #adminPanelArea::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at top right, rgba(245,158,11,0.08), transparent 55%); pointer-events:none; }
+        #adminPanelArea h6, #adminPanelArea label,
+        html[data-theme="dark"] #adminPanelArea h6, html[data-theme="dark"] #adminPanelArea label { color:#1b2333; }
+        #adminPanelArea .form-control, #adminPanelArea .form-control-sm,
+        html[data-theme="dark"] #adminPanelArea .form-control, html[data-theme="dark"] #adminPanelArea .form-control-sm { background:#f8f9fc; color:#1b2333; border:1px solid #dfe4ee; }
+        #adminPanelArea .form-control:focus { background:#ffffff; color:#1b2333; border-color:var(--tiger-500); box-shadow:0 0 0 3px rgba(245,158,11,0.18); }
+        #adminPanelArea .form-label, html[data-theme="dark"] #adminPanelArea .form-label { color:#5b6578; }
+        #adminPanelArea .form-check-label { color:#1b2333; font-size:0.78rem; }
+        .admin-badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+        .admin-stat-chip { background:rgba(245,158,11,0.10); border:1px solid rgba(245,158,11,0.35); color:#92400e; font-size:0.72rem; font-weight:600; padding:5px 11px; border-radius:20px; display:flex; align-items:center; gap:5px; }
+        .admin-stat-chip i { color:var(--tiger-600); }
+        .admin-toolbar { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+
+        /* ===== Admin Panel — Organized Accordion Sections ===== */
+        .admin-accordion { display:flex; flex-direction:column; gap:10px; }
+        .admin-acc-section {
+            border:1px solid #e4e8f0; border-radius:14px; overflow:hidden;
+            background:#fbfcfe; transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .admin-acc-section.open { border-color:rgba(245,158,11,0.45); box-shadow:0 6px 18px rgba(15,30,51,0.08); }
+        .admin-acc-header {
+            width:100%; border:none; background:linear-gradient(120deg,#f7f9fc,#eef1f8);
+            display:flex; align-items:center; justify-content:space-between; gap:10px;
+            padding:12px 16px; cursor:pointer; text-align:left; font-family:'Poppins',sans-serif;
+            transition: background 0.18s ease;
+        }
+        .admin-acc-header:hover { background:linear-gradient(120deg,#f0f3f9,#e7ebf5); }
+        .admin-acc-section.open .admin-acc-header { background:linear-gradient(120deg,#fff7ec,#fdeed0); }
+        .admin-acc-title { display:flex; align-items:center; gap:9px; font-weight:700; font-size:0.86rem; color:#1b2333; }
+        .admin-acc-title .acc-icon-box {
+            width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+            background:linear-gradient(135deg,var(--navy-900),var(--navy-800)); color:var(--tiger-500); font-size:0.78rem; flex:0 0 auto;
+        }
+        .admin-acc-meta { font-size:0.68rem; font-weight:600; color:#8592ab; margin-left:2px; }
+        .admin-acc-header .acc-right { display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+        .admin-acc-chevron { color:var(--tiger-600); font-size:0.8rem; transition: transform 0.25s ease; }
+        .admin-acc-section.open .admin-acc-chevron { transform:rotate(180deg); }
+        .admin-acc-body { max-height:0; overflow:hidden; transition: max-height 0.32s ease; }
+        .admin-acc-body-inner { padding:16px; border-top:1px solid #eef1f7; }
+        .admin-acc-badge { font-size:0.64rem; font-weight:700; padding:2px 8px; border-radius:10px; background:rgba(245,158,11,0.14); color:var(--tiger-700); white-space:nowrap; }
+        .admin-acc-badge.off { background:#eef1f6; color:#8592ab; }
+        .swatch-preview { width:20px; height:20px; border-radius:6px; border:1.5px solid rgba(0,0,0,0.1); flex:0 0 auto; box-shadow:inset 0 0 0 1px rgba(255,255,255,0.4); }
+
+        /* Parsed-question live preview list (admin only) */
+        #parsedPreviewArea { max-height: 220px; overflow-y:auto; margin-top:10px; border-radius:10px; border:1px solid #dfe4ee; background:#f8f9fc; display:none; }
+        .preview-q-item { padding:8px 12px; border-bottom:1px solid #e4e8f0; font-size:0.78rem; color:#3c4658; display:flex; gap:8px; }
+        .preview-q-item:last-child { border-bottom:none; }
+        .preview-q-num { flex:0 0 auto; width:22px; height:22px; border-radius:50%; background:var(--tiger-500); color:#1b2333; font-weight:700; font-size:0.68rem; display:flex; align-items:center; justify-content:center; }
+
+        /* Toast notifications (replace alert() everywhere) */
+        #toastStack { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 3000; display:flex; flex-direction:column; gap:8px; width: min(92vw, 420px); pointer-events:none; }
+        .app-toast { pointer-events:auto; display:flex; align-items:flex-start; gap:10px; padding:12px 14px; border-radius:12px; background:#14284a; color:#fff; box-shadow:0 12px 28px rgba(11,18,32,0.3); font-size:0.83rem; line-height:1.4; animation: toastIn 0.25s ease-out; border-left:4px solid var(--tiger-500); }
+        .app-toast.success { border-left-color: var(--success); }
+        .app-toast.error { border-left-color: var(--danger); }
+        .app-toast.fadeout { animation: toastOut 0.25s ease-in forwards; }
+        @keyframes toastIn { from{opacity:0; transform:translateY(-10px);} to{opacity:1; transform:translateY(0);} }
+        @keyframes toastOut { to{opacity:0; transform:translateY(-10px);} }
+
+        /* Empty-state (no questions loaded yet) */
+        .empty-quiz-state { text-align:center; padding: 46px 20px; }
+        .empty-quiz-state .eqs-icon { font-size:2.6rem; color: var(--tiger-500); margin-bottom:14px; }
+        .empty-quiz-state h6 { font-weight:700; color:var(--ink); margin-bottom:6px; }
+        .empty-quiz-state p { color: var(--muted); font-size:0.85rem; max-width:360px; margin:0 auto 16px; }
+    </style>
+</head>
+<body>
+
+    <!-- Toast notification stack (replaces alert() popups everywhere) -->
+    <div id="toastStack"></div>
+
+    <!-- Single configurable watermark — position/size/opacity set from Admin Panel -->
+    <div id="customWatermark" class="" style="display: block; font-size: 26px; opacity: 0.14; color: rgb(110, 122, 150); left: 96%; top: 34%;">MONK</div>
+
+    <!-- Hidden Sound FX -->
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/269/269.wav" preload="auto"></audio>
+    <audio id="swipeSound" src="https://assets.mixkit.co/active_storage/sfx/1897/1897.wav" preload="auto"></audio>
+    <audio id="correctSound" src="https://assets.mixkit.co/active_storage/sfx/2870/2870.wav" preload="auto"></audio>
+    <audio id="wrongSound" src="https://assets.mixkit.co/active_storage/sfx/2964/2964.wav" preload="auto"></audio>
+    
+    <div class="container my-2 px-2">
+        <!-- Top App Navigation -->
+        <div class="app-top-bar">
+            <div class="brand-block">
+                <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="brand-text">
+                    <span class="b1">SI 2021</span>
+                    <span class="b2">TIGERS BATCH</span>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <a href="https://t.me/Abc5dyz" target="_blank" class="telegram-btn shadow-sm">
+                    <i class="fab fa-telegram-plane"></i> <span class="tg-label">Join Telegram</span>
+                </a>
+                <a href="https://www.instagram.com/ras2023discussion_group?igsh=MTliMDFlNjBrOTI=" target="_blank" class="instagram-btn shadow-sm">
+                    <i class="fab fa-instagram"></i> <span class="ig-label">Follow</span>
+                </a>
+                <!-- Mute / unmute sound effects -->
+                <button class="theme-toggle-btn" id="muteToggleBtn" title="Mute / Unmute sounds" onclick="toggleMute()">
+                    <i class="fas fa-volume-up" id="muteIcon"></i>
+                </button>
+                <!-- Light / Dark theme toggle — stays in the exported student file too -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="Switch light / dark mode" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <!-- Admin/Editor Trigger (Gear Icon) — creator only, never appears in exported student file -->
+                
+            </div>
+        </div>
+
+        <!-- ==================== ADMIN / EDITOR PANEL (Creator only — stripped out on export) ==================== -->
+        
+
+        <!-- ==================== MAIN STUDENT TEST VIEW ==================== -->
+        <div class="quiz-container" id="quizContainer">
+            <div id="viewTest">
+                <div class="quiz-header shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 fw-bold text-truncate me-2" id="quizTitleHead">SI 2021 TIGERS Batch Test</h6>
+                        <div id="timer" class="timer">
+                            <i class="fas fa-clock me-1"></i>
+                            <span id="minutes">59</span>:<span id="seconds">42</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-1">
+                        <span class="subline">SI 2021 Tigers Batch · Test Series</span>
+                        <span class="attempt-pill"><i class="fas fa-check-circle"></i> <span id="attemptCount">5</span>/<span id="attemptTotal">79</span></span>
+                    </div>
+                    <div class="progress mt-2">
+                        <div id="timeProgress" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 99.5277%;"></div>
+                    </div>
+                </div>
+                
+                <div class="p-2 pt-3">
+                    <!-- Font size + Bold/Normal controls — placed right above the question so they never overlap the header on small screens -->
+                    <div class="d-flex justify-content-end mb-2">
+                        <div class="btn-group btn-group-sm font-ctrl-group" role="group">
+                            <button class="btn btn-outline-secondary font-ctrl-btn" onclick="changeFontSize(-1)" title="Chhota karein">A-</button>
+                            <button class="btn btn-outline-secondary font-ctrl-btn" onclick="changeFontSize(1)" title="Bada karein">A+</button>
+                            <button class="btn btn-outline-secondary font-ctrl-btn" id="fontWeightBtn" onclick="toggleFontWeight()" title="Bold / Normal">Bold</button>
+                        </div>
+                    </div>
+                    <div id="questionContainer" style="display: block;"><div class="card question-card shadow-sm">
+                <div class="card-body p-3"><div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="q-number-badge">Q2<span class="q-number-total">/79</span></span>
+                        <span></span>
+                    </div><p class="question-text mb-3" style="font-size: 0.86rem; line-height: 1.48; font-weight: 600;">हाल ही में भारत-न्यूजीलैंड के बीच मुक्त व्यापार समझौते पर पहले दौर की वार्ता कहां संपन्न हुई है?</p><div class="options"><button class="option-btn" data-index="0" style="font-size: 0.8rem; padding: 10px 12px; min-height: 42px; font-weight: 500;">
+                    <span class="opt-letter" style="font-size: 0.68rem;">A</span>
+                    <span>केरल में</span>
+                </button><button class="option-btn selected correct" data-index="1" style="font-size: 0.8rem; padding: 10px 12px; min-height: 42px; font-weight: 500;">
+                    <span class="opt-letter" style="font-size: 0.68rem;">B</span>
+                    <span>गुजरात में</span>
+                </button><button class="option-btn" data-index="2" style="font-size: 0.8rem; padding: 10px 12px; min-height: 42px; font-weight: 500;">
+                    <span class="opt-letter" style="font-size: 0.68rem;">C</span>
+                    <span>छत्तीसगढ़ में</span>
+                </button><button class="option-btn" data-index="3" style="font-size: 0.8rem; padding: 10px 12px; min-height: 42px; font-weight: 500;">
+                    <span class="opt-letter" style="font-size: 0.68rem;">D</span>
+                    <span>नई दिल्ली में</span>
+                </button></div>
+                <div class="analysis-panel mt-3">
+                    <div class="analysis-item">
+                        <div class="analysis-icon" style="background-color:#38a169">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div>Status: <strong>Correct</strong></div>
+                    </div>
+                    <div class="analysis-item">
+                        <div class="analysis-icon" style="background-color:#e53e3e">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>Time spent: <strong>5.5s</strong> 
+                            <span class="badge-slow">Slow</span>
+                        </div>
+                    </div>
+                </div></div></div></div>
+                    <div class="quiz-pagination" id="questionNav" style="display: flex;"><div class="page-box correct" data-index="0">1</div><div class="page-box active correct" data-index="1">2</div><div class="page-box incorrect" data-index="2">3</div><div class="page-box incorrect" data-index="3">4</div><div class="page-box incorrect" data-index="4">5</div><div class="page-box" data-index="5">6</div><div class="page-box" data-index="6">7</div><div class="page-box" data-index="7">8</div><div class="page-box" data-index="8">9</div><div class="page-box" data-index="9">10</div><div class="page-box" data-index="10">11</div><div class="page-box" data-index="11">12</div><div class="page-box" data-index="12">13</div><div class="page-box" data-index="13">14</div><div class="page-box" data-index="14">15</div><div class="page-box" data-index="15">16</div><div class="page-box" data-index="16">17</div><div class="page-box" data-index="17">18</div><div class="page-box" data-index="18">19</div><div class="page-box" data-index="19">20</div><div class="page-box" data-index="20">21</div><div class="page-box" data-index="21">22</div><div class="page-box" data-index="22">23</div><div class="page-box" data-index="23">24</div><div class="page-box" data-index="24">25</div><div class="page-box" data-index="25">26</div><div class="page-box" data-index="26">27</div><div class="page-box" data-index="27">28</div><div class="page-box" data-index="28">29</div><div class="page-box" data-index="29">30</div><div class="page-box" data-index="30">31</div><div class="page-box" data-index="31">32</div><div class="page-box" data-index="32">33</div><div class="page-box" data-index="33">34</div><div class="page-box" data-index="34">35</div><div class="page-box" data-index="35">36</div><div class="page-box" data-index="36">37</div><div class="page-box" data-index="37">38</div><div class="page-box" data-index="38">39</div><div class="page-box" data-index="39">40</div><div class="page-box" data-index="40">41</div><div class="page-box" data-index="41">42</div><div class="page-box" data-index="42">43</div><div class="page-box" data-index="43">44</div><div class="page-box" data-index="44">45</div><div class="page-box" data-index="45">46</div><div class="page-box" data-index="46">47</div><div class="page-box" data-index="47">48</div><div class="page-box" data-index="48">49</div><div class="page-box" data-index="49">50</div><div class="page-box" data-index="50">51</div><div class="page-box" data-index="51">52</div><div class="page-box" data-index="52">53</div><div class="page-box" data-index="53">54</div><div class="page-box" data-index="54">55</div><div class="page-box" data-index="55">56</div><div class="page-box" data-index="56">57</div><div class="page-box" data-index="57">58</div><div class="page-box" data-index="58">59</div><div class="page-box" data-index="59">60</div><div class="page-box" data-index="60">61</div><div class="page-box" data-index="61">62</div><div class="page-box" data-index="62">63</div><div class="page-box" data-index="63">64</div><div class="page-box" data-index="64">65</div><div class="page-box" data-index="65">66</div><div class="page-box" data-index="66">67</div><div class="page-box" data-index="67">68</div><div class="page-box" data-index="68">69</div><div class="page-box" data-index="69">70</div><div class="page-box" data-index="70">71</div><div class="page-box" data-index="71">72</div><div class="page-box" data-index="72">73</div><div class="page-box" data-index="73">74</div><div class="page-box" data-index="74">75</div><div class="page-box" data-index="75">76</div><div class="page-box" data-index="76">77</div><div class="page-box" data-index="77">78</div><div class="page-box" data-index="78">79</div></div>
+                    <div class="kbd-hint d-none d-md-flex">
+                        <span><kbd>1</kbd>-<kbd>4</kbd> select</span>
+                        <span><kbd>←</kbd><kbd>→</kbd> navigate</span>
+                        <span><kbd>B</kbd> bookmark</span>
+                    </div>
+                    
+                    <div class="action-bar" style="">
+                        <button id="prevBtn" class="btn btn-outline-secondary btn-compact" onclick="navigate(-1)" style="display: inline-block;">
+                            <i class="fas fa-arrow-left"></i> <span class="btn-label">Prev</span>
+                        </button>
+                        <button id="bookmarkBtn" class="btn btn-outline-warning btn-compact" onclick="toggleBookmark()" style="display: inline-block;">
+                            <i class="far fa-bookmark" id="bmIcon"></i> <span class="btn-label">Flag</span>
+                        </button>
+                        <button id="submitBtn" class="btn btn-submit" onclick="submitQuiz()" style="display: none;">
+                            <i class="fas fa-paper-plane"></i> <span class="btn-label">Submit</span>
+                        </button>
+                        <button id="nextBtn" class="btn btn-outline-primary btn-compact" onclick="navigate(1)" style="display: inline-block;">
+                            <span class="btn-label">Next</span> <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Result Screen -->
+                <div id="resultContainer" class="result-card p-3" style="display: none;">
+                    <h4 class="text-center fw-bold mb-1"><i class="fas fa-trophy text-warning me-2"></i>Test Complete</h4>
+                    <div class="score-highlight" id="scoreDisplay">1.25 / 79 (1.6%)</div>
+                    <div class="score-sub">Your Score · SI 2021 Tigers Batch</div>
+                    
+                    <div class="row g-2">
+                        <div class="col-12 col-md-6">
+                            <div class="card mb-2 shadow-sm border-0 summary-card">
+                                <div class="card-body p-3">
+                                    <h6 class="card-title fw-bold mb-2">Score Summary</h6>
+                                    <div class="d-flex justify-content-between mb-1 small">
+                                        <div>Total Questions:</div>
+                                        <div id="totalQuestions" class="fw-bold">79</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-1 small">
+                                        <div>Correct Answers:</div>
+                                        <div id="correctAnswers" class="fw-bold text-success">2</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-1 small">
+                                        <div>Incorrect Answers:</div>
+                                        <div id="incorrectAnswers" class="fw-bold text-danger">3</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-1 small">
+                                        <div>Unattempted:</div>
+                                        <div id="unattempted" class="fw-bold text-warning">74</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-1 small">
+                                        <div>Negative Marking:</div>
+                                        <div id="negativeMarks" class="fw-bold text-danger">-0.75</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="card mb-2 shadow-sm border-0 summary-card">
+                                <div class="card-body p-3">
+                                    <h6 class="card-title fw-bold mb-2">Performance</h6>
+                                    <div class="chart-container">
+                                        <canvas id="performanceChart" width="834" height="510" style="display: block; box-sizing: border-box; height: 170px; width: 278px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3 shadow-sm border-0 summary-card">
+                        <div class="card-body p-3">
+                            <h6 class="card-title fw-bold mb-2">Time Analysis Per Question</h6>
+                            <div class="chart-container">
+                                <canvas id="timeAnalysisChart" width="834" height="510" style="display: block; box-sizing: border-box; height: 170px; width: 278px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center gap-2 mt-2">
+                        <button id="reviewBtn" class="btn btn-submit" onclick="reviewAnswers()">
+                            <i class="fas fa-search me-1"></i> View Solution
+                        </button>
+                        <a href="https://t.me/Abc5dyz" target="_blank" class="btn btn-outline-primary btn-compact">
+                            <i class="fab fa-telegram me-1"></i> <span class="btn-label">Telegram</span>
+                        </a>
+                        <a href="https://www.instagram.com/ras2023discussion_group?igsh=MTliMDFlNjBrOTI=" target="_blank" class="btn btn-compact" style="background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4); color:#fff; border:none;">
+                            <i class="fab fa-instagram me-1"></i> <span class="btn-label">Instagram</span>
+                        </a>
+                    </div>
+                    <div class="footer-note">SI 2021 TIGERS BATCH · Keep practicing, stay sharp 🐯</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Small stylish corner credit -->
+    <div class="dev-credit-badge">Design by <b>KD KHILERY</b></div>
+
+    <!-- Quick Export FAB — admin-only, appears once questions are loaded, removed on export -->
+    
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const quizData = {
+    "title": "SI 2021 TIGERS Batch Test",
+    "timeLimit": 60,
+    "negativeMark": 0.25,
+    "accentColor": "#f59e0b",
+    "headerColor1": "#008064",
+    "headerColor2": "#14284a",
+    "hideQuestionNumber": false,
+    "watermark": {
+        "enabled": true,
+        "text": "MONK",
+        "size": 26,
+        "opacity": 0.14,
+        "x": 96,
+        "y": 34
+    },
+    "questions": [
+        {
+            "id": 0,
+            "text": "हाल ही में किस राज्य में दक्षिण एशियाई फुटबॉल महासंघ (SAFF) अंडर-19 फुटबॉल चैंपियनशिप 2025 आयोजित हुआ है?",
+            "reference": "",
+            "options": [
+                "असम",
+                "अरुणाचल प्रदेश",
+                "गोवा",
+                "मेघालय"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 1,
+            "text": "हाल ही में भारत-न्यूजीलैंड के बीच मुक्त व्यापार समझौते पर पहले दौर की वार्ता कहां संपन्न हुई है?",
+            "reference": "",
+            "options": [
+                "केरल में",
+                "गुजरात में",
+                "छत्तीसगढ़ में",
+                "नई दिल्ली में"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 2,
+            "text": "प्रतिवर्ष किस तारीख को 'राष्ट्रीय प्रौद्योगिकी दिवस' मनाया जाता है?",
+            "reference": "",
+            "options": [
+                "12 मई",
+                "13 मई",
+                "14 मई",
+                "11 मई"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 3,
+            "text": "हाल ही में उत्तर प्रदेश सरकार ने किसके सहयोग से 'यूपी एग्रीस' और 'एआई प्रज्ञा' पहल का शुभारंभ किया है?",
+            "reference": "",
+            "options": [
+                "सार्क संगठन",
+                "आईएमएफ",
+                "विश्व बैंक",
+                "यूएनओ"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 4,
+            "text": "हाल ही में आईएमएफ ने भारत की आपत्तियों के बावजूद पाकिस्तान को कितने बिलियन डॉलर की धनराशि मंजूर की है?",
+            "reference": "",
+            "options": [
+                "4.4 बिलियन डॉलर",
+                "5.4 बिलियन डॉलर",
+                "3.4 बिलियन डॉलर",
+                "2.4 बिलियन डॉलर"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 5,
+            "text": "हाल ही में किस अंतराष्ट्रीय शहर में संयुक्त राष्ट्र फोरम ऑन फॉरेस्ट के 20वें सत्र का आयोजन हुआ है?",
+            "reference": "",
+            "options": [
+                "न्यूयॉर्क",
+                "पेरिस",
+                "लंदन",
+                "टोक्यो"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 6,
+            "text": "हाल ही में रक्षा मंत्री राजनाथ सिंह ने कहां ब्रह्मोस इंटीग्रेशन एवं टेस्टिंग फैसिलिटी सेंटर का उद्घाटन किया है?",
+            "reference": "",
+            "options": [
+                "लखनऊ में",
+                "जयपुर में",
+                "चेन्नई में",
+                "अहमदाबाद में"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 7,
+            "text": "मालदीव किस देश की साझेदारी में मालदीव इंटरनेशनल फाइनेंशियल सेंटर (MIFC) बनाने की योजना की घोषणा की है?",
+            "reference": "",
+            "options": [
+                "ईरान",
+                "इराक",
+                "यूएई",
+                "कतार"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 8,
+            "text": "निम्नलिखित में से कौन-सी विधानसभा पूरी तरह सौर ऊर्जा से संचालित होगी?",
+            "reference": "",
+            "options": [
+                "दिल्ली विधानसभा",
+                "असम विधानसभा",
+                "बिहार विधानसभा",
+                "मुंबई विधानसभा"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 9,
+            "text": "हाल ही में रक्षामंत्री राजनाथ सिंह ने कहां ब्रह्मोस विनिर्माण सुविधा का शुभारंभ किया है?",
+            "reference": "",
+            "options": [
+                "लखनऊ",
+                "चेन्नई",
+                "भोपाल",
+                "बेंगुलुरु"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 10,
+            "text": "हाल ही में किस शहर में 72 वीं मिस वर्ल्ड प्रतियोगिता आयोजित हुई है?",
+            "reference": "",
+            "options": [
+                "नासिक",
+                "हैदराबाद",
+                "पुणे",
+                "इंदौर"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 11,
+            "text": "वर्ष 2025 में, तीन जन सुरक्षा योजनाओं ने सामाजिक सुरक्षा सेवा के कितने वर्ष पूरे कर लिए हैं?",
+            "reference": "",
+            "options": [
+                "15 वर्ष",
+                "08 वर्ष",
+                "05 वर्ष",
+                "10 वर्ष"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 12,
+            "text": "हाल ही में भारत सरकार ने किस कंपनी को देश में सैटेलाइट आधारित इंटरनेट सेवाएं शुरू करने की मंजूरी दी है?",
+            "reference": "",
+            "options": [
+                "वनवेब",
+                "स्टारलिंक",
+                "रिलायंस जियो",
+                "अमेज़न काइपर"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 13,
+            "text": "हाल ही में किस शहर को भारत का पहला “भिक्षावृत्ति-मुक्त शहर” घोषित किया गया है?",
+            "reference": "",
+            "options": [
+                "इंदौर",
+                "चेन्नई",
+                "बेंगुलुरु",
+                "दिल्ली"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 14,
+            "text": "हाल ही में भारतीय सेना ने जम्मू-कश्मीर में आतंकवादियों से निपटने के लिए कौन सा अभियान चलाया है?",
+            "reference": "",
+            "options": [
+                "इनमें से कोई नहीं",
+                "ऑपरेशन त्रिशूल",
+                "ऑपरेशन प्रहार",
+                "ऑपरेशन केलर"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 15,
+            "text": "केंद्र सरकार ने सरकार ने कब तक पेट्रोल में 20% इथेनॉल मिश्रण का लक्ष्य रखा है?",
+            "reference": "",
+            "options": [
+                "2025-26",
+                "2029-30",
+                "2026-27",
+                "2027-28"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 16,
+            "text": "हाल ही में किस देश ने मैन्युफ़ैक्चरिंग और सर्विस सेक्टर दोनों में दुनिया में शीर्ष स्थान हासिल किया है?",
+            "reference": "",
+            "options": [
+                "जापान",
+                "भारत",
+                "जर्मनी",
+                "अमेरिका"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 17,
+            "text": "वर्तमान में जन्म के समय भारत का लिंगानुपात 899 से बढ़कर कितना हो गया है?",
+            "reference": "",
+            "options": [
+                "913",
+                "918",
+                "900",
+                "925"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 18,
+            "text": "भारत का पहला मानवयुक्त गहरे महासागर मिशन किस वर्ष के अंत तक 6,000 मीटर की गहराई पर लॉन्च किया जाएगा?",
+            "reference": "",
+            "options": [
+                "2028",
+                "2025",
+                "2026",
+                "2027"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 19,
+            "text": "वित्त वर्ष 2024-25 में जीएसटी संग्रह वृद्धि दर में कौन-सा राज्य शीर्ष पर है?",
+            "reference": "",
+            "options": [
+                "महाराष्ट्र",
+                "उत्तर प्रदेश",
+                "गुजरात",
+                "कर्नाटक"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 20,
+            "text": "हाल ही में किसने समुद्री जल विलवणीकरण के लिए उच्च दबाव वाली पॉलिमर झिल्ली विकसित की है?",
+            "reference": "",
+            "options": [
+                "DRDO",
+                "CSIR",
+                "NTPC",
+                "ISRO"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 21,
+            "text": "हाल ही में किस राज्य में खेलो इंडिया यूथ गेम्स हुआ है?",
+            "reference": "",
+            "options": [
+                "बिहार",
+                "राजस्थान",
+                "ओडिशा",
+                "उत्तर प्रदेश"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 22,
+            "text": "निम्नलिखित में से किस तारीख को प्रतिवर्ष 'विश्व दूरसंचार दिवस' मनाया जाता है?",
+            "reference": "",
+            "options": [
+                "16 मई",
+                "17 मई",
+                "18 मई",
+                "15 मई"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 23,
+            "text": "हाल ही एथलीट नीरज चोपड़ा को प्रादेशिक सेना में कौन सी मानद उपाधि दी गई है?",
+            "reference": "",
+            "options": [
+                "ब्रिगेडियर",
+                "मेजर",
+                "लेफ्टिनेंट कर्नल",
+                "कर्नल"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 24,
+            "text": "वाणिज्य मंत्रालय के अनुसार, अप्रैल में भारत से वस्तुओं और सेवाओं का कुल निर्यात लगभग कितने अरब डॉलर पहुंच गया?",
+            "reference": "",
+            "options": [
+                "79 अरब डॉलर",
+                "74 अरब डॉलर",
+                "63 अरब डॉलर",
+                "93 अरब डॉलर"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 25,
+            "text": "हाल ही में भारतीय विदेश व्यापार संस्थान ने कहां पहला विदेशी परिसर खोला है?",
+            "reference": "",
+            "options": [
+                "तेहरान",
+                "सिंगापुर",
+                "कुवैत",
+                "दुबई"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 26,
+            "text": "हाल ही में भारत ने ड्रोन हमलों से निपटने हेतु किस रक्षा प्रणाली का सफल परीक्षण किया है?",
+            "reference": "",
+            "options": [
+                "कवच",
+                "ब्रह्मास्त्र",
+                "भार्गवस्त्र",
+                "त्रिशूल"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 27,
+            "text": "हाल ही में किस राज्य में ‘तेरा तुझको अर्पण’ नामक पोर्टल लॉन्च किया गया है?",
+            "reference": "",
+            "options": [
+                "छत्तीसगढ़",
+                "गोवा",
+                "गुजरात",
+                "झारखंड"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 28,
+            "text": "हाल ही में विश्व स्वास्थ्य संगठन (WHO) ने किस देश में पोलियो के प्रकोप की घोषणा की है?",
+            "reference": "",
+            "options": [
+                "अफगानिस्तान",
+                "पाकिस्तान",
+                "पापुआ न्यू गिनी",
+                "नाइजीरिया"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 29,
+            "text": "निम्नलिखित में से किसे ऑपरेशन सिंदूर पर गठित बहुदलीय वैश्विक प्रतिनिधिमंडल का नेतृत्वकर्ता चुना किया गया है?",
+            "reference": "",
+            "options": [
+                "राजनाथ सिंह",
+                "असादुद्दीन ओवैसी",
+                "शशि थरूर",
+                "इनमें से कोई नहीं"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 30,
+            "text": "निम्नलिखित में कौन मलेशिया में आयोजित होने वाली अंतर्राष्ट्रीय समुद्री और अंतरिक्ष प्रदर्शनी में भारत का नेतृत्व करेंगे?",
+            "reference": "",
+            "options": [
+                "श्रीमती निर्मला सीतारमण",
+                "श्री नितिन गडकरी",
+                "श्री संजय सेठ",
+                "श्री अमित शाह"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 31,
+            "text": "हाल ही में किस तारीख को 'वैश्विक सुलभता जागरूकता दिवस'मनाया जाता है?",
+            "reference": "",
+            "options": [
+                "16 मई",
+                "18 मई",
+                "15 मई",
+                "17 मई"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 32,
+            "text": "हाल ही में राष्ट्र के वीरों को सम्मानित करने के लिए, संस्कृति मंत्रालय ने कौन सी पहल शुरू की है?",
+            "reference": "",
+            "options": [
+                "\"एक हैं, तो सेफ हैं\"",
+                "\"एक देश, एक धड़कन\"",
+                "\"एक नेशन, एक इमोशन\"",
+                "इनमें से कोई नहीं"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 33,
+            "text": "वर्तमान में भारत और बांग्लादेश के मध्य द्विपक्षीय व्यापार लगभग कितने बिलियन डॉलर का है?",
+            "reference": "",
+            "options": [
+                "10 बिलियन डॉलर",
+                "28 बिलियन डॉलर",
+                "12 बिलियन डॉलर",
+                "18 बिलियन डॉलर"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 34,
+            "text": "हाल ही में किस राज्य में कक्षा 10 के सभी छात्रों के लिए रोबोटिक्स शिक्षा शुरू किया गया है?",
+            "reference": "",
+            "options": [
+                "बिहार",
+                "कर्नाटक",
+                "महाराष्ट्र",
+                "केरल"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 35,
+            "text": "केंद्रीय मंत्री श्री मनोहर लाल ने 19 मई 2025 को कहां आयोजित ब्रिक्स देशों के ऊर्जा मंत्रियों की बैठक में भाग लिया?",
+            "reference": "",
+            "options": [
+                "चीन",
+                "रूस",
+                "दक्षिण अफ्रीका",
+                "ब्राजील"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 36,
+            "text": "हाल ही में जीएसटी के कितने पूरे होने के उपलक्ष्य में जीएसटी जागरूकता पहल ‘संडे ऑन साइकिल’ का आयोजन किया गया?",
+            "reference": "",
+            "options": [
+                "10 वर्ष",
+                "07 वर्ष",
+                "08 वर्ष",
+                "05 वर्ष"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 37,
+            "text": "किस वर्ष तक भारत का लक्ष्य 100 गीगावाट परमाणु क्षमता हासिल करना है?",
+            "reference": "",
+            "options": [
+                "वर्ष 2032",
+                "वर्ष 2042",
+                "वर्ष 2038",
+                "वर्ष 2047"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 38,
+            "text": "हाल ही में संयुक्त राष्ट्र महासभा ने किस तारीख को 'विश्व निष्पक्ष खेल दिवस' के रूप में घोषित किया है?",
+            "reference": "",
+            "options": [
+                "18 मई",
+                "17 मई",
+                "19 मई",
+                "20 मई"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 39,
+            "text": "हाल ही में किस शहर में भारत का पहला एआई-आधारित गैर-इनवेसिव रक्त परीक्षण उपकरण लॉन्च किया गया है?",
+            "reference": "",
+            "options": [
+                "पुणे",
+                "चेन्नई",
+                "बेंगुलुरु",
+                "हैदराबाद"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 40,
+            "text": "हाल ही में कहां ऑटोमोटिव और हथियार प्रणाली परीक्षण केंद्र का उद्घाटन किया गया है?",
+            "reference": "",
+            "options": [
+                "लखनऊ",
+                "नागपुर",
+                "चेन्नई",
+                "नासिक"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 41,
+            "text": "हाल ही में किस राज्य सरकार ने भारत की पहली विस्टाडोम जंगल सफारी ट्रेन लॉन्च की है?",
+            "reference": "",
+            "options": [
+                "केरल",
+                "मध्य प्रदेश",
+                "उत्तर प्रदेश",
+                "गुजरात"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 42,
+            "text": "हाल ही में किस तारीख को 'विश्व मापविज्ञान दिवस' मनाया गया है?",
+            "reference": "",
+            "options": [
+                "19 मई",
+                "22 मई",
+                "20 मई",
+                "21 मई"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 43,
+            "text": "हाल ही में किसने प्लास्टिक प्रदूषण के खिलाफ राष्ट्रव्यापी जन आंदोलन अभियान शुरू करने की घोषणा की है?",
+            "reference": "",
+            "options": [
+                "गृहमंत्री अमित शाह",
+                "प्रधानमंत्री नरेंद्र मोदी",
+                "पर्यावरण मंत्री भूपेंद्र यादव",
+                "रक्षामंत्री राजनाथ सिंह"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 44,
+            "text": "भारत का लक्ष्य वर्ष 2030 तक कितने मिलियन टन वार्षिक हरित हाइड्रोजन उत्पादन क्षमता स्थापित करना है?",
+            "reference": "",
+            "options": [
+                "08 मिलियन टन",
+                "06 मिलियन टन",
+                "05 मिलियन टन",
+                "07 मिलियन टन"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 45,
+            "text": "पृथ्वी विज्ञान मंत्रालय ने किस राज्य में \"सागर भवन\" और \"पोलर भवन\" का उद्घाटन किया है?",
+            "reference": "",
+            "options": [
+                "कर्नाटक",
+                "केरल",
+                "गोवा",
+                "तमिलनाडु"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 46,
+            "text": "केंद्रीय कृषि मंत्री श्री शिवराज सिंह चौहान के नेतृत्व में ‘विकसित कृषि संकल्प अभियान’ लगभग कितने जिलों में आयोजित किया जाएगा?",
+            "reference": "",
+            "options": [
+                "300 जिला",
+                "500 जिला",
+                "900 जिला",
+                "700 जिला"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 47,
+            "text": "कौशल विकास के प्रोत्साहन हेतु भारत सरकार ने कितने करोड़ रुपये की योजना को मंजूरी दी है?",
+            "reference": "",
+            "options": [
+                "50,000 करोड़",
+                "60,000 करोड़",
+                "30,000 करोड़",
+                "40,000 करोड़"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 48,
+            "text": "हाल ही में प्रधानमंत्री ने नीति आयोग की कौन सी गवर्निंग काउंसिल की बैठक की अध्यक्षता की है?",
+            "reference": "",
+            "options": [
+                "11वीं",
+                "10वीं",
+                "9वीं",
+                "12वीं"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 49,
+            "text": "आईएमएफ के अनुसार, भारत 2025 के अंत तक किस देश को पीछे छोड़कर दुनिया की चौथी सबसे बड़ी अर्थव्यवस्था बन जाएगा?",
+            "reference": "",
+            "options": [
+                "ब्रिटेन",
+                "फ्रांस",
+                "जर्मनी",
+                "जापान"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 50,
+            "text": "21 जून, 2025 को कौन-सा “अंतर्राष्ट्रीय योग दिवस” मनाया जाएगा?",
+            "reference": "",
+            "options": [
+                "13वां",
+                "10वां",
+                "11वां",
+                "12वां"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 51,
+            "text": "हाल ही में किस मंत्रालय ने शैक्षणिक संस्थानों को तंबाकू और नशीले पदार्थों से मुक्त बनाने के लिए राष्ट्रव्यापी अभियान की शुरूआत की है?",
+            "reference": "",
+            "options": [
+                "शिक्षा मंत्रालय",
+                "महिला और बाल विकास मंत्रालय",
+                "स्वास्थ्य और परिवार कल्याण मंत्रालय",
+                "गृह मंत्रालय"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 52,
+            "text": "हाल ही में भारत ने आयुष को वैश्विक स्तर पर मुख्यधारा में लाने के लिए किसके साथ साझेदारी की है?",
+            "reference": "",
+            "options": [
+                "यूनेस्को",
+                "यूएनओ",
+                "डब्ल्यूएचओ",
+                "आईएमएफ"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 53,
+            "text": "हाल ही में किसने नीति आयोग की 10वीं गवर्निंग काउंसिल बैठक की अध्यक्षता की है?",
+            "reference": "",
+            "options": [
+                "गृहमंत्री अमित शाह",
+                "वित्त मंत्री निर्मला सीतारमण",
+                "रक्षामंत्री राजनाथ सिंह",
+                "प्रधानमंत्री नरेंद्र मोदी"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 54,
+            "text": "हाल ही में किस राज्य सरकार ने उद्यमशीलता की संस्कृति को बढ़ावा देने के लिए 'एक परिवार, एक उद्यमी' योजना शुरू की है?",
+            "reference": "",
+            "options": [
+                "तेलंगाना",
+                "केरल",
+                "आंध्र प्रदेश",
+                "महाराष्ट्र"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 55,
+            "text": "हाल ही में कहां अमेरिका और ईरान के बीच परमाणु वार्ता का 5वांँ दौर शुरू हुआ है?",
+            "reference": "",
+            "options": [
+                "पेरिस",
+                "जिनेवा",
+                "न्यूयॉर्क",
+                "रोम"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 56,
+            "text": "हाल ही में कौन-सा राज्य 100% विद्युतीकृत रेल नेटवर्क वाला राज्य बन गया है?",
+            "reference": "",
+            "options": [
+                "हरियाणा",
+                "ओड़िशा",
+                "आंध्र प्रदेश",
+                "गुजरात"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 57,
+            "text": "निम्नलिखित में से कौन-सा देश दुनिया में स्ट्रॉबेरी का सबसे बड़ा उत्पादक है?",
+            "reference": "",
+            "options": [
+                "चीन",
+                "मिस्र",
+                "स्पेन",
+                "भारत"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 58,
+            "text": "हाल ही में किस राज्य सरकार ने ‘राहवीर’ योजना को मंजूरी दी है?",
+            "reference": "",
+            "options": [
+                "झारखंड",
+                "मध्य प्रदेश",
+                "छत्तीसगढ़",
+                "पंजाब"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 59,
+            "text": "हाल ही में किस विश्वविद्यालय के शोधकर्ताओं ने भारत की पहली जीन-संपादित भेड़ विकसित की है?",
+            "reference": "",
+            "options": [
+                "अलीगढ़ मुस्लिम विश्वविद्यालय",
+                "बनारस हिंदू विश्वविद्यालय",
+                "मद्रास विश्वविद्यालय",
+                "कश्मीर कृषि विश्वविद्यालय"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 60,
+            "text": "मई 2025 में, एलआईसी(LIC) ने कितने घंटे में सबसे अधिक जीवन बीमा पॉलिसियां बेचने का गिनीज वर्ल्ड रिकॉर्ड बनाया है?",
+            "reference": "",
+            "options": [
+                "24 घंटे",
+                "10 घंटे",
+                "18 घंटे",
+                "15 घंटे"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 61,
+            "text": "हाल ही में टाटा और एयरबस ने किस राज्य में पहली निजी हेलीकॉप्टर असेंबली लाइन स्थापित करने की घोषणा की है?",
+            "reference": "",
+            "options": [
+                "गुजरात",
+                "कर्नाटक",
+                "महाराष्ट्र",
+                "उत्तर प्रदेश"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 62,
+            "text": "निम्नलिखित में से कहां प्रधानमंत्री नरेंद्र मोदी लगभग 20,900 करोड़ रुपये की विकास परियोजनाओं का उद्घाटन और शिलान्यास किया?",
+            "reference": "",
+            "options": [
+                "प्रयागराज",
+                "वाराणसी",
+                "लखनऊ",
+                "कानपुर"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 63,
+            "text": "भारत के औद्योगिक उत्पादन सूचकांक (IIP) में अप्रैल 2025 में कितनी प्रतिशत की वृद्धि दर्ज की गई?",
+            "reference": "",
+            "options": [
+                "1.2%",
+                "5.2%",
+                "3.9%",
+                "2.7%"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 64,
+            "text": "हाल ही में किस तारीख को 'अंतर्राष्ट्रीय एवरेस्ट दिवस' मनाया गया है?",
+            "reference": "",
+            "options": [
+                "27 मई",
+                "26 मई",
+                "28 मई",
+                "29 मई"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 65,
+            "text": "हाल ही में किस देश ने प्रवासन कानूनों को कड़ा करने के उद्देश्य से दो मसौदा विधेयकों को स्वीकृति दी है?",
+            "reference": "",
+            "options": [
+                "जर्मनी",
+                "पोलैंड",
+                "संयुक्त राज्य अमेरिका",
+                "ऑस्ट्रेलिया"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 66,
+            "text": "हाल ही में सुप्रीम कोर्ट ने किस उच्च न्यायालय के आदेश को खारिज करते हुए तीसरे बच्चे के लिए मातृत्व अवकाश की अनुमति दी है?",
+            "reference": "",
+            "options": [
+                "पटना उच्च न्यायालय",
+                "इलाहाबाद उच्च न्यायालय",
+                "गुजरात उच्च न्यायालय",
+                "मद्रास उच्च न्यायालय"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 67,
+            "text": "प्रधानमंत्री श्री नरेन्द्र मोदी ने 01 जून 2025 एशियाई विकास बैंक के अध्यक्ष से भेंट की है, इसके अध्यक्ष हैं?",
+            "reference": "",
+            "options": [
+                "ट्रिग्वे ली",
+                "यू. थांट",
+                "कुर्त वॉल्डहाइम",
+                "मसातो कांडा"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 68,
+            "text": "हाल ही में राष्ट्रीय पिछड़ा वर्ग आयोग ने वर्ष 2022-23 और 2023-24 के लिए अपनी वार्षिक किसके समक्ष प्रस्तुत की है?",
+            "reference": "",
+            "options": [
+                "सर्वोच्च न्यायालय",
+                "राष्ट्रपति",
+                "मंत्रिपरिषद",
+                "संसद"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 69,
+            "text": "हाल ही में किस तारीख को 'विश्व रीफ जागरूकता दिवस' मनाया गया है?",
+            "reference": "",
+            "options": [
+                "02 जून",
+                "31 मई",
+                "30 मई",
+                "01 जून"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 70,
+            "text": "31 मईं 2025, को महारानी अहिल्याबाई होल्कर की कौन-सी जयन्ती मनायी गयी है?",
+            "reference": "",
+            "options": [
+                "300वीं",
+                "302वीं",
+                "303वीं",
+                "301वीं"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 71,
+            "text": "हाल ही में किस देश ने 'तियानवेन-2' नामक एक अग्रणी अंतरिक्ष मिशन शुरू किया है?",
+            "reference": "",
+            "options": [
+                "अमेरिका",
+                "जापान",
+                "चीन",
+                "रूस"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 72,
+            "text": "हाल ही में किस देश की पूर्व विदेश मंत्री एनालेना बैरबॉक को संयुक्त राष्ट्र महासभा (UNGA) का अगला अध्यक्ष चुना गया है?",
+            "reference": "",
+            "options": [
+                "ब्रिटेन",
+                "ऑस्ट्रेलिया",
+                "फ़्रांस",
+                "जर्मनी"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 73,
+            "text": "प्रकृति और पर्यावरण के प्रति लोगों को जागरूक करने हेतु प्रतिवर्ष किस तारीख को “विश्व पर्यावरण दिवस” मनाया जाता है?",
+            "reference": "",
+            "options": [
+                "08 जून",
+                "07 जून",
+                "06 जून",
+                "05 जून"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 74,
+            "text": "हाल ही में अमेरिका ने पश्चिम एशिया की अपनी नीति में बदलाव करते हुए किस देश से अपने करीब 500 सैनिक वापस बुला लिए हैं?",
+            "reference": "",
+            "options": [
+                "ईरान",
+                "इजराइल",
+                "सऊदी अरब",
+                "सीरिया"
+            ],
+            "correctIndex": 3,
+            "explanation": ""
+        },
+        {
+            "id": 75,
+            "text": "हाल ही में किसने लद्दाख सिविल सेवा विकेंद्रीकरण और भर्ती-संशोधन विनियमन 2025 को मंजूरी दी है?",
+            "reference": "",
+            "options": [
+                "सर्वोच्च न्यायालय",
+                "राष्ट्रपति",
+                "गृह मंत्रालय",
+                "इनमें से कोई नहीं"
+            ],
+            "correctIndex": 1,
+            "explanation": ""
+        },
+        {
+            "id": 76,
+            "text": "हाल ही में कौन विज्ञान भवन में 13वीं पेंशन अदालत कार्यक्रम की अध्यक्षता करेगा?",
+            "reference": "",
+            "options": [
+                "रक्षामंत्री राजनाथ सिंह",
+                "गृहमंत्री अमित शाह",
+                "केंद्रीय मंत्री डॉ. जितेंद्र सिंह",
+                "प्रधानमंत्री नरेंद्र मोदी"
+            ],
+            "correctIndex": 2,
+            "explanation": ""
+        },
+        {
+            "id": 77,
+            "text": "हाल ही में किस देश ने 2024 में जापान को पीछे छोड़कर दुनिया का सबसे बड़ा ऋणदाता देश बन गया है?",
+            "reference": "",
+            "options": [
+                "जर्मनी",
+                "फ्रांस",
+                "इटली",
+                "ब्रिटेन"
+            ],
+            "correctIndex": 0,
+            "explanation": ""
+        },
+        {
+            "id": 78,
+            "text": "राजस्थान सेमीकंडक्टर नीति 2026' के संबंध में निम्नलिखित कथनों पर विचार कीजिए:\n1. इस नीति को मंजूरी 21 जनवरी 2026 को दी गई तथा इसे 18 मार्च 2026 को लॉन्च किया गया।\n2. इसका मुख्य उद्देश्य सेमीकंडक्टर और सेंसर क्षेत्र में एंकर निवेश को आकर्षित करना तथा फेबलेस डिजाइन पारिस्थितिकी तंत्र को सशक्त बनाना है।\n3. जोधपुर-पाली-मारवाड़ औद्योगिक क्षेत्र एवं कोकाणी क्लस्टर को प्राथमिक सेमी-कॉरिडोर के रूप में विकसित किया जाएगा।\n4. इस नीति का नोडल विभाग 'सूचना प्रौद्योगिकी एवं संचार विभाग' (DoIT&C) है।\n5. भारत सरकार द्वारा दी जाने वाली पूंजी सब्सिडी के बराबर 60% अतिरिक्त राशि राज्य सरकार देगी।\n6. नीति के तहत 7 वर्षों तक विद्युत शुल्क में 100% छूट और टर्म लोन पर 5% सब्सिडी का प्रावधान है।\n7. हरित परियोजनाओं के लिए लागत का 50% पुनर्भरण किया जाएगा।\nउपर्युक्त में से कौन-से कथन सत्य हैं?",
+            "reference": "",
+            "options": [
+                "केवल 1, 2, 3, 5, 6 और 7",
+                "केवल 1, 2, 4 और 6",
+                "केवल 2, 3, 4, 5 और 7",
+                "सभी कथन सत्य हैं"
+            ],
+            "correctIndex": 3,
+            "explanation": "यह नीति के सभी 7 प्रावधान सही हैं — मंजूरी/लॉन्च तिथि, उद्देश्य, सेमी-कॉरिडोर, नोडल विभाग, राज्य सब्सिडी, विद्युत शुल्क छूट और हरित परियोजना पुनर्भरण।"
+        }
+    ]
+};
+
+        const state = {
+            currentQuestion: 0,
+            answers: [],
+            bookmarks: [],
+            startTime: new Date(),
+            timePerQuestion: [],
+            avgTimePerQuestion: 0,
+            totalTime: 1170,
+            submitted: false,
+            touchStartX: 0,
+            touchEndX: 0,
+            inReviewMode: false,
+            lastPlayedQuestion: -1,
+            timerInterval: null,
+            fontSizeLevel: 0,
+            boldText: false,
+            activeQuestions: [],
+            shuffleQuestions: false,
+            shuffleOptions: false,
+            soundMuted: false,
+            quizEndTime: null
+        };
+
+        const clickSound = document.getElementById('clickSound');
+        const swipeSound = document.getElementById('swipeSound');
+        const correctSound = document.getElementById('correctSound');
+        const wrongSound = document.getElementById('wrongSound');
+
+        // Light / Dark theme — remembers the student's choice for next time
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const icon = document.getElementById('themeIcon');
+            if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            try { localStorage.setItem('quizThemePref', next); } catch (e) {}
+        }
+        (function initTheme() {
+            let saved = null;
+            try { saved = localStorage.getItem('quizThemePref'); } catch (e) {}
+            if (!saved) saved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+            applyTheme(saved);
+        })();
+
+        // Mute / unmute all sound effects — preference remembered for next time
+        function playSound(audio) {
+            if (state.soundMuted || !audio) return;
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+        }
+        function toggleMute() {
+            state.soundMuted = !state.soundMuted;
+            const icon = document.getElementById('muteIcon');
+            if (icon) icon.className = state.soundMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+            try { localStorage.setItem('quizSoundMuted', state.soundMuted ? '1' : '0'); } catch (e) {}
+        }
+        (function initMute() {
+            let saved = null;
+            try { saved = localStorage.getItem('quizSoundMuted'); } catch (e) {}
+            state.soundMuted = saved === '1';
+            const icon = document.getElementById('muteIcon');
+            if (icon) icon.className = state.soundMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+        })();
+
+        // Custom theme / accent color — pick any color for buttons, badges, highlights
+        function shadeColor(hex, percent) {
+            hex = (hex || '#f59e0b').replace('#', '');
+            if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+            const f = parseInt(hex, 16);
+            const t = percent < 0 ? 0 : 255;
+            const p = Math.abs(percent);
+            const R = f >> 16, G = (f >> 8) & 0x00FF, B = f & 0x0000FF;
+            return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
+        }
+        function applyAccentColor(hex) {
+            hex = hex || quizData.accentColor || '#f59e0b';
+            quizData.accentColor = hex;
+            const root = document.documentElement;
+            root.style.setProperty('--tiger-500', hex);
+            root.style.setProperty('--tiger-600', shadeColor(hex, -0.18));
+            root.style.setProperty('--tiger-700', shadeColor(hex, -0.35));
+            const picker = document.getElementById('cfgAccentColor');
+            if (picker) picker.value = hex;
+            try { localStorage.setItem('quizAccentColor', hex); } catch (e) {}
+            updateAccSwatches();
+        }
+
+        // Header / navy gradient — fully custom, replaces the fixed navy so it can become any 2-color gradient
+        function applyHeaderGradient(c1, c2) {
+            c1 = c1 || quizData.headerColor1 || '#0b1220';
+            c2 = c2 || quizData.headerColor2 || '#14284a';
+            quizData.headerColor1 = c1;
+            quizData.headerColor2 = c2;
+            const root = document.documentElement;
+            root.style.setProperty('--navy-950', c1);
+            root.style.setProperty('--navy-900', c1);
+            root.style.setProperty('--navy-800', c2);
+            const p1 = document.getElementById('cfgHeaderColor1');
+            const p2 = document.getElementById('cfgHeaderColor2');
+            if (p1) p1.value = c1;
+            if (p2) p2.value = c2;
+            const meta = document.getElementById('metaThemeColor');
+            if (meta) meta.setAttribute('content', c1);
+            try { localStorage.setItem('quizHeaderColor1', c1); localStorage.setItem('quizHeaderColor2', c2); } catch (e) {}
+        }
+
+        // Single watermark — text / size / opacity / position, all live-adjustable, one instance only
+        function applyWatermark(overrides) {
+            quizData.watermark = Object.assign({ enabled: false, text: '', size: 26, opacity: 0.14, x: 50, y: 50 }, quizData.watermark, overrides || {});
+            const w = quizData.watermark;
+            const el = document.getElementById('customWatermark');
+            if (!el) return;
+            el.style.display = w.enabled ? 'block' : 'none';
+            el.textContent = w.text;
+            el.style.fontSize = w.size + 'px';
+            el.style.opacity = w.opacity;
+            el.style.color = 'rgba(110,122,150,1)';
+            el.style.left = w.x + '%';
+            el.style.top = w.y + '%';
+
+            const chkEl = document.getElementById('cfgWmEnabled');
+            const txtEl = document.getElementById('cfgWmText');
+            const sizeEl = document.getElementById('cfgWmSize');
+            const opEl = document.getElementById('cfgWmOpacity');
+            const xEl = document.getElementById('cfgWmX');
+            const yEl = document.getElementById('cfgWmY');
+            if (chkEl) chkEl.checked = w.enabled;
+            if (txtEl) txtEl.value = w.text;
+            if (sizeEl) sizeEl.value = w.size;
+            if (opEl) opEl.value = w.opacity;
+            if (xEl) xEl.value = w.x;
+            if (yEl) yEl.value = w.y;
+
+            try { localStorage.setItem('quizWatermark', JSON.stringify(w)); } catch (e) {}
+            updateWmStatusBadge();
+        }
+
+        // Drag-to-place — only active while the Admin Panel is open, so students can never move it
+        (function initWatermarkDrag() {
+            const el = document.getElementById('customWatermark');
+            if (!el) return;
+            let dragging = false;
+            const start = (clientX, clientY) => { dragging = true; pushHistory(); };
+            const move = (clientX, clientY) => {
+                if (!dragging) return;
+                const xPct = Math.min(100, Math.max(0, (clientX / window.innerWidth) * 100));
+                const yPct = Math.min(100, Math.max(0, (clientY / window.innerHeight) * 100));
+                el.style.left = xPct + '%';
+                el.style.top = yPct + '%';
+                quizData.watermark.x = Math.round(xPct);
+                quizData.watermark.y = Math.round(yPct);
+                const xEl = document.getElementById('cfgWmX');
+                const yEl = document.getElementById('cfgWmY');
+                if (xEl) xEl.value = quizData.watermark.x;
+                if (yEl) yEl.value = quizData.watermark.y;
+            };
+            const end = () => {
+                if (!dragging) return;
+                dragging = false;
+                try { localStorage.setItem('quizWatermark', JSON.stringify(quizData.watermark)); } catch (e) {}
+            };
+            el.addEventListener('mousedown', (e) => start(e.clientX, e.clientY));
+            document.addEventListener('mousemove', (e) => move(e.clientX, e.clientY));
+            document.addEventListener('mouseup', end);
+            el.addEventListener('touchstart', (e) => { const t = e.touches[0]; start(t.clientX, t.clientY); }, { passive: true });
+            document.addEventListener('touchmove', (e) => { if (dragging) { const t = e.touches[0]; move(t.clientX, t.clientY); } }, { passive: true });
+            document.addEventListener('touchend', end);
+        })();
+
+        function setWmDraggable(on) {
+            const el = document.getElementById('customWatermark');
+            if (el) el.classList.toggle('wm-draggable', !!on);
+        }
+
+        // One-click safety net — puts colors & watermark back to the original defaults
+        function resetAdminDefaults() {
+            pushHistory();
+            applyAccentColor('#f59e0b');
+            applyHeaderGradient('#0b1220', '#14284a');
+            applyWatermark({ enabled: false, text: '', size: 26, opacity: 0.14, x: 50, y: 50 });
+            updateWmStatusBadge();
+            updateAccSwatches();
+            showToast('Colors aur watermark default par reset ho gaye', 'info');
+        }
+
+        // Auto-save the bulk-text draft as the teacher types — so an accidental refresh/close never loses pasted questions
+        let bulkAutosaveTimer = null;
+        function autosaveBulkDraft() {
+            clearTimeout(bulkAutosaveTimer);
+            bulkAutosaveTimer = setTimeout(() => {
+                const el = document.getElementById('bulkTextInput');
+                try { localStorage.setItem('quizBulkDraft', el ? el.value : ''); } catch (e) {}
+            }, 500);
+        }
+
+        // Restore last editor session (colors, watermark, unfinished bulk-text draft) — admin-only, never affects the exported student file
+        function restoreAdminSession() {
+            try {
+                const savedAccent = localStorage.getItem('quizAccentColor');
+                const savedC1 = localStorage.getItem('quizHeaderColor1');
+                const savedC2 = localStorage.getItem('quizHeaderColor2');
+                const savedWm = localStorage.getItem('quizWatermark');
+                const savedDraft = localStorage.getItem('quizBulkDraft');
+                if (savedAccent) applyAccentColor(savedAccent);
+                if (savedC1 || savedC2) applyHeaderGradient(savedC1 || quizData.headerColor1, savedC2 || quizData.headerColor2);
+                if (savedWm) applyWatermark(JSON.parse(savedWm));
+                if (savedDraft) {
+                    const bulkEl = document.getElementById('bulkTextInput');
+                    if (bulkEl && !bulkEl.value) {
+                        bulkEl.value = savedDraft;
+                        updateBulkCharCount();
+                        showToast('Pichla unsaved draft wapas load ho gaya', 'info');
+                    }
+                }
+            } catch (e) {}
+        }
+
+        /* ================= UNDO / REDO — protects every admin edit (colors, watermark, toggles, bulk text, question bank) ================= */
+        const adminHistory = { past: [], future: [] };
+        const ADMIN_HISTORY_LIMIT = 40;
+
+        function captureAdminSnapshot() {
+            const bulkEl = document.getElementById('bulkTextInput');
+            const titleEl = document.getElementById('cfgTitle');
+            const timeEl = document.getElementById('cfgTime');
+            const negEl = document.getElementById('cfgNegative');
+            return JSON.stringify({
+                title: quizData.title, timeLimit: quizData.timeLimit, negativeMark: quizData.negativeMark,
+                accentColor: quizData.accentColor, headerColor1: quizData.headerColor1, headerColor2: quizData.headerColor2,
+                hideQuestionNumber: quizData.hideQuestionNumber, watermark: quizData.watermark,
+                questions: quizData.questions,
+                shuffleQuestions: state.shuffleQuestions, shuffleOptions: state.shuffleOptions,
+                bulkText: bulkEl ? bulkEl.value : '',
+                cfgTitle: titleEl ? titleEl.value : '', cfgTime: timeEl ? timeEl.value : '', cfgNeg: negEl ? negEl.value : ''
+            });
+        }
+
+        function pushHistory() {
+            adminHistory.past.push(captureAdminSnapshot());
+            if (adminHistory.past.length > ADMIN_HISTORY_LIMIT) adminHistory.past.shift();
+            adminHistory.future = [];
+            updateUndoRedoButtons();
+        }
+
+        function applyAdminSnapshot(snapJSON) {
+            const s = JSON.parse(snapJSON);
+            quizData.title = s.title; quizData.timeLimit = s.timeLimit; quizData.negativeMark = s.negativeMark;
+            quizData.hideQuestionNumber = s.hideQuestionNumber;
+            quizData.questions = s.questions;
+            state.shuffleQuestions = s.shuffleQuestions; state.shuffleOptions = s.shuffleOptions;
+
+            applyAccentColor(s.accentColor);
+            applyHeaderGradient(s.headerColor1, s.headerColor2);
+            applyWatermark(s.watermark);
+
+            const bulkEl = document.getElementById('bulkTextInput'); if (bulkEl) { bulkEl.value = s.bulkText; updateBulkCharCount(); }
+            const titleEl = document.getElementById('cfgTitle'); if (titleEl) titleEl.value = s.cfgTitle;
+            const timeEl = document.getElementById('cfgTime'); if (timeEl) timeEl.value = s.cfgTime;
+            const negEl = document.getElementById('cfgNegative'); if (negEl) negEl.value = s.cfgNeg;
+            const hideChk = document.getElementById('cfgHideQNum'); if (hideChk) hideChk.checked = s.hideQuestionNumber;
+            const shQ = document.getElementById('cfgShuffleQ'); if (shQ) shQ.checked = s.shuffleQuestions;
+            const shO = document.getElementById('cfgShuffleOpt'); if (shO) shO.checked = s.shuffleOptions;
+
+            initQuizState();
+            initQuiz();
+            refreshAdminStats();
+        }
+
+        function undoAdmin() {
+            if (adminHistory.past.length === 0) { showToast('Undo karne ke liye koi purana step nahi hai', 'info'); return; }
+            adminHistory.future.push(captureAdminSnapshot());
+            const prev = adminHistory.past.pop();
+            applyAdminSnapshot(prev);
+            updateUndoRedoButtons();
+            showToast('Pichla step wapas aa gaya (Undo)', 'info');
+        }
+
+        function redoAdmin() {
+            if (adminHistory.future.length === 0) { showToast('Redo karne ke liye kuch nahi hai', 'info'); return; }
+            adminHistory.past.push(captureAdminSnapshot());
+            const next = adminHistory.future.pop();
+            applyAdminSnapshot(next);
+            updateUndoRedoButtons();
+            showToast('Step wapas apply ho gaya (Redo)', 'info');
+        }
+
+        function updateUndoRedoButtons() {
+            const u = document.getElementById('btnUndoAdmin');
+            const r = document.getElementById('btnRedoAdmin');
+            if (u) u.disabled = adminHistory.past.length === 0;
+            if (r) r.disabled = adminHistory.future.length === 0;
+        }
+
+        // Ctrl+Z / Ctrl+Y (or Ctrl+Shift+Z) keyboard shortcuts — only while Admin Panel is open
+        document.addEventListener('keydown', (e) => {
+            const panel = document.getElementById('adminPanelArea');
+            if (!panel || panel.style.display !== 'block') return;
+            if (e.ctrlKey && !e.shiftKey && e.key.toLowerCase() === 'z') { e.preventDefault(); undoAdmin(); }
+            else if (e.ctrlKey && (e.key.toLowerCase() === 'y' || (e.shiftKey && e.key.toLowerCase() === 'z'))) { e.preventDefault(); redoAdmin(); }
+        });
+
+        // Lightweight toast notification system — replaces jarring alert() popups
+        function showToast(message, type) {
+            type = type || 'info';
+            const stack = document.getElementById('toastStack');
+            if (!stack) { console.log(message); return; }
+            const icon = type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-info');
+            const el = document.createElement('div');
+            el.className = 'app-toast ' + type;
+            el.innerHTML = `<i class="fas ${icon} mt-1"></i><div>${message}</div>`;
+            stack.appendChild(el);
+            setTimeout(() => {
+                el.classList.add('fadeout');
+                setTimeout(() => el.remove(), 250);
+            }, 3200);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            applyAccentColor(quizData.accentColor);
+            applyHeaderGradient(quizData.headerColor1, quizData.headerColor2);
+            applyWatermark();
+            initQuizState();
+            initQuiz();
+            initSwipeDetection();
+
+            
+        });
+
+        // Fisher-Yates shuffle — used for optional question / option shuffling
+        function shuffleArray(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // Builds the actual question set the student sees this attempt (optionally shuffled)
+        function buildActiveQuestions() {
+            let qs = quizData.questions.map(q => ({ ...q, options: [...q.options] }));
+            if (state.shuffleQuestions) qs = shuffleArray(qs);
+            if (state.shuffleOptions) {
+                qs = qs.map(q => {
+                    const order = shuffleArray(q.options.map((_, i) => i));
+                    return { ...q, options: order.map(i => q.options[i]), correctIndex: order.indexOf(q.correctIndex) };
+                });
+            }
+            return qs;
+        }
+
+        function initQuizState() {
+            state.activeQuestions = buildActiveQuestions();
+            state.answers = Array(state.activeQuestions.length).fill(null);
+            state.bookmarks = Array(state.activeQuestions.length).fill(false);
+            state.timePerQuestion = Array(state.activeQuestions.length).fill(0);
+            state.submitted = false;
+            state.inReviewMode = false;
+            state.currentQuestion = 0;
+            state.startTime = new Date();
+            state.quizEndTime = null;
+        }
+
+        function updateWmStatusBadge() {
+            const badge = document.getElementById('wmStatusBadge');
+            if (!badge) return;
+            const on = document.getElementById('cfgWmEnabled')?.checked;
+            badge.textContent = on ? 'ON' : 'OFF';
+            badge.classList.toggle('off', !on);
+        }
+
+        function updateAccSwatches() {
+            const sw = document.getElementById('accSwatchAccent');
+            const accentInput = document.getElementById('cfgAccentColor');
+            if (sw && accentInput) sw.style.background = accentInput.value;
+        }
+
+        
+
+        // Font size control — persists across question navigation and can shrink a LOT
+        // (useful for very long questions) or grow, while the card always stays full width.
+        // Base (level 0) sizes are intentionally compact so long questions need less scrolling.
+        function applyFontSize() {
+            const level = state.fontSizeLevel;
+            const step = level * 0.05;
+            const qSize = Math.max(0.5, Math.min(1.25, 0.86 + step)).toFixed(2);
+            const optSize = Math.max(0.46, Math.min(1.15, 0.8 + step)).toFixed(2);
+            const refSize = Math.max(0.46, Math.min(1.05, 0.8 + step)).toFixed(2);
+            const letterSize = Math.max(0.5, Math.min(0.88, 0.68 + step * 0.5)).toFixed(2);
+            const qLineHeight = Math.max(1.28, 1.48 - level * -0.015).toFixed(2);
+
+            document.querySelectorAll('.question-text').forEach(el => {
+                el.style.fontSize = `${qSize}rem`;
+                el.style.lineHeight = qLineHeight;
+                el.style.fontWeight = state.boldText ? '700' : '600';
+            });
+            document.querySelectorAll('.option-btn').forEach(el => {
+                el.style.fontSize = `${optSize}rem`;
+                el.style.padding = level < -2 ? '7px 9px' : (level < 0 ? '9px 11px' : '10px 12px');
+                el.style.minHeight = level < -2 ? '32px' : (level < 0 ? '38px' : '42px');
+                el.style.fontWeight = state.boldText ? '600' : '500';
+            });
+            document.querySelectorAll('.opt-letter').forEach(el => el.style.fontSize = `${letterSize}rem`);
+            document.querySelectorAll('.question-reference').forEach(el => {
+                el.style.fontSize = `${refSize}rem`;
+                el.style.fontWeight = state.boldText ? '600' : '500';
+            });
+            document.querySelectorAll('.explanation').forEach(el => el.style.fontSize = `${refSize}rem`);
+            document.querySelectorAll('.question-card .card-body').forEach(el => el.style.padding = level < -2 ? '9px' : '');
+        }
+        function changeFontSize(delta) {
+            state.fontSizeLevel += delta;
+            if (state.fontSizeLevel > 6) state.fontSizeLevel = 6;
+            if (state.fontSizeLevel < -9) state.fontSizeLevel = -9;
+            applyFontSize();
+        }
+        // Bold / Normal toggle for question + option text — some students read bold Devanagari
+        // more easily, others prefer normal weight; this preference persists across questions.
+        function toggleFontWeight() {
+            state.boldText = !state.boldText;
+            const btn = document.getElementById('fontWeightBtn');
+            if (btn) {
+                btn.textContent = state.boldText ? 'Normal' : 'Bold';
+                btn.classList.toggle('active', state.boldText);
+            }
+            applyFontSize();
+        }
+
+        // Delegated click handler for options — bound ONCE on the container (not per render),
+        // so option clicks always work reliably even across re-renders / exported copies.
+        document.addEventListener('DOMContentLoaded', () => {
+            const qContainer = document.getElementById('questionContainer');
+            if (qContainer) {
+                qContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.option-btn');
+                    if (!btn || !qContainer.contains(btn)) return;
+                    if (state.submitted) return;
+                    playSound(clickSound);
+                    selectOption(btn.dataset.index);
+                });
+            }
+        });
+
+        // Professional exam-tool keyboard shortcuts (student view):
+        //   1-4         → select that option on the current question
+        //   ← / →       → previous / next question
+        //   B           → toggle bookmark on current question
+        // Disabled while typing inside any text field/textarea (e.g. the admin bulk editor)
+        // and after the quiz has been submitted, so it never interferes with normal typing.
+        document.addEventListener('keydown', (e) => {
+            const tag = (e.target && e.target.tagName) || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable) return;
+            if (!state.activeQuestions || state.activeQuestions.length === 0 || state.submitted) return;
+
+            const key = e.key;
+            const numMatch = key.match(/^[1-4]$/);
+            const optionCount = state.activeQuestions[state.currentQuestion]?.options?.length || 0;
+
+            if (numMatch) {
+                const idx = parseInt(key, 10) - 1;
+                if (idx < optionCount) { playSound(clickSound); selectOption(idx); }
+            } else if (key === 'ArrowRight') {
+                navigate(1);
+            } else if (key === 'ArrowLeft') {
+                navigate(-1);
+            } else if (key.toLowerCase() === 'b') {
+                toggleBookmark();
+            }
+        });
+
+        // NOTE: There is intentionally no auto-resume / save-progress feature.
+        // Every time the test page loads (or is reloaded), it always starts fresh from Question 1.
+        function initQuiz() {
+            document.getElementById('quizTitleHead').textContent = quizData.title;
+
+            if (state.activeQuestions.length === 0) {
+                showEmptyQuizState();
+                return;
+            }
+
+            document.getElementById('questionNav').style.display = '';
+            document.querySelector('.action-bar').style.display = '';
+            startTimer();
+            createNumberedNav();
+            renderQuestion(0);
+        }
+
+        function showEmptyQuizState() {
+            document.getElementById('questionNav').style.display = 'none';
+            const actionBar = document.querySelector('.action-bar');
+            if (actionBar) actionBar.style.display = 'none';
+            document.getElementById('minutes').textContent = '--';
+            document.getElementById('seconds').textContent = '--';
+            document.getElementById('questionContainer').innerHTML = `
+                <div class="empty-quiz-state">
+                    <div class="eqs-icon"><i class="fas fa-clipboard-question"></i></div>
+                    <h6>No questions loaded yet</h6>
+                    <p>Open the Admin Editor (gear icon, top right) to paste your questions, or load the demo format to see how it works.</p>
+                </div>`;
+        }
+
+        function initSwipeDetection() {
+            const container = document.getElementById('quizContainer');
+            container.addEventListener('touchstart', (e) => { 
+                state.touchStartX = e.changedTouches[0].screenX; 
+            }, false);
+            
+            container.addEventListener('touchend', (e) => {
+                state.touchEndX = e.changedTouches[0].screenX;
+                if (Math.abs(state.touchStartX - state.touchEndX) > 50) {
+                    if (!state.inReviewMode) {
+                        playSound(swipeSound);
+                    }
+                    navigate(state.touchStartX > state.touchEndX ? 1 : -1);
+                }
+            }, false);
+        }
+
+        function navigate(direction) {
+            if (state.autoAdvanceTimer) { clearTimeout(state.autoAdvanceTimer); state.autoAdvanceTimer = null; }
+            const newIndex = state.currentQuestion + direction;
+            if (newIndex >= 0 && newIndex < state.activeQuestions.length) {
+                if (!state.submitted) updateQuestionTime();
+                renderQuestion(newIndex);
+            }
+        }
+
+        function toggleBookmark() {
+            state.bookmarks[state.currentQuestion] = !state.bookmarks[state.currentQuestion];
+            updateQuestionNav();
+            renderQuestion(state.currentQuestion);
+        }
+
+        function startTimer() {
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            const duration = (quizData.timeLimit ? quizData.timeLimit * 60 : state.totalTime) * 1000;
+            const endTime = state.quizEndTime || (new Date().getTime() + duration);
+            state.quizEndTime = endTime;
+            
+            updateTimer(endTime - new Date().getTime());
+            
+            state.timerInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const timeLeft = endTime - now;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(state.timerInterval);
+                    updateTimer(0);
+                    submitQuiz();
+                } else {
+                    updateTimer(timeLeft);
+                    document.getElementById('timeProgress').style.width = `${(timeLeft / duration) * 100}%`;
+                    
+                    if (timeLeft < duration * 0.25) {
+                        document.getElementById('timeProgress').className = 'progress-bar progress-bar-striped progress-bar-animated bg-danger';
+                    } else if (timeLeft < duration * 0.5) {
+                        document.getElementById('timeProgress').className = 'progress-bar progress-bar-striped progress-bar-animated bg-warning';
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateTimer(timeLeft) {
+            const minutes = Math.floor(timeLeft / 60000).toString().padStart(2, '0');
+            const seconds = Math.floor((timeLeft % 60000) / 1000).toString().padStart(2, '0');
+            
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            
+            if (timeLeft < 60000) document.getElementById('timer').classList.add('text-danger');
+        }
+
+        function createNumberedNav() {
+            const nav = document.getElementById('questionNav');
+            nav.innerHTML = '';
+            state.activeQuestions.forEach((_, idx) => {
+                const box = document.createElement('div');
+                box.className = 'page-box';
+                box.textContent = idx + 1;
+                box.dataset.index = idx;
+                box.addEventListener('click', () => {
+                    if (state.autoAdvanceTimer) { clearTimeout(state.autoAdvanceTimer); state.autoAdvanceTimer = null; }
+                    if (!state.submitted) updateQuestionTime();
+                    renderQuestion(idx);
+                });
+                nav.appendChild(box);
+            });
+        }
+
+        function renderQuestion(idx) {
+            if (state.activeQuestions.length === 0) return;
+            state.currentQuestion = idx;
+            const question = state.activeQuestions[idx];
+
+            // Update Bookmark Icon
+            const bmIcon = document.getElementById('bmIcon');
+            if (state.bookmarks[idx]) {
+                bmIcon.className = 'fas fa-bookmark text-warning';
+            } else {
+                bmIcon.className = 'far fa-bookmark';
+            }
+            
+            const showFlagRow = state.bookmarks[idx];
+            let html = `<div class="card question-card shadow-sm">
+                <div class="card-body p-3">`;
+            html += `<div class="d-flex justify-content-between align-items-center mb-2">
+                        ${!quizData.hideQuestionNumber ? `<span class="q-number-badge">Q${idx + 1}<span class="q-number-total">/${state.activeQuestions.length}</span></span>` : '<span></span>'}
+                        ${showFlagRow ? '<span class="badge bg-warning text-dark"><i class="fas fa-flag me-1"></i>Flagged</span>' : '<span></span>'}
+                    </div>`;
+            
+            if (question.reference) html += `<div class="question-reference">${question.reference.replace(/\n/g, '<br>')}</div>`;
+            
+            html += `<p class="question-text mb-3">${question.text.replace(/\n/g, '<br>')}</p><div class="options">`;
+            
+            question.options.forEach((option, optionIdx) => {
+                let btnClass = 'option-btn';
+                if (state.answers[idx] === optionIdx) btnClass += ' selected';
+                if (state.submitted) {
+                    if (optionIdx === question.correctIndex) btnClass += ' correct';
+                    else if (state.answers[idx] === optionIdx) btnClass += ' incorrect';
+                }
+                html += `<button class="${btnClass}" data-index="${optionIdx}">
+                    <span class="opt-letter">${String.fromCharCode(65 + optionIdx)}</span>
+                    <span>${option}</span>
+                </button>`;
+            });
+            
+            html += `</div>`;
+            
+            if (state.submitted && question.explanation) {
+                html += `<div class="explanation mt-2">
+                    <strong class="text-primary"><i class="fas fa-lightbulb me-1"></i>Explanation:</strong>
+                    <div>${question.explanation}</div>
+                </div>`;
+            }
+            
+            if (state.submitted) {
+                const timeSpent = state.timePerQuestion[idx] || 0;
+                const avgTime = state.avgTimePerQuestion || 1;
+                let timeStatus = timeSpent < avgTime * 0.7 ? "Fast" : (timeSpent > avgTime * 1.3 ? "Slow" : "Average");
+                let iconColor = timeStatus === "Fast" ? "#38a169" : (timeStatus === "Slow" ? "#e53e3e" : "#3182ce");
+                
+                const isCorrect = state.answers[idx] === question.correctIndex;
+                const isAttempted = state.answers[idx] !== null;
+                
+                html += `
+                <div class="analysis-panel mt-3">
+                    <div class="analysis-item">
+                        <div class="analysis-icon" style="background-color:${isAttempted ? (isCorrect ? '#38a169' : '#e53e3e') : '#d69e2e'}">
+                            <i class="fas fa-${isAttempted ? (isCorrect ? 'check' : 'times') : 'question'}"></i>
+                        </div>
+                        <div>Status: <strong>${isAttempted ? (isCorrect ? 'Correct' : 'Incorrect') : 'Unattempted'}</strong></div>
+                    </div>
+                    <div class="analysis-item">
+                        <div class="analysis-icon" style="background-color:${iconColor}">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>Time spent: <strong>${timeSpent.toFixed(1)}s</strong> 
+                            <span class="badge-${timeStatus.toLowerCase()}">${timeStatus}</span>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            
+            html += `</div></div>`;
+            
+            document.getElementById('questionContainer').innerHTML = html;
+            applyFontSize();
+            
+            updateQuestionNav();
+            
+            if (state.inReviewMode && state.lastPlayedQuestion !== idx) {
+                state.lastPlayedQuestion = idx;
+                const isCorrect = state.answers[idx] === question.correctIndex;
+                if (state.answers[idx] !== null) {
+                    setTimeout(() => {
+                        playSound(isCorrect ? correctSound : wrongSound);
+                    }, 200);
+                }
+            }
+        }
+
+        function updateQuestionNav() {
+            let activeBox = null;
+            document.querySelectorAll('#questionNav .page-box').forEach((box, idx) => {
+                box.className = 'page-box';
+                if (idx === state.currentQuestion) { box.classList.add('active'); activeBox = box; }
+                if (state.bookmarks[idx]) box.classList.add('bookmarked');
+                
+                if (state.answers[idx] !== null) {
+                    if (state.submitted) {
+                        box.classList.add(state.answers[idx] === state.activeQuestions[idx].correctIndex ? 'correct' : 'incorrect');
+                    } else {
+                        box.classList.add('answered');
+                    }
+                }
+            });
+            // Keep the current question box scrolled into view within the single row
+            if (activeBox) activeBox.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+            const attemptedCount = state.answers.filter(a => a !== null).length;
+            const attemptCountEl = document.getElementById('attemptCount');
+            const attemptTotalEl = document.getElementById('attemptTotal');
+            if (attemptCountEl) attemptCountEl.textContent = attemptedCount;
+            if (attemptTotalEl) attemptTotalEl.textContent = state.activeQuestions.length;
+        }
+
+        function selectOption(optionIdx) {
+            const answeredIdx = state.currentQuestion;
+            state.answers[answeredIdx] = parseInt(optionIdx);
+            updateQuestionNav();
+            renderQuestion(answeredIdx);
+            
+            if (state.autoAdvanceTimer) clearTimeout(state.autoAdvanceTimer);
+            if (answeredIdx < state.activeQuestions.length - 1) {
+                state.autoAdvanceTimer = setTimeout(() => {
+                    // Only auto-advance if the student hasn't already navigated away manually
+                    // in the meantime (e.g. clicked Next / used arrow keys) — fixes a bug where
+                    // a stale timer could jump past the question the student had moved to.
+                    if (state.currentQuestion === answeredIdx && !state.submitted) {
+                        updateQuestionTime();
+                        renderQuestion(answeredIdx + 1);
+                    }
+                }, 450);
+            }
+        }
+
+        function updateQuestionTime() {
+            const now = new Date();
+            state.timePerQuestion[state.currentQuestion] += (now - state.startTime) / 1000;
+            state.startTime = now;
+        }
+
+        function submitQuiz() {
+            if (state.submitted) return;
+            clearInterval(state.timerInterval);
+            updateQuestionTime();
+            state.submitted = true;
+            
+            let totalTimeSpent = state.timePerQuestion.reduce((acc, time) => acc + time, 0);
+            state.avgTimePerQuestion = totalTimeSpent / (state.activeQuestions.length || 1);
+            
+            let correct = 0, incorrect = 0, unattempted = 0, score = 0, negativeMarks = 0;
+            
+            state.answers.forEach((answer, idx) => {
+                if (answer === null) unattempted++;
+                else if (answer === state.activeQuestions[idx].correctIndex) {
+                    correct++; score++;
+                } else {
+                    incorrect++;
+                    score -= quizData.negativeMark;
+                    negativeMarks += quizData.negativeMark;
+                }
+            });
+            
+            const percentage = ((score / state.activeQuestions.length) * 100) || 0;
+            
+            document.getElementById('scoreDisplay').textContent = `${score.toFixed(2)} / ${state.activeQuestions.length} (${percentage.toFixed(1)}%)`;
+            document.getElementById('totalQuestions').textContent = state.activeQuestions.length;
+            document.getElementById('correctAnswers').textContent = correct;
+            document.getElementById('incorrectAnswers').textContent = incorrect;
+            document.getElementById('unattempted').textContent = unattempted;
+            document.getElementById('negativeMarks').textContent = `-${negativeMarks.toFixed(2)}`;
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('questionNav').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('bookmarkBtn').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            createPerformanceChart(correct, incorrect, unattempted);
+            createTimeAnalysisChart();
+            
+            if (percentage >= 60) {
+                createConfetti();
+                playSound(correctSound);
+            } else {
+                playSound(wrongSound);
+            }
+        }
+
+        function createPerformanceChart(c, i, u) {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct', 'Incorrect', 'Unattempted'],
+                    datasets: [{ data: [c, i, u], backgroundColor: ['#38a169', '#e53e3e', '#d69e2e'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+        
+        function createTimeAnalysisChart() {
+            const ctx = document.getElementById('timeAnalysisChart').getContext('2d');
+            const labels = Array.from({length: state.activeQuestions.length}, (_, i) => `Q${i+1}`);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{ label: 'Time (s)', data: state.timePerQuestion, backgroundColor: '#3182ce' }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Seconds' } } }
+                }
+            });
+        }
+
+        function reviewAnswers() {
+            state.inReviewMode = true;
+            state.lastPlayedQuestion = -1;
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('questionNav').style.display = 'flex';
+            document.getElementById('prevBtn').style.display = 'inline-block';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            document.getElementById('bookmarkBtn').style.display = 'inline-block';
+            document.getElementById('resultContainer').style.display = 'none';
+            renderQuestion(0);
+        }        
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0)', opacity: 1 },
+                    { transform: `translateY(${Math.random() * 400 + 400}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], { duration: Math.random() * 2000 + 1500 });
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        
+    </script>
+
+
+
+</body></html>
