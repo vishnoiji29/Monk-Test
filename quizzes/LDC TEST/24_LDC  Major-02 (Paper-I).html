@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDC  Major-02 (Paper-I) | Kalam Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Custom Fonts for Special Languages */
+        
+        
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --primary-dark: #5649c0;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --gray: #636e72;
+            --light-gray: #dfe6e9;
+            --card-bg: #ffffff;
+            --body-bg: #f5f6fa;
+            --header-bg: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            --footer-bg: #ffffff;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --box-shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --review-color: #f39c12;
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--body-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--header-bg);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 1000;
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .header-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .header-brand i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .control-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .control-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .mobile-jump-to-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .mobile-jump-to-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .timer-display {
+            background: rgba(0,0,0,0.2);
+            border-radius: 18px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .timer-display i {
+            margin-right: 6px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 60px;
+            padding: 16px;
+            min-height: calc(100vh - 140px);
+        }
+        
+        /* Welcome Screen Styles */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .welcome-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--header-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .welcome-logo i {
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+        }
+        
+        .test-series-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .test-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow-sm);
+            min-width: 120px;
+        }
+        
+        .meta-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .instructions-container {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: left;
+            box-shadow: var(--box-shadow-sm);
+            width: 100%;
+        }
+        
+        .instructions-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .instructions-list {
+            padding-left: 20px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .action-btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .action-btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+            color: white;
+        }
+        
+        .action-btn-outline {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .action-btn-outline:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .action-btn-telegram {
+            background: #0088cc;
+            color: white;
+            border: none;
+        }
+        
+        .action-btn-telegram:hover {
+            background: #0077b6;
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+            color: white;
+        }
+        
+        .action-btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+        }
+        
+        .action-btn-whatsapp:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+            color: white;
+        }
+        
+        /* Question Card Styles */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--box-shadow-sm);
+            border: none;
+            transition: var(--transition);
+        }
+        
+        .question-counter {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--dark);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+        }
+        
+        .question-text img,
+        .option-label img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 8px 0;
+            border-radius: 8px;
+        }
+        
+        .option-item {
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .option-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .option-label {
+            display: block;
+            padding: 14px 16px 14px 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-number {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .option-label:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .option-input:checked + .option-label {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+        
+        .option-input:checked + .option-label::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        /* Feedback icons */
+        .feedback-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .correct-icon {
+            background: var(--success);
+        }
+        
+        .incorrect-icon {
+            background: var(--danger);
+        }
+        
+        /* When reviewing answers */
+        .review-mode .option-label.correct-answer {
+            border-color: var(--success);
+            background: rgba(0, 184, 148, 0.05);
+            box-shadow: 0 0 0 1px var(--success);
+        }
+        
+        .review-mode .option-label.correct-answer::after {
+            background: var(--success);
+        }
+        
+        .review-mode .option-input:checked + .option-label.incorrect {
+            border-color: var(--danger);
+            background: rgba(214, 48, 49, 0.05);
+            box-shadow: 0 0 0 1px var(--danger);
+        }
+        
+        /* Ensure correct answer is always highlighted properly */
+        .review-mode .option-label.correct-answer {
+            border-color: var(--success) !important;
+            background: rgba(0, 184, 148, 0.05) !important;
+            box-shadow: 0 0 0 1px var(--success) !important;
+        }
+        
+        /* Prevent MathJax inline equations from causing ugly scrollbars or spin buttons */
+        .MathJax, .mjx-chtml, mjx-container {
+            overflow: visible !important;
+            max-width: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: left !important;
+        }
+        
+        /* Allow horizontal scroll for display math block containers only, and hide vertical scrollbar */
+        mjx-container[display="true"] {
+            display: block !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            max-width: 100%;
+            padding: 4px 0;
+            text-align: left !important;
+        }
+        
+        /* Force display math containers inside question text and options to render inline-left for natural text flow */
+        .question-text mjx-container[display="true"],
+        .option-label mjx-container[display="true"],
+        .question-text .MathJax_Display,
+        .option-label .MathJax_Display {
+            display: inline-block !important;
+            text-align: left !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            vertical-align: middle;
+        }
+        
+        .solution-container {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 12px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .solution-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .correct-answer-indicator {
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        /* Solution video button */
+        .solution-video-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .solution-video-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+            color: white;
+        }
+        
+        .solution-video-btn i {
+            margin-right: 6px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--footer-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 800;
+        }
+        
+        .nav-btn {
+            height: 48px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            transition: var(--transition);
+            gap: 8px;
+        }
+        
+        .nav-btn i {
+            font-size: 1rem;
+        }
+        
+        .nav-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .nav-btn-outline:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn-warning {
+            background: var(--review-color);
+            color: white;
+        }
+        
+        .nav-btn-warning:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        /* Question Navigation Modal */
+        .questions-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            padding: 16px;
+        }
+        
+        .questions-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .questions-card {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .questions-modal.show .questions-card {
+            transform: translateY(0);
+        }
+        
+        .questions-header {
+            background: var(--header-bg);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .questions-title {
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .questions-body {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(80vh - 120px);
+        }
+        
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+        }
+        
+        .q-box {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            border: 1px solid var(--light-gray);
+            background: var(--card-bg);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .q-box:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .q-box.attempted {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .q-box.correct {
+            background-color: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .q-box.incorrect {
+            background-color: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+        
+        .q-box.current {
+            border: 2px solid var(--accent) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .q-box.marked {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .q-box.marked::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 16px 16px 0;
+            border-color: transparent var(--review-color) transparent transparent;
+        }
+        
+        .q-box.marked::before {
+            content: '★';
+            position: absolute;
+            top: -2px;
+            right: 0;
+            font-size: 8px;
+            color: white;
+            z-index: 1;
+        }
+        
+        /* Results Modal */
+        .results-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            padding: 16px;
+        }
+        
+        .results-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .results-card {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .results-modal.show .results-card {
+            transform: translateY(0);
+        }
+        
+        .results-header {
+            background: var(--header-bg);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .results-title {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        .test-name {
+            margin: 8px 0 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .results-body {
+            padding: 24px;
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .main-stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        .main-stat-card {
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--box-shadow-sm);
+            position: relative;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .main-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        }
+        
+        .main-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+        }
+        
+        .main-stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .score-circle-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid var(--light-gray);
+        }
+        
+        .score-circle-fill {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid;
+            border-color: var(--primary);
+            clip: rect(0, 50px, 100px, 0);
+            transform: rotate(0deg);
+        }
+        
+        .score-circle-inner {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1;
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .score-percent {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .secondary-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .stat-card {
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            opacity: 0.9;
+        }
+        
+        .detailed-results {
+            margin-top: 16px;
+        }
+        
+        .detailed-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .detailed-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .detailed-card {
+            padding: 10px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: var(--box-shadow-sm);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .detailed-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .detailed-value {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .detailed-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+        
+        .results-footer {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--light-gray);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (min-width: 576px) {
+            .main-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .secondary-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .detailed-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .main-stat-value {
+                font-size: 2.2rem;
+            }
+            
+            .main-stat-label {
+                font-size: 1rem;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .detailed-value {
+                font-size: 1.1rem;
+            }
+            
+            .detailed-label {
+                font-size: 0.8rem;
+            }
+            
+            .results-footer {
+                flex-wrap: nowrap;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .main-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .main-stat-card {
+                padding: 24px;
+            }
+            
+            .main-stat-value {
+                font-size: 2.5rem;
+            }
+            
+            .score-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .score-circle-inner {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .score-percent {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .questions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+                gap: 8px;
+            }
+            
+            .q-box {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            
+            .option-label {
+                padding: 12px 16px 12px 42px;
+            }
+            
+            .option-number {
+                width: 20px;
+                height: 20px;
+                font-size: 0.8rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+            
+            .test-series-name {
+                font-size: 1.3rem;
+            }
+            
+            .meta-item {
+                min-width: 100px;
+                padding: 10px 16px;
+            }
+            
+            .meta-value {
+                font-size: 1.1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .results-card {
+                max-height: 95vh;
+            }
+            
+            .results-footer {
+                flex-direction: column;
+            }
+            
+            .results-footer .nav-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-controls {
+                gap: 8px;
+            }
+            
+            .option-label {
+                padding: 12px 14px 12px 40px;
+            }
+            
+            .question-text {
+                font-size: 1rem;
+            }
+            
+            .header-brand {
+                font-size: 1rem;
+            }
+            
+            .control-btn, .mobile-jump-to-btn {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .timer-display {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .nav-btn {
+                height: 44px;
+                padding: 0 16px;
+                font-size: 0.9rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.5rem;
+            }
+            
+            .test-series-name {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .welcome-logo i {
+                font-size: 2.5rem;
+            }
+            
+            .test-meta {
+                gap: 12px;
+            }
+            
+            .meta-item {
+                min-width: 80px;
+                padding: 8px 12px;
+            }
+            
+            .meta-value {
+                font-size: 1rem;
+            }
+            
+            .instructions-container {
+                padding: 16px;
+            }
+            
+            .results-body {
+                padding: 16px;
+            }
+            
+            .main-stat-card {
+                padding: 12px;
+            }
+            
+            .main-stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .secondary-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .detailed-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .score-circle {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .score-circle-inner {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .score-percent {
+                font-size: 1.2rem;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .detailed-value {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Confirmation Modal */
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .confirmation-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .confirmation-card {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .confirmation-modal.show .confirmation-card {
+            transform: translateY(0);
+        }
+        
+        .confirmation-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .confirmation-message {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+        
+        .confirmation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .confirmation-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-cancel {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: none;
+        }
+        
+        .btn-cancel:hover {
+            background: #d1d1d1;
+        }
+        
+        .btn-confirm {
+            background: var(--danger);
+            color: white;
+            border: none;
+        }
+        
+        .btn-confirm:hover {
+            background: #c02c2c;
+        }
+        
+        /* Submit Confirmation Modal */
+        .submit-confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .submit-confirmation-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .submit-confirmation-card {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .submit-confirmation-modal.show .submit-confirmation-card {
+            transform: translateY(0);
+        }
+        
+        .submit-confirmation-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+        
+        .submit-confirmation-message {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+        
+        .submit-confirmation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .submit-confirmation-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-btn-cancel {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: none;
+        }
+        
+        .submit-btn-cancel:hover {
+            background: #d1d1d1;
+        }
+        
+        .submit-btn-confirm {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .submit-btn-confirm:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="header-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span id="header-app-name">Kalam Academy</span>
+            </a>
+            
+            <div class="header-controls" id="header-controls" style="display: none;">
+                <!-- Language Selector Toggle -->
+                <button id="lang-btn" class="control-btn" onclick="cycleLanguage()" title="Switch Language" style="display: none !important; align-items: center; justify-content: center; font-size: 1.15rem; margin-right: 4px;">
+                    🌐
+                </button>
+
+                <!-- Timer -->
+                <div class="timer-display">
+                    <i class="far fa-clock"></i>
+                    <span id="timer-display">3:00</span>
+                </div>
+                
+                <!-- Jump to question button - single button for all devices -->
+                <button class="mobile-jump-to-btn" onclick="showQuestionsModal()">
+                    <i class="fas fa-list-ol"></i>
+                </button>
+                
+                <!-- Submit button -->
+                <button class="control-btn" id="submit-btn" onclick="confirmSubmit()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main content -->
+    <main class="main-content" id="main-content">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcome-screen">
+            <div class="welcome-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            
+            <h1 class="welcome-title">Kalam Academy</h1>
+            <h2 class="test-series-name">LDC  Major-02 (Paper-I)</h2>
+            <p style="color: var(--gray); font-size: 0.95rem; margin: -8px 0 0; font-weight: 500;">LDC Task Based Test Series</p>
+            
+            <div class="test-meta">
+                <div class="meta-item">
+                    <div class="meta-value">150</div>
+                    <div class="meta-label">Questions</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">100.5</div>
+                    <div class="meta-label">Total Marks</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">180 min</div>
+                    <div class="meta-label">Duration</div>
+                </div>
+            </div>
+            
+            <div class="instructions-container">
+                <h3 class="instructions-title">
+                    <i class="fas fa-info-circle"></i>
+                    Instructions
+                </h3>
+                <ol class="instructions-list">
+                    <li>This test contains 150 multiple choice questions.</li>
+                    <li>Each question has only one correct answer.</li>
+                    <li>You will have 180 minutes to complete the test.</li>
+                    <li>Each correct answer: <span style='color: var(--success)'>✓ +0.67 marks</span></li>
+            <li>Incorrect answer: <span style='color: var(--danger)'>✗ -0.33 marks</span></li>
+                    <li>Click on the option to select your answer.</li>
+                    <li>You can mark questions for review using the "Mark for Review" button.</li>
+                    <li>You can navigate between questions using the Previous/Next buttons.</li>
+                    <li>Click "Submit" when you're finished to see your results.</li>
+                </ol>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn action-btn-primary" onclick="startTest()">
+                    <i class="fas fa-play"></i>
+                    Start Test
+                </button>
+                
+                <a href="https://t.me/+rfXGlL7iXSNkNDY1" target="_blank" class="action-btn action-btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    Join Channel
+                </a>
+                
+                <a href="https://t.me/+rfXGlL7iXSNkNDY1" target="_blank" class="action-btn action-btn-outline">
+                    <i class="fas fa-headset"></i>
+                    Contact Admin
+                </a>
+            </div>
+        </div>
+        
+        <!-- Test Content (hidden initially) -->
+        <div id="test-content" style="display: none;">
+            <div class="question-counter" id="question-counter">Question 1 of 150</div>
+            
+            <!-- Questions will be displayed here -->
+            <div id="questions-container"></div>
+        </div>
+    </main>
+    
+    <!-- Bottom navigation (hidden initially) -->
+    <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+        <button class="nav-btn nav-btn-outline" onclick="prevQuestion()">
+            <i class="fas fa-chevron-left"></i>
+            <span class="nav-btn-text">Previous</span>
+        </button>
+        <button class="nav-btn nav-btn-warning" id="review-btn" onclick="toggleReview()">
+            <i class="far fa-star"></i>
+            <span class="nav-btn-text">Mark for Review</span>
+        </button>
+        <button class="nav-btn nav-btn-outline" id="next-btn" onclick="nextQuestion()">
+            <span class="nav-btn-text">Next</span>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </nav>
+    
+    <!-- Questions Navigation Modal -->
+    <div class="questions-modal" id="questions-modal">
+        <div class="questions-card">
+            <div class="questions-header">
+                <h3 class="questions-title">Questions Navigation</h3>
+                <button class="close-btn" onclick="hideQuestionsModal()">×</button>
+            </div>
+            <div class="questions-body">
+                <div class="questions-grid" id="questions-grid"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmation-modal">
+        <div class="confirmation-card">
+            <h3 class="confirmation-title">Leave Test?</h3>
+            <p class="confirmation-message">Your progress will be lost if you leave this page. Are you sure you want to exit?</p>
+            <div class="confirmation-buttons">
+                <button class="confirmation-btn btn-cancel" onclick="hideConfirmationModal()">No, Continue</button>
+                <button class="confirmation-btn btn-confirm" onclick="confirmExit()">Yes, Exit</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Submit Confirmation Modal -->
+    <div class="submit-confirmation-modal" id="submit-confirmation-modal">
+        <div class="submit-confirmation-card">
+            <h3 class="submit-confirmation-title">Confirm Submission</h3>
+            <p class="submit-confirmation-message" id="submit-confirmation-message">
+                You have attempted 0 of 150 questions.<br>
+                150 questions are unattempted.
+            </p>
+            <div class="submit-confirmation-buttons">
+                <button class="submit-confirmation-btn submit-btn-cancel" onclick="hideSubmitConfirmationModal()">Cancel</button>
+                <button class="submit-confirmation-btn submit-btn-confirm" onclick="submitTest()">Submit Test</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Modal -->
+    <div class="results-modal" id="results-modal">
+        <div class="results-card">
+            <div class="results-header">
+                <h3 class="results-title">Test Results</h3>
+                <p class="test-name">LDC  Major-02 (Paper-I)</p>
+            </div>
+            <div class="results-body">
+                <div class="stats-container">
+                    <div class="main-stats">
+                        <div class="main-stat-card">
+                            <div class="score-circle">
+                                <div class="score-circle-bg"></div>
+                                <div class="score-circle-fill" id="score-circle-fill"></div>
+                                <div class="score-circle-inner">
+                                    <div class="score-percent" id="score-percent">0%</div>
+                                    <div class="score-label">Score</div>
+                                </div>
+                            </div>
+                            <div class="main-stat-value" id="score-value">0</div>
+                            <div class="main-stat-label">Out of 100.5 Marks</div>
+                        </div>
+                        <div class="main-stat-card">
+                            <div class="main-stat-value" id="correct-value">0</div>
+                            <div class="main-stat-label">Correct Answers</div>
+                        </div>
+                        <div class="main-stat-card">
+                            <div class="main-stat-value" id="incorrect-value">0</div>
+                            <div class="main-stat-label">Incorrect Answers</div>
+                        </div>
+                    </div>
+                    
+                    <div class="secondary-stats">
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark))">
+                            <div class="stat-value" id="attempted-value">0</div>
+                            <div class="stat-label">Attempted</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--success), #1b9aaa)">
+                            <div class="stat-value" id="accuracy-value">0%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--danger), var(--accent))">
+                            <div class="stat-value" id="unattempted-value">0</div>
+                            <div class="stat-label">Unattempted</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--review-color), #e67e22)">
+                            <div class="stat-value" id="reviewed-value">0</div>
+                            <div class="stat-label">Marked for Review</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detailed-results">
+                        <h4 class="detailed-title">
+                            <i class="fas fa-chart-pie"></i>
+                            Detailed Breakdown
+                        </h4>
+                        <div class="detailed-grid">
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="time-taken">0 min</div>
+                                <div class="detailed-label">Time Taken</div>
+                            </div>
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="time-per-question">0 sec</div>
+                                <div class="detailed-label">Avg Time per Q</div>
+                            </div>
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="positive-marks">0</div>
+                                <div class="detailed-label">Positive Marks</div>
+                            </div>
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="negative-marks">0</div>
+                                <div class="detailed-label">Negative Marks</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="results-footer">
+                <button class="nav-btn nav-btn-outline" onclick="window.location.reload()">
+                    <i class="fas fa-redo"></i>
+                    <span>Take Again</span>
+                </button>
+                <button class="nav-btn nav-btn-primary" onclick="reviewTest()">
+                    <i class="fas fa-search"></i>
+                    <span>Review Test</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Questions data
+        const questions = [{"id": 559877, "question": "निम्नलिखित में से कौनसी (संस्था-स्थापना वर्ष) सुमेलित नही है।", "question_eng": "Which of the following (Institution-Establishment Year) is not correctly matched?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "प्रताप सभा - 1915", "option_1_eng": "Pratap Sabha - 1915", "option_2": "राजस्थान सेवा संघ - 1919 ", "option_2_eng": "Rajasthan Seva Sangh - 1919", "option_3": "मारवाड़ हितकारिणी सभा - 1923 ", "option_3_eng": "Marwar Hitkarini Sabha - 1923", "option_4": "अखिल भारतीय देशी राज्य लोक परिषद्‌- 1927", "option_4_eng": "All India States People's Conference - 1927", "answer": "3"}, {"id": 559878, "question": "मेवाड़ में इज़लास ख़ास की स्थापना किस शासक ने की थी?", "question_eng": "Which ruler established the 'Ijlas-e-Khas' in Mewar?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "महाराजा बन्ने सिंह", "option_1_eng": "Maharaja Banne Singh", "option_2": "महाराणा सज्जन सिंह", "option_2_eng": "Maharana Sajjan Singh", "option_3": "महाराणा अजीत सिंह", "option_3_eng": "Maharana Ajit Singh", "option_4": "महाराणा राजसिंह", "option_4_eng": "Maharana Rajsingh", "answer": "2"}, {"id": 559879, "question": "निम्नलिखित में से गलत युग्म की पहचान कीजिए-", "question_eng": "Identify the incorrect pair from the following:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "करौली प्रजामंडल - त्रिलोकचंद माथुर", "option_1_eng": "Karauli Prajamandal - TrilokChand Mathur", "option_2": "बीकानेर प्रजामंडल - पंडित हरिनारायण शर्मा", "option_2_eng": "Bikaner Prajamandal - Pandit HariNarayan Sharma", "option_3": "मेवाड़ प्रजामंडल - बलवंत सिंह मेहता", "option_3_eng": "Mewar Prajamandal - Balwant Singh Mehta", "option_4": "झालावाड़ प्रजामंडल - माँगीलाल भव्य", "option_4_eng": "Jhalawar Prajamandal - Mangilal Bhavya", "answer": "2"}, {"id": 559880, "question": "चित्तौड़ का पहला साका कब हुआ?", "question_eng": "When did the first 'Saka' of Chittor take place?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "26 अगस्त 1303", "option_1_eng": "26 August 1303", "option_2": "26 जनवरी 1303", "option_2_eng": "26 January 1303", "option_3": "1 जुलाई 1303 ", "option_3_eng": "1 July 1303", "option_4": "5 दिसंबर 1303", "option_4_eng": "5 December 1303", "answer": "1"}, {"id": 559881, "question": "आजादी के समय राजस्थान राज्य भारतीय संविधान के अनुसार किस श्रेणी का था?", "question_eng": "At the time of Independence, in which category was the State of Rajasthan according to the Indian Constitution?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "प्रथम श्रेणी", "option_1_eng": "First Category", "option_2": "द्वितीय श्रेणी ", "option_2_eng": "Second Category", "option_3": "तृतीय श्रेणी", "option_3_eng": "Third Category", "option_4": "प्रथम एवं तृतीय श्रेणी ", "option_4_eng": "First and Third Category", "answer": "2"}, {"id": 559882, "question": "बीकानेर लोक परिषद्‌ की स्थापना 1936 में किस शहर में हुई?", "question_eng": "In which city was the Bikaner Lok Parishad established in 1936?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बम्बई", "option_1_eng": "Bombay", "option_2": "कलकत्ता", "option_2_eng": "Calcutta", "option_3": "मद्रास", "option_3_eng": "Madras", "option_4": "दिल्ली", "option_4_eng": "Delhi", "answer": "2"}, {"id": 559883, "question": "माधोसिंह व गोविन्द सिंह का सम्बन्ध किस किसान आन्दोलन से था?", "question_eng": "Madho Singh and Govind Singh were related to which Peasant Movement?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बिजोलिया किसान आन्दोलन", "option_1_eng": "Bijolia Peasant Movement", "option_2": "मेवाड़ भील आन्दोलन", "option_2_eng": "Mewar Bhil Movement", "option_3": "बेगूँ किसान आन्दोलन", "option_3_eng": "Begun Peasant Movement", "option_4": "अलवर किसान आन्दोलन", "option_4_eng": "Alwar Peasant Movement", "answer": "4"}, {"id": 559884, "question": "भूताला का युद्ध के संदर्भ में असत्य कथन है?", "question_eng": "Which is incorrect statement in the context of the Battle of Bhutala?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "यह युद्ध जैत्रसिंह व इल्तुतमिश के मध्य हुआ।", "option_1_eng": "This battle took place between Jaitra Singh and Iltutmish.", "option_2": "इस युद्ध का वर्णन जयसिंह सूरी कृत हम्मीर मदमर्दन में मिलता है।", "option_2_eng": "The description of this battle is found in Jayasimha Suri’s 'Hammir Mardan'.", "option_3": "भूताला का युद्ध वर्ष 1277 ई. में लड़ा गया था।", "option_3_eng": "The Battle of Bhutala was fought in the year 1277 AD.", "option_4": "इस युद्ध में जैत्रसिंह पराजित हुआ।", "option_4_eng": "Jaitra Singh was defeated in this battle.", "answer": "4"}, {"id": 559885, "question": "आंवळ-बांवळ की संधि किनके मध्य हुई थी?", "question_eng": "Between whom was the 'Anwal-Banwal' treaty signed?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "राव जोधा व महाराणा कुंभा", "option_1_eng": "Rao Jodha and Maharana Kumbha", "option_2": "राव रणमल व महाराणा कुंभा", "option_2_eng": "Rao Ranmal and Maharana Kumbha", "option_3": "राव जोधा व मोकल", "option_3_eng": "Rao Jodha and Mokal", "option_4": "राव रणमल व मोकल", "option_4_eng": "Rao Ranmal and Mokal", "answer": "1"}, {"id": 559886, "question": "दूधवाखारा किसान आन्दोलन किस राज्य से सम्बन्धित था?", "question_eng": "Dudhwa Khara Peasant Movement was related to which state?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "जोधपुर", "option_1_eng": "Jodhpur", "option_2": "जैसलमेर", "option_2_eng": "Jaisalmer", "option_3": "बीकानेर", "option_3_eng": "Bikaner", "option_4": "जयपुर", "option_4_eng": "Jaipur", "answer": "3"}, {"id": 559887, "question": "'हरिजन सेवा संघ' की राजपूताना शाखा का अध्यक्ष किसे मनोनीत किया गया-", "question_eng": "Who was nominated as the President of the Rajputana branch of 'Harijan Sevak Sangh'?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "हरविलास शारदा", "option_1_eng": "Harvilas Sharda", "option_2": "विजय सिंह ", "option_2_eng": "Vijay Singh", "option_3": "दामोदर दास राठी", "option_3_eng": "Damodar Das Rathi", "option_4": "माणिक्यलाल वर्मा ", "option_4_eng": "Manikya Lal Verma", "answer": "1"}, {"id": 559888, "question": "निम्नलिखित में से कौनसा युग्म सुमेलित नहीं है?<br />\nप्रजामण्डल - संस्थापक<br />\n", "question_eng": "Which of the following pairs is not correctly matched?<br />\n(Prajamandal) – (Founder)", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "सिरोही - गोकुलभाई भट्‌ट", "option_1_eng": "Sirohi - Gokulbhai Bhatt", "option_2": "बूँदी - कांतिलाल", "option_2_eng": "Bundi - Kantilal", "option_3": "जैसलमेर - मीठालाल व्यास", "option_3_eng": "Jaisalmer - Mithalal Vyas", "option_4": "अलवर - लादाराम व्यास ", "option_4_eng": "Alwar - Ladaram Vyas", "answer": "4"}, {"id": 559889, "question": "मालदेव राठौड़ के संबंध में असत्य कथन है?", "question_eng": "Which is the false statement regarding Maldeo Rathore?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मालदेव को हशमत वाला शासक कहा जाता है।", "option_1_eng": "Maldeo is called the 'Hashmat Wala' ruler.", "option_2": "मालदेव व बीकानेर के राव जैतसी में पाहेबा/साहेबा का युद्ध हुआ।", "option_2_eng": "The Battle of Paheba/Saheba took place between Maldeo and Rao Jaitshi of Bikaner.", "option_3": "मालदेव की मृत्यु पर रूठी रानी उमादे सती हुई थी।", "option_3_eng": "On the death of Maldeo, 'Roothi Rani' Umade became Sati.", "option_4": "वर्ष 1541-42 में शेरशाह सूरी व मालदेव के मध्य गिरी-सुमेल का युद्ध हुआ।", "option_4_eng": "The Battle of Giri-Sumel took place between Sher Shah Suri and Maldeo in the year 1541-42.", "answer": "4"}, {"id": 559890, "question": "गुहिल वंश के संस्थापक बप्पा रावल (कालभोज) ने मानमौरी को पराजित कर अपनी राजधानी किसे बनाया?", "question_eng": "Bappa Rawal (Kalbhoj), the founder of the Guhil dynasty, defeated Manmori and made which place his capital?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "आहड़", "option_1_eng": "Ahar", "option_2": "नागदा", "option_2_eng": "Nagda", "option_3": "चावंड", "option_3_eng": "Chavand", "option_4": "चित्तौड़", "option_4_eng": "Chittor", "answer": "2"}, {"id": 559891, "question": "करौली के मदनमोहन मंदिर का निर्माण किसने करवाया?", "question_eng": "Who built the Madanmohan Temple of Karauli?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "विजयपाल", "option_1_eng": "Vijaypal", "option_2": "हरबक्षपाल", "option_2_eng": "Harbakshpal", "option_3": "मदनलाल", "option_3_eng": "Madanlal", "option_4": "गोपालपाल", "option_4_eng": "Gopalpal", "answer": "4"}, {"id": 559892, "question": "शोभालाल गुप्ता द्वारा किस स्थान पर हरिजन एवं भीलों के विकास हेतु एक आश्रम की स्थापना की गई-", "question_eng": "At which place was an Ashram established by Shobhalal Gupta for the development of Harijans and Bhils?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बाँसवाड़ा", "option_1_eng": "Banswara", "option_2": "अलवर", "option_2_eng": "Alwar", "option_3": "वर्धा", "option_3_eng": "Wardha", "option_4": "सागवाड़ा", "option_4_eng": "Sagwara", "answer": "4"}, {"id": 559893, "question": "20 जनवरी 1858 को किस अंग्रेज शासक ने आउवा पर आक्रमण किया?", "question_eng": "Which British ruler (officer) attacked Auwa on 20 January 1858?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कर्नल होम्स", "option_1_eng": "Colonel Holmes", "option_2": "कैप्टन शॉवर्स", "option_2_eng": "Captain Showers", "option_3": "लार्ड लेक", "option_3_eng": "Lord Lake", "option_4": "पैथिक लॉरेन्स", "option_4_eng": "Pethick-Lawrence", "answer": "1"}, {"id": 559894, "question": "हाड़ौती प्रजामंडल की स्थापना कब व किसके द्वारा की गई?", "question_eng": "When and by whom was the Hadoti Prajamandal established?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "1934; भूपेन्द्रनाथ त्रिवेदी", "option_1_eng": "1934; Bhupendra Nath Trivedi", "option_2": "1934; नयनूराम शर्मा", "option_2_eng": "1934; Nayanuram Sharma", "option_3": "1938; भूपेन्द्रनाथ त्रिवेदी", "option_3_eng": "1938; Bhupendra Nath Trivedi", "option_4": "1938; नयनूराम शर्मा", "option_4_eng": "1938; Nayanuram Sharma", "answer": "2"}, {"id": 559895, "question": "निम्नांकित किसान आन्दोलन व संबंधित नेताओं में सही सुमेलित नहीं है?", "question_eng": "Which of the following Peasant Movements and related leaders is not correctly matched?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बीकानेर किसान आन्दोलन - कुम्भाराम आर्य", "option_1_eng": "Bikaner Peasant Movement - Kumbharam Arya", "option_2": "बिजौलिया किसान आन्दोलन - फतेहकरण चारण", "option_2_eng": "Bijolia Peasant Movement - Fateh Karan Charan", "option_3": "बरड़ किसान आन्दोलन - नयनूराम", "option_3_eng": "Barad Peasant Movement - Nayanuram", "option_4": "करौली किसान आन्दोलन - ठाकुर देशराज", "option_4_eng": "Karauli Peasant Movement - Thakur Deshraj", "answer": "4"}, {"id": 559896, "question": "निम्नलिखित युद्धों का सही कालानुक्रम है?<br />\n 1. खानवा का युद्ध<br />\n 2. हल्दीघाटी का युद्ध<br />\n 3. सारंगपुर का युद्ध<br />\n 4. दिवेर का युद्ध", "question_eng": "The correct chronological order of the following battles is:<br />\n1. Battle of Khanwa<br />\n2. Battle of Haldighati<br />\n3. Battle of Sarangpur<br />\n4. Battle of Diver", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "1-3-2-4", "option_1_eng": "1-3-2-4", "option_2": "2-1-4-3", "option_2_eng": "2-1-4-3", "option_3": "3-1-2-4", "option_3_eng": "3-1-2-4", "option_4": "4-2-3-1", "option_4_eng": "4-2-3-1", "answer": "3"}, {"id": 559897, "question": "जहाँगीर ने मारवाड़ के किस शासक को दलथम्भन की उपाधि दी?", "question_eng": "Jahangir gave the title of 'Dal-Thambhan' to which ruler of Marwar?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "राव सूरसिंह", "option_1_eng": "Rao Sur Singh", "option_2": "महाराजा गजसिंह", "option_2_eng": "Maharaja Gaj Singh", "option_3": "जसवंत सिंह प्रथम", "option_3_eng": "Jaswant Singh I", "option_4": "मोटा राजा उदयसिंह", "option_4_eng": "Mota Raja Udai Singh", "answer": "2"}, {"id": 559898, "question": "आबू के परमार वंश का संस्थापक कौन था?", "question_eng": "Who was the founder of the Parmar dynasty of Abu?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "उत्पलराज", "option_1_eng": "Utpalraj", "option_2": "धूमराज", "option_2_eng": "Dhumraj", "option_3": "धरणीवराह", "option_3_eng": "Dharanivaraha", "option_4": "धारावर्ष", "option_4_eng": "Dharavarsha", "answer": "2"}, {"id": 559899, "question": "मेजर स्फोटिस वुड एवं न्यूबरी की हत्या का संबंध किस सैनिक छावनी से था?", "question_eng": "The murder of Major Spottiswoode and Newbery was related to which military cantonment?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "नसीराबाद", "option_1_eng": "Nasirabad", "option_2": "नीमच", "option_2_eng": "Neemuch", "option_3": "एरिनपुरा", "option_3_eng": "Erinpura", "option_4": "खैरवाड़ा", "option_4_eng": "Kherwara", "answer": "1"}, {"id": 559900, "question": "19वीं सदी के अंत में राजस्थान में राजनीतिक जागृति के संदर्भ में देशहितैषिणी सभा की स्थापना का मुख्य उद्‌देश्य क्या था?", "question_eng": "In the context of political awakening in Rajasthan at the end of the 19th century, what was the main objective of the establishment of 'Desh Hitaishini Sabha'?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अकाल पीड़ितों की सहायता करना", "option_1_eng": "To help famine victims", "option_2": "रियासती रियासतों में शिक्षा का प्रसार करना", "option_2_eng": "To spread education in the princely states", "option_3": "ब्रिटिश शासन के विरूद्ध जनमत तैयार करना", "option_3_eng": "To prepare public opinion against British rule", "option_4": "राजपूतों में व्याप्त विवाह संबंधी कुरीतियों एवं व्यय पर नियंत्रण करना", "option_4_eng": "To control marriage-related evils and expenses prevalent among Rajputs", "answer": "4"}, {"id": 559901, "question": "मत्स्य संघ के विलय के समय धौलपुर के शासक उदयभान सिंह को राजप्रमुख बनाये जाने के पीछे मुख्य राजनीतिक कारण क्या था?", "question_eng": "What was the major political reason behind making Dholpur ruler Udaybhan Singh the 'Rajpramukh' at the time of the merger of Matsya Sangh?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "धौलपुर सबसे बड़ी रियासत थी।", "option_1_eng": "Dholpur was the largest princely state.", "option_2": "सरदार पटेल ने प्रस्तावित किया था।", "option_2_eng": "Sardar Patel had proposed it.", "option_3": "अलवर के शासक तेज सिंह पर गाँधीजी की हत्या में संलिप्तता का संदेह था।", "option_3_eng": "Alwar ruler Tej Singh was suspected of involvement in Gandhi ji's murder.", "option_4": "करौली के शासक ने स्वयं नाम वापस ले लिया था।", "option_4_eng": "The ruler of Karauli had withdrawn his name himself", "answer": "3"}, {"id": 559902, "question": "राजस्थान आर्थिक समीक्षा 2025-26 के आधार पर निम्न पर विचार कीजिए-<br />\n A. राज्य का शुद्ध बोया गया क्षेत्र 53.02% है।<br />\n B. राज्य पोषक अनाज, तिलहन तथा ग्वार उत्पादन में देश का अग्रणी राज्य है।<br />\n C. वर्ष 2025-26 में राज्य में दलहन उत्पादन में सर्वाधिक वृद्धि दर्ज की गई।<br />\n D. राज्य देश के कुल सरसों व राई उत्पादन में लगभग 40% से अधिक अंश रखता है।<br />\nकूट-", "question_eng": "Based on the Rajasthan Economic Review 2025-26, consider the following:<br />\nA. The net area sown of the state is 53.02%. <br />\nB. The state is a leading state in the country in the production of nutri-cereals, oilseeds, and Guar. <br />\nC. In the year 2025-26, the highest growth in pulses production was recorded in the state. <br />\nD. The state contributes more than 40% to the country's total production of mustard and rapeseed. <br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A, B व C सत्य हैं।", "option_1_eng": "Only A, B, and C are true. ", "option_2": "केवल B, C व D सत्य हैं।", "option_2_eng": "Only B, C, and D are true. ", "option_3": "A, B, C व D सत्य हैं।", "option_3_eng": "A, B, C, and D are true. ", "option_4": "केवल A सत्य है।", "option_4_eng": "Only A is true. ", "answer": "3"}, {"id": 559903, "question": "गेहूँ एवं दलहन हेतु 'राष्ट्रीय खाद्य सुरक्षा एवं पोषण मिशन' में केन्द्र व राज्य का वित्त पोषण क्रमशः है-", "question_eng": "For wheat and pulses, the funding ratio between the Centre and the State under the 'National Food Security and Nutrition Mission' is, respectively:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "50 : 50", "option_1_eng": "50 : 50", "option_2": "60 : 40", "option_2_eng": "60 : 40", "option_3": "75 : 25", "option_3_eng": "75 : 25", "option_4": "70 : 30", "option_4_eng": "70 : 30", "answer": "2"}, {"id": 559904, "question": "निम्नलिखित में से कौनसा कथन सही नहीं है?", "question_eng": "Which of the following statements is not correct? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बाड़मेर, जालौर, सिरोही व पाली जिले कांकरेज पशुधन प्रदेश के भाग हैं।", "option_1_eng": "The districts of Barmer, Jalore, Sirohi, and Pali are part of the Kankrej livestock region. ", "option_2": "केन्द्रीय ऊन विकास बोर्ड जोधपुर में स्थित है। ", "option_2_eng": "The Central Wool Development Board is situated in Jodhpur. ", "option_3": "राजस्थान में 19वीं पशुगणना की तुलना में 20वीं पशुगणना में कुल पशुधन की संख्या में 1.77% की कमी दर्ज की गई।", "option_3_eng": "In Rajasthan, a decline of 1.77% in the total livestock population was recorded in the 20th Livestock Census compared to the 19th Livestock Census. ", "option_4": "देश में कुल पशुधन में राजस्थान के पशुधन का 10.60% अंश के साथ द्वितीय स्थान है।", "option_4_eng": "In terms of total livestock in the country, Rajasthan holds the second position with a share of 10.60%. ", "answer": "3"}, {"id": 559905, "question": "पशुगणना-2019 के अनुसार, निम्नलिखित में से कौनसा सुमेलित नहीं है?<br />\n(पशुधन) - (भारत में राजस्थान का प्रतिशत)", "question_eng": "According to the Livestock Census-2019, which of the following is not correctly matched? <br />\n(Livestock) - (Rajasthan's Percentage in India)", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बकरियाँ - 12.05%", "option_1_eng": "Goats - 12.05%", "option_2": "भेड़ें - 10.64%", "option_2_eng": "Sheep - 10.64%", "option_3": "ऊँट - 84.43%", "option_3_eng": "Camels - 84.43%", "option_4": "भैंसें - 12.47%", "option_4_eng": "Buffaloes - 12.47%", "answer": "1"}, {"id": 559906, "question": "निम्नलिखित विशेषताएँ कौनसी मृदा को वर्णित करती है?<br />\n A. यह ग्रेनाईट, शिष्ट व नीस चहानों के विखण्डन से निर्मित मृदा है।<br />\n B. इसमें चूना, नाइट्रोजन व जैविक पदार्थों की कमी पायी जाती है।<br />\n C. ब्यावर, राजसमंद, उदयपुर व भीलवाड़ा के पश्चिमी भाग में इस मृदा का जमाव है।<br />\n D. इस मृदा पर जलवायु तथा स्थानीय दशाओं का प्रभाव स्पष्ट है।<br />\n कूटः", "question_eng": "Which soil type is characterized by the following features? <br />\n A. This soil is formed from the disintegration of granite, schist, and gneiss rocks. <br />\n B. It is found to be deficient in lime, nitrogen, and organic matter. <br />\n C. Deposits of this soil are found in Beawar, Rajsamand, Udaipur, and the western parts of Bhilwara. <br />\n D. The influence of climate and local conditions is clearly evident on this soil. <br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मिश्रित लाल-काली मृदा", "option_1_eng": "Mixed Red-Black Soil", "option_2": "लाल-पीली मृदा", "option_2_eng": "Red-Yellow Soil", "option_3": "जलोढ़/काँप मृदा", "option_3_eng": "Alluvial Soil", "option_4": "भूरी-रेतीली मृदा", "option_4_eng": "Brown-Sandy Soil", "answer": "2"}, {"id": 559907, "question": "सूची-I को सूची-II से सुमेलित कीजिए और सही उत्तर का चयन नीचे दिये गए कूट से कीजियेः<br />\n सूची-I (मृदा)              सूची-II (जिला)<br />\nA. रेवेरिना                i. डूंगरपुर <br />\nB. लाल-लोम              ii. झालावाड़ <br />\nC. जिप्सीफेरस            iii. बीकानेर <br />\nD. गहरी मध्यम काली मृदा  iv. गंगानगर<br />\nकूटः<br />\n A  B  C  D", "question_eng": "Match List-I with List-II and select the correct answer using the code provided below:<br />\n List-I (Soil)                           List-II (District)<br />\n A. Reverina                           i. Dungarpur<br />\n B. Red Loam                         ii. Jhalawar<br />\n C. Gypsiferous                      iii. Bikaner<br />\n D. Deep Medium Black Soil   iv. Ganganagar<br />\nCode:<br />\nA  B  C  D<br />\n", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "iii ii iv i", "option_1_eng": "iii ii iv i", "option_2": "iii iv ii i", "option_2_eng": "iii iv ii i", "option_3": "iv ii i iii", "option_3_eng": "iv ii i iii", "option_4": "iv i iii ii", "option_4_eng": "iv i iii ii", "answer": "4"}, {"id": 559908, "question": "निम्न कथनों पर विचार कीजिए-<br />\n कथन-I : राजस्थान की एकीकृत स्वच्छ ऊर्जा नीति 2024 का लक्ष्य 2030 तक 2000 किलो टन प्रति वर्ष हरित हाइड्रोजन उत्पादन प्राप्त करना है।<br />\n कथन-II : राजस्थान अक्षय ऊर्जा निगम लिमिटेड (RRECL) को राज्य के गैर परम्परागत ऊर्जा स्त्रोतों से ऊर्जा उत्पादन के लिए नवीन और नवीकरणीय ऊर्जा मंत्रालय (MNRE), भारत सरकार की नोडल राज्य एजेंसी बनाया गया है।<br />\nदिए गए विकल्पों के आलोक में निम्न में से सही विकल्प का चयन कीजिए-", "question_eng": "Consider the following statements:<br />\nStatement I: The objective of Rajasthan's Integrated Clean Energy Policy 2024 is to achieve a Green Hydrogen production target of 2,000 kilotons per annum by 2030.<br />\n tatement II: The Rajasthan Renewable Energy Corporation Limited (RRECL) has been designated as the nodal state agency by the Ministry of New and Renewable Energy (MNRE), Government of India, for energy generation from non-conventional energy sources within the state. <br />\nIn light of the given options, select the correct option from the following:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कथन-I असत्य है तथा कथन-II सत्य है।", "option_1_eng": "Statement I is false, and Statement II is true. ", "option_2": "कथन-I तथा II दोनों सत्य है।", "option_2_eng": "Both Statement I and Statement II are true. ", "option_3": "कथन-I तथा II दोनों असत्य है।", "option_3_eng": "Both Statement I and Statement II are false. ", "option_4": "कथन-I सत्य है तथा कथन-II असत्य है।", "option_4_eng": "Statement I is true, and Statement II is false. ", "answer": "2"}, {"id": 559909, "question": "राजस्थान में 'पीएम कुसुम योजना घटक-बी' के तहत कितनी सब्सिडी (अनुदान) प्रदान की जाती है?  ", "question_eng": "How much subsidy (grant) is provided under the 'PM-KUSUM Scheme Component-B' in Rajasthan? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "20 प्रतिशत ", "option_1_eng": "20 percent", "option_2": "30 प्रतिशत ", "option_2_eng": "30 percent", "option_3": "40 प्रतिशत ", "option_3_eng": "40 percent", "option_4": "60 प्रतिशत  ", "option_4_eng": "60 percent", "answer": "4"}, {"id": 559910, "question": "राजस्थान वन विभाग रिपोर्ट 2025-26 के अनुसार निम्न पर विचार कीजिए-<br />\n A. राज्य में 'रक्षित वन' सर्वाधिक क्षेत्र पर विस्तृत है।<br />\n B. राज्य के कुल भौगोलिक क्षेत्र के 9.65 प्रतिशत भाग पर अभिलिखित वन क्षेत्र का है।<br />\n C. राज्य में आरक्षित वनों का सर्वाधिक क्षेत्र उदयपुर जिले में है।<br />\n D. संरक्षित/सुरक्षित वनों में किसी भी प्रकार की आर्थिक गतिविधि नहीं की जा सकती है।<br />\nउपर्युक्त में से कौनसा/से कथन सत्य है/हैं?", "question_eng": "According to the Rajasthan Forest Department Report 2025-26, consider the following:<br />\n A. 'Protected Forests' cover the largest area within the state. <br />\n B. Recorded Forest Area accounts for 9.65 percent of the state's total geographical area. <br />\n C. The largest area of 'Reserved Forests' in the state is located in the Udaipur district. <br />\n D. No form of economic activity is permitted within Conserved/Safe Forests. <br />\nWhich of the above statements is/are true?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A, B व C", "option_1_eng": "Only A, B, and C", "option_2": "केवल B व C", "option_2_eng": "Only B and C", "option_3": "केवल B व D", "option_3_eng": "Only B and D", "option_4": "केवल A व B", "option_4_eng": "Only A and B", "answer": "1"}, {"id": 559911, "question": "राजस्थान में निम्नलिखित में से कौन सी एक विदेशज पादप प्रजाति नहीं है?", "question_eng": "Which one of the following is not an exotic plant species in Rajasthan? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "प्रोसोपिस जूलीफ्लोरा (बिलायती बबूल)", "option_1_eng": "Prosopis juliflora", "option_2": "एनोगाइसस पेन्डूला (धोकड़ा)", "option_2_eng": "Anogeissus pendula", "option_3": "आइकोर्निया के्रसिपेस (जलकुंभी)", "option_3_eng": "Eichhornia crassipes", "option_4": "पारथेनियम हिस्टीरोफोरस (गाजर घास)", "option_4_eng": "Parthenium hysterophorus", "answer": "2"}, {"id": 559912, "question": "निम्नलिखित वन्य जीव संरक्षण स्थल को उत्तर से दक्षिण के क्रम में व्यवस्थित कर उपयुक्त कूट का चयन कीजिए-<br />\n1.  वन-विहार <br />\n2.  केवलादेव<br />\n3.  सवाई मानसिंह <br />\n4.  बंध बारेठा<br />\nकूट-", "question_eng": "Arrange the following wildlife conservation sites in order from North to South and select the appropriate code:<br />\n1.  Van Vihar  <br />\n2.   Keoladeo<br />\n3.  Sawai Man Singh<br />\n4.   Bandh Baretha<br />\nCode-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "4, 2, 1, 3", "option_1_eng": "4, 2, 1, 3", "option_2": "2, 4, 3, 1", "option_2_eng": "2, 4, 3, 1", "option_3": "2, 4, 1, 3", "option_3_eng": "2, 4, 1, 3", "option_4": "3, 2, 4, 1", "option_4_eng": "3, 2, 4, 1", "answer": "3"}, {"id": 559913, "question": "राजस्थान में संचालित निम्नलिखित बाघ संरक्षण परियोजनाओं को संचालन वर्ष के आधार पर ग्रीगेरियन कैलेण्डर के अनुसार कालानुक्रम में व्यवस्थित कर उपयुक्त कूट का चयन कीजिए-<br />\n A. सरिस्का परियोजना<br />\n B. धौलपुर-करौली परियोजना<br />\n C. रामगढ़ विषधारी परियोजना<br />\n D. रणथम्भौर परियोजना<br />\n E. मुकुन्दरा हिल्स परियोजना<br />\n कूट-", "question_eng": "Arrange the following tiger conservation projects operational in Rajasthan in chronological order based on their year of inception, according to the Gregorian calendar, and select the appropriate code:<br />\nA. Sariska Project<br />\nB. Dholpur-Karauli Project<br />\nC. Ramgarh Vishdhari Project<br />\nD. Ranthambhore Project<br />\nE. Mukundra Hills Project<br />\nCode-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A – D – E – C – B", "option_1_eng": "A – D – E – C – B", "option_2": "A – C – D – E – B", "option_2_eng": "A – C – D – E – B", "option_3": "D – E – A – C – B", "option_3_eng": "D – E – A – C – B", "option_4": "D – A – E – C – B", "option_4_eng": "D – A – E – C – B", "answer": "4"}, {"id": 559914, "question": "राजस्थान जनगणना-2011 के संदर्भ में निम्न कथनों पर विचार कीजिए-<br />\nA. राज्य की दशकीय वृद्धि दर में अप्रत्याशित वृद्धि दर्ज की गई।<br />\nB. राज्य के लिंगानुपात में आंशिक कमी दर्ज की गई।<br />\nC. राज्य के जनघनत्व में नगण्य परिवर्तन दर्ज किया गया।<br />\nD. राज्य की नगरीय जनसंख्या प्रतिशत में वृद्धि दर्ज की गई।<br />\nकूट-", "question_eng": "Consider the following statements in the context of the Rajasthan Census-2011:<br />\n A. An unexpected increase was recorded in the state's decadal growth rate. <br />\n B. A marginal decline was recorded in the state's sex ratio. <br />\n C. A negligible change was recorded in the state's population density. <br />\n D. An increase was recorded in the percentage of the state's urban population.<br />\nCode-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल D सत्य है।", "option_1_eng": "Only D is true. ", "option_2": "केवल B व C सत्य हैं।", "option_2_eng": "Only B and C are true. ", "option_3": "केवल A, C व D सत्य हैं।", "option_3_eng": "Only A, C, and D are true. ", "option_4": "केवल B व D सत्य हैं।", "option_4_eng": "Only B and D are true. ", "answer": "1"}, {"id": 559915, "question": "राजस्थान जनगणना-2011, राज्य की साक्षरता के संदर्भ में निम्न कथनों पर विचार कीजिए-<br />\nA. जयपुर जिले में सर्वाधिक पुरुष साक्षरता दर्ज की गई।<br />\nB. राज्य की साक्षरता दर 66.1% दर्ज की गई।<br />\nC. उदयपुर जिले में सर्वाधिक शहरी साक्षरता दर्ज की गई।<br />\nD. राज्य की पुरुष व महिला साक्षरता में लगभग 27% का अन्तर दर्ज किया गया।<br />\nकूट-", "question_eng": "Consider the following statements regarding the Rajasthan Census-2011, in the context of the state's literacy:<br />\n A. The highest male literacy rate was recorded in Jaipur district. <br />\n B. The state's literacy rate was recorded at 66.1%. <br />\n C. The highest urban literacy rate was recorded in Udaipur district. <br />\n D. A gap of approximately 27% was recorded between the male and female literacy rates in the state. <br />\nCode-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A व B सत्य हैं।", "option_1_eng": "Only A and B are true. ", "option_2": "A, B, C व D सत्य हैं।", "option_2_eng": "A, B, C, and D are true. ", "option_3": "केवल A व C सत्य हैं।", "option_3_eng": "Only A and C are true. ", "option_4": "केवल B, C व D सत्य है।", "option_4_eng": "Only B, C, and D are true. ", "answer": "4"}, {"id": 559916, "question": "भील जनजाति के संदर्भ में निम्नलिखित में से सही सुमेलित युग्म है-<br />\nA. पहाड़ी ढ़लानों पर की जाने वाली स्थानान्तरित कृषि - चिमाता<br />\nB. विवाह संबंधी प्रथा/रीति-रिवाज - हेलरू<br />\nC. इस जनजाति में झगड़ों का निपटारा करने वाला व्यक्ति - भराड़ी<br />\nD. भीलों का घर - कू<br />\nE.  विवाह-विच्छेद की प्रथा - छेड़ा फाड़ना<br />\nकूट-", "question_eng": "In the context of the Bhil tribe, which of the following pairs is correctly matched? <br />\nA. Shifting cultivation practiced on hill slopes – Chimata<br />\nB. Marriage-related custom/ritual – Helru<br />\nC. The person who settles disputes within this tribe – Bharadi<br />\nD. A Bhil's house – Ku<br />\nE. The custom of divorce/dissolution of marriage – Chheda Phadna<br />\nCode-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A, D व E सत्य हैं।", "option_1_eng": "Only A, D, and E are true. ", "option_2": "केवल C, D व E सत्य हैं।", "option_2_eng": "Only C, D, and E are true. ", "option_3": "केवल A व C सत्य हैं।", "option_3_eng": "Only A and C are true. ", "option_4": "केवल B, D व E सत्य हैं।", "option_4_eng": "Only B, D, and E are true. ", "answer": "1"}, {"id": 559917, "question": "निम्नलिखित जनजातीय कार्यक्रमों के संदर्भ में असत्य कथन का चयन कीजिए-", "question_eng": "Select the false statement in the context of the following tribal programs:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "माडा समुदाय, राज्य प्रायोजित योजना है।", "option_1_eng": "The MADA (Modified Area Development Approach) scheme is a state-sponsored initiative. ", "option_2": "जनजाति उपयोजना में बाँसवाड़ा, डूँगरपुर एवं प्रतापगढ़ जिले पूर्ण रूप से सम्मिलित हैं।", "option_2_eng": "The districts of Banswara, Dungarpur, and Pratapgarh are fully included under the Tribal Sub-Plan. ", "option_3": "राज्य में बिखरी जाति विकास कार्यक्रम 1979 में प्रारम्भ किया गया।", "option_3_eng": "The Scattered Tribes Development Program was launched in the state in 1979.", "option_4": "सहरिया विकास कार्यक्रम बाराँ की शाहबाद तथा किशनगंज पंचायत समितियों में संचालित किया गया।", "option_4_eng": "The Sahariya Development Program was implemented in the Shahbad and Kishanganj Panchayat Samitis of Baran district. ", "answer": "1"}, {"id": 559918, "question": "निम्नलिखित कथनों पर विचार कीजिए -<br />\n(a) भारत के कुल 18 जैवमण्डल आरक्षित स्थलों में से 13 स्थल यूनेस्को के विश्व जैवमण्डल आरक्षित क्षेत्र नेटवर्क में शामिल हैं।<br />\n(b) शीत मरूस्थल (हिमाचल प्रदेश) देश का नवीनतम बायोस्फियर रिजर्व है, जो विश्व जैवमण्डल आरक्षित क्षेत्र नेटवर्क में शामिल किया गया है।<br />\n(c) देश में सर्वाधिक 20 रामसर सार्इट स्थल तमिलनाडु राज्य में हैं।<br />\n(d) शेखा झील बर्ड सेंचुअरी (अलीगढ़, उत्तर प्रदेश) देश का नवीनतम 99 वाँ रामसर स्थल है।<br />\n(e) भारत का प्रथम जैवमण्डलीय आरक्षित क्षेत्र 1989 में स्थापित किया गया।<br />\nकूटः<br />\n", "question_eng": "Consider the following statements:<br />\n (a) Out of India's total 18 Biosphere Reserves, 13 sites are included in UNESCO's World Network of Biosphere Reserves. <br />\n (b) The Cold Desert (Himachal Pradesh) is the country's newest Biosphere Reserve to be included in the World Network of Biosphere Reserves. <br />\n (c) The state of Tamil Nadu has the highest number of Ramsar sites in the country, totaling 20.<br />\n (d) Shekha Lake Bird Sanctuary (Aligarh, Uttar Pradesh) is the country's newest the 99th Ramsar site. <br />\n (e) India's first Biosphere Reserve was established in 1989.<br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल (a), (c) व (e) सत्य हैं।", "option_1_eng": "Only (a), (c), and (e) are true. ", "option_2": "केवल (d) व (e) सत्य हैं।", "option_2_eng": "Only (d) and (e) are true. ", "option_3": "केवल (b), (c) व (d) सत्य हैं।", "option_3_eng": "Only (b), (c), and (d) are true. ", "option_4": "(a), (b), (c) व (d) सत्य हैं।", "option_4_eng": "(a), (b), (c), and (d) are true. ", "answer": "4"}, {"id": 559919, "question": "'अंतराष्ट्रीय जैव विविधता दिवस-2026' की थीम/विषय है -", "question_eng": "The theme/subject for ‘International Day for Biological Diversity – 2026’ is:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "''हमारी शक्ति, हमारा ग्रह।''", "option_1_eng": "“Our Strength, Our Planet.”", "option_2": "''वैश्विक प्रभाव के लिए स्थानीय स्तर पर कार्य करना।''", "option_2_eng": "“Acting Locally for Global Impact.”", "option_3": "''आर्द्र भूमि और पारम्परिक ज्ञानः सांस्कृतिक विरासत का उत्सव मनाना।''", "option_3_eng": "“Wetlands and Traditional Knowledge: Celebrating Cultural Heritage.”", "option_4": "''औषधीय और सुगन्धित पौधेः स्वास्थ्य, विरासत और आजीविका का संरक्षण।''", "option_4_eng": "“Medicinal and Aromatic Plants: Conserving Health, Heritage, and Livelihoods.” ", "answer": "2"}, {"id": 559920, "question": "निम्नलिखित पर्यावरण संबंधी दिवसों को ग्रीगेरियन कैलेण्डर के कालानुक्रम में व्यवस्थित कर उपयुक्त कूट का चयन कीजिए-<br />\n(a) विश्व आर्द्र भूमि दिवस<br />\n(b) विश्व पर्यावरण दिवस<br />\n(c) अन्तर्राष्ट्रीय जैव विविधता दिवस<br />\n(d) विश्व वन्य जीव दिवस<br />\nकूटः", "question_eng": "Arrange the following environmental days in chronological order according to the Gregorian calendar and select the appropriate code:<br />\n (a) World Wetlands Day<br />\n (b) World Environment Day<br />\n (c) International Day for Biological Diversity<br />\n (d) World Wildlife Day<br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "a - d - c - b", "option_1_eng": "a - d - c - b", "option_2": "a - b - c - d", "option_2_eng": "a - b - c - d", "option_3": "d - a - b - c", "option_3_eng": "d - a - b - c", "option_4": "b - c - d – a", "option_4_eng": "b - c - d - a", "answer": "1"}, {"id": 559921, "question": "श्री अन्नपूर्णा रसोई (ग्रामीण) योजना का संचालन किस संस्था द्वारा किया जा रहा है?", "question_eng": "Which organization is responsible for the operation of the Shri Annapurna Rasoi (Rural) Scheme? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "ग्राम पंचायत", "option_1_eng": "Gram Panchayat", "option_2": "राजीविका", "option_2_eng": "Rajeevika", "option_3": "पटवार सर्किल", "option_3_eng": "Patwar Circle", "option_4": "आंगनबाड़ियाँ", "option_4_eng": "Anganwadis", "answer": "2"}, {"id": 559922, "question": "राजस्थान लघु उद्योग निगम लिमिटेड के संबंध में निम्न कथनों पर विचार कीजिए-<br />\n a. इसकी स्थापना 1961 में की गई थी।<br />\n b. यह केवल सूक्ष्म एवं हस्तशिल्प उद्यमों को सहायता प्रदान करती है।<br />\n c. यह जोधपुर एवं भीलवाड़ा में शुष्क बंदरगाहों की सहायता से निर्यात सुविधा उपलब्ध कराती है।<br />\n d. राजस्थली एंपोरियम द्वारा यह विपणन सहायता उपलब्ध करवाती है।<br />\n e. इसके द्वारा सांगानेर एयरपोर्ट से एयरकार्गों कॉम्पलेक्स के माध्यम से निर्यात सुविधा उपलब्ध करवाई जा रही है।<br />\nसत्य कथन है/हैं ?", "question_eng": "Consider the following statements regarding the Rajasthan Small Industries Corporation Limited:<br />\na.  It was established in 1961.<br />\nb.  It provides assistance exclusively to micro and handicraft enterprises. <br />\nc.  It facilitates exports through Dry Ports located in Jodhpur and Bhilwara. <br />\nd.  It provides marketing assistance through the Rajasthali Emporium. <br />\ne.  It facilitates exports via the Air Cargo Complex at Sanganer Airport. <br />\nWhich statement(s) is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल a, b और c", "option_1_eng": "Only a, b, and c", "option_2": "केवल b, c और d", "option_2_eng": "Only b, c, and d", "option_3": "केवल a, c, d और e", "option_3_eng": "Only a, c, d, and e", "option_4": "केवल b, c, d और e", "option_4_eng": "Only b, c, d, and e", "answer": "3"}, {"id": 559923, "question": "राजस्थान में मरु भूमि के विकास से संबंधित निम्न कार्यक्रमों को ग्रीगेरियन कैलेण्डर के कालानुक्रम में व्यवस्थित कर उपयुक्त कूट का चयन कीजिए-<br />\nA. सूखा संभावित क्षेत्र कार्यक्रम (DPAP) <br />\nB. मरुस्थल विकास कार्यक्रम (DDP)<br />\nC. एकीकृत बंजर भूमि विकास कार्यक्रम (IWDP)<br />\nD. राजस्थान मरु क्षेत्र हेतु जल पुनर्गठन परियोजना (RWSRPD) <br />\nकूट-", "question_eng": "Arrange the following programs related to the development of the desert region in Rajasthan in chronological order according to the Gregorian calendar, and select the appropriate code:<br />\n A. Drought Prone Areas Programme<br />\n B. Desert Development Programme<br />\n C. Integrated Wastelands Development Programme <br />\n D. Rajasthan Water Restructuring Project for Desert Areas<br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "B – A – D – C", "option_1_eng": "B – A – D – C", "option_2": "A – B – C – D", "option_2_eng": "A – B – C – D", "option_3": "D – C – B – A", "option_3_eng": "D – C – B – A", "option_4": "C – A – B – D", "option_4_eng": "C – A – B – D", "answer": "2"}, {"id": 559924, "question": "सूची-I को सूची-II के साथ सुमेलित कीजिए एवं नीचे दिये कूट से सही उत्तर का चयन कीजिए-<br />\n सूची-I (योजना) <br />\n A.  राजस्थान मरूक्षेत्र हेतु जल पुनर्गठन परियोजना<br />\n B. राजस्थान जलक्षेत्र आजीविका सुधार परियोजना<br />\n C. राजस्थान वानिकी एवं जैव विविधता विकास परियोजना<br />\n D. राजस्थान जलवायु परिवर्तन प्रतिक्रिया और पारिस्थिति तंत्र सेवा संवर्धन<br />\n सूची-II (बाह्‌य सहायता प्राप्त संस्था) <br />\n (i)  विश्व बैंक<br />\n (ii) जायका (JICA)<br />\n (iii) AFD (फ्रांस)<br />\n (iv) न्यू डवलपमेंट बैंक<br />\nकूट", "question_eng": "Match List-I with List-II and select the correct answer using the codes given below:<br />\n List-I (Schemes)<br />\n A. Rajasthan Water Sector Restructuring Project for the Desert Area<br />\n B. Rajasthan Water Sector Livelihood Improvement Project<br />\n C. Rajasthan Forestry and Biodiversity Development Project<br />\n D. Rajasthan Climate Change Response and Ecosystem Services Enhancement<br />\n List-II (Externally Aided Agencies)<br />\n (i) World Bank<br />\n (ii) JICA<br />\n (iii) AFD (France)<br />\n (iv) New Development Bank<br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A - (iv), B - (ii), C - (iii), D - (i)", "option_1_eng": "A - (iv), B - (ii), C - (iii), D - (i)", "option_2": "A - (iv), B - (ii), C - (iii), D - (ii)", "option_2_eng": "A - (iv), B - (ii), C - (iii), D - (ii)", "option_3": "A - (i), B - (iv), C - (iii), D - (ii)", "option_3_eng": "A - (i), B - (iv), C - (iii), D - (ii)", "option_4": "A - (ii), B - (ii), C - (iv), D - (iii)", "option_4_eng": "A - (ii), B - (ii), C - (iv), D - (iii)", "answer": "2"}, {"id": 559925, "question": "एक संकर संकरण में F₂ पीढ़ी में लक्षणप्ररूप का अनुपात रहेगा-", "question_eng": "In mono hybrid cross, the ratio of phenotypes in the F₂ generation will be-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "3 : 1", "option_1_eng": "3 : 1", "option_2": "9 : 3 : 3 : 1", "option_2_eng": "9 : 3 : 3 : 1", "option_3": "1 : 2 : 1", "option_3_eng": "1 : 2 : 1", "option_4": "2 : 1", "option_4_eng": "2 : 1", "answer": "1"}, {"id": 559926, "question": "यदि किसी सेल का आंतरिक प्रतिरोध बढ़ जाए तो उसके टर्मिनल वोल्टेज पर क्या प्रभाव पडे़गा?", "question_eng": "If the internal resistance of a cell increases, what effect will it have on its terminal voltage?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बढ़ जायेगा।", "option_1_eng": "It will increase. ", "option_2": "घट जायेगा।", "option_2_eng": "It will decrease. ", "option_3": "अपरिवर्तित रहेगा।", "option_3_eng": "It will remain unchanged. ", "option_4": "शून्य हो जायेगा।", "option_4_eng": "It will become zero. ", "answer": "2"}, {"id": 559927, "question": "एक लाल पुष्प वाले पादप में स्वपरागण द्वारा 20 पादप प्राप्त हुए इनमें से 5 पादप श्वेत पुष्प वाले जनक की प्रकृति बताइये।", "question_eng": "20 plants were obtained by self-fertilization of a red flowered plant. Out of these, 5 plants had white flowers. State the nature of the parent.", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "समयुग्मजी", "option_1_eng": "Homozygous ", "option_2": "विषमयुग्मजी", "option_2_eng": "Heterozygous", "option_3": "होमोजीनस", "option_3_eng": "Homogenous ", "option_4": "हेटरोजीनस", "option_4_eng": "Heterogeneous", "answer": "2"}, {"id": 559928, "question": "नर मनुष्य में एलोसोम होते हैं-", "question_eng": "Male humans have allosomes-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "XX", "option_1_eng": "XX", "option_2": "XY", "option_2_eng": "XY", "option_3": "XO", "option_3_eng": "XO", "option_4": "YO", "option_4_eng": "YO", "answer": "2"}, {"id": 559929, "question": "वंशागति के गुणसूत्र सिद्धांत का प्रायोगिक प्रमाणन किसने किया था?", "question_eng": "Who experimentally proved the chromosome theory of inheritance?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "सटन", "option_1_eng": "Sutton ", "option_2": "बोवेरी", "option_2_eng": "Boveri", "option_3": "मॉर्गन", "option_3_eng": "Morgan ", "option_4": "मेंडल", "option_4_eng": "Mendel", "answer": "3"}, {"id": 559930, "question": "मटर के पौधों पर अपने आदर्श प्रयोग में मेंडल ने किसका उपयोग नहीं किया?", "question_eng": "Which of the following did Mendel not use in his model experiment on pea plants?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "फली की लम्बाई", "option_1_eng": "Length of pod ", "option_2": "बीज का आकार", "option_2_eng": "Size of seed", "option_3": "पुष्प की स्थिति", "option_3_eng": "Position of flower ", "option_4": "बीज का रंग", "option_4_eng": "Colour of seed", "answer": "1"}, {"id": 559931, "question": "एक आदर्श परीक्षार्थ संकरण में प्रभावी फीनोटाइप वाले पौधे का _____ फीनोटाइप वाले पौधे से संकरण किया जाता है।", "question_eng": "In an ideal test cross, a plant having dominant phenotype is crossed with a plant having _____ phenotype.", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अप्रभावी", "option_1_eng": "Recessive ", "option_2": "प्रभावी", "option_2_eng": "Dominant", "option_3": "दोनों से", "option_3_eng": "Both ", "option_4": "किसी से नहीं", "option_4_eng": "Neither", "answer": "1"}, {"id": 559932, "question": "निम्नलिखित कथनों पर विचार कीजिए-<br />\n 1. गुणसूत्र का अगुणित सेट 'जीनोम' कहलाता है।<br />\n 2. गुणसूत्रों को लम्बाई के घटते क्रम में व्यवस्थित करना 'इडियोग्राम' कहलाता है।<br />\n 3. मनुष्य में विषमजात गुणसूत्र की संख्या एक जोड़ी होती है।<br />\nउपर्युक्त में से कौन-सा/से कथन सत्य है/हैं?", "question_eng": "Consider the following statements-<br />\n1.  The haploid set of chromosomes is called ‘genome’.<br />\n2.  The arrangement of chromosomes in decreasing order of length is called ‘indiogram’.<br />\n3.  The number of heterozygous chromosomes in human beings is one pair.<br />\nWhich of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल 2", "option_1_eng": "Only 2 ", "option_2": "केवल 1 व 2", "option_2_eng": "Only 1 and 2", "option_3": "केवल 2 व 3", "option_3_eng": "Only 2 and 3 ", "option_4": "1, 2 व 3", "option_4_eng": "1, 2 and 3", "answer": "4"}, {"id": 559933, "question": "निम्न कथनों पर विचार कीजिए-<br />\n1. मादा के अण्डाणु की आनुवंशिक संरचना ही शिशु के लिंग का निर्धारण करती है।<br />\n2.  नर में x के अतिरिक्त एक y क्रोमोसोम होता है।<br />\nउपरोक्त में से सत्य कथन है-", "question_eng": "Consider the following statements-<br />\n 1.  The genetic structure of the female ovum determines the sex of the child.<br />\n2.  Males have a x chromosome in addition to y.<br />\nThe true statement among the above is-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल 1", "option_1_eng": "Only 1", "option_2": "केवल 2", "option_2_eng": "Only 2", "option_3": "1 व 2 दोनों", "option_3_eng": "Both 1 and 2", "option_4": "न तो 1 व न ही 2", "option_4_eng": "Neither 1 nor 2", "answer": "2"}, {"id": 559934, "question": "निम्नलिखित समीकरणों में से कौन-सा आणविक जैविकों का मूलसिद्धान्त निरूपित करता है?", "question_eng": "Which one of the following equations represents the basic principle of molecular biology ?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "डी एन ए → आर एन ए → प्रोटीन", "option_1_eng": "DNA → RNA → Protein", "option_2": "आर एन ए → प्रोटीन → एंजाइम", "option_2_eng": "RNA → Protein → Enzyme", "option_3": "प्रोटीन → आर एन ए → डी एन ए", "option_3_eng": "Protein → RNA → DNA", "option_4": "डी एन ए → प्रोटीन → आर एन ए", "option_4_eng": "DNA → Protein → RNA", "answer": "1"}, {"id": 559935, "question": "पॉलीमेरेज श्रृंखला अभिक्रिया के विभिन्न चरणों का सही क्रम है-", "question_eng": "The correct sequence of various steps in polymerase chain reaction is-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Annealing →Denaturation → Extension", "option_1_eng": "Annealing →Denaturation → Extension", "option_2": "Denaturation-> Extension → Annealing", "option_2_eng": "Denaturation-> Extension → Annealing", "option_3": "Denaturation → Annealing → Extension", "option_3_eng": "Denaturation → Annealing → Extension", "option_4": "Extension → Denaturation → Annealing", "option_4_eng": "Extension → Denaturation → Annealing", "answer": "3"}, {"id": 559936, "question": "निम्न में से सबसे ज्यादा प्रयोग में लिये जाने वाला प्लाज्मिड है?", "question_eng": "Which of the following is the most commonly used plasmid?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "ᴘBR322  ", "option_1_eng": "ᴘBR322  ", "option_2": "जीवाणुभोजी", "option_2_eng": "Bacteriophage", "option_3": "कॉस्मिड", "option_3_eng": "Cosmid ", "option_4": "फॉज्मिड", "option_4_eng": "Phosmid", "answer": "1"}, {"id": 559937, "question": "निम्नलिखित में से कौनसी प्रक्रिया परम्परागत जैव-प्रौद्योगिकी का उदाहरण नहीं है-", "question_eng": "Which of the following processes is not an example of traditional biotechnology?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "दूध से दही व पनीर का निर्माण", "option_1_eng": "Production of curd and cheese from milk", "option_2": "गन्ने के रस से सिरके का निर्माण", "option_2_eng": "Production of vinegar from sugarcane juice", "option_3": "पुनर्योगज डीएनए तकनीक द्वारा औषधि निर्माण", "option_3_eng": "Production of medicine by recombinant DNA technology", "option_4": "शर्करा द्वारा बीयर का निर्माण", "option_4_eng": "Production of beer from sugar", "answer": "3"}, {"id": 559938, "question": "पराजीनी फसल 'स्वर्ण चावल' किस वांछनीय लक्षण के लिए तैयार की गई है?", "question_eng": "The transgenic crop ‘Golden Rice’ has been developed for which desirable trait? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "विटामिन 'ए'", "option_1_eng": "Vitamin A ", "option_2": "आवश्यक अमीनो अम्ल", "option_2_eng": "Essential amino acids", "option_3": "इन्सुलिन", "option_3_eng": "Insulin ", "option_4": "लाक्षणिक मंड", "option_4_eng": "Targeting Starch", "answer": "1"}, {"id": 559939, "question": "जैव पेटेंट और जैव दस्युता (Biopiracy) के संबंध में निम्नलिखित कथनों पर विचार कीजिए-<br />\n 1.  बायोपायरेसी में बिना किसी अधिकारिक अनुमति के किसी देश के जैविक संसाधनों का व्यवसायिक उपयोग किया जाता है।<br />\n 2. 'आनन्द चक्रवर्ती बनाम डेरेक' मामले के बाद ही जीवित जीवों (जैसे- स्यूडोमोनास प्यूटिडा बैक्टीरिया) को पेटेंट देने की शुरूआत हुई।<br />\nउपरोक्त में से कौन-सा/से उद्यम सत्य है/हैं?", "question_eng": "Consider the following statements regarding bio-patents and biopiracy:<br />\n 1. Biopiracy involves the commercial utilization of a country's biological resources without any official permission. <br />\n 2. The practice of granting patents to living organisms (such as the Pseudomonas putida bacterium) began only after the 'Ananda Chakrabarty v. Derek' case. <br />\nWhich of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल 1", "option_1_eng": "Only 1", "option_2": "केवल 2", "option_2_eng": "Only 2", "option_3": "1 और 2 दोनों", "option_3_eng": "Both 1 and 2", "option_4": "उपरोक्त में से कोई नहीं", "option_4_eng": "None of the above", "answer": "3"}, {"id": 559940, "question": "ट्रांसजैनिक पादप विकसित किए जाते है?", "question_eng": "Transgenic plants are developed by? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "विदेशी जीन के प्रवेश द्वारा", "option_1_eng": "By insertion of foreign gene", "option_2": "जीन उत्परिवर्तन द्वारा", "option_2_eng": "By gene mutation", "option_3": "गुणसूत्र के कुछ भाग को हटाने से", "option_3_eng": "By deletion of some part of chromosome", "option_4": "तर्कु निर्माण को रोकने से", "option_4_eng": "By preventing spindle formation", "answer": "1"}, {"id": 559941, "question": "निम्न कथनों पर विचार कर सही विकल्प का चयन कीजिए -<br />\n(i) स्थिर आवेश केवल विद्युत क्षेत्र उत्पन्न करता है।<br />\n(ii) गतिशील आवेश विद्युत तथा चुम्बकीय क्षेत्र दोनों उत्पन्न करता है।<br />\nकूट :", "question_eng": "Consider the following statements and select the correct option:<br />\n (i)  A stationary charge produces only an electric field. <br />\n (ii) A moving charge produces both electric and magnetic fields. <br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल (i) सही है", "option_1_eng": "Only (i) is correct", "option_2": "केवल (ii) सही है", "option_2_eng": "Only (ii) is correct", "option_3": "(i) तथा (ii)-दोनों गलत है", "option_3_eng": "Both (i) and (ii) are incorrect", "option_4": "(i) तथा (ii) दोनों सही है", "option_4_eng": "Both (i) and (ii) are correct", "answer": "4"}, {"id": 559942, "question": "कोई विद्युत बल्ब 220 V के जनित्र से संयोजित है। यदि बल्ब से 0.50 A विद्युत धारा प्रवाहित होती है, तो बल्ब की शक्ति क्या है? ", "question_eng": "An electric bulb is connected to a 220 V generator. If a current of 0.50 A flows through the bulb, what is the power of the bulb? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "150 W", "option_1_eng": "150 W", "option_2": "110 W", "option_2_eng": "110 W", "option_3": "180 W", "option_3_eng": "180 W", "option_4": "200 W", "option_4_eng": "200 W", "answer": "2"}, {"id": 559943, "question": "सूची-I को सूची-II से सुमेलित कर सही कूट का चयन कीजिए -<br />\n  सूची-I          सूची-II<br />\n(A) नाइक्रोम      1. Sn + Pb<br />\n(B) मैग्नीज      2. Ni + Cu<br />\n(C) कास्टेन्टन    3. Ni + Cu + Mn<br />\n(D) फ्यूज तार    4. Ni + Cr + Mn + Fe<br />\nकूट-<br />\nA B C D", "question_eng": "Match List-I with List-II and select the correct code:<br />\n List-I                       List-II <br />\n (A) Nichrome     1. Sn + Pb<br />\n (B) Manganese   2. Ni + Cu<br />\n (C) Castleton     3. Ni + Cu + Mn<br />\n (D) Fuse wire    4. Ni + Cr + Mn + Fe<br />\n Code -<br />\nA B C D", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "4 3 2 1", "option_1_eng": "4 3 2 1", "option_2": "1 2 4 3", "option_2_eng": "1 2 4 3", "option_3": "2 1 3 4", "option_3_eng": "2 1 3 4", "option_4": "2 1 4 3", "option_4_eng": "2 1 4 3", "answer": "1"}, {"id": 559944, "question": "निम्न में से कौनसी युक्ति विद्युत धारा के ऊष्मीय प्रभाव पर आधारित नहीं है।", "question_eng": "Which of the following devices is not based on the heating effect of electric current? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "विद्युत हीटर", "option_1_eng": "Electric Heater", "option_2": "विद्युत मोटर", "option_2_eng": "Electric Motor", "option_3": "विद्युत ओवन ", "option_3_eng": "Electric Oven", "option_4": "विद्युत प्रेस", "option_4_eng": "Electric Press", "answer": "2"}, {"id": 559945, "question": "असत्य कथन का चयन कीजिए ?", "question_eng": "Select the incorrect statement ?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "इन्वर्टर DC को AC में बदलता है।", "option_1_eng": "An inverter converts DC into AC.", "option_2": "दिष्टकारी AC को DC में बदलता है।", "option_2_eng": "A rectifier converts AC into DC. ", "option_3": "AC तथा DC दोनों ओम तथा जूल तापन नियम का पालन करती है।", "option_3_eng": "Both AC and DC currents obey Ohm's Law and Joule's heating law. ", "option_4": "220 V DC धारा की आवृत्ति 50 Hz होती है।", "option_4_eng": "The frequency of a 220 V DC current is 50 Hz. ", "answer": "4"}, {"id": 559946, "question": "पाँच प्रतिरोधकों, जिनमें प्रत्येक का प्रतिरोध $$\\frac15\\Omega$$ है, का उपयोग करके कितना निम्नतम प्रतिरोध बनाया जा सकता है? ", "question_eng": "What is the lowest resistance that can be obtained using five resistors, each having a resistance of $$\\frac15\\Omega$$?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$\\frac15\\Omega$$", "option_1_eng": "$$\\frac15\\Omega$$", "option_2": "$$\\frac1{25}\\Omega$$", "option_2_eng": "$$\\frac1{25}\\Omega$$", "option_3": "$$\\frac1{30}\\Omega$$", "option_3_eng": "$$\\frac1{30}\\Omega$$", "option_4": "$$25\\Omega$$", "option_4_eng": "$$25\\Omega$$", "answer": "2"}, {"id": 559947, "question": "सही विकल्प का चयन कीजिए -", "question_eng": "Select the correct option:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "DC मोटर विद्युत ऊर्जा को यांत्रिक ऊर्जा में परिवर्तित करती है।", "option_1_eng": "A DC motor converts electrical energy into mechanical energy. ", "option_2": "DC विद्युत मोटर विद्युत धारा के चुम्बकीय प्रभाव पर आधारित है। ", "option_2_eng": "A DC electric motor is based on the magnetic effect of electric current. ", "option_3": "DC विद्युत मोटर में चुम्बकीय बल की दिशा प्लेमिंग के बायें हाथ नियम से ज्ञात की जाती है।", "option_3_eng": "The direction of magnetic force in a DC electric motor is determined by Pleming's left hand rule.", "option_4": "उपरोक्त सभी", "option_4_eng": "All of the above.", "answer": "4"}, {"id": 559948, "question": "यदि $$\\log_{10}\\;a\\;\\;=\\;p$$ और $$\\log_{10}\\;b\\;=\\;q$$ है। तब $$\\log_{10}\\;(a^pb^q)$$ किसके बराबर है? ", "question_eng": "If $$\\log_{10}\\;a\\;\\;=\\;p$$  and $$\\log_{10}\\;b\\;=\\;q$$, then what is $$\\log_{10}\\;(a^pb^q)$$ equal to?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "p² + q²", "option_1_eng": "p² + q²", "option_2": "p² – q²", "option_2_eng": "p² – q²", "option_3": "p² q²", "option_3_eng": "p² q²", "option_4": "$$\\frac{p^2}{q^2}$$", "option_4_eng": "$$\\frac{p^2}{q^2}$$", "answer": "1"}, {"id": 559949, "question": "$${\\lbrack\\log_{10}\\;(5\\;\\log_{10}\\;100)\\rbrack}^2$$  का मान क्या है?", "question_eng": "What is the value of $${\\lbrack\\log_{10}\\;(5\\;\\log_{10}\\;100)\\rbrack}^2$$? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "4", "option_1_eng": "4", "option_2": "3", "option_2_eng": "3", "option_3": "2", "option_3_eng": "2", "option_4": "1", "option_4_eng": "1", "answer": "4"}, {"id": 559950, "question": "निम्नलिखित कथनों पर विचार कीजिए-<br />\nI. (x³ + 2x² + 3x + 8) का गुणनखण्ड (x + 3) है।<br />\nII. (x³ + 2x² + 3x + 8) का गुणनखण्ड (x – 2) है।<br />\nउपरोक्त कथन/नों में से कौन-सा/से कथन सही है/हैं?", "question_eng": "Consider the following statements:<br />\nI. (x³ + 2x² + 3x + 8) has (x + 3) as a factor. <br />\nII. (x³ + 2x² + 3x + 8) has (x – 2) as a factor. <br />\nWhich of the above statement(s) is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल I", "option_1_eng": "Only I", "option_2": "केवल II", "option_2_eng": "Only II", "option_3": "I और II दोनों", "option_3_eng": "Both I and II", "option_4": "न तो I और न ही II", "option_4_eng": "Neither I nor II", "answer": "4"}, {"id": 559951, "question": "(a + 1)⁴ – a⁴ किससे विभाज्य है?", "question_eng": "By which of the following is (a + 1)⁴ – a⁴ divisible? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "–2a² + 2a – 1 ", "option_1_eng": "–2a² + 2a – 1 ", "option_2": "2a³ – 2a – 1", "option_2_eng": "2a³ – 2a – 1", "option_3": "2a³ – 2a + 1", "option_3_eng": "2a³ – 2a + 1", "option_4": "2a² + 2a + 1", "option_4_eng": "2a² + 2a + 1", "answer": "4"}, {"id": 559952, "question": "P और Q दो बिन्दु एक मीनार के आधार से क्रमशः m² और n² की दूरी पर एक ही सरल रेखा पर स्थित हैं। मीनार के शीर्ष के, P और Q से, उन्नयन कोण पूरक है। मीनार की ऊँचाई क्या है?  ", "question_eng": "Points P and Q are situated on the same straight line at distances of m² and n² respectively from the base of a tower. The angles of elevation of the top of the tower from P and Q are complementary. What is the height of the tower? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$${(mn)}^{1/2}$$", "option_1_eng": "$${(mn)}^{1/2}$$", "option_2": "$$mn^{1/2}$$", "option_2_eng": "$$mn^{1/2}$$", "option_3": "$$m^{1/2}n$$", "option_3_eng": "$$m^{1/2}n$$", "option_4": "mn ", "option_4_eng": "mn", "answer": "4"}, {"id": 559953, "question": "एक झील के200 मीटर ऊपर स्थित एक बिन्दु से किसी बादल का उन्नयत कोण 30º है और उसके झील में प्रतिबिम्ब का अवनमन कोण 60º है, तो बादल की ऊँचाई क्या है? ", "question_eng": "From a point situated 200 meters above a lake, the angle of elevation of a cloud is 30°, and the angle of depression of its reflection in the lake is 60°; what is the height of the cloud? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "200 मीटर", "option_1_eng": "200 meters", "option_2": "300 मीटर", "option_2_eng": "300 meters", "option_3": "400 मीटर ", "option_3_eng": "400 meters", "option_4": "600 मीटर", "option_4_eng": "600 meters", "answer": "3"}, {"id": 559954, "question": "यदिtan A + cot A = 4, तो $$\\tan^4\\;A\\;+\\;cot^4\\;A\\;$$ किसके बराबर है? ", "question_eng": "If tan A + cot A = 4, then what is $$\\tan^4\\;A\\;+\\;cot^4\\;A\\;$$ equal to?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "110", "option_1_eng": "110", "option_2": "191", "option_2_eng": "191", "option_3": "80", "option_3_eng": "80", "option_4": "194", "option_4_eng": "194", "answer": "4"}, {"id": 559955, "question": "यदि $$p=\\sqrt{\\frac{1-\\sin x}{1+\\sin x}},\\;q=\\frac{1-\\sin x}{\\cos x},r=\\frac{\\cos x}{1+\\sin x},$$<br />\nतो निम्नलिखित में से कौन-सा/से कथन सही है/हैं?<br />\nI.  p = q = r<br />\nII.  p² = qr", "question_eng": "If $$p=\\sqrt{\\frac{1-\\sin x}{1+\\sin x}},\\;q=\\frac{1-\\sin x}{\\cos x},r=\\frac{\\cos x}{1+\\sin x},$$<br />\n then which of the following statement(s) is/are correct? <br />\nI. p = q = r<br />\nII.  p² = qr", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल I", "option_1_eng": "Only I", "option_2": "केवल II", "option_2_eng": "Only II", "option_3": "I और II दोनों", "option_3_eng": "Both I and II", "option_4": "न तो I और न ही II", "option_4_eng": "Neither I nor II", "answer": "3"}, {"id": 559956, "question": "ABC एक त्रिभुज है, जोB पर समकोण बनाता है और AB : BC = 3 : 4 है, तो sin A + sin B + sin C किसके बराबर है? ", "question_eng": "If ABC is a triangle which forms a right angle at B, and AB : BC = 3 : 4; then what is sin A + sin B + sin C equal to?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "2", "option_1_eng": "2", "option_2": "$$\\frac{11}5$$", "option_2_eng": "$$\\frac{11}5$$", "option_3": "$$\\frac{12}5$$", "option_3_eng": "$$\\frac{12}5$$", "option_4": "3", "option_4_eng": "3", "answer": "3"}, {"id": 559957, "question": "cosec² 67º + sec² 57º – cot² 33º – tan² 23º का मान क्या है? ", "question_eng": "What is the value of cosec² 67º + sec² 57º – cot² 33º – tan² 23º ?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$2\\sqrt2$$", "option_1_eng": "$$2\\sqrt2$$", "option_2": "2", "option_2_eng": "2", "option_3": "$$\\sqrt2$$", "option_3_eng": "$$\\sqrt2$$", "option_4": "0", "option_4_eng": "0", "answer": "2"}, {"id": 559958, "question": "यदि sin x + cos x = c, तो sin⁶x + cos⁶ x किसके बराबर है? ", "question_eng": "If sin sin x + cos x = c, then what is sin6x + cos6 x equal to?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$\\frac{1+6c^2-3c^4}{16}$$", "option_1_eng": "$$\\frac{1+6c^2-3c^4}{16}$$", "option_2": "$$\\frac{1+6c^2-3c^4}4$$", "option_2_eng": "$$\\frac{1+6c^2-3c^4}4$$", "option_3": "$$\\frac{1+6c^2+3c^4}{16}$$", "option_3_eng": "$$\\frac{1+6c^2+3c^4}{16}$$", "option_4": "$$\\frac{1+6c^2+3c^4}4$$", "option_4_eng": "$$\\frac{1+6c^2+3c^4}4$$", "answer": "2"}, {"id": 559959, "question": "यदि किसी समबहुभुज का प्रत्येक अन्तःकोण 135º है, तो उस बहुभुज के विकर्णों की संख्या क्या है? ", "question_eng": "If each interior angle of a regular polygon is 135°, what is the number of diagonals in that polygon? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "54", "option_1_eng": "54", "option_2": "48", "option_2_eng": "48", "option_3": "20", "option_3_eng": "20", "option_4": "18", "option_4_eng": "18", "answer": "3"}, {"id": 559960, "question": "एक त्रिकोणीय खेत की भुजाएँ41 मीटर, 40 मीटर और 9 मीटर हैं। इस खेत में गुलाब की कितनी क्यारियाँ तैयार की जा सकती हैं, यदि प्रत्येक गुलाब की क्यारी को औसतन 900 वर्ग सेमी की जगह की आवश्यकता है?", "question_eng": "The sides of a triangular field measure 41 meters, 40 meters, and 9 meters. How many rose beds can be prepared in this field if each rose bed requires an average space of 900 square centimeters? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "2000", "option_1_eng": "2000", "option_2": "1800", "option_2_eng": "1800", "option_3": "900", "option_3_eng": "900", "option_4": "800", "option_4_eng": "800", "answer": "1"}, {"id": 559961, "question": "एक वृत्तीय पथ के बाहरी तथा आन्तरिक परिमाप का अनुपात 23 : 22 है। यदि पथ 5 मीटर चौड़ा है, तो आन्तरिक वृत्त का व्यास क्या है?  ", "question_eng": "The ratio of the outer and inner circumferences of a circular path is 23 : 22. If the path is 5 meters wide, what is the diameter of the inner circle? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "55 मीटर", "option_1_eng": "55 meters", "option_2": "110 मीटर", "option_2_eng": "110 meters", "option_3": "220 मीटर", "option_3_eng": "220 meters", "option_4": "230 मीटर", "option_4_eng": "230 meters", "answer": "3"}, {"id": 559962, "question": "4 सेमी त्रिज्या वाले एक बेलनाकार बर्तन में पानी है। 3 सेमी त्रिज्या वाला एक ठोस गोला पानी में उतारा जाता है, जब तक वह पूरी तरह से डूब न जाए। बर्तन में पानी का स्तर कितना बढ़ जाएगा? ", "question_eng": "A cylindrical vessel with a radius of 4 cm contains water. A solid sphere with a radius of 3 cm is lowered into the water until it is completely submerged. By how much will the water level in the vessel rise? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "1.5 सेमी", "option_1_eng": "1.5 cm", "option_2": "2 सेमी", "option_2_eng": "2 cm", "option_3": "2.25 सेमी", "option_3_eng": "2.25 cm", "option_4": "4.5 सेमी", "option_4_eng": "4.5 cm", "answer": "3"}, {"id": 559963, "question": "यदि एक लम्बवृत्तीय शंकु की ऊँचाई 200% बढ़ा दी जाए तथा उसके आधार की त्रिज्या 50% कम कर दी जाए, तो उस शंकु का आयतन-", "question_eng": "If the height of a right circular cone is increased by 200% and the radius of its base is decreased by 50%, then the volume of the cone—", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अपरिवर्तित रहता है", "option_1_eng": "remains unchanged. ", "option_2": "25% कम हो जाता है।", "option_2_eng": "decreases by 25%.", "option_3": "25% बढ़ जाता है।", "option_3_eng": "increases by 25%. ", "option_4": "50% बढ़ जाता है।", "option_4_eng": "increases by 50%. ", "answer": "2"}, {"id": 559964, "question": "माना एक समकोण त्रिभुज की भुजाएँ a, b तथा c हैं, जहाँ c कर्ण है। उस वृत्त की त्रिज्या, जो त्रिभुज की भुजाओं को स्पर्श करती है, क्या है? ", "question_eng": "Let the sides of a right-angled triangle be a, b, and c, where c is the hypotenuse. What is the radius of the circle that touches the sides of the triangle?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$\\frac{\\left(a+b-c\\right)}2$$", "option_1_eng": "$$\\frac{\\left(a+b-c\\right)}2$$", "option_2": "$$\\frac{\\left(a+b+c\\right)}2$$", "option_2_eng": "$$\\frac{\\left(a+b+c\\right)}2$$", "option_3": "$$\\frac{\\left(a+2b+2c\\right)}2$$", "option_3_eng": "$$\\frac{\\left(a+2b+2c\\right)}2$$", "option_4": "$$\\frac{\\left(2a+2b-c\\right)}2$$", "option_4_eng": "$$\\frac{\\left(2a+2b-c\\right)}2$$", "answer": "2"}, {"id": 559965, "question": "r त्रिज्या वाले एक अर्द्धवृत्त के अन्तर्गत खींचे जा सकने वाले वृहत्तम त्रिभुज का क्षेत्रफल क्या है? ", "question_eng": "What is the area of the largest triangle that can be inscribed within a semi-circle of radius r ? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "r²", "option_1_eng": "r²", "option_2": "2r² ", "option_2_eng": "2r²", "option_3": "3r² ", "option_3_eng": "3r²", "option_4": "4r²", "option_4_eng": "4r²", "answer": "1"}, {"id": 559966, "question": "784 वर्ग सेमी क्षेत्रफल वाले एक वर्गाकार कागज के पन्ने में से समान आकार की चार बड़ी-से-बड़ी वृत्तीय प्लेटें काटकर निकाली जाती है। प्रत्येक प्लेट की परिधि क्या है? ", "question_eng": "Four largest possible circular plates of equal size are cut out from a square sheet of paper with an area of 784 sq. cm. What is the circumference of each plate? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "11 सेमी", "option_1_eng": "11 cm", "option_2": "22 सेमी", "option_2_eng": "22 cm", "option_3": "33 सेमी", "option_3_eng": "33 cm", "option_4": "44 सेमी ", "option_4_eng": "44 cm", "answer": "4"}, {"id": 559967, "question": "किसी समचतुर्भुज का, जिसकी भुजा 13 सेमी और विकर्ण 10 सेमी है, क्षेत्रफल कितना होगा? ", "question_eng": "What will be the area of a rhombus whose side is 13 cm and whose diagonal is 10 cm? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "140 वर्ग सेमी", "option_1_eng": "140 sq cm", "option_2": "130 वर्ग सेमी", "option_2_eng": "130 sq cm", "option_3": "120 वर्ग सेमी", "option_3_eng": "120 sq cm", "option_4": "110 वर्ग सेमी", "option_4_eng": "110 sq cm", "answer": "3"}, {"id": 559968, "question": "एक गोले और एक घन के पृष्ठीय क्षेत्रफल बराबर है। उनके आयतनों के वर्ग का अनुपात क्या है?", "question_eng": "The surface areas of a sphere and a cube are equal. What is the ratio of the squares of their volumes? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "6 : π ", "option_1_eng": "6 : π", "option_2": "5 : π", "option_2_eng": "5 : π", "option_3": "3 : 5", "option_3_eng": "3 : 5", "option_4": "1 : 1", "option_4_eng": "1 : 1", "answer": "1"}, {"id": 559969, "question": "एक गोले की त्रिज्या, किसी लम्बवृत्तीय शंकु के आधार की त्रिज्या के बराबर है और गोले का आयतन, शंकु के आयतन का दोगुना है। शंकु की ऊँचाई का उसके आधार की त्रिज्या से अनुपात क्या है? ", "question_eng": "The radius of a sphere is equal to the radius of the base of a right circular cone, and the volume of the sphere is twice the volume of the cone. What is the ratio of the height of the cone to the radius of its base? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "2 : 1", "option_1_eng": "2 : 1", "option_2": "1 : 2", "option_2_eng": "1 : 2", "option_3": "2 : 3", "option_3_eng": "2 : 3", "option_4": "3 : 2", "option_4_eng": "3 : 2", "answer": "1"}, {"id": 559970, "question": "7 सेमी की आन्तरिक व्यास वाली एक बेलनाकार नली से पानी 5 मी/से की गति से बहता है। 4 मी × 3 मी × 2.31 मी वाली एक आयताकार खाली टंकी को भरने में इस नली को कितने मिनट लगेंगे?", "question_eng": "Water flows at a speed of 5 m/s through a cylindrical pipe with an internal diameter of 7 cm. How many minutes will this pipe take to fill an empty rectangular tank measuring 4 m × 3 m × 2.31 m? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "28", "option_1_eng": "28", "option_2": "24", "option_2_eng": "24", "option_3": "20", "option_3_eng": "20", "option_4": "12", "option_4_eng": "12", "answer": "2"}, {"id": 559971, "question": "एक लम्बवृत्तीय शंकु, जिसकी ऊँचाई 24 सेमी है और जिसके आधार पर 7 सेमी त्रिज्या का एक अर्द्धगोला है, का कुल बाह्य पृष्ठीय क्षेत्रफल कितना है? ", "question_eng": "What is the total external surface area of a right circular cone, which has a height of 24 cm and a hemisphere of radius 7 cm attached to its base? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "327 π वर्ग सेमी", "option_1_eng": "327π sq cm", "option_2": "307π वर्ग सेमी", "option_2_eng": "307π sq cm", "option_3": "293π वर्ग सेमी", "option_3_eng": "293π sq cm ", "option_4": "273π वर्ग सेमी", "option_4_eng": "273π sq cm", "answer": "4"}, {"id": 559972, "question": "किसी राशि में 6 वर्षों में साधारण ब्याज पर 60% की वृद्धि होती है। 12000 रुपये की राशि पर 3 वर्षो के लिए उसी ब्याज दर पर चक्रवृद्धि ब्याज क्या होगा? ", "question_eng": "A sum of money increases by 60% in 6 years at simple interest. What will be the compound interest on a sum of Rs. 12,000 for 3 years at the same interest rate? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "2160 रुपये", "option_1_eng": "Rs. 2160", "option_2": "3120 रुपये", "option_2_eng": "Rs. 3120", "option_3": "3972 रुपये", "option_3_eng": "Rs. 3972", "option_4": "6240 रुपये", "option_4_eng": "Rs. 6240", "answer": "3"}, {"id": 559973, "question": "16 लीटर के एक मिश्रण में दूध और पानी 5 : 3 के अनुपात में हैं। यदि इस मिश्रण में 4 लीटर दूध और मिला दिया जाए, तो नये मिश्रण में दूध का पानी से अनुपात क्या होगा? ", "question_eng": "In a mixture of 16 liters, milk and water are in the ratio 5:3. If 4 liters of milk are added to this mixture, what will be the ratio of milk to water in the new mixture? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "2 : 1", "option_1_eng": "2 : 1", "option_2": "7 : 3", "option_2_eng": "7 : 3", "option_3": "4 : 3", "option_3_eng": "4 : 3", "option_4": "8 : 3", "option_4_eng": "8 : 3", "answer": "2"}, {"id": 559974, "question": "एक व्यक्ति अपनी आय के 10% की बचत करता है, किन्तु 2 वर्ष बाद, जब उसकी आय 20% बढ़ गई, तब भी वह पहले जितनी ही राशि की बचत कर सका। उसका व्यय कितने प्रतिशत बढ़ गया है? ", "question_eng": "A person saves 10% of his income; however, two years later, when his income increased by 20%, he was still able to save only the same amount as before. By what percentage has his expenditure increased? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$22\\frac29\\%$$", "option_1_eng": "$$22\\frac29\\%$$", "option_2": "$$23\\frac13\\%$$", "option_2_eng": "$$23\\frac13\\%$$", "option_3": "$$24\\frac29\\%$$", "option_3_eng": "$$24\\frac29\\%$$", "option_4": "$$25\\frac29\\%$$", "option_4_eng": "$$25\\frac29\\%$$", "answer": "1"}, {"id": 559975, "question": "किसी मूलधन पर 10% प्रतिवर्ष की दर से साधारण ब्याज कितने समय में मूलधन का 0.125 गुना हो जाएगा? ", "question_eng": "In what time will the simple interest on a principal amount, at a rate of 10% per annum, become 0.125 times the principal? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$1\\frac14\\%$$ वर्ष", "option_1_eng": "$$1\\frac14\\%$$ years", "option_2": "$$1\\frac34\\%$$ वर्ष", "option_2_eng": "$$1\\frac34\\%$$ years", "option_3": "$$2\\frac14\\%$$ वर्ष", "option_3_eng": "$$2\\frac14\\%$$ years", "option_4": "$$2\\frac34\\%$$ वर्ष", "option_4_eng": "$$2\\frac34\\%$$ years", "answer": "1"}, {"id": 559976, "question": "मान लीजिए OA, OB, OC और OD वामावर्त दिशा में इस प्रकार की किरणें हैं कि ∠AOB = ∠COD = 100°, ∠BOC = 82° और ∠AOD = 78° है।<br />\nनिम्नलिखित कथनों पर विचार कीजिए<br />\nI. AOC और BOD रेखाएँ हैं।<br />\nII. ∠BOC और ∠AOD सम्पूरक हैं।<br />\nउपरोक्त कथनों में से कौनसा/से सही कथन है/हैं?", "question_eng": "Suppose OA, OB, OC and OD are rays in the counterclockwise direction such that ∠AOB = ∠COD = 100°, ∠BOC = 82° and ∠AOD = 78° are rays.<br />\n Consider the following statements:<br />\nI. AOC and BOD are lines.<br />\nII. ∠BOC and ∠AOD are complements.<br />\nWhich of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल I", "option_1_eng": "Only I", "option_2": "केवल II", "option_2_eng": "Only II", "option_3": "I और II दोनों", "option_3_eng": "Both I and II", "option_4": "न तो I और न ही II", "option_4_eng": "Neither I nor II", "answer": "3"}, {"id": 559977, "question": "80º का पूरक कोण क्या है? ", "question_eng": "What is the complement of 80º?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$\\frac{18}{\\mathrm\\pi}$$ रेडियन", "option_1_eng": "$$\\frac{18}{\\mathrm\\pi}$$ radians", "option_2": "$$\\frac{5\\mathrm\\pi}9$$ रेडियन", "option_2_eng": "$$\\frac{5\\mathrm\\pi}9$$ radians", "option_3": "$$\\frac{\\mathrm\\pi}{18}$$ रेडियन", "option_3_eng": "$$\\frac{\\mathrm\\pi}{18}$$ radians", "option_4": "$$\\frac9{5\\mathrm\\pi}$$ रेडियन", "option_4_eng": "$$\\frac9{5\\mathrm\\pi}$$ radians", "answer": "3"}, {"id": 559978, "question": "यदिx + y + z = 0 है, तो x³ + y² + z³ + 3xyz किसके बराबर है?", "question_eng": "If x + y + z = 0,  then what is x³ + y² + z³ + 3xyz equal to? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "0", "option_1_eng": "0", "option_2": "6xyz", "option_2_eng": "6xyz", "option_3": "12 xyz", "option_3_eng": "12 xyz", "option_4": "xyz", "option_4_eng": "xyz", "answer": "1"}, {"id": 559979, "question": "दिया है कि $$\\sqrt5=2.24;$$ तो $$\\frac{3\\sqrt5}{2\\sqrt5-0.48}$$ का मान होगा?", "question_eng": "Given that $$\\sqrt5=2.24;$$ then what will be the value of $$\\frac{3\\sqrt5}{2\\sqrt5-0.48}$$ ? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "0.168", "option_1_eng": "0.168", "option_2": "1.68", "option_2_eng": "1.68", "option_3": "16.8", "option_3_eng": "16.8", "option_4": "168", "option_4_eng": "168", "answer": "2"}, {"id": 559980, "question": "दिया है कि $$\\sqrt2=1.414,$$ तो $$\\frac1{\\sqrt2+1}$$का मान होगा?", "question_eng": "Given that $$\\sqrt2=1.414,$$ then what will be the value of $$\\frac1{\\sqrt2+1}$$ ? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "0.414", "option_1_eng": "0.414", "option_2": "2.414", "option_2_eng": "2.414", "option_3": "3.414", "option_3_eng": "3.414", "option_4": "5.414", "option_4_eng": "5.414", "answer": "1"}, {"id": 559981, "question": "एक संख्या के घन में(150)² जोड़ने पर उत्तर आता है 773721 यह संख्या क्या है? ", "question_eng": "When (150)² is added to the cube of a certain number, the result is 773721. What is this number? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "32", "option_1_eng": "32", "option_2": "34", "option_2_eng": "34", "option_3": "36", "option_3_eng": "36", "option_4": "38", "option_4_eng": "38", "answer": "4"}, {"id": 559982, "question": "एक कक्षा में 72% विद्यार्थियों ने जीव विज्ञान लिया और 44% ने गणित लिया। यदि प्रत्येक विद्यार्थी ने कम से कम एक विषय जीव विज्ञान या गणित में से लिया और 40 ने दोनों लिये, तो कक्षा में कुल कितने विद्यार्थी हैं? ", "question_eng": "In a class, 72% of the students opted for Biology, and 44% opted for Mathematics. If every student opted for at least one subject either Biology or Mathematics and 40 students opted for both, what is the total number of students in the class? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "200", "option_1_eng": "200", "option_2": "240", "option_2_eng": "240", "option_3": "250", "option_3_eng": "250", "option_4": "320", "option_4_eng": "320", "answer": "3"}, {"id": 559983, "question": "चीनी के भाव में 25% की वृद्धि होती है। यदि कोई परिवार चीनी पर किए जाने वाले अपने व्यय को पहले जैसा ही रखना चाहे, तो परिवार द्वारा चीनी की खपत में कितने कमी करनी होगी? ", "question_eng": "The price of sugar increases by 25%. If a family wishes to keep its expenditure on sugar the same as before, by what percentage must the family reduce its consumption of sugar? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "25%", "option_1_eng": "25%", "option_2": "20%", "option_2_eng": "20%", "option_3": "80%", "option_3_eng": "80%", "option_4": "75%", "option_4_eng": "75%", "answer": "2"}, {"id": 559984, "question": "यदि किसी वस्तु को बेचने से प्राप्त लाभ प्रतिशत संख्यात्मक रूप में रुपयों में इसके क्रय-मूल्य के बराबर हो तथा उसका विक्रय मूल्य39 रुपये हो, तो उसका क्रय-मूल्य (रुपये में) होगा? ", "question_eng": "If the profit percentage obtained from selling an item is numerically equal to its cost price (in rupees), and its selling price is 39, what is its cost price (in rupees)? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "20 रुपये", "option_1_eng": "Rs. 20", "option_2": "22 रुपये", "option_2_eng": "Rs. 22", "option_3": "28 रुपये", "option_3_eng": "Rs. 28", "option_4": "30 रुपये", "option_4_eng": "Rs. 30", "answer": "4"}, {"id": 559985, "question": "10% तथा 5% के दो क्रमवार बट्‌टे किस एकमात्र बट्‌टे के समतुल्य है? ", "question_eng": "Two successive discounts of 10% and 5% are equivalent to a single discount of what percentage?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "14%", "option_1_eng": "14%", "option_2": "14.25%", "option_2_eng": "14.25%", "option_3": "14.50%", "option_3_eng": "14.50%", "option_4": "15%", "option_4_eng": "15%", "answer": "3"}, {"id": 559986, "question": "बिन्दु (7, 3), (3, 0), (0, –4) एवं (4, –1) किसके शीर्ष है-", "question_eng": "The points (7, 3), (3, 0), (0, –4), and (4, –1) are the vertices of a:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "समचतुर्भुज", "option_1_eng": "Rhombus", "option_2": "आयत", "option_2_eng": "Rectangle", "option_3": "वर्ग", "option_3_eng": "Square", "option_4": "समान्तर चतुर्भुज", "option_4_eng": "Parallelogram", "answer": "1"}, {"id": 559987, "question": "यदि समबाहु त्रिभुज के दो शीर्ष (1, 1) एवं (–1, –1) हो तो तीसरा शीर्ष क्या होगा? ", "question_eng": "If two vertices of an equilateral triangle are (1, 1) and (–1, –1), what will be the third vertex? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "(–1, 1)", "option_1_eng": "(–1, 1)", "option_2": "$$\\left(\\sqrt3,-\\sqrt3\\right)$$", "option_2_eng": "$$\\left(\\sqrt3,-\\sqrt3\\right)$$", "option_3": "(1, –1)", "option_3_eng": "(1, –1)", "option_4": "(2, 2)", "option_4_eng": "(2, 2)", "answer": "2"}, {"id": 559988, "question": "यदिA (2, 3), B(1, 4), C(0, –2) और D(x, y) समान्तर चतुर्भुज के शीर्ष हैं, तो (x, y) का मान क्या होगा?", "question_eng": "If A (2, 3), B(1, 4), C(0, –2) and C(0, –2) are the vertices of a parallelogram, then what will be the value of (x, y)? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "(1, –3)", "option_1_eng": "(1, –3)", "option_2": "(2, 4)", "option_2_eng": "(2, 4)", "option_3": "(1, 1)", "option_3_eng": "(1, 1)", "option_4": "(0, 0)", "option_4_eng": "(0, 0)", "answer": "1"}, {"id": 559989, "question": "<br><br/><img src=https://cdn-static.kalam.academy/questions/2026-05-30_1780138585_6a1ac2599793a.jpg style=\"min-width:320px\">", "question_eng": "<br><br/><img src=https://cdn-static.kalam.academy/questions/2026-05-30_1780138585_6a1ac2599793a.jpg style=\"min-width:320px\">", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "2 : 3", "option_1_eng": "2 : 3", "option_2": "4 : 3", "option_2_eng": "4 : 3", "option_3": "1 : 2", "option_3_eng": "1 : 2", "option_4": "9 : 4", "option_4_eng": "9 : 4", "answer": "4"}, {"id": 559990, "question": "चार संख्याओं का एक समुच्चय है। इन में से तीन सबसे छोटी संख्याओं का माध्य 19 है और तीन सबसे बड़ी संख्याओं का माध्य 23 है। इस समुच्चय सेट का परास क्या होगा?", "question_eng": "There is a set of four numbers. The mean of the three smallest numbers in this set is 19, and the mean of the three largest numbers is 23. What is the range of this set?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "18", "option_1_eng": "18", "option_2": "12", "option_2_eng": "12", "option_3": "14", "option_3_eng": "14", "option_4": "15", "option_4_eng": "15", "answer": "2"}, {"id": 559991, "question": "नीचे दिए गए आंकड़ों के बहुलक, माध्यिका और माध्य का लघुत्तम समापवर्त्य ज्ञात कीजिए। <br />\n7, 2, 10, 4, 3, 12, 8, 4, 6, 4.", "question_eng": "Find the Least Common Multiple of the mode, median, and mean of the data given below:<br />\n7, 2, 10, 4, 3, 12, 8, 4, 6, 4.", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "30", "option_1_eng": "30", "option_2": "20", "option_2_eng": "20", "option_3": "12", "option_3_eng": "12", "option_4": "60", "option_4_eng": "60", "answer": "4"}, {"id": 559992, "question": "1 वर्ष के लिए 8% साधारण ब्याज पर रू. 16000 का निवेश और समान अवधि के लिए 18% साधारण ब्याज पर दूसरा निवेश करने पर, कुल निवेश पर 10% का लाभ प्राप्त होता है। निवेश की गई कुल राशि ज्ञात करें।", "question_eng": "Upon investing 16,000 at 8% simple interest for one year, and making a second investment at 18% simple interest for the same duration, a return of 10% is obtained on the total investment. Determine the total amount invested.", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "रू. 22000", "option_1_eng": "Rs. 22000", "option_2": "रू. 20000", "option_2_eng": "Rs. 20000", "option_3": "रू. 20500", "option_3_eng": "Rs. 20500", "option_4": "रू. 18000", "option_4_eng": "Rs. 18000", "answer": "2"}, {"id": 559993, "question": "अर्धवार्षिक रूप से चक्रवृद्धि ब्याज से रू. 80,000 के 2 वर्ष बाद 20% की वार्षिक दर से कितने रुपये हो जायेंगे?", "question_eng": "How much will 80,000 amount to after 2 years at an annual interest rate of 20%, compounded semi-annually?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "रू. 97,240", "option_1_eng": "Rs. 97,240", "option_2": "रू. 117,128", "option_2_eng": "Rs. 117,128", "option_3": "रू. 115,200", "option_3_eng": "Rs. 115,200", "option_4": "रू. 120,000", "option_4_eng": "Rs.120,000", "answer": "2"}, {"id": 559994, "question": "निम्नलिखित समीकरण निकाय का हल ज्ञात कीजिएः<br />\n[x + y] = 1 तथा x - y = 0 :", "question_eng": "Find the solution to the following system of equations:<br />\n[x + y] = 1 and x - y = 0 :", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$x=y=\\frac12$$", "option_1_eng": "$$x=y=\\frac12$$", "option_2": "$$x=y=-\\frac12$$", "option_2_eng": "$$x=y=-\\frac12$$", "option_3": "$$x=y=\\pm\\frac12$$", "option_3_eng": "$$x=y=\\pm\\frac12$$", "option_4": "x= 1, y = 0", "option_4_eng": "x= 1, y = 0", "answer": "3"}, {"id": 559995, "question": "समीकरणों kx–y = 2 तथा 6x – 2y= 3 का एक अद्वितीय हल होगा जब :", "question_eng": "The equations kx - y = 2 and 6x - 2y = 3 will have a unique solution when:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "K = 4 ", "option_1_eng": "K = 4 ", "option_2": "K = 5 ", "option_2_eng": "K = 5 ", "option_3": "K = -2", "option_3_eng": "K = -2", "option_4": "उपर्युक्त सभी", "option_4_eng": "All of the above", "answer": "4"}, {"id": 559996, "question": "यदि $$\\frac{\\sqrt7-2}{\\sqrt7+2}=a\\sqrt7+b$$ है तो a का मान क्या है?", "question_eng": "If $$\\frac{\\sqrt7-2}{\\sqrt7+2}=a\\sqrt7+b$$, then what is the value of a?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "$$\\frac{11}3$$", "option_1_eng": "$$\\frac{11}3$$", "option_2": "$$-\\frac43$$", "option_2_eng": "$$-\\frac43$$", "option_3": "$$\\frac43$$", "option_3_eng": "$$\\frac43$$", "option_4": "$$\\frac{-4\\sqrt7}3$$", "option_4_eng": "$$\\frac{-4\\sqrt7}3$$", "answer": "2"}, {"id": 559997, "question": "किसी वस्तु का मूल्य वर्ष 2006 में 250 रूपये तथा वर्ष 2010 में 350 रूपये हो, तो 2006 को आधार वर्ष मानते हुए वर्ष 2010 का मूल्य सूचकांक होगा-", "question_eng": "If the price of a commodity was Rs. 250 in the year 2006 and Rs. 350 in the year 2010, then, taking 2006 as the base year, the price index for the year 2010 would be-", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "130", "option_1_eng": "130", "option_2": "71.43 लगभग", "option_2_eng": "Approximately 71.43", "option_3": "140", "option_3_eng": "140", "option_4": "आँकड़ें अपर्याप्त हैं।", "option_4_eng": "The data is insufficient.", "answer": "3"}, {"id": 559998, "question": "इसरो टेलिमेंट्री, ट्रेकिंग और कमांड नेटवर्क (इस्ट्रेक) का मुख्यालय कहाँ स्थित है?", "question_eng": "Where is the headquarters of the ISRO Telemetry, Tracking and Command Network (ISTRAC) located? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बैंगलुरू", "option_1_eng": "Bengaluru", "option_2": "अहमदाबाद", "option_2_eng": "Ahmedabad", "option_3": "चैन्नई", "option_3_eng": "Chennai", "option_4": "दिल्ली", "option_4_eng": "Delhi", "answer": "1"}, {"id": 559999, "question": "कथन (A): अंतरिक्ष विभाग के सचिव वर्तमान में डॉ. वी. नारायणन है।<br />\nकारण (R): इसरो का अध्यक्ष अंतरिक्ष विभाग का सचिव होता है।", "question_eng": "Statement (A): The Secretary of the Department of Space is currently Dr. V. Narayanan. <br />\nReason (R): The Chairman of ISRO serves as the Secretary of the Department of Space.", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A व R सही है, तथा R, A की सही व्याख्या करता है।", "option_1_eng": "Both A and R are correct, and R is the correct explanation of A.", "option_2": "A व R सही है, परंतु R, A की सही व्याख्या नहीं करता है।", "option_2_eng": "Both A and R are correct, but R is not the correct explanation of A.", "option_3": "A सही है तथा R गलत है।", "option_3_eng": "A is correct and R is incorrect. ", "option_4": "A गलत है तथा R सही है।", "option_4_eng": "A is incorrect and R is correct. ", "answer": "1"}, {"id": 560000, "question": "NSIL के कार्य है-<br />\nA. उद्योगों के माध्यम से PSLV व SSLV का उत्पादन करना।<br />\nB. इसरो की प्रौद्योगिकी का विपणन करना।<br />\nC. ट्रांसपोंडर लीजिंग सेवाएं प्रदान करना।<br />\nD. परामर्शदात्री सेवाएँ<br />\nकूटः", "question_eng": "The functions of NSIL are:<br />\n A. To produce PSLV and SSLV through industries. <br />\n B. To market ISRO's technology. <br />\n C. To provide transponder leasing services. <br />\n D. Consultancy services. <br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A, B व D", "option_1_eng": "Only A, B and D", "option_2": "केवल A, C व D", "option_2_eng": "Only A, C and D", "option_3": "केवल A, B व C", "option_3_eng": "Only A, B and C", "option_4": "A, B, C व D", "option_4_eng": "A, B, C and D", "answer": "4"}, {"id": 560001, "question": "सरकारी उपक्रम और गैर सरकारी एजेंसी को अंतरिक्ष कार्यकलापों हेतु प्राधिकृत करने के लिए एकल खिड़की एजेंसी की भाँति कार्य करती है-", "question_eng": "Which entity acts as a single-window agency to authorize government undertakings and non-governmental agencies for space-related activities? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "NSIL", "option_1_eng": "NSIL", "option_2": "एंट्रिक्स कॉर्पोरेशन", "option_2_eng": "Antrix Corporation", "option_3": "इन-स्पेस", "option_3_eng": "IN-SPACe", "option_4": "अंतरिक्ष विभाग", "option_4_eng": "Department of Space", "answer": "3"}, {"id": 560002, "question": "अंतरिक्ष आधारित निगरानी मिशन के संबंध में सही कथन की पहचान कीजिए-<br />\nA. इसके तीसरे चरण को मंजुरी दे दी गयी।<br />\nB. इसके तहत्‌ कम से कम 152 उपग्रहों का प्रक्षेपण किया जाएगा।<br />\nC. इसका संचालन रक्षा अंतरिक्ष एजेंसी द्वारा किया जा रहा है।<br />\nकूटः", "question_eng": "Identify the correct statement(s) regarding the space-based surveillance mission:<br />\nA. Its third phase has been approved. <br />\nB. Under this initiative, at least 152 satellites will be launched. <br />\nC. It is being operated by the Defence Space Agency.<br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A व B", "option_1_eng": "Only A and B", "option_2": "केवल B व C", "option_2_eng": "Only B and C", "option_3": "केवल A व C", "option_3_eng": "Only A and C", "option_4": "A, B व C", "option_4_eng": "A, B and C", "answer": "3"}, {"id": 560003, "question": "दूनिया का पहला 3D रॉकेट 'अग्निबाण' किसके द्वारा विकसित किया गया?", "question_eng": "By whom was the world's first 3D rocket, 'Agnibaan', developed? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "पिक्सेल इंडिया", "option_1_eng": "Pixxel India", "option_2": "रिलायंस एयरोस्पेस", "option_2_eng": "Reliance Aerospace", "option_3": "अग्निकुल कोसमोस", "option_3_eng": "Agnikul Cosmos", "option_4": "इंडिया रॉकेट एयरोस्पेस", "option_4_eng": "India Rocket Aerospace", "answer": "3"}, {"id": 560004, "question": "निम्न में से कौनसा सुमेलित नहीं है-<br />\nA. निसार - सुदूर संवेदी<br />\nB. मेधाट्रोपिक - संचार<br />\nC. CMS-03 - नेविगेशन<br />\nD. इनसेट-3DS - मौसम पूर्वानुमान<br />\nकूटः", "question_eng": "Which of the following is not correctly matched? <br />\nA. NISAR - Remote Sensing<br />\nB. Megha-Tropiques - Communication<br />\nC. CMS-03 - Navigation<br />\nD. INSAT-3DS - Weather Forecasting<br />\nCode:", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A व C", "option_1_eng": "A and C", "option_2": "B व C", "option_2_eng": "B and C", "option_3": "C व D", "option_3_eng": "C and D", "option_4": "B, C व D", "option_4_eng": "B, C and D", "answer": "2"}, {"id": 560005, "question": "कथन (A): GSLV M-III को इसरो का बाहुबली/फैट बॉय कहा जाता है।<br />\nकारण (R): यह GTO में 8000 किग्रा. वजन तक के उपग्रह स्थापित कर सकता है।", "question_eng": "Statement (A): GSLV M-III is known as ISRO's 'Baahubali' / 'Fat Boy'. <br />\nReason (R): It can place satellites weighing up to 8000 kg into GTO.", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A व R सही है, तथा R, A की सही व्याख्या करता है।", "option_1_eng": "Both A and R are true, and R is the correct explanation of A.", "option_2": "A व R सही है, परंतु R, A की सही व्याख्या नहीं करता है।", "option_2_eng": "Both A and R are true, but R is not the correct explanation of A.", "option_3": "A सही है तथा R गलत है।", "option_3_eng": "A is true, but R is false. ", "option_4": "A गलत है तथा R सही है।", "option_4_eng": "A is false, but R is true. ", "answer": "3"}, {"id": 560006, "question": "कब्रगाह कक्षा की ऊँचाई लगभग कितनी होती है?", "question_eng": "What is the approximate altitude of a 'Graveyard Orbit'? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "35000 k.m.", "option_1_eng": "35,000 km", "option_2": "36050 k.m.", "option_2_eng": "36,050 km", "option_3": "35300 k.m.", "option_3_eng": "35,300 km", "option_4": "36500 k.m.", "option_4_eng": "36,500 km", "answer": "2"}, {"id": 560007, "question": "मार्च 2026 में यूजर इन्टे्रक्शन मीट-2026 का आयोजन कहाँ हुआ?", "question_eng": "Where was the User Interaction Meet-2026 organized in March 2026? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बैंगलुरू", "option_1_eng": "Bangalore ", "option_2": "चैन्नई", "option_2_eng": "Chennai ", "option_3": "हैदराबाद", "option_3_eng": "Hyderabad ", "option_4": "अहमदाबाद", "option_4_eng": "Ahmedabad ", "answer": "3"}, {"id": 560008, "question": "सूची-I को  सूची-II के साथ सुमेलित कीजिए एवं नीचे दिये कूट से सही उत्तर का चयन कीजिए-<br />\n  सूची-I     सूची-II<br />\n (A) ई-मेल (1)  टिम बर्नर्स ली<br />\n (B) फैक्स (2)  जॉन मेकार्थी<br />\n (C) www (3)  आर. टोमलिंसन<br />\n (D) AI  (4)  अलेक्जेण्डर बेल<br />\n कूट-<br />\nA B C D", "question_eng": "Match List-I with List-II and select the correct answer from the code given below: <br />\n List-I  List-II<br />\n (A) E-mail  (1)  Tim Berners Lee <br />\n (B) Fax   (2)  John McCarthy <br />\n (C) www  (3)  R. Tomlinson <br />\n (D) AI  (4)  Alexander Bell <br />\n Code- <br />\nA B C D", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "1 2 3 4", "option_1_eng": "1 2 3 4", "option_2": "3 4 1 2", "option_2_eng": "3 4 1 2", "option_3": "1 4 3 2", "option_3_eng": "1 4 3 2", "option_4": "4 2 1 3", "option_4_eng": "4 2 1 3", "answer": "2"}, {"id": 560009, "question": "SMTP का पूर्ण नाम है-", "question_eng": "The full name of SMTP is- ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Simple mail transport", "option_1_eng": "Simple mail transport", "option_2": "Simple male transfer protocol", "option_2_eng": "Simple male transfer protocol", "option_3": "Simple mail transfer protocol", "option_3_eng": "Simple mail transfer protocol", "option_4": "Transmission protocol for sample", "option_4_eng": "Transmission protocol for sample", "answer": "3"}, {"id": 560010, "question": "आभासी और संवर्धित वास्तविकता पर आधारित उत्कृष्टता केन्द्र की स्थापना कहाँ की गई है?", "question_eng": "Where has the Center of Excellence based on Virtual and Augmented Reality been established? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "IIT, भुवनेश्वर", "option_1_eng": "IIT, Bhubaneswar", "option_2": "IIT, मद्रास", "option_2_eng": "IIT, Madras", "option_3": "IIT, रूड़की", "option_3_eng": "IIT, Roorkee", "option_4": "IIT, जोधपुर", "option_4_eng": "IIT, Jodhpur", "answer": "1"}, {"id": 560011, "question": "निम्नलिखित में से कौनसा एक डिजिटल पर्स नहीं है?", "question_eng": "Which one of the following is not a digital wallet? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "PhonePe", "option_1_eng": "PhonePe", "option_2": "BHIM UPI", "option_2_eng": "BHIM UPI", "option_3": "Amazon Pay", "option_3_eng": "Amazon Pay", "option_4": "GROK", "option_4_eng": "GROK", "answer": "4"}, {"id": 560012, "question": "राजस्थान में सूचना प्रौद्यागिकी के संदर्भ में असत्य कथन है-", "question_eng": "In the context of Information Technology in Rajasthan, which of the following is a false statement? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "राजस्थान नागरिकों को हिन्दी ई-मेल (राजमेल) की सुविधा प्रदान करने वाला प्रथम राज्य है।", "option_1_eng": "Rajasthan is the first state to provide the facility of Hindi e-mail (RajMail) to its citizens.", "option_2": "RSDC की कुल क्षमता 800 रेक है।", "option_2_eng": "The total capacity of the RSDC is 800 racks. ", "option_3": "आमजन की शिकायतों को दर्ज करने व समाधान ट्रैकिंग हेतु 181 हेल्पलाईन नंबर है।", "option_3_eng": "The helpline number 181 is available for registering and tracking the resolution of public grievances. ", "option_4": "राजनेट LAN आधारित परियोजना है जिससे राज्य में ग्राम पंचायत स्तर तथा सरकारी भवनों को नेटवर्क कनेक्टीविटी उपलब्ध करवाई जा रही है।", "option_4_eng": "RajNet is a LAN-based project through which network connectivity is being provided to Gram Panchayat levels and government buildings across the state. ", "answer": "4"}, {"id": 560013, "question": "दुर्लभ मृदा खनिजों (REEs) और क्रिटिकल खनिजों के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए-<br />\n (A) कृत्रिम बुद्धिमता, रोबोटिक्स और अंतरिक्ष अन्वेषण जैसे आधुनिक तकनीकी नवाचारों में दुर्लभ मृदा खनिजों का बहुतायत रूप से उपयोग किया जाता है।<br />\n (B) दुर्लभ मृदा खनिजों की माइनिंग में भारत का दूसरा स्थान है।<br />\n (C) भारत सरकार ने क्रिटिकल खनिज क्षेत्र में आत्मर्भिरता लाने हेतु वर्ष 2025 में राष्ट्रीय क्रिटिकल मिनरल मिशन (NCMM) शुरू किया है।<br />\n (D) दुर्लभ मृदा खनिज तत्व (REEs) कुल 13 धात्विक तत्वों का समूह है।<br />\nउपर्युक्त में से कौनसा/कौनसे कथन सत्य है/हैं?", "question_eng": "Consider the following statements regarding Rare Earth Minerals (REEs) and Critical Minerals:<br />\n (A) Rare Earth Minerals are extensively used in modern technological innovations such as Artificial Intelligence, Robotics, and Space Exploration.<br />\n  (B) India ranks second in the mining of Rare Earth Minerals. <br />\n (C) The Government of India launched the National Critical Minerals Mission (NCMM) in 2025 to achieve self-reliance in the critical minerals sector. <br />\n (D) Rare Earth Mineral Elements (REEs) constitute a group of 13 metallic elements. <br />\nWhich of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल C", "option_1_eng": "Only C", "option_2": "केवल A, C और D", "option_2_eng": "Only A, C, and D", "option_3": "केवल A और C", "option_3_eng": "Only A and C", "option_4": "केवल A, B और D", "option_4_eng": "Only A, B, and D", "answer": "3"}, {"id": 560014, "question": "5 से 13 अप्रेल तक ग्रेनेड, स्पेन में आयोजित 'ISSF विश्व कप राइफल/पिस्टल-2026' के अन्तर्गत 10 मीटर एयर पिस्टल मिक्सड टीम ने स्वर्ण पदक जीता, इसमें कौन-कौन सम्मिलित थे?", "question_eng": "Who were the members of the 10m Air Pistol Mixed Team that won the gold medal at the 'ISSF World Cup Rifle/Pistol 2026', held in Granada, Spain, from April 5 to 13? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मुकेश नेलावल्ली व पलक गुलिया", "option_1_eng": "Mukesh Nelavalli and Palak Gulia", "option_2": "प्राची गायकवाड़ व मुकेश नेलावल्ली", "option_2_eng": "Prachi Gaikwad and Mukesh Nelavalli", "option_3": "स्वाती चौधरी व तोमन कुमार", "option_3_eng": "Swati Chaudhary and Toman Kumar", "option_4": "प्रिया मलिक व अंश पालीवाल", "option_4_eng": "Priya Malik and Ansh Paliwal", "answer": "1"}, {"id": 560015, "question": "फरवरी, 2026 में जारी संशोधित उपभोक्ता मूल्य सूचकांक (CPI) के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए-<br />\n(A) यह सांख्यिकी एवं कार्यान्वयन मंत्रालय द्वारा जारी किया गया है।<br />\n(B) संशोधित CPI में उपभोग की श्रेणियों में वृद्धि कर 6 के स्थान पर 10 श्रेणियाँ बनाई गई हैं।<br />\n(C) CPI में भारित मदों की संख्या 299 से बढ़ाकर 358 की गई है।<br />\n(D) इसके आधार वर्ष को 2012 के स्थान पर 2014 परिवर्तित किया गया है।<br />\nउपर्युक्त में से कौनसा/कौनसे कथन सत्य है/हैं?", "question_eng": "Consider the following statements in the context of the revised Consumer Price Index (CPI) released in February 2026:<br />\n (A) It has been released by the Ministry of Statistics and Programme Implementation. <br />\n (B) In the revised CPI, the categories of consumption have been increased from 6 to 10.<br />\n (C) The number of weighted items in the CPI has been increased from 299 to 358.<br />\n (D) Its base year has been changed from 2012 to 2014.<br />\nWhich of the above statements is/are true?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A और B", "option_1_eng": "Only A and B", "option_2": "केवल B और C", "option_2_eng": "Only B and C", "option_3": "केवल A, C और D", "option_3_eng": "Only A, C, and D", "option_4": "केवल A, B और D", "option_4_eng": "Only A, B, and D", "answer": "3"}, {"id": 560016, "question": "श्रीमती X के बारे में निम्नलिखित कथनों पर विचार कीजिए-<br />\n(A) इन्हें वर्ष 2026 की टाइम वुमन ऑफ द ईयर की सूची में शामिल किया गया है।<br />\n(B) ये मुम्बई स्थित एक गैर-लाभकारी संस्था एजुकेट गर्ल्स की संस्थापक है।<br />\n(C) एजुकेट गर्ल्स ने राजस्थान सरकार के साथ मिलकर पाली व जालौर जिलों से ही अपने मॉडल की शुरुआत की थी।<br />\nउपर्युक्त कथनों के आधार पर श्रीमती X को पहचानिए?", "question_eng": "Consider the following statements regarding Ms. X:<br />\n (A) She has been included in the 2026 list of TIME Women of the Year. <br />\n (B) She is the founder of 'Educate Girls', a Mumbai-based non-profit organization.<br />\n (C) Educate Girls, in collaboration with the Government of Rajasthan, launched its model specifically in the districts of Pali and Jalore. <br />\nBased on the above statements, identify Ms. X ?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "रूबल नागी", "option_1_eng": "Rubal Nagi", "option_2": "सफीना हुसैन", "option_2_eng": "Safina Husain", "option_3": "रूही मोहज्जाब", "option_3_eng": "Ruhi Mohazzab", "option_4": "प्रवीणा देशपांडे", "option_4_eng": "Praveena Deshpande", "answer": "2"}, {"id": 560017, "question": "‘Boong’ फिल्म के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए-<br />\n (A) हाल ही में इस फिल्म को बेस्ट चिल्ड्रंस एंड फैमिली फिल्म कैटेगरी में बाफ्टा (BAFTA) अवार्ड्‌ मिला।<br />\n (B) इस फिल्म का निर्देशन लक्ष्मीप्रिया देवी ने किया है।<br />\n (C) यह ओडिशी भाषा की फिल्म है।<br />\n (D) चिल्ड्रंस एंड फैमिली फिल्म कैटेगरी में बाफ्टा (BAFTA) अवार्ड्‌ जितने वाली यह प्रथम भारतीय फिल्म है।<br />\nउपर्युक्त में से कौनसा/कौनसे कथन सत्य है/हैं?", "question_eng": "Consider the following statements regarding the film 'Boong':<br />\n (A) Recently, this film received a BAFTA Award in the 'Best Children's and Family Film' category. <br />\n (B) This film was directed by Lakshmipriya Devi. <br />\n (C) This is an Odia-language film. <br />\n (D) This is the first Indian film to win a BAFTA Award in the 'Children's and Family Film' category. <br />\nWhich of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A और B", "option_1_eng": "Only A and B", "option_2": "केवल B और C", "option_2_eng": "Only B and C", "option_3": "केवल A, C और D", "option_3_eng": "Only A, C, and D", "option_4": "केवल A, B और D", "option_4_eng": "Only A, B, and D", "answer": "4"}, {"id": 560018, "question": "हाल ही में हुए निम्नलिखित युद्धाभ्यासों (सूची-I) से संबंधित देशों (सूची-II) तथा उनके आयोजन स्थलों (सूची-III) के संदर्भ में विचार कीजिए-<br />\nउपरोक्त युग्मों में से कितने युग्म सही सुमेलित है/हैं?<br/><img src=https://cdn-static.kalam.academy/questions/2026-05-30_1780138586_6a1ac25a48481.jpg style=\"min-width:320px\">", "question_eng": "Consider the following recent military exercises <br />\n(List-I) in the context of their participating countries (List-II) and their venues (List-III):<br/><img src=https://cdn-static.kalam.academy/questions/2026-05-30_1780138586_6a1ac25a48481.jpg style=\"min-width:320px\">", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल एक", "option_1_eng": "Only one", "option_2": "केवल दो", "option_2_eng": "Only two", "option_3": "केवल तीन", "option_3_eng": "Only three", "option_4": "कोई भी नहीं", "option_4_eng": "None", "answer": "1"}, {"id": 560019, "question": "77वें गणतंत्र दिवस समारोह के बारे में निम्नलिखित कथनों पर विचार कीजिए-<br />\n (A) इसकी थीम 'वंदे मातरम्‌ के 150 वर्ष' थी।<br />\n (B) राज्यों में सर्वश्रेष्ठ झांकी का पुरस्कार राजस्थान की उस्ता कला झांकी को मिला।<br />\n (C) मंत्रालयों में सर्वश्रेष्ठ झांकी का पुरस्कार स्कूली शिक्षा व साक्षरता विभाग की नई शिक्षा नीति (NEP-2020) झांकी को मिला।<br />\n (D) इस समारोह के मुख्य अतिथि यूरोपीय परिषद्‌ के अध्यक्ष एंटोनिया कोस्टा तथा यूरोपीय आयोग की अध्यक्ष उर्सूला वॉन डेर लेयेन रहे।<br />\nउपर्युक्त में से कौनसा/कौनसे कथन सत्य है/हैं?", "question_eng": "Consider the following statements regarding the 77th Republic Day celebrations:<br />\n(A) Its theme was ‘150 Years of Vande Mataram’. <br />\n(B) The award for the best tableau among the states went to Rajasthan's 'Usta Kala' tableau. <br />\n(C) The award for the best tableau among the ministries went to the Department of School Education and Literacy's 'New Education Policy (NEP-2020)' tableau. <br />\n(D) The Chief Guests at this ceremony were the President of the European Council, António Costa, and the President of the European Commission, Ursula von der Leyen.<br />\nWhich of the above statements is/are true?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A और B", "option_1_eng": "Only A and B", "option_2": "केवल B, C और D", "option_2_eng": "Only B, C, and D", "option_3": "केवल A, C और D", "option_3_eng": "Only A, C, and D", "option_4": "A, B, C और D", "option_4_eng": "A, B, C, and D", "answer": "3"}, {"id": 560020, "question": "राजस्थान बजट 2026-27 के सम्बन्ध में निम्नलिखित कथनों पर विचार कीजिए-<br />\n (A) स्टार्ट अप्स के विकास हेतु VIBRANT (वैल्युड्राइवन इनोवेशन एण्ड बिजनेस रिसर्च फॉर एस्पिरेशन एण्ड न्यूटरिग टेलेन्ट) प्रोग्राम चलाया जाएगा।<br />\n (B) सड़क दुर्घटना, प्रसूति, हृदयघात जैसी आपत स्थिति में मरीजों को त्वरित इलाज उपलब्ध करवाए जाने हेतु 'राज-सुरक्षा' (RAJ-SURKSHA) योजना प्रारम्भ की जाएगी।<br />\n (C) तबीजी (अजमेर) में पोल्ट्री फीड यूनिट स्थापित की जाएगी।<br />\nउपर्युक्त कथनों में से कौनसा/कौनसे कथन सही है/हैं?<br />\n", "question_eng": "Consider the following statements regarding the Rajasthan Budget 2026-27:<br />\n (A) The VIBRANT (Value-driven Innovation and Business Research for Aspiration and Nurturing Talent) program will be launched for the development of startups. <br />\n (B) The ‘RAJ-SURKSHA’ scheme has been initiated to provide immediate assistance to patients during emergency situations such as road accidents, childbirth and heart attacks. <br />\n (C) A poultry feed unit will be established at Tabiji (Ajmer).<br />\nWhich of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A और B", "option_1_eng": "Only A and B", "option_2": "केवल B और C", "option_2_eng": "Only B and C", "option_3": "केवल C", "option_3_eng": "Only C", "option_4": "A, B और C", "option_4_eng": "A, B and C", "answer": "4"}, {"id": 560021, "question": "निम्नलिखित कथनों पर विचार कीजिए-<br />\n (A) होण्डा कार्स इण्डिया लिमिटेड द्वारा अपना पहला इलेक्ट्रिक वाहन टपूकड़ा (तिजारा) संयंत्र में बनाया जाएगा।<br />\n (B) देश का पहला 'मेगा जिंक पार्क' खानखला भीलवाड़ा में स्थापित किया जाएगा।<br />\n (C) मार्च-2026 में भारत के पहले जैन चादर महोत्सव का आयोजन जैसलमेर में किया गया।<br />\n उपर्युक्त कथनों में से कौनसा/कौनसे कथन सही है/हैं-", "question_eng": "Consider the following statements:<br />\n (A) Honda Cars India Ltd. will manufacture its first electric vehicle at its Tapukara (Tijara) plant. <br />\n (B) The country's first ‘Mega Zinc Park’ will be established at Kankhala (Bhilwara). <br />\n (C) India's first Jain Chadar Mahotsav was organized in Jaisalmer in March 2026.<br />\n Which of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A और B", "option_1_eng": "Only A and B", "option_2": "केवल B और C", "option_2_eng": "Only B and C", "option_3": "केवल A और C", "option_3_eng": "Only A and C", "option_4": "A, B और C", "option_4_eng": "A, B and C", "answer": "4"}, {"id": 560022, "question": "9 अप्रेल, 2026 को राजस्थान विधानसभा में विभिन्न समितियों का गठन किया गया, इस सम्बन्ध में निम्नलिखित को सही सुमेलित कीजिए व नीचे दिए गए कूट से उत्तर का चयन कीजिए-<br />\n  सूची-I       सूची-II<br />\n  (समिति)      (सभापति)<br />\n(A) विशेषाधिकार एवं अधीनस्थ विधान सम्बन्धी समिति  (i) केसाराम चौधरी  <br />\n(B) अनुसूचित जनजाति कल्याण समिति  (ii) फूलसिंह मीणा  <br />\n(C) अल्पसंख्यकों के कल्याण एवं पर्यावरण सम्बन्धी समिति (iii) जितेन्द्र कुमार गोठवाल <br />\nकूट :<br />\nA B C<br />\n", "question_eng": "On April 9, 2026, various committees were constituted in the Rajasthan Legislative Assembly. In this regard, correctly match the following pairs and select the answer from the code provided below:<br />\n  List-I         List-II<br />\n  (Committee)     (Chairperson)<br />\n (A) Committee on Privileges and Subordinate Legislation  (i) Kaisaram Chaudhary  <br />\n (B) Committee on the Welfare of Scheduled Tribes  (ii) Phool Singh Meena  <br />\n (C) Committee on the Welfare of Minorities and Environment  (iii) Jitendra Kumar Gothwal<br />\n Code:<br />\nA B C", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "i ii iii", "option_1_eng": "i ii iii", "option_2": "iii ii i", "option_2_eng": "iii ii i", "option_3": "i iii ii", "option_3_eng": "i iii ii", "option_4": "ii iii i", "option_4_eng": "ii iii i", "answer": "2"}, {"id": 560023, "question": "खेलो इण्डिया ट्राइबल गेम्स-2026 में निम्नलिखित में से राजस्थान के किन-किन खिलाड़ियों ने कुश्ती खेल में रजत पदक जीता?<br />\n(A) अमित कुमार मीणा<br />\n(B) राकेश कुमार मीणा<br />\n(C) बलकेश कुमारी मीणा<br />\n(D) जगदीश मीणा<br />\n(E) दिनेश सोलंकी<br />\nकूट -", "question_eng": "Which of the following players from Rajasthan won a silver medal in wrestling at the Khelo India Tribal Games-2026? <br />\n (A) Amit Kumar Meena<br />\n (B) Rakesh Kumar Meena<br />\n (C) Balkesh Kumari Meena<br />\n (D) Jagdish Meena<br />\n (E) Dinesh Solanki<br />\nCode -", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A, B और C", "option_1_eng": "Only A, B and C", "option_2": "केवल A, B और E", "option_2_eng": "Only A, B and E", "option_3": "केवल B, C और E", "option_3_eng": "Only B, C and E", "option_4": "केवल A, D और E", "option_4_eng": "Only A, D and E", "answer": "2"}, {"id": 560024, "question": "राजस्थान एयरोस्पेस एंड रक्षा नीति-2026 के सम्बन्ध में निम्नलिखित कथनों पर विचार कीजिए-<br />\n(A) 12 मार्च, 2026 को राजस्थान सरकार ने यह नीति लागू की है।<br />\n(B) इस नीति के अन्तर्गत MSME इकाइयों के लिए न्यूनतम निवेश सीमा 25 करोड़ रुपये रखी गई है।<br />\n(C) इस नीति के तहत सेवा क्षेत्र की इकाइयों के लिए मानक प्रोत्साहन पैकेज का लाभ प्राप्त करने हेतु न्यूनतम 25 करोड़ रुपये का पात्र स्थायी पूंजी निवेश आवश्यक है।<br />\n(D) इस नीति के अन्तर्गत निवेशकों हेतु तीन तरह के वित्तीय प्रोत्साहन विकल्प- निवेश सब्सिडी, पूंजी सब्सिडी और टर्नओवर आधारित प्रोत्साहन उपलब्ध होंगे।<br />\nउपर्युक्त में से कौनसा/कौनसे कथन सत्य है/हैं?", "question_eng": "Consider the following statements regarding the Rajasthan Aerospace and Defence Policy-2026:<br />\n (A) The Government of Rajasthan implemented this policy on March 12, 2026.<br />\n (B) Under this policy, the minimum investment limit for MSME units has been set at Rs.25 crore.<br />\n (C) Under this policy, an eligible fixed capital investment of a minimum of Rs.25 crore is required for service sector units to avail the benefits of the standard incentive package. <br />\n (D) Under this policy, three types of financial incentive options will be available to investors: Investment Subsidy, Capital Subsidy and Turnover-based Incentives. <br />\nWhich of the above statements is/are correct?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A, B और C", "option_1_eng": "Only A, B and C", "option_2": "केवल A, C और D", "option_2_eng": "Only A, C and D", "option_3": "केवल B, C और D", "option_3_eng": "Only B, C and D", "option_4": "A, B, C और D", "option_4_eng": "A, B, C and D", "answer": "4"}, {"id": 560025, "question": "पंचायत उन्नति सूचकांक-2.0 के अन्तर्गत राजस्थान की सर्वाधिक ग्राम पंचायतें इस सूचकांक की कौनसी श्रेणी में सम्मिलित रही?", "question_eng": "Under the Panchayat Advancement Index - 2.0, in which category did the highest number of Panchayats in Rajasthan fall? ", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "फ्रंट रनर", "option_1_eng": "Front Runner", "option_2": "परफॉर्मर", "option_2_eng": "Performer", "option_3": "एस्पिरेन्ट", "option_3_eng": "Aspirant", "option_4": "अचीवर", "option_4_eng": "Achiever", "answer": "2"}, {"id": 560026, "question": "राजस्थान होमस्टे (पेईंग गेस्ट हाउस) योजना-2026 के सम्बन्ध में निम्नलिखित कथनों पर विचार कीजिए-<br />\n(A) यह योजना 20 फरवरी, 2026 से सम्पूर्ण राजस्थान में लागू हुई।<br />\n(B) इस योजना के अन्तर्गत प्रति आवासीय इकाई में होमस्टे हेतु अधिकतम 8 कमरे ही अनुमत होंगे।<br />\n(C) इस योजना के अन्तर्गत होमस्टे को तीन श्रेणियों- सिल्वर, गोल्ड व प्लेटिनम में वर्गीकृत किया गया है।<br />\n(D) इस योजना के तहत होमस्टे संचालन हेतु स्थानीय पर्यटक स्वागत केन्द्रों के माध्यम से पंजीकरण किया जा सकेगा।<br />\nउपर्युक्त में से कौनसा/कौनसे कथन सत्य है/हैं?", "question_eng": "Consider the following statements regarding the Rajasthan Homestay (Paying Guest House) Scheme-2026:<br />\n (A) This scheme came into force across the entire state of Rajasthan on February 20, 2026.<br />\n (B) Under this scheme, a maximum of 8 rooms per residential unit will be permitted for homestay purposes. <br />\n (C) Under this scheme, homestays have been classified into three categories: Silver, Gold and Platinum. <br />\n (D) Under this scheme, registration for operating a homestay can be done through local tourist reception centers. <br />\nWhich of the above statement(s) is/are true?", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल A, B और C", "option_1_eng": "Only A, B and C", "option_2": "केवल A, B और D", "option_2_eng": "Only A, B and D", "option_3": "केवल B, C और D", "option_3_eng": "Only B, C and D", "option_4": "A, B, C और D", "option_4_eng": "A, B, C and D", "answer": "2"}];
+        let currentQuestion = 0;
+        let answers = {};
+        let markedForReview = {};
+        let submitted = false;
+        let totalTime = 180 * 60;
+        let testStarted = false;
+        let startTime = null;
+        let endTime = null;
+        
+        const hasEnglish = false;
+        let currentLanguage = hasEnglish ? (localStorage.getItem('kalam_lang') || 'bilingual') : 'hindi';
+        
+        function changeLanguage(lang) {
+            if (!hasEnglish) return;
+            currentLanguage = lang;
+            localStorage.setItem('kalam_lang', lang);
+            updateLangButtonEmoji();
+            showQuestion(currentQuestion);
+        }
+        
+        function cycleLanguage() {
+            if (!hasEnglish) return;
+            if (currentLanguage === 'bilingual') {
+                changeLanguage('hindi');
+            } else if (currentLanguage === 'hindi') {
+                changeLanguage('english');
+            } else {
+                changeLanguage('bilingual');
+            }
+        }
+        
+        function updateLangButtonEmoji() {
+            const langBtn = document.getElementById('lang-btn');
+            if (!langBtn) return;
+            if (currentLanguage === 'hindi') {
+                langBtn.textContent = '🇮🇳';
+                langBtn.title = 'Language: Hindi';
+            } else if (currentLanguage === 'english') {
+                langBtn.textContent = '🇬🇧';
+                langBtn.title = 'Language: English';
+            } else {
+                langBtn.textContent = '🌐';
+                langBtn.title = 'Language: Bilingual';
+            }
+        }
+        
+        // Initialize the test
+        window.onload = function() {
+            updateLangButtonEmoji();
+            // Show welcome screen by default
+            showWelcomeScreen();
+            
+            // Preload test content but don't show it
+            generateQuestionsGrid();
+            
+            // Hide text on small screens for bottom nav buttons
+            handleBottomNavResponsive();
+            window.addEventListener('resize', handleBottomNavResponsive);
+        };
+        
+        // Handle responsive bottom navigation
+        function handleBottomNavResponsive() {
+            const navTexts = document.querySelectorAll('.nav-btn-text');
+            if (window.innerWidth < 500) {
+                navTexts.forEach(el => el.style.display = 'none');
+            } else {
+                navTexts.forEach(el => el.style.display = 'inline');
+            }
+        }
+        
+        // Function to handle beforeunload event
+        function beforeUnloadHandler(e) {
+            if (testStarted && !submitted) {
+                e.preventDefault();
+                e.returnValue = 'You have an ongoing test. Are you sure you want to leave?';
+                showConfirmationModal();
+                return 'You have an ongoing test. Are you sure you want to leave?';
+            }
+        }
+        
+        // Prevent page refresh or close during test
+        window.addEventListener('beforeunload', beforeUnloadHandler);
+        
+        // Show welcome screen
+        function showWelcomeScreen() {
+            document.getElementById('welcome-screen').style.display = 'flex';
+            document.getElementById('test-content').style.display = 'none';
+            document.getElementById('bottom-nav').style.display = 'none';
+            document.getElementById('header-controls').style.display = 'none';
+            document.getElementById('header-app-name').textContent = 'Kalam Academy';
+        }
+        
+        // Show confirmation modal
+        function showConfirmationModal() {
+            document.getElementById('confirmation-modal').classList.add('show');
+        }
+        
+        // Hide confirmation modal
+        function hideConfirmationModal() {
+            document.getElementById('confirmation-modal').classList.remove('show');
+        }
+        
+        // Confirm exit
+        function confirmExit() {
+            window.removeEventListener('beforeunload', beforeUnloadHandler);
+            window.location.href = window.location.href;
+        }
+        
+        // Show submit confirmation modal
+        function showSubmitConfirmationModal() {
+            const attempted = Object.keys(answers).length;
+            const remaining = questions.length - attempted;
+            const marked = Object.keys(markedForReview).length;
+            
+            document.getElementById('submit-confirmation-message').innerHTML = `
+                You have attempted ${attempted} of ${questions.length} questions.<br>
+                ${remaining} questions are unattempted.<br>
+                ${marked} questions marked for review.
+            `;
+            
+            document.getElementById('submit-confirmation-modal').classList.add('show');
+        }
+        
+        // Hide submit confirmation modal
+        function hideSubmitConfirmationModal() {
+            document.getElementById('submit-confirmation-modal').classList.remove('show');
+        }
+        
+        // Start the test
+        function startTest() {
+            testStarted = true;
+            startTime = new Date();
+            // Push state to enable back button handling
+            history.pushState(null, document.title, window.location.href);
+            
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('test-content').style.display = 'block';
+            document.getElementById('bottom-nav').style.display = 'flex';
+            document.getElementById('header-controls').style.display = 'flex';
+            document.getElementById('header-app-name').textContent = 'Kalam Academy';
+            
+            initializeTest();
+            startTimer();
+            updateNextButton();
+            updateReviewButton();
+        }
+        
+        // Initialize test data
+        function initializeTest() {
+            // Show first question
+            showQuestion(0);
+            updateProgress();
+        }
+
+        // Generate questions grid for navigation
+        function generateQuestionsGrid() {
+            const grid = document.getElementById('questions-grid');
+            grid.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const box = document.createElement('div');
+                box.className = 'q-box';
+                box.textContent = index + 1;
+                box.onclick = () => {
+                    showQuestion(index);
+                    hideQuestionsModal();
+                };
+                box.id = `nav-box-${index}`;
+                grid.appendChild(box);
+            });
+        }
+        
+        // Show questions navigation modal
+        function showQuestionsModal() {
+            document.getElementById('questions-modal').classList.add('show');
+            updateQuestionsGrid();
+        }
+        
+        // Hide questions navigation modal
+        function hideQuestionsModal() {
+            document.getElementById('questions-modal').classList.remove('show');
+        }
+        
+        // Update questions grid with current status
+        function updateQuestionsGrid() {
+            questions.forEach((q, index) => {
+                const box = document.getElementById(`nav-box-${index}`);
+                if (!box) return;
+                
+                box.classList.remove('current', 'attempted', 'correct', 'incorrect', 'marked');
+                
+                if (index === currentQuestion) {
+                    box.classList.add('current');
+                }
+                
+                if (submitted) {
+                    const userAns = answers[q.id];
+                    if (userAns === q.answer) {
+                        box.classList.add('correct');
+                    } else if (userAns) {
+                        box.classList.add('incorrect');
+                    }
+                } else if (answers[q.id]) {
+                    box.classList.add('attempted');
+                }
+                
+                if (markedForReview[q.id]) {
+                    box.classList.add('marked');
+                }
+            });
+        }
+        
+        // Show a specific question
+        function showQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+            
+            currentQuestion = index;
+            const question = questions[index];
+            
+            // Update question counter
+            document.getElementById('question-counter').textContent = `Question ${index + 1} of ${questions.length}`;
+            
+            // Generate question HTML based on selected language
+            let qText = '';
+            const qHindi = question.question || '';
+            const qEnglish = question.question_eng || '';
+            
+            if (currentLanguage === 'hindi') {
+                qText = formatContent(qHindi);
+            } else if (currentLanguage === 'english') {
+                qText = formatContent(qEnglish || qHindi);
+            } else { // bilingual
+                if (qEnglish && qEnglish.trim() !== '') {
+                    qText = `<div class="lang-hindi">${formatContent(qHindi)}</div>
+                             <div class="lang-english border-top pt-2 mt-2">${formatContent(qEnglish)}</div>`;
+                } else {
+                    qText = formatContent(qHindi);
+                }
+            }
+            
+            let html = `
+                <div class="question-card">
+                    <div class="question-text">
+                        ${qText}
+                    </div>
+                    <div class="options" id="options-container">`;
+            
+            // Add options based on selected language
+            ['option_1', 'option_2', 'option_3', 'option_4'].forEach((optKey, i) => {
+                const optHindi = question[optKey] || '';
+                const optEnglish = question[`${optKey}_eng`] || '';
+                
+                if (!optHindi && !optEnglish) return;
+                
+                const optionNumber = (i + 1).toString();
+                const isCorrectAnswer = optionNumber === question.answer;
+                const isUserAnswer = answers[question.id] === optionNumber;
+                let optionClass = '';
+                let feedbackIcon = '';
+                
+                // When reviewing, add appropriate classes and feedback icons
+                if (submitted) {
+                    if (isCorrectAnswer) {
+                        optionClass += ' correct-answer';
+                        feedbackIcon = `<span class="feedback-icon correct-icon">✓</span>`;
+                    } 
+                    
+                    if (isUserAnswer) {
+                        if (isCorrectAnswer) {
+                            optionClass += ' correct-answer';
+                            feedbackIcon = `<span class="feedback-icon correct-icon">✓</span>`;
+                        } else {
+                            optionClass += ' incorrect';
+                            feedbackIcon = `<span class="feedback-icon incorrect-icon">✗</span>`;
+                        }
+                    }
+                }
+                
+                let optText = '';
+                if (currentLanguage === 'hindi') {
+                    optText = formatContent(optHindi);
+                } else if (currentLanguage === 'english') {
+                    optText = formatContent(optEnglish || optHindi);
+                } else { // bilingual
+                    if (optEnglish && optEnglish.trim() !== '') {
+                        optText = `<div class="lang-hindi">${formatContent(optHindi)}</div>
+                                   <div class="lang-english border-top pt-1 mt-1">${formatContent(optEnglish)}</div>`;
+                    } else {
+                        optText = formatContent(optHindi);
+                    }
+                }
+                
+                html += `
+                    <div class="option-item">
+                        <input class="option-input" type="radio" name="q${index}" 
+                            id="opt-${index}-${optionNumber}" value="${optionNumber}"
+                            data-option="${optionNumber}" data-correct="${isCorrectAnswer}"
+                            ${isUserAnswer ? 'checked' : ''}
+                            ${submitted ? 'disabled' : ''}
+                            onclick="toggleAnswer('${question.id}', '${optionNumber}', this)">
+                       <label class="option-label${optionClass}" for="opt-${index}-${optionNumber}">
+                            <span class="option-number">${optionNumber}</span>
+                            ${optText}
+                            ${feedbackIcon}
+                        </label>
+                    </div>`;
+            });
+            
+            // Add solution and marks info after submit — always show result/correct answer
+            if (submitted) {
+                const isCorrect = answers[question.id] === question.answer;
+                const posMarks = question.positive_marks ? parseFloat(question.positive_marks) : (0.67);
+                const negMarks = question.negative_marks ? parseFloat(question.negative_marks) : (0.33);
+                
+                const resultText = answers[question.id] ? 
+                    (isCorrect ? 
+                        `<span style="color: var(--success)">✓ Correct! (+${posMarks.toFixed(2)} marks)</span>` : 
+                        `<span style="color: var(--danger)">✗ Incorrect! (-${negMarks.toFixed(2)} marks)</span>`) : 
+                    `<span style="color: var(--gray)">⊘ Not Attempted (0.00 marks)</span>`;
+                
+                const correctAnswer = `Correct Answer: <strong>Option ${question.answer}</strong>`;
+                
+                // Add solution video button if available
+                let solutionVideoBtn = '';
+                if (question.solution_video) {
+                    solutionVideoBtn = `
+                        <a href="${question.solution_video}" target="_blank" class="solution-video-btn">
+                            <i class="fas fa-play"></i> Watch Solution Video
+                        </a>`;
+                }
+                
+                // Solution text — only include if available
+                let solText = '';
+                const solHindi = question.solution_text || '';
+                const solEnglish = question.solution_text_eng || '';
+                const hasSolution = solHindi.trim() !== '' || solEnglish.trim() !== '';
+                
+                if (hasSolution) {
+                    if (currentLanguage === 'hindi') {
+                        solText = formatContent(solHindi);
+                    } else if (currentLanguage === 'english') {
+                        solText = formatContent(solEnglish || solHindi);
+                    } else { // bilingual
+                        if (solEnglish && solEnglish.trim() !== '') {
+                            solText = `<div class="lang-hindi">${formatContent(solHindi)}</div>
+                                       <div class="lang-english border-top pt-2 mt-2">${formatContent(solEnglish)}</div>`;
+                        } else {
+                            solText = formatContent(solHindi);
+                        }
+                    }
+                }
+                
+                html += `
+                    <div class="solution-container">
+                        <div class="solution-title">${resultText}</div>
+                        <div class="correct-answer-indicator">${correctAnswer}</div>
+                        ${hasSolution ? `<div class="solution-text" style="margin-top:10px;border-top:1px solid rgba(108,92,231,0.15);padding-top:10px;">
+                            <div style="font-weight:600;color:var(--primary);margin-bottom:6px;"><i class="fas fa-lightbulb"></i> Explanation</div>
+                            ${solText}
+                            ${solutionVideoBtn}
+                        </div>` : ''}
+                    </div>`;
+            }
+            
+            html += `</div></div>`;
+            
+            document.getElementById('questions-container').innerHTML = html;
+            
+            // Add review mode class if submitted
+            if (submitted) {
+                document.getElementById('options-container').classList.add('review-mode');
+            }
+            
+            // Trigger MathJax to typeset the dynamic content
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([document.getElementById('questions-container')]).catch(err => console.log('MathJax error:', err));
+            }
+            
+            // Update questions grid
+            updateQuestionsGrid();
+            updateNextButton();
+            updateReviewButton();
+        }
+        
+        // Update the next button to show submit on last question
+        function updateNextButton() {
+            if (!testStarted) return;
+            
+            const nextBtn = document.getElementById('next-btn');
+            if (currentQuestion === questions.length - 1) {
+                if (!submitted) {
+                    nextBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                    nextBtn.onclick = confirmSubmit;
+                    nextBtn.classList.remove('nav-btn-outline');
+                    nextBtn.classList.add('nav-btn-primary');
+                    if (window.innerWidth >= 500) {
+                        nextBtn.innerHTML = '<span>Submit</span><i class="fas fa-paper-plane"></i>';
+                    }
+                } else {
+                    nextBtn.style.display = 'none';
+                }
+            } else {
+                nextBtn.style.display = 'flex';
+                nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                nextBtn.onclick = nextQuestion;
+                nextBtn.classList.remove('nav-btn-primary');
+                nextBtn.classList.add('nav-btn-outline');
+                if (window.innerWidth >= 500) {
+                    nextBtn.innerHTML = '<span>Next</span><i class="fas fa-chevron-right"></i>';
+                }
+            }
+        }
+        
+        // Update the review button state
+        function updateReviewButton() {
+            if (!testStarted || submitted) return;
+            
+            const reviewBtn = document.getElementById('review-btn');
+            const isMarked = markedForReview[questions[currentQuestion].id];
+            
+            if (isMarked) {
+                reviewBtn.innerHTML = '<i class="fas fa-star"></i>';
+                reviewBtn.classList.add('active');
+                if (window.innerWidth >= 500) {
+                    reviewBtn.innerHTML = '<i class="fas fa-star"></i><span>Marked for Review</span>';
+                }
+            } else {
+                reviewBtn.innerHTML = '<i class="far fa-star"></i>';
+                reviewBtn.classList.remove('active');
+                if (window.innerWidth >= 500) {
+                    reviewBtn.innerHTML = '<i class="far fa-star"></i><span>Mark for Review</span>';
+                }
+            }
+        }
+        
+        function formatContent(text) {
+            if (!text) return '';
+            // Ensure images don't overflow and have responsive styling
+            text = text.replace(/<img\s+([^>]*?)>/g, function(match, attrs) {
+                // Check if image already has max-width in style
+                if (/max-width/i.test(attrs)) {
+                    return '<img ' + attrs + '>';
+                }
+                // Add responsive image styling
+                if (/style\s*=\s*["']([^"']*)["']/i.test(attrs)) {
+                    return match.replace(/style\s*=\s*["']([^"']*)["']/i, 'style="max-width:100%;height:auto;$1"');
+                }
+                return '<img ' + attrs + ' style="max-width:100%;height:auto;">';
+            });
+            
+            // Ensure tables are also responsive
+            text = text.replace(/<table\s+([^>]*?)>/g, function(match, attrs) {
+                if (/style\s*=\s*["']([^"']*)["']/i.test(attrs)) {
+                    return match.replace(/style\s*=\s*["']([^"']*)["']/i, 'style="width:100%;max-width:100%;$1"');
+                }
+                return '<table ' + attrs + ' style="width:100%;max-width:100%;">';
+            });
+            
+            return text;
+        }
+        
+        // Toggle answer selection (allows unselecting by clicking again)
+        function toggleAnswer(qId, option, inputElement) {
+            if (submitted) return;
+            
+            // If clicking the already selected option, unselect it
+            if (answers[qId] === option) {
+                delete answers[qId];
+                inputElement.checked = false;
+            } else {
+                answers[qId] = option;
+            }
+            
+            updateProgress();
+            updateQuestionsGrid();
+            updateNextButton();
+        }
+        
+        // Toggle review status for current question
+        function toggleReview() {
+            if (submitted) return;
+            
+            const qId = questions[currentQuestion].id;
+            if (markedForReview[qId]) {
+                delete markedForReview[qId];
+            } else {
+                markedForReview[qId] = true;
+            }
+            
+            updateQuestionsGrid();
+            updateReviewButton();
+        }
+        
+        // Navigate to previous/next question
+        function prevQuestion() { 
+            if (currentQuestion > 0) showQuestion(currentQuestion - 1); 
+        }
+        
+        function nextQuestion() { 
+            if (currentQuestion < questions.length - 1) showQuestion(currentQuestion + 1); 
+        }
+        
+        // Update progress
+        function updateProgress() {
+            const attempted = Object.keys(answers).length;
+            // Update any progress indicators if needed
+        }
+        
+        // Start timer
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer-display');
+            let timeLeft = totalTime;
+            
+            const timerInterval = setInterval(() => {
+                if (timeLeft <= 0 || submitted) {
+                    clearInterval(timerInterval);
+                    if (!submitted) submitTest();
+                    return;
+                }
+                
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                
+                if (hours > 0) {
+                    timerDisplay.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                } else {
+                    timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+        
+        // Confirm before submitting
+        function confirmSubmit() {
+            if (submitted) return;
+            showSubmitConfirmationModal();
+        }
+        
+        // Submit test
+        function submitTest() {
+            if (submitted) return;
+            
+            submitted = true;
+            endTime = new Date();
+            hideSubmitConfirmationModal();
+            
+            let score = 0;
+            let positiveMarksTotal = 0;
+            let negativeMarksTotal = 0;
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+            let totalMarks = 100.5;
+            let marksPerQuestion = totalMarks / questions.length;
+            
+            questions.forEach((q, index) => {
+                const userAns = answers[q.id];
+                const positiveMarks = q.positive_marks ? parseFloat(q.positive_marks) : marksPerQuestion;
+                const negativeMarks = q.negative_marks ? parseFloat(q.negative_marks) : 0;
+                
+                if (!userAns) {
+                    unattemptedCount++;
+                } else if (userAns === q.answer) {
+                    correctCount++;
+                    positiveMarksTotal += positiveMarks;
+                    score += positiveMarks;
+                } else {
+                    incorrectCount++;
+                    negativeMarksTotal += negativeMarks;
+                    score -= negativeMarks;
+                }
+            });
+            
+            // Update positive and negative marks display
+            document.getElementById('positive-marks').textContent = positiveMarksTotal.toFixed(2);
+            document.getElementById('negative-marks').textContent = negativeMarksTotal.toFixed(2);
+            
+            // Calculate accuracy
+            const accuracy = correctCount / (correctCount + incorrectCount) * 100;
+            const accuracyText = isNaN(accuracy) ? '0%' : Math.round(accuracy) + '%';
+            
+            // Calculate time taken
+            const timeTakenMs = endTime - startTime;
+            const timeTakenMinutes = Math.floor(timeTakenMs / 60000);
+            const timeTakenSeconds = Math.floor((timeTakenMs % 60000) / 1000);
+            const avgTimePerQuestion = Math.floor(timeTakenMs / questions.length / 1000);
+            
+            // Final score: positive - negative (can be negative, shown as-is)
+            score = Math.round((positiveMarksTotal - negativeMarksTotal) * 100) / 100;
+            
+            // Score circle uses clamped value (can't show negative fill)
+            const displayScore = Math.max(0, score);
+            const scorePercent = Math.round((displayScore / totalMarks) * 100);
+            const circleRotation = (scorePercent / 100) * 360;
+            
+            // Update the score circle
+            const circleFill = document.getElementById('score-circle-fill');
+            circleFill.style.transform = `rotate(${Math.min(circleRotation, 180)}deg)`;
+            
+            if (circleRotation > 180) {
+                circleFill.style.borderColor = 'var(--primary) var(--primary) transparent transparent';
+                
+                // Remove any existing second half circle
+                const existingSecondHalf = document.getElementById('score-circle-fill-second');
+                if (existingSecondHalf) existingSecondHalf.remove();
+                
+                // Add a second half circle
+                const secondHalf = document.createElement('div');
+                secondHalf.className = 'score-circle-fill';
+                secondHalf.style.borderColor = 'transparent transparent var(--primary) var(--primary)';
+                secondHalf.style.transform = `rotate(${circleRotation - 180}deg)`;
+                secondHalf.id = 'score-circle-fill-second';
+                document.querySelector('.score-circle').appendChild(secondHalf);
+            } else {
+                circleFill.style.borderColor = 'var(--primary)';
+                const existingSecondHalf = document.getElementById('score-circle-fill-second');
+                if (existingSecondHalf) existingSecondHalf.remove();
+            }
+            
+            // Update result values
+            document.getElementById('score-value').textContent = score;
+            document.getElementById('score-percent').textContent = scorePercent + '%';
+            document.getElementById('correct-value').textContent = correctCount;
+            document.getElementById('incorrect-value').textContent = incorrectCount;
+            document.getElementById('unattempted-value').textContent = unattemptedCount;
+            document.getElementById('attempted-value').textContent = correctCount + incorrectCount;
+            document.getElementById('accuracy-value').textContent = accuracyText;
+            document.getElementById('reviewed-value').textContent = Object.keys(markedForReview).length;
+            
+            // Update detailed stats
+            document.getElementById('time-taken').textContent = `${timeTakenMinutes} min ${timeTakenSeconds} sec`;
+            document.getElementById('time-per-question').textContent = `${avgTimePerQuestion} sec`;
+            
+            // Show the results modal
+            document.getElementById('results-modal').classList.add('show');
+            
+            // Disable submit button
+            const submitBtn = document.getElementById('submit-btn');
+            // submitBtn.disabled = true; // Remove disabling
+            submitBtn.innerHTML = '<i class="fas fa-check"></i>';
+            submitBtn.style.backgroundColor = 'var(--success)';
+            submitBtn.onclick = showResultsModal; // Allow showing results again
+            submitBtn.title = 'Show Results';
+            
+            // Update next button
+            updateNextButton();
+            
+            // Refresh current question view to show solution
+            showQuestion(currentQuestion);
+        }
+        
+        // Review test after submission
+        function reviewTest() {
+            document.getElementById('results-modal').classList.remove('show');
+            currentQuestion = 0; // Start from first question
+            showQuestion(currentQuestion);
+        }
+        
+        // Add showResultsModal function
+        function showResultsModal() {
+            document.getElementById('results-modal').classList.add('show');
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') prevQuestion();
+            if (e.key === 'ArrowRight') nextQuestion();
+            if (e.key === 'Escape') hideQuestionsModal();
+        });
+        
+        // Handle clicks on links during test
+        document.addEventListener('click', function(e) {
+            if (testStarted && !submitted) {
+                const target = e.target.closest('a');
+                if (target && target.getAttribute('href') && !target.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    showConfirmationModal();
+                }
+            }
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('results-modal')) {
+                document.getElementById('results-modal').classList.remove('show');
+            }
+            if (event.target === document.getElementById('questions-modal')) {
+                hideQuestionsModal();
+            }
+            if (event.target === document.getElementById('confirmation-modal')) {
+                hideConfirmationModal();
+            }
+            if (event.target === document.getElementById('submit-confirmation-modal')) {
+                hideSubmitConfirmationModal();
+            }
+        });
+        
+        // Handle browser back button
+        window.addEventListener('popstate', function(e) {
+            if (testStarted && !submitted) {
+                e.preventDefault();
+                showConfirmationModal();
+                // Push a new state to prevent immediate navigation
+                history.pushState(null, document.title, window.location.href);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDC  Major-02 (Paper-II) | Kalam Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Custom Fonts for Special Languages */
+        
+        
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --primary-dark: #5649c0;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --gray: #636e72;
+            --light-gray: #dfe6e9;
+            --card-bg: #ffffff;
+            --body-bg: #f5f6fa;
+            --header-bg: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            --footer-bg: #ffffff;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --box-shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --review-color: #f39c12;
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--body-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--header-bg);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 1000;
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .header-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .header-brand i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .control-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .control-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .mobile-jump-to-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .mobile-jump-to-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .timer-display {
+            background: rgba(0,0,0,0.2);
+            border-radius: 18px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .timer-display i {
+            margin-right: 6px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 60px;
+            padding: 16px;
+            min-height: calc(100vh - 140px);
+        }
+        
+        /* Welcome Screen Styles */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .welcome-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--header-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .welcome-logo i {
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+        }
+        
+        .test-series-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .test-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow-sm);
+            min-width: 120px;
+        }
+        
+        .meta-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .instructions-container {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: left;
+            box-shadow: var(--box-shadow-sm);
+            width: 100%;
+        }
+        
+        .instructions-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .instructions-list {
+            padding-left: 20px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .action-btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .action-btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+            color: white;
+        }
+        
+        .action-btn-outline {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .action-btn-outline:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .action-btn-telegram {
+            background: #0088cc;
+            color: white;
+            border: none;
+        }
+        
+        .action-btn-telegram:hover {
+            background: #0077b6;
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+            color: white;
+        }
+        
+        .action-btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+        }
+        
+        .action-btn-whatsapp:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+            color: white;
+        }
+        
+        /* Question Card Styles */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--box-shadow-sm);
+            border: none;
+            transition: var(--transition);
+        }
+        
+        .question-counter {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--dark);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+        }
+        
+        .question-text img,
+        .option-label img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 8px 0;
+            border-radius: 8px;
+        }
+        
+        .option-item {
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .option-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .option-label {
+            display: block;
+            padding: 14px 16px 14px 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-number {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .option-label:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .option-input:checked + .option-label {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+        
+        .option-input:checked + .option-label::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        /* Feedback icons */
+        .feedback-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .correct-icon {
+            background: var(--success);
+        }
+        
+        .incorrect-icon {
+            background: var(--danger);
+        }
+        
+        /* When reviewing answers */
+        .review-mode .option-label.correct-answer {
+            border-color: var(--success);
+            background: rgba(0, 184, 148, 0.05);
+            box-shadow: 0 0 0 1px var(--success);
+        }
+        
+        .review-mode .option-label.correct-answer::after {
+            background: var(--success);
+        }
+        
+        .review-mode .option-input:checked + .option-label.incorrect {
+            border-color: var(--danger);
+            background: rgba(214, 48, 49, 0.05);
+            box-shadow: 0 0 0 1px var(--danger);
+        }
+        
+        /* Ensure correct answer is always highlighted properly */
+        .review-mode .option-label.correct-answer {
+            border-color: var(--success) !important;
+            background: rgba(0, 184, 148, 0.05) !important;
+            box-shadow: 0 0 0 1px var(--success) !important;
+        }
+        
+        /* Prevent MathJax inline equations from causing ugly scrollbars or spin buttons */
+        .MathJax, .mjx-chtml, mjx-container {
+            overflow: visible !important;
+            max-width: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: left !important;
+        }
+        
+        /* Allow horizontal scroll for display math block containers only, and hide vertical scrollbar */
+        mjx-container[display="true"] {
+            display: block !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            max-width: 100%;
+            padding: 4px 0;
+            text-align: left !important;
+        }
+        
+        /* Force display math containers inside question text and options to render inline-left for natural text flow */
+        .question-text mjx-container[display="true"],
+        .option-label mjx-container[display="true"],
+        .question-text .MathJax_Display,
+        .option-label .MathJax_Display {
+            display: inline-block !important;
+            text-align: left !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            vertical-align: middle;
+        }
+        
+        .solution-container {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 12px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .solution-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .correct-answer-indicator {
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        /* Solution video button */
+        .solution-video-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .solution-video-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+            color: white;
+        }
+        
+        .solution-video-btn i {
+            margin-right: 6px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--footer-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 800;
+        }
+        
+        .nav-btn {
+            height: 48px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            transition: var(--transition);
+            gap: 8px;
+        }
+        
+        .nav-btn i {
+            font-size: 1rem;
+        }
+        
+        .nav-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .nav-btn-outline:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn-warning {
+            background: var(--review-color);
+            color: white;
+        }
+        
+        .nav-btn-warning:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        /* Question Navigation Modal */
+        .questions-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            padding: 16px;
+        }
+        
+        .questions-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .questions-card {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .questions-modal.show .questions-card {
+            transform: translateY(0);
+        }
+        
+        .questions-header {
+            background: var(--header-bg);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .questions-title {
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .questions-body {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(80vh - 120px);
+        }
+        
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+        }
+        
+        .q-box {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            border: 1px solid var(--light-gray);
+            background: var(--card-bg);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .q-box:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .q-box.attempted {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .q-box.correct {
+            background-color: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .q-box.incorrect {
+            background-color: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+        
+        .q-box.current {
+            border: 2px solid var(--accent) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .q-box.marked {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .q-box.marked::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 16px 16px 0;
+            border-color: transparent var(--review-color) transparent transparent;
+        }
+        
+        .q-box.marked::before {
+            content: '★';
+            position: absolute;
+            top: -2px;
+            right: 0;
+            font-size: 8px;
+            color: white;
+            z-index: 1;
+        }
+        
+        /* Results Modal */
+        .results-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            padding: 16px;
+        }
+        
+        .results-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .results-card {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .results-modal.show .results-card {
+            transform: translateY(0);
+        }
+        
+        .results-header {
+            background: var(--header-bg);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .results-title {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        .test-name {
+            margin: 8px 0 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .results-body {
+            padding: 24px;
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .main-stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        .main-stat-card {
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--box-shadow-sm);
+            position: relative;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .main-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        }
+        
+        .main-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+        }
+        
+        .main-stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .score-circle-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid var(--light-gray);
+        }
+        
+        .score-circle-fill {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid;
+            border-color: var(--primary);
+            clip: rect(0, 50px, 100px, 0);
+            transform: rotate(0deg);
+        }
+        
+        .score-circle-inner {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1;
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .score-percent {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .secondary-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .stat-card {
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            box-shadow: var(--box-shadow-sm);
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            opacity: 0.9;
+        }
+        
+        .detailed-results {
+            margin-top: 16px;
+        }
+        
+        .detailed-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .detailed-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .detailed-card {
+            padding: 10px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: var(--box-shadow-sm);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .detailed-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .detailed-value {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .detailed-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+        
+        .results-footer {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--light-gray);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (min-width: 576px) {
+            .main-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .secondary-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .detailed-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .main-stat-value {
+                font-size: 2.2rem;
+            }
+            
+            .main-stat-label {
+                font-size: 1rem;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .detailed-value {
+                font-size: 1.1rem;
+            }
+            
+            .detailed-label {
+                font-size: 0.8rem;
+            }
+            
+            .results-footer {
+                flex-wrap: nowrap;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .main-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .main-stat-card {
+                padding: 24px;
+            }
+            
+            .main-stat-value {
+                font-size: 2.5rem;
+            }
+            
+            .score-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .score-circle-inner {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .score-percent {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .questions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+                gap: 8px;
+            }
+            
+            .q-box {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            
+            .option-label {
+                padding: 12px 16px 12px 42px;
+            }
+            
+            .option-number {
+                width: 20px;
+                height: 20px;
+                font-size: 0.8rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+            
+            .test-series-name {
+                font-size: 1.3rem;
+            }
+            
+            .meta-item {
+                min-width: 100px;
+                padding: 10px 16px;
+            }
+            
+            .meta-value {
+                font-size: 1.1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .results-card {
+                max-height: 95vh;
+            }
+            
+            .results-footer {
+                flex-direction: column;
+            }
+            
+            .results-footer .nav-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-controls {
+                gap: 8px;
+            }
+            
+            .option-label {
+                padding: 12px 14px 12px 40px;
+            }
+            
+            .question-text {
+                font-size: 1rem;
+            }
+            
+            .header-brand {
+                font-size: 1rem;
+            }
+            
+            .control-btn, .mobile-jump-to-btn {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .timer-display {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .nav-btn {
+                height: 44px;
+                padding: 0 16px;
+                font-size: 0.9rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.5rem;
+            }
+            
+            .test-series-name {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .welcome-logo i {
+                font-size: 2.5rem;
+            }
+            
+            .test-meta {
+                gap: 12px;
+            }
+            
+            .meta-item {
+                min-width: 80px;
+                padding: 8px 12px;
+            }
+            
+            .meta-value {
+                font-size: 1rem;
+            }
+            
+            .instructions-container {
+                padding: 16px;
+            }
+            
+            .results-body {
+                padding: 16px;
+            }
+            
+            .main-stat-card {
+                padding: 12px;
+            }
+            
+            .main-stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .secondary-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .detailed-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .score-circle {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .score-circle-inner {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .score-percent {
+                font-size: 1.2rem;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .detailed-value {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Confirmation Modal */
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .confirmation-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .confirmation-card {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .confirmation-modal.show .confirmation-card {
+            transform: translateY(0);
+        }
+        
+        .confirmation-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .confirmation-message {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+        
+        .confirmation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .confirmation-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-cancel {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: none;
+        }
+        
+        .btn-cancel:hover {
+            background: #d1d1d1;
+        }
+        
+        .btn-confirm {
+            background: var(--danger);
+            color: white;
+            border: none;
+        }
+        
+        .btn-confirm:hover {
+            background: #c02c2c;
+        }
+        
+        /* Submit Confirmation Modal */
+        .submit-confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .submit-confirmation-modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .submit-confirmation-card {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .submit-confirmation-modal.show .submit-confirmation-card {
+            transform: translateY(0);
+        }
+        
+        .submit-confirmation-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+        
+        .submit-confirmation-message {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+        
+        .submit-confirmation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .submit-confirmation-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-btn-cancel {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: none;
+        }
+        
+        .submit-btn-cancel:hover {
+            background: #d1d1d1;
+        }
+        
+        .submit-btn-confirm {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .submit-btn-confirm:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="header-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span id="header-app-name">Kalam Academy</span>
+            </a>
+            
+            <div class="header-controls" id="header-controls" style="display: none;">
+                <!-- Language Selector Toggle -->
+                <button id="lang-btn" class="control-btn" onclick="cycleLanguage()" title="Switch Language" style="display: none !important; align-items: center; justify-content: center; font-size: 1.15rem; margin-right: 4px;">
+                    🌐
+                </button>
+
+                <!-- Timer -->
+                <div class="timer-display">
+                    <i class="far fa-clock"></i>
+                    <span id="timer-display">3:00</span>
+                </div>
+                
+                <!-- Jump to question button - single button for all devices -->
+                <button class="mobile-jump-to-btn" onclick="showQuestionsModal()">
+                    <i class="fas fa-list-ol"></i>
+                </button>
+                
+                <!-- Submit button -->
+                <button class="control-btn" id="submit-btn" onclick="confirmSubmit()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main content -->
+    <main class="main-content" id="main-content">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcome-screen">
+            <div class="welcome-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            
+            <h1 class="welcome-title">Kalam Academy</h1>
+            <h2 class="test-series-name">LDC  Major-02 (Paper-II)</h2>
+            <p style="color: var(--gray); font-size: 0.95rem; margin: -8px 0 0; font-weight: 500;">LDC Task Based Test Series</p>
+            
+            <div class="test-meta">
+                <div class="meta-item">
+                    <div class="meta-value">150</div>
+                    <div class="meta-label">Questions</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">100.5</div>
+                    <div class="meta-label">Total Marks</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">180 min</div>
+                    <div class="meta-label">Duration</div>
+                </div>
+            </div>
+            
+            <div class="instructions-container">
+                <h3 class="instructions-title">
+                    <i class="fas fa-info-circle"></i>
+                    Instructions
+                </h3>
+                <ol class="instructions-list">
+                    <li>This test contains 150 multiple choice questions.</li>
+                    <li>Each question has only one correct answer.</li>
+                    <li>You will have 180 minutes to complete the test.</li>
+                    <li>Each correct answer: <span style='color: var(--success)'>✓ +0.67 marks</span></li>
+            <li>Incorrect answer: <span style='color: var(--danger)'>✗ -0.33 marks</span></li>
+                    <li>Click on the option to select your answer.</li>
+                    <li>You can mark questions for review using the "Mark for Review" button.</li>
+                    <li>You can navigate between questions using the Previous/Next buttons.</li>
+                    <li>Click "Submit" when you're finished to see your results.</li>
+                </ol>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn action-btn-primary" onclick="startTest()">
+                    <i class="fas fa-play"></i>
+                    Start Test
+                </button>
+                
+                <a href="https://t.me/+rfXGlL7iXSNkNDY1" target="_blank" class="action-btn action-btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    Join Channel
+                </a>
+                
+                <a href="https://t.me/+rfXGlL7iXSNkNDY1" target="_blank" class="action-btn action-btn-outline">
+                    <i class="fas fa-headset"></i>
+                    Contact Admin
+                </a>
+            </div>
+        </div>
+        
+        <!-- Test Content (hidden initially) -->
+        <div id="test-content" style="display: none;">
+            <div class="question-counter" id="question-counter">Question 1 of 150</div>
+            
+            <!-- Questions will be displayed here -->
+            <div id="questions-container"></div>
+        </div>
+    </main>
+    
+    <!-- Bottom navigation (hidden initially) -->
+    <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+        <button class="nav-btn nav-btn-outline" onclick="prevQuestion()">
+            <i class="fas fa-chevron-left"></i>
+            <span class="nav-btn-text">Previous</span>
+        </button>
+        <button class="nav-btn nav-btn-warning" id="review-btn" onclick="toggleReview()">
+            <i class="far fa-star"></i>
+            <span class="nav-btn-text">Mark for Review</span>
+        </button>
+        <button class="nav-btn nav-btn-outline" id="next-btn" onclick="nextQuestion()">
+            <span class="nav-btn-text">Next</span>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </nav>
+    
+    <!-- Questions Navigation Modal -->
+    <div class="questions-modal" id="questions-modal">
+        <div class="questions-card">
+            <div class="questions-header">
+                <h3 class="questions-title">Questions Navigation</h3>
+                <button class="close-btn" onclick="hideQuestionsModal()">×</button>
+            </div>
+            <div class="questions-body">
+                <div class="questions-grid" id="questions-grid"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmation-modal">
+        <div class="confirmation-card">
+            <h3 class="confirmation-title">Leave Test?</h3>
+            <p class="confirmation-message">Your progress will be lost if you leave this page. Are you sure you want to exit?</p>
+            <div class="confirmation-buttons">
+                <button class="confirmation-btn btn-cancel" onclick="hideConfirmationModal()">No, Continue</button>
+                <button class="confirmation-btn btn-confirm" onclick="confirmExit()">Yes, Exit</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Submit Confirmation Modal -->
+    <div class="submit-confirmation-modal" id="submit-confirmation-modal">
+        <div class="submit-confirmation-card">
+            <h3 class="submit-confirmation-title">Confirm Submission</h3>
+            <p class="submit-confirmation-message" id="submit-confirmation-message">
+                You have attempted 0 of 150 questions.<br>
+                150 questions are unattempted.
+            </p>
+            <div class="submit-confirmation-buttons">
+                <button class="submit-confirmation-btn submit-btn-cancel" onclick="hideSubmitConfirmationModal()">Cancel</button>
+                <button class="submit-confirmation-btn submit-btn-confirm" onclick="submitTest()">Submit Test</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Modal -->
+    <div class="results-modal" id="results-modal">
+        <div class="results-card">
+            <div class="results-header">
+                <h3 class="results-title">Test Results</h3>
+                <p class="test-name">LDC  Major-02 (Paper-II)</p>
+            </div>
+            <div class="results-body">
+                <div class="stats-container">
+                    <div class="main-stats">
+                        <div class="main-stat-card">
+                            <div class="score-circle">
+                                <div class="score-circle-bg"></div>
+                                <div class="score-circle-fill" id="score-circle-fill"></div>
+                                <div class="score-circle-inner">
+                                    <div class="score-percent" id="score-percent">0%</div>
+                                    <div class="score-label">Score</div>
+                                </div>
+                            </div>
+                            <div class="main-stat-value" id="score-value">0</div>
+                            <div class="main-stat-label">Out of 100.5 Marks</div>
+                        </div>
+                        <div class="main-stat-card">
+                            <div class="main-stat-value" id="correct-value">0</div>
+                            <div class="main-stat-label">Correct Answers</div>
+                        </div>
+                        <div class="main-stat-card">
+                            <div class="main-stat-value" id="incorrect-value">0</div>
+                            <div class="main-stat-label">Incorrect Answers</div>
+                        </div>
+                    </div>
+                    
+                    <div class="secondary-stats">
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark))">
+                            <div class="stat-value" id="attempted-value">0</div>
+                            <div class="stat-label">Attempted</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--success), #1b9aaa)">
+                            <div class="stat-value" id="accuracy-value">0%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--danger), var(--accent))">
+                            <div class="stat-value" id="unattempted-value">0</div>
+                            <div class="stat-label">Unattempted</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, var(--review-color), #e67e22)">
+                            <div class="stat-value" id="reviewed-value">0</div>
+                            <div class="stat-label">Marked for Review</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detailed-results">
+                        <h4 class="detailed-title">
+                            <i class="fas fa-chart-pie"></i>
+                            Detailed Breakdown
+                        </h4>
+                        <div class="detailed-grid">
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="time-taken">0 min</div>
+                                <div class="detailed-label">Time Taken</div>
+                            </div>
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="time-per-question">0 sec</div>
+                                <div class="detailed-label">Avg Time per Q</div>
+                            </div>
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="positive-marks">0</div>
+                                <div class="detailed-label">Positive Marks</div>
+                            </div>
+                            <div class="detailed-card">
+                                <div class="detailed-value" id="negative-marks">0</div>
+                                <div class="detailed-label">Negative Marks</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="results-footer">
+                <button class="nav-btn nav-btn-outline" onclick="window.location.reload()">
+                    <i class="fas fa-redo"></i>
+                    <span>Take Again</span>
+                </button>
+                <button class="nav-btn nav-btn-primary" onclick="reviewTest()">
+                    <i class="fas fa-search"></i>
+                    <span>Review Test</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Questions data
+        const questions = [{"id": 559727, "question": "किस विकल्प के सभी शब्द शुद्ध हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अंत्येष्ठि, भर्त्सना", "option_1_eng": "", "option_2": "अक्षुण्य, महात्मगण", "option_2_eng": "", "option_3": "पोषाक, प्रल्हाद", "option_3_eng": "", "option_4": "उज्जयिनी, सलज्ज", "option_4_eng": "", "answer": "4"}, {"id": 559728, "question": "किस विकल्प के सभी शब्द अशुद्ध हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "सुक्ति, हितैषी", "option_1_eng": "", "option_2": "सौहार्द, विहित", "option_2_eng": "", "option_3": "शर्बत, लौहित", "option_3_eng": "", "option_4": "वाकपटु, विजिगीषा", "option_4_eng": "", "answer": "3"}, {"id": 559729, "question": "किस विकल्प में शुद्ध शब्द हैं?<br />\n 1. विद्‌यार्थिगण<br />\n 2. मेघाछन्न<br />\n 3. महत्ता<br />\n 4. मँहगाई<br />\n 5. निस्पंद<br />\n कूट-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "1, 2 व 3", "option_1_eng": "", "option_2": "2, 4 व 5", "option_2_eng": "", "option_3": "3, 4 व 5", "option_3_eng": "", "option_4": "1, 3 व 5", "option_4_eng": "", "answer": "4"}, {"id": 559730, "question": "किस विकल्प में व्यंजन लोप संबंधी अशुद्धि है?<br />\n 1. योधा<br />\n 2. उपलक्ष्य<br />\n 3. उत्पन<br />\n 4. तदनन्तर<br />\n 5. तत्त्वाधान<br />\n कूट-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल 2 व 4", "option_1_eng": "", "option_2": "केवल 1 व 3", "option_2_eng": "", "option_3": "2, 3 व 4", "option_3_eng": "", "option_4": "1, 3 व 5", "option_4_eng": "", "answer": "4"}, {"id": 559731, "question": "किस वाक्य में क्रमभंग संबंधी अशुद्धि हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "आपको मैं कुछ नहीं कह सकता।", "option_1_eng": "", "option_2": "मैंने पत्ते को बहते हुए देखा।", "option_2_eng": "", "option_3": "देश स्वामी विवेकानंद का आभारी रहेगा।", "option_3_eng": "", "option_4": "वहाँ आँखों का मुफ्त ऑपरेशन होगा।", "option_4_eng": "", "answer": "1"}, {"id": 559732, "question": "किस वाक्य में कारक संबंधी अशुद्धि नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "उसके सिर में घने बाल हैं।", "option_1_eng": "", "option_2": "अपराधी को रस्सी बाँधकर ले गए।", "option_2_eng": "", "option_3": "दवा रोग को समूल से नष्ट करती है।", "option_3_eng": "", "option_4": "यह ग्रंथ विद्‌वता से लिखा गया है।", "option_4_eng": "", "answer": "4"}, {"id": 559733, "question": "निम्न में से कौनसा वाक्य अशुद्ध है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "महात्मा के सदुपदेश सुनने चाहिए।", "option_1_eng": "", "option_2": "प्रेम करना तलवार की धार पर चलना है।", "option_2_eng": "", "option_3": "आजकल भ्रष्टाचार के बजार गर्म हैं।", "option_3_eng": "", "option_4": "वह पाँव से जूता उतार रहा है।", "option_4_eng": "", "answer": "3"}, {"id": 559734, "question": "कौनसा वाक्य शुद्ध है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मैं आपके उज्जवल भविष्य की कामना करता हूँ।", "option_1_eng": "", "option_2": "व्यक्ति यौवनावस्था में भूलें करता है।", "option_2_eng": "", "option_3": "सीता के गले में मोतियों का एक हार है।", "option_3_eng": "", "option_4": "आकाश में झण्डा लहरा रहा है।", "option_4_eng": "", "answer": "3"}, {"id": 559735, "question": "निम्नलिखित वाक्यों में से अशुद्ध वाक्य कौनसा है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कोहिनूर एक बहुमूल्य हीरा है।", "option_1_eng": "", "option_2": "जज ने उसे मृत्यु दण्ड की सजा दी।", "option_2_eng": "", "option_3": "हाथी पर हौदा रख दो।", "option_3_eng": "", "option_4": "तेरी बातें सुनते-सुनते मेरे कान पक गये।", "option_4_eng": "", "answer": "2"}, {"id": 559736, "question": "किस विकल्प में लोकोक्ति का युक्तियुक्त अर्थ नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "हींग लगे न फिटकरी रंग चोखा आ जाये - बिना परिश्रम के शुभ फल पाने की कामना करना।", "option_1_eng": "", "option_2": "तीन में न तेरह में, मृदंग बजायें डेरे में - समाज में पतित होने पर भी अपने को महान बतलाते रहना। ", "option_2_eng": "", "option_3": "खुशामद से ही आमद है - ईमानदारी करने से ही काम बनता है।", "option_3_eng": "", "option_4": "काबुल में गधे नहीं होते हैं - प्रत्येक समाज में भले-बुरे सभी तरह के लोग होते हैं।", "option_4_eng": "", "answer": "3"}, {"id": 559737, "question": "किस विकल्प में लोकोक्ति का युक्तियुक्त अर्थ है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बाप ने मारी मेंढ़की बेटा तीरंदाज - पुत्र का अपने कुल की क्षमता से बढ़-चढ़कर बोलना।", "option_1_eng": "", "option_2": "तिनके की ओट पहाड़ - बड़ी बात के पीछे छोटा रहस्य।", "option_2_eng": "", "option_3": "भैंस के आगे बीन बजाना - बुद्धिमान्‌ के आगे मूर्खता की बात करना।", "option_3_eng": "", "option_4": "अरहर की टट्‌टी गुजराती ताला - बड़ी वस्तु की रक्षा के लिए अधिक व्यय करना।", "option_4_eng": "", "answer": "1"}, {"id": 559738, "question": "किस विकल्प में मुहावरे का युक्तियुक्त अर्थ नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "गले का हार होना - अत्यन्त प्रिय होना", "option_1_eng": "", "option_2": "कागज काले करना - अनावश्यक लिखते रहना", "option_2_eng": "", "option_3": "तूती बोलना - कायर बनना", "option_3_eng": "", "option_4": "औंधी झोपड़ी होना - मूर्ख होना", "option_4_eng": "", "answer": "3"}, {"id": 559739, "question": "किस विकल्प में मुहावरे का सही अर्थ नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कान का कच्चा होना - झूंठी बात पर विश्वास कर लेना", "option_1_eng": "", "option_2": "आँखें चार होना- हार जाना", "option_2_eng": "", "option_3": "त्रिया चरित्र खेलना- चालाकी से काम लेना", "option_3_eng": "", "option_4": "शिगूफा खिलना - विलक्षण घटना का घटित होना", "option_4_eng": "", "answer": "2"}, {"id": 559740, "question": "किस विकल्प में मुहावरे का सही अर्थ है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बगुला भगत होना - दृढ़ संकल्प", "option_1_eng": "", "option_2": "राई का पर्वत करना - बढ़ा-चढ़ाकर कहना", "option_2_eng": "", "option_3": "होश ठिकाने लगाना - मार देना", "option_3_eng": "", "option_4": "पौ बारह होना - अत्यधिक हानि होना", "option_4_eng": "", "answer": "2"}, {"id": 559741, "question": "किस विकल्प में संधि-विच्छेद असंगत है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "प्रौढ़ = प्र + ऊढ़", "option_1_eng": "", "option_2": "दशार्ण = दश + ऋण", "option_2_eng": "", "option_3": "सदानंद = सद + आनन्द", "option_3_eng": "", "option_4": "धनुष्टंकार = धनुः + टंकार", "option_4_eng": "", "answer": "3"}, {"id": 559742, "question": "किस विकल्प में संधि शब्द असंगत है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "वाक्‌ + हरि = वाग्हरि", "option_1_eng": "", "option_2": "निः + छल = निच्छल", "option_2_eng": "", "option_3": "ने + अन = नयन", "option_3_eng": "", "option_4": "आशीः + वाद = आशीर्वाद", "option_4_eng": "", "answer": "2"}, {"id": 559743, "question": "किस विकल्प के सभी शब्द 'विसर्ग संधि' के उदाहरण हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मनोमालिन्य, तपश्चर्या, अंत्योदय", "option_1_eng": "", "option_2": "योगेश्वर, यजुर्वेद, शिरोमणि", "option_2_eng": "", "option_3": "मनोनुसार, स्वार्थ, अतएव", "option_3_eng": "", "option_4": "अधोवस्त, बहिर्मुखी, मनस्ताप", "option_4_eng": "", "answer": "4"}, {"id": 559744, "question": "किस विकल्प के सभी शब्द 'स्वर संधि' के उदाहरण हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "हर्षातिरेक, सर्वोत्तम, भावना", "option_1_eng": "", "option_2": "अत्याचार, वध्वर्थ, तपोवन", "option_2_eng": "", "option_3": "ज्योतिर्मय, विश्वैक्य, यद्‌यपि", "option_3_eng": "", "option_4": "देवर्षि, प्रेमोन्मत्त, संताप", "option_4_eng": "", "answer": "1"}, {"id": 559745, "question": "किस विकल्प में क्रमशः विशेष्य-विशेषण कर्मधारय समास का उदाहरण है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कीर्तिलता", "option_1_eng": "", "option_2": "चंद्रमुख", "option_2_eng": "", "option_3": "देह-लता", "option_3_eng": "", "option_4": "कविपुंगव", "option_4_eng": "", "answer": "4"}, {"id": 559746, "question": "किस विकल्प के सभी शब्द अव्ययीभाव समास के उदाहरण हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "यथास्थान, कर्मागत", "option_1_eng": "", "option_2": "मरणोपरांत, असंभव", "option_2_eng": "", "option_3": "निडर, भयभीत", "option_3_eng": "", "option_4": "भरसक, अंधभक्त", "option_4_eng": "", "answer": "2"}, {"id": 559747, "question": "किस विकल्प में समास का सही विग्रह है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "दिनोंदिन - दिन ही दिन में", "option_1_eng": "", "option_2": "मृत्युंजय - मृत्यु पर जय", "option_2_eng": "", "option_3": "दुःखसागर - दुःख के सागर", "option_3_eng": "", "option_4": "मधुमक्खी - मधु को देने वाली मक्खी", "option_4_eng": "", "answer": "2"}, {"id": 559748, "question": "किस विकल्प में समास का सही विग्रह नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "हवाई यात्रा - हवा में यात्रा", "option_1_eng": "", "option_2": "कन्यादान - कन्या का दान", "option_2_eng": "", "option_3": "रुपया-पैसा - रुपया, पैसा आदि", "option_3_eng": "", "option_4": "डाकगाड़ी - डाक की गाड़ी", "option_4_eng": "", "answer": "4"}, {"id": 559749, "question": "अनेकार्थक शब्दों की दृष्टि से असंगत विकल्प है -", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "खत-पत्र, लिखाई, कनपटी के बाल", "option_1_eng": "", "option_2": "गुण - विशेषता, लक्षण, रस्सी", "option_2_eng": "", "option_3": "विवेचन - विशिष्ट, अलग, अजीब", "option_3_eng": "", "option_4": "धर्मराज - न्यायाधीश, यमराज, युधिष्ठिर", "option_4_eng": "", "answer": "3"}, {"id": 559750, "question": "किस विकल्प के सभी शब्द 'अमृत' के अनेकार्थक हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अमर, सेवार", "option_1_eng": "", "option_2": "सोमरस, कमल", "option_2_eng": "", "option_3": "जल, कपूर", "option_3_eng": "", "option_4": "स्वर्ण, घृत", "option_4_eng": "", "answer": "4"}, {"id": 559751, "question": "किस विकल्प में 'माया' का अनेकार्थक नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "भ्रम", "option_1_eng": "", "option_2": "घमंड", "option_2_eng": "", "option_3": "भगवान की लीला", "option_3_eng": "", "option_4": "इंद्रजाल", "option_4_eng": "", "answer": "2"}, {"id": 559752, "question": "किस विकल्प में 'युक्ति' का अनेकार्थक नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "उचित", "option_1_eng": "", "option_2": "मिलन", "option_2_eng": "", "option_3": "तरकीब", "option_3_eng": "", "option_4": "दलील", "option_4_eng": "", "answer": "1"}, {"id": 559753, "question": "किस विकल्प के सभी शब्द 'पर' उपसर्ग से निर्मित हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "परारि, पराश्रित", "option_1_eng": "", "option_2": "पराधीन, पराकाश", "option_2_eng": "", "option_3": "परोत्कर्ष, प्राधिकार", "option_3_eng": "", "option_4": "प्रार्थना, परार्द्ध", "option_4_eng": "", "answer": "1"}, {"id": 559754, "question": "किस विकल्प के सभी शब्द 'निर्‌' उपसर्ग से निर्मित हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "निरर्थक, निवर्तन", "option_1_eng": "", "option_2": "निरीह, निवृत्त", "option_2_eng": "", "option_3": "निर्विवाद, निग्रह", "option_3_eng": "", "option_4": "निरंजन, निर्लेप", "option_4_eng": "", "answer": "4"}, {"id": 559755, "question": "किस विकल्प में दो से अधिक उपसर्ग हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "प्रागनुराग", "option_1_eng": "", "option_2": "अनाकुल", "option_2_eng": "", "option_3": "सोदाहरण", "option_3_eng": "", "option_4": "प्रत्यभिज्ञान", "option_4_eng": "", "answer": "3"}, {"id": 559756, "question": "किस विकल्प के सभी शब्दों में 'आ' उपसर्ग नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "आतिथ्य, आकलन", "option_1_eng": "", "option_2": "आभास, आसक्ति", "option_2_eng": "", "option_3": "आस्वादन, आडम्बर", "option_3_eng": "", "option_4": "आलोक, आरोपित", "option_4_eng": "", "answer": "1"}, {"id": 559757, "question": "किस विकल्प में 'र' प्रत्यय नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "प्राचीर", "option_1_eng": "", "option_2": "भ्रमर", "option_2_eng": "", "option_3": "अमर", "option_3_eng": "", "option_4": "मधुर", "option_4_eng": "", "answer": "3"}, {"id": 559758, "question": "किस क्रमांक में मूल शब्द एवं प्रत्यय शुद्ध रूप से अलग हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "संदीपनि = संदीप + इनि", "option_1_eng": "", "option_2": "प्रभावती = प्रभाव + ती", "option_2_eng": "", "option_3": "जटिल = जटा + इल", "option_3_eng": "", "option_4": "आरण्यक = अरण्य + क", "option_4_eng": "", "answer": "3"}, {"id": 559759, "question": "निम्नलिखित में से किस शब्द में 'हारा' प्रत्यय नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "किस्मतहारा", "option_1_eng": "", "option_2": "लकड़हारा", "option_2_eng": "", "option_3": "पालनहारा", "option_3_eng": "", "option_4": "पनिहारा", "option_4_eng": "", "answer": "1"}, {"id": 559760, "question": "किस विकल्प में 'भाववाचक तद्धित प्रत्यय' नहीं है?<br />\n (1) गरमाहट<br />\n (2) मरियल<br />\n (3) मित्रता<br />\n (4) लावण्य<br />\n (5) बेलन<br />\n कूटः", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "2, 3 व 4", "option_1_eng": "", "option_2": "केवल 3 व 5", "option_2_eng": "", "option_3": "केवल 1 व 2", "option_3_eng": "", "option_4": "केवल 2 व 5", "option_4_eng": "", "answer": "4"}, {"id": 559761, "question": "वाक्यांश के लिए एक सार्थक शब्द है -", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "जो अच्छे चाल चलन का न हो - कुचाली", "option_1_eng": "", "option_2": "ऐसा फूल जो पूरा खिला न हो - दुर्दम", "option_2_eng": "", "option_3": "जिसके आर-पार देखा जा सके - परोक्ष", "option_3_eng": "", "option_4": "जो भाषा विज्ञान का ज्ञाता हो - भूगर्भवेत्ता", "option_4_eng": "", "answer": "1"}, {"id": 559762, "question": "किस विकल्प में वाक्यांश के लिए एक सार्थक शब्द सही नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मुक्ति की इच्छा रखने वाला - मुमुक्षु", "option_1_eng": "", "option_2": "जिसने पुण्य कार्य हेतु प्राण दिये हों - हुतात्मा", "option_2_eng": "", "option_3": "जो लोक में प्राप्त पदार्र्थों से उत्तम हो - लोकोत्तर", "option_3_eng": "", "option_4": "जो सब जगह व्याप्त हो - सव्यसाची", "option_4_eng": "", "answer": "4"}, {"id": 559763, "question": "किस विकल्प में वाक्यांश के लिए एक शब्द अनुचित है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "आकाश को स्पर्श करने वाला - गगनचुंबी", "option_1_eng": "", "option_2": "बरात में ठहरने का स्थान - जनवासा", "option_2_eng": "", "option_3": "जिसने आत्मा को जीत लिया हो - जितेंद्रिय", "option_3_eng": "", "option_4": "संध्या और रात्रि के बीच का समय - पूर्वरात्र", "option_4_eng": "", "answer": "3"}, {"id": 559764, "question": "वाक्यांश के लिए एक सार्थक शब्द की दृष्टि से सुमेलित विकल्प है-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "बहुत अधिक धनी होने पर भी खर्च न करने वाला व्यक्ति - मितव्ययी", "option_1_eng": "", "option_2": "जिसके हाथ में वीणा हो - वीणापाणि", "option_2_eng": "", "option_3": "मुकदमा दायर करने वाला - प्रतिवादी", "option_3_eng": "", "option_4": "रक्त की बूँद जमीन पर गिरते ही दूसरा राक्षस जन्म ले - रक्तसानु", "option_4_eng": "", "answer": "2"}, {"id": 559765, "question": "जब कोई विक्रेता क्रेता की शर्तों पर उसके द्वारा चाही गयी गुणवता से युक्त वस्तु को अपने द्वारा बताई गयी या निवेदित भाव, दर या मूल्य पर विक्रय करने का प्रस्ताव करता है, तो उसे क्या कहते हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "निविदा", "option_1_eng": "", "option_2": "विज्ञप्ति", "option_2_eng": "", "option_3": "अधिसूचना", "option_3_eng": "", "option_4": "विज्ञापन", "option_4_eng": "", "answer": "1"}, {"id": 559766, "question": "कार्यालयीय पत्र में निम्नलिखित में से क्या नहीं लिखा जाता?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "पत्र की समाप्ति पर बायीं ओर भवदीय लिखकर हस्ताक्षर किये जाते हैं।", "option_1_eng": "", "option_2": "बायीं तरफ प्रेषिती को संबोधन के लिए महोदय आदि लिखा जाता है।", "option_2_eng": "", "option_3": "प्रेषक का नाम, पद और घर का पता लिखते हैं।", "option_3_eng": "", "option_4": "संदर्भ", "option_4_eng": "", "answer": "3"}, {"id": 559767, "question": "जब भेजे गये पत्र का प्रत्युत्तर बहुत दिनों तक नहीं आता हो तो उस पत्र की याद दिलाते हुए जो पत्र भेजा जाता है, उसे कहते हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "स्मरण पत्र", "option_1_eng": "", "option_2": "परिपत्र", "option_2_eng": "", "option_3": "अनुस्मारक", "option_3_eng": "", "option_4": "1 व 3 दोनों", "option_4_eng": "", "answer": "4"}, {"id": 559768, "question": "'अद्‌र्धशासकीय पत्र' से संबंधित असत्य कथन है -", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अद्‌र्धशासकीय पत्र में 'प्रिय महोदय' के स्थान पर 'प्रिय श्री, प्रिय सुश्री एवं श्रीमती' आदि लिखा जाता है।", "option_1_eng": "", "option_2": "अर्द्धशासकीय पत्र की विषयवस्तु में 'मैं, मेरा, आप' आदि शब्दों का प्रयोग किया जाता है।", "option_2_eng": "", "option_3": "अर्द्धशासकीय पत्र सामान्यतः अपने से उच्च अधिकारी को नहीं लिखे जाते, अपने समकक्ष या अधीनस्थ अधिकारी को लिखे जाते हैं।", "option_3_eng": "", "option_4": "अर्द्धशासकीय पत्र में पाने वाले का नाम व पता पत्र के अंत में हस्ताक्षर के नीचे की पंक्ति में, दायीं ओर लिखते हैं।", "option_4_eng": "", "answer": "4"}, {"id": 559769, "question": "किस विकल्प में सुसंगत पारिभाषिक शब्द नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Tribunal - अधिकरण", "option_1_eng": "", "option_2": "Spokesman - प्रवक्ता", "option_2_eng": "", "option_3": "Proceedings - कार्यवाही", "option_3_eng": "", "option_4": "Handicape – अपराधी", "option_4_eng": "", "answer": "4"}, {"id": 559770, "question": "किस विकल्प में सुसंगत पारिभाषिक शब्द है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Plaintift - प्रतिवादी", "option_1_eng": "", "option_2": "Obscene - अश्लील", "option_2_eng": "", "option_3": "Deportation - माल ढुलाई", "option_3_eng": "", "option_4": "Discrepancy - भेदभाव", "option_4_eng": "", "answer": "2"}, {"id": 559771, "question": "'Supersede' का सही पारिभाषिक है -", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अधिग्रहणकरना", "option_1_eng": "", "option_2": "अतिक्रमण करना", "option_2_eng": "", "option_3": "अधिगमन करना", "option_3_eng": "", "option_4": "अधिक्रमण करना", "option_4_eng": "", "answer": "4"}, {"id": 559772, "question": "किस विकल्प में अंग्रेजी पारिभाषिक शब्द का समकक्ष हिंदी पारिभाषिक शब्द सही है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Updation - अद्‌तयनीकरण", "option_1_eng": "", "option_2": "Tentative - समाप्ति", "option_2_eng": "", "option_3": "Reshuffle - प्रत्यर्थी", "option_3_eng": "", "option_4": "Notable - प्रतिमानक", "option_4_eng": "", "answer": "1"}, {"id": 559773, "question": "'यह वही भारत देश है जिसे पहले सोने की चिडिय़ा कहा जाता था।' मिश्र वाक्य का अंग्रेजी रूपान्तरण होगा-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "This is the same country India which was earlier called the golden bird.", "option_1_eng": "", "option_2": "No other country other than India was called the golden bird.", "option_2_eng": "", "option_3": "This is the same country India which was later called the golden bird.", "option_3_eng": "", "option_4": "This is the same country India which were earlier called the golden bird.", "option_4_eng": "", "answer": "1"}, {"id": 559774, "question": "'Vinayak was studying but Sachin was sleeping'. संयुक्त वाक्य का हिंदी रूपान्तरण होगा-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "विनायक पढ़ रहा था परंतु सचिन सो रहा था।", "option_1_eng": "", "option_2": "विनायक पढ़ रहा था परंतु सचिन सो गया था।", "option_2_eng": "", "option_3": "विनायक पढ़ रहा है परंतु सचिन सो रहा है।", "option_3_eng": "", "option_4": "विनायक पढ़ रहा होगा परंतु सचिन सो रहा होगा।", "option_4_eng": "", "answer": "1"}, {"id": 559775, "question": "'छात्र मैदान में खेल रहे हैं।' सरल वाक्य का अंग्रेजी रूपान्तरण होगा-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The students were playing in the ground.", "option_1_eng": "", "option_2": "The students are playing in the ground.", "option_2_eng": "", "option_3": "The students will be playing in the ground.", "option_3_eng": "", "option_4": "The students should play in the ground.", "option_4_eng": "", "answer": "2"}, {"id": 559776, "question": "We were confident that India would win the match.'<br />\nमिश्र वाक्य का हिन्दी रूपांतरण होगा-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मुझे पूर्ण विश्वास था कि भारत मैच जीत लेगा।", "option_1_eng": "", "option_2": "हमें पूर्ण विश्वास था कि भारत मैच जीत जायेगा।", "option_2_eng": "", "option_3": "मुझे पूर्ण विश्वास है कि भारत मैच जीतेगा।", "option_3_eng": "", "option_4": "हमें पूर्ण विश्वास था कि भारत मैच जीत लेगा।", "option_4_eng": "", "answer": "4"}, {"id": 559777, "question": "'मुझसे अब नहीं चला जाता।' वाक्य में कौनसा वाच्य है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कर्तृवाच्य", "option_1_eng": "", "option_2": "कर्मवाच्य", "option_2_eng": "", "option_3": "भाववाच्य", "option_3_eng": "", "option_4": "उपर्युक्त में से कोई नहीं", "option_4_eng": "", "answer": "3"}, {"id": 559778, "question": "निम्नलिखित में से कर्तृवाच्य है-  ", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "लड़के द्वारा पत्र लिखा जाता है।", "option_1_eng": "", "option_2": "मैं प्रतिदिन पढ़ता हूँ।", "option_2_eng": "", "option_3": "सजना से पत्र लिखा जाता है।", "option_3_eng": "", "option_4": "मेरे भाई से लड़ा नहीं जा सका।", "option_4_eng": "", "answer": "2"}, {"id": 559779, "question": "'सेना द्वारा हमारी रक्षा की जाती है।' वाक्य किस वाच्य से संबंधित है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कर्तृवाच्य", "option_1_eng": "", "option_2": "कर्मवाच्य", "option_2_eng": "", "option_3": "भाववाच्य", "option_3_eng": "", "option_4": "उपर्युक्त सभी", "option_4_eng": "", "answer": "2"}, {"id": 559780, "question": "भाववाचक संज्ञा से निर्मित विशेषण है-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "रंगीन", "option_1_eng": "", "option_2": "पथरीला", "option_2_eng": "", "option_3": "विनम्र", "option_3_eng": "", "option_4": "उड़ान", "option_4_eng": "", "answer": "3"}, {"id": 559781, "question": "किस विकल्प के सभी शब्द संज्ञा से निर्मित विशेषण हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कपटी, तिरस्कृत", "option_1_eng": "", "option_2": "मेधावी, कालिमा", "option_2_eng": "", "option_3": "जयपुरी, जीत", "option_3_eng": "", "option_4": "क्रोधी, सजाना", "option_4_eng": "", "answer": "1"}, {"id": 559782, "question": "'निन्दा' शब्द से विशेषण बनेगा-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "निंदनीय", "option_1_eng": "", "option_2": "निन्द्‌य", "option_2_eng": "", "option_3": "निन्दालय", "option_3_eng": "", "option_4": "1 व 2 दोनों", "option_4_eng": "", "answer": "4"}, {"id": 559783, "question": "किस विकल्प के सभी शब्द संज्ञा से निर्मित विशेषण नहीं हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "गुरुआ, घमण्डी", "option_1_eng": "", "option_2": "भयानक, दैनिक", "option_2_eng": "", "option_3": "पीलापन, लालिमा", "option_3_eng": "", "option_4": "दगाबाज, नाटकीय", "option_4_eng": "", "answer": "3"}, {"id": 559784, "question": "किस विकल्प में सही पर्यायवाची नहीं हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अलंकार- आभूषण, गहना, भूषण", "option_1_eng": "", "option_2": "आँसू - नीर, नयन, दृगजल", "option_2_eng": "", "option_3": "ओष्ठ- किनारा, रदच्छद, लब", "option_3_eng": "", "option_4": "आडम्बर - ढोंग, पाखण्ड, ढकोसला", "option_4_eng": "", "answer": "2"}, {"id": 559785, "question": "किस विकल्प के सभी शब्द परस्पर पर्याय हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "निष्ठुर, बर्बर, नृशंस", "option_1_eng": "", "option_2": "प्रवंचना, कपट, तस्कर", "option_2_eng": "", "option_3": "बैरागी, तापस, उपाकर", "option_3_eng": "", "option_4": "मार्जारी, विड़ाल, शिखी", "option_4_eng": "", "answer": "1"}, {"id": 559786, "question": "किस विकल्प में परस्पर 'स्वर्ग' के पर्याय नहीं हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "नाक, परलोक", "option_1_eng": "", "option_2": "बैकुण्ठ, इन्द्रलोक", "option_2_eng": "", "option_3": "परमधाम, रत्नाकर ", "option_3_eng": "", "option_4": "सुरलोक, द्यौ", "option_4_eng": "", "answer": "3"}, {"id": 559787, "question": "किस विकल्प के सभी शब्द परस्पर 'बिजली' के पर्याय हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "दामिनी, आलोक", "option_1_eng": "", "option_2": "सौदामिनी, दीप्ति", "option_2_eng": "", "option_3": "अशनि, प्रभा", "option_3_eng": "", "option_4": "ऐरावती, क्षणप्रभा", "option_4_eng": "", "answer": "4"}, {"id": 559788, "question": "किस विकल्प में विलोम युग्म असंगत हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "उच्छ्‌वास - निःश्वास, खगोल- भूगोल", "option_1_eng": "", "option_2": "कोलाहल- नीरवता, चंचल- निश्चिंत", "option_2_eng": "", "option_3": "मसृण - रुक्ष, व्यष्टि - समष्टि", "option_3_eng": "", "option_4": "लघु- विशाल, युगल- एकल", "option_4_eng": "", "answer": "2"}, {"id": 559789, "question": "किस विकल्प में विलोम युग्म सही हैं?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "वक्र - ऋत", "option_1_eng": "", "option_2": "विवर्ण - असवर्ण", "option_2_eng": "", "option_3": "प्रज्ञ - मूढ़", "option_3_eng": "", "option_4": "दुराचार - कदाचार", "option_4_eng": "", "answer": "3"}, {"id": 559790, "question": "किस विकल्प में विलोम युग्म सही नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "तामसिक – सात्विक", "option_1_eng": "", "option_2": "पाश्चात्य - पौर्वात्य", "option_2_eng": "", "option_3": "आविर्भाव – तिरोभाव", "option_3_eng": "", "option_4": "शुष्क - मलिन", "option_4_eng": "", "answer": "4"}, {"id": 559791, "question": "किस विकल्प में परस्पर विलोम शब्द नहीं है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "शुद्ध - विशुद्ध", "option_1_eng": "", "option_2": "उचित - अनुचित", "option_2_eng": "", "option_3": "आगत – विगत", "option_3_eng": "", "option_4": "उन्मूलन - रोपण", "option_4_eng": "", "answer": "1"}, {"id": 559792, "question": "किस विकल्प में विलोम युग्म असंगत है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "दुष्प्राप्य - सुप्राप्य, पारितोष - दंड", "option_1_eng": "", "option_2": "पंडित- मूर्ख, प्रतीची - प्राची", "option_2_eng": "", "option_3": "रति- विरति, लुप्त- व्यक्त", "option_3_eng": "", "option_4": "सृजन - संहार, उग्र- व्यग्र", "option_4_eng": "", "answer": "4"}, {"id": 559793, "question": "'प्रसाद - प्रासाद' शब्द युग्म का अर्थ है -", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "राजमहल – कृपा", "option_1_eng": "", "option_2": "कृपा – राजमहल", "option_2_eng": "", "option_3": "कृपा - परकोटा", "option_3_eng": "", "option_4": "राजमहल - फल", "option_4_eng": "", "answer": "2"}, {"id": 559794, "question": "निम्न में से कौनसा विकल्प असंगत है -", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कुच - स्तन <br />\nकूच - प्रस्थान", "option_1_eng": "", "option_2": "कृत - किया हुआ<br />\nकृत्य - कार्य", "option_2_eng": "", "option_3": "कोर - किनारा <br />\nकौर - ग्रास", "option_3_eng": "", "option_4": "तर्क - छाछ<br />\nतक्र – बहस", "option_4_eng": "", "answer": "4"}, {"id": 559795, "question": "निम्न में से कौनसा शब्द-युग्म सही है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कलुष - पाप<br />\nकुलिश - वज्र", "option_1_eng": "", "option_2": "शोक – रुचि<br />\nशौक – अफसोस", "option_2_eng": "", "option_3": "बलि - बलवान <br />\nबली - भेंट", "option_3_eng": "", "option_4": "कच - स्तन<br />\nकुच – बाल", "option_4_eng": "", "answer": "1"}, {"id": 559796, "question": "'इति-ईति' शब्द-युग्म का अर्थ है -", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "ढका हुआ - समाप्त", "option_1_eng": "", "option_2": "समाप्ति - दैविक आपदा", "option_2_eng": "", "option_3": "दैविक आपदा - भिन्न", "option_3_eng": "", "option_4": "दैविक आपदा - समाप्ति", "option_4_eng": "", "answer": "2"}, {"id": 559797, "question": "असंगत विकल्प का चयन कीजिए-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "अध्यापक उदाहरण देकर विद्यार्थियों को पढ़ाता है। - पूर्वकालिक क्रिया", "option_1_eng": "", "option_2": "राम पुस्तक पढ़ता है। - सकर्मक क्रिया", "option_2_eng": "", "option_3": "बालक पंतग उड़ा रहा था। - अकर्मक क्रिया", "option_3_eng": "", "option_4": "दादी बच्चों को कहानी सुनाती है। - द्विकर्मक क्रिया", "option_4_eng": "", "answer": "3"}, {"id": 559798, "question": "संगत विकल्प का चयन कीजिए-<br />\n 1. खिलाड़ी मैदान में दौड़ रहे हैं। - सकर्मक क्रिया<br />\n 2. वह रातभर नहीं सोया। - अकर्मक क्रिया<br />\n 3. कल्पना नाटक देख रही है। - सकर्मक क्रिया<br />\n 4. उसने आम खाया। - अकर्मक क्रिया<br />\nकूट-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल 1 ", "option_1_eng": "", "option_2": "केवल 1, 2 व 3", "option_2_eng": "", "option_3": "उपर्युक्त सभी ", "option_3_eng": "", "option_4": "केवल 2 व 3 ", "option_4_eng": "", "answer": "4"}, {"id": 559799, "question": "सकर्मक क्रिया वाला वाक्य छाँटिए-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "सचिन ने कपड़े खरीदे।", "option_1_eng": "", "option_2": "प्रकाश छत से गिर पड़ा।", "option_2_eng": "", "option_3": "राहुल सदा रोता रहता है।", "option_3_eng": "", "option_4": "पक्षी आकाश में उड़ रहे हैं।", "option_4_eng": "", "answer": "1"}, {"id": 559800, "question": "निम्नांकित शब्दों पर ध्यान दीजिए-", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "केवल 1 व 2", "option_1_eng": "", "option_2": "केवल 2 व 3", "option_2_eng": "", "option_3": "केवल 3 व 4", "option_3_eng": "", "option_4": "केवल 1 व 3", "option_4_eng": "", "answer": "2"}, {"id": 559801, "question": "किस वाक्य में 'द्विकर्मक क्रिया' है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "राम और श्याम दिल्ली जाएंगें।", "option_1_eng": "", "option_2": "गीता ने सीता को पुस्तक दी।", "option_2_eng": "", "option_3": "अमन चाय भी पीता है और दूध भी पीता है।", "option_3_eng": "", "option_4": "बालक कहानी लिख रहा है।", "option_4_eng": "", "answer": "2"}, {"id": 559802, "question": "Direction: (Que.76-80) Choose the correct tense form of the verb that best fits the context of the sentence.<br />\nHe _____ the work before the manager _____ .", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "completed, arrived", "option_1_eng": "", "option_2": "completed, had arrived", "option_2_eng": "", "option_3": "had completed, arrived", "option_3_eng": "", "option_4": "completes, arrives", "option_4_eng": "", "answer": "3"}, {"id": 559803, "question": "Direction: Choose the correct tense form of the verb that best fits the context of the sentence.<br />\nAs soon as the bell _____, the students rushed out.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "rings", "option_1_eng": "", "option_2": "rang", "option_2_eng": "", "option_3": "had rung", "option_3_eng": "", "option_4": "was ringing", "option_4_eng": "", "answer": "2"}, {"id": 559804, "question": "Direction: Choose the correct tense form of the verb that best fits the context of the sentence.<br />\n<br />\nBy the time the invigilator entered, several candidates _____ the hall.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "will have left", "option_1_eng": "", "option_2": "have left", "option_2_eng": "", "option_3": "had left", "option_3_eng": "", "option_4": "were leaving", "option_4_eng": "", "answer": "3"}, {"id": 559805, "question": "Direction: Choose the correct tense form of the verb that best fits the context of the sentence.<br />\n<br />\nThe philosopher maintained that virtue _____ its own reward.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "was", "option_1_eng": "", "option_2": "will be", "option_2_eng": "", "option_3": "had been", "option_3_eng": "", "option_4": "is", "option_4_eng": "", "answer": "4"}, {"id": 559806, "question": "Direction: Choose the correct tense form of the verb that best fits the context of the sentence.<br />\n<br />\nBy next year, the researchers _____ the experiment for nearly a decade.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "will conduct", "option_1_eng": "", "option_2": "conducted", "option_2_eng": "", "option_3": "will have been conducting", "option_3_eng": "", "option_4": "had conducted", "option_4_eng": "", "answer": "3"}, {"id": 559807, "question": "Choose the correct passive form of the sentence:<br />\n“The committee has rejected the proposal.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The proposal had been rejected by the committee.", "option_1_eng": "", "option_2": "The proposal was rejected by the committee.", "option_2_eng": "", "option_3": "The proposal has rejected by the committee.", "option_3_eng": "", "option_4": "The proposal has been rejected by the committee.", "option_4_eng": "", "answer": "4"}, {"id": 559808, "question": "Select the correct passive form:<br />\n“They are repairing the road.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The road is repaired by them.", "option_1_eng": "", "option_2": "The road has been repaired by them.", "option_2_eng": "", "option_3": "The road is being repaired by them.", "option_3_eng": "", "option_4": "The road was being repaired by them.", "option_4_eng": "", "answer": "3"}, {"id": 559809, "question": "Choose the correct passive voice:<br />\n“They laughed at the old beggar.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The old beggar was laughed by them.", "option_1_eng": "", "option_2": "The old beggar was laughed at by them.", "option_2_eng": "", "option_3": "The old beggar had been laughed at them.", "option_3_eng": "", "option_4": "The old beggar was being laughed at by them", "option_4_eng": "", "answer": "2"}, {"id": 559810, "question": "Choose the correct passive transformation:<br />\n“Who can solve this intricate puzzle?”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "By whom can this intricate puzzle be solved?", "option_1_eng": "", "option_2": "By whom this intricate puzzle can be solved?", "option_2_eng": "", "option_3": "This intricate puzzle can solved by whom?", "option_3_eng": "", "option_4": "Who can be solved this intricate puzzle by?", "option_4_eng": "", "answer": "1"}, {"id": 559811, "question": "Select the correct active voice:<br />\n“She was made to apologise by the principal.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The principal made her apologise.", "option_1_eng": "", "option_2": "The principal made her to apologise.", "option_2_eng": "", "option_3": "The principal had made her apologise.", "option_3_eng": "", "option_4": "The principal was making her apologise.", "option_4_eng": "", "answer": "1"}, {"id": 559812, "question": "Choose the correct indirect form:<br />\nHe said, “I am preparing for the LDC examination.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "He told that he was preparing for the LDC examination.", "option_1_eng": "", "option_2": "He said that I was preparing for the LDC examination.", "option_2_eng": "", "option_3": "He said that he had been preparing for the LDC examination.", "option_3_eng": "", "option_4": "He said that he was preparing for the LDC examination.", "option_4_eng": "", "answer": "4"}, {"id": 559813, "question": "Choose the correct direct narration:<br />\nShe told me that she had completed the assignment the previous day.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "She said to me, “I completed the assignment yesterday.”", "option_1_eng": "", "option_2": "She said to me, “I had completed the assignment yesterday.”", "option_2_eng": "", "option_3": "She told me, “She completed the assignment yesterday.”", "option_3_eng": "", "option_4": "She said to me, “I have completed the assignment yesterday.”", "option_4_eng": "", "answer": "1"}, {"id": 559814, "question": "Convert into indirect speech:<br />\nMahi said to Mohan, “Will you attend the seminar tomorrow?”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Mahi asked Mohan that he would attend the seminar the next day.", "option_1_eng": "", "option_2": "Mahi asked Mohan whether he will attend the seminar the next day.", "option_2_eng": "", "option_3": "Mahi inquired Mohan if he would attend the seminar tomorrow.", "option_3_eng": "", "option_4": "Mahi asked Mohan whether he would attend the seminar the next day.", "option_4_eng": "", "answer": "4"}, {"id": 559815, "question": "Choose the correct indirect form:<br />\nThe officer said to the clerk, “Do not delay the file.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The officer commanded the clerk to not delay the file.", "option_1_eng": "", "option_2": "The officer ordered the clerk not to delay the file.", "option_2_eng": "", "option_3": "The officer requested the clerk to not delay the file.", "option_3_eng": "", "option_4": "The officer forbade the clerk that he should not delay the file.", "option_4_eng": "", "answer": "2"}, {"id": 559816, "question": "Choose the correct indirect speech:<br />\nHe said, “What a beautiful monument!”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "He exclaimed that it was a very beautiful monument.", "option_1_eng": "", "option_2": "He said that it is a beautiful monument.", "option_2_eng": "", "option_3": "He exclaimed with joy that it is a very beautiful monument.", "option_3_eng": "", "option_4": "He told that it had been a beautiful monument.", "option_4_eng": "", "answer": "1"}, {"id": 559817, "question": "Choose the correct Negative transformation:<br />\n“ As soon as he saw the police, he fled.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Hardly had he seen the police then he fled.", "option_1_eng": "", "option_2": "Barely he saw the police than he fled.", "option_2_eng": "", "option_3": "Scarcely did he see the police than he had fled.", "option_3_eng": "", "option_4": "No sooner did he see the police than he fled.", "option_4_eng": "", "answer": "4"}, {"id": 559818, "question": "Choose the correct Assertive form:<br />\n“How wisely she handled the situation!”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "She handled the situation wisely.", "option_1_eng": "", "option_2": "She handled the situation extremely wisely.", "option_2_eng": "", "option_3": "She handled the situation with wisdom.", "option_3_eng": "", "option_4": "She handled the situation very wisely.", "option_4_eng": "", "answer": "4"}, {"id": 559819, "question": "Choose the correct Interrogative transformation:<br />\n“Everybody desires success.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Does everybody desire success?", "option_1_eng": "", "option_2": "Who does not desire success?", "option_2_eng": "", "option_3": "Is success desired by everybody?", "option_3_eng": "", "option_4": "Why does everybody desire success?", "option_4_eng": "", "answer": "2"}, {"id": 559820, "question": "Choose the correct Negative form without changing meaning:<br />\n“Only a fool would believe this story.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Nobody except a fool believes this story.", "option_1_eng": "", "option_2": "No fool would believe this story.", "option_2_eng": "", "option_3": "None but a fool would believe this story.", "option_3_eng": "", "option_4": "A fool alone would not believe this story.", "option_4_eng": "", "answer": "3"}, {"id": 559821, "question": "Choose the correct Assertive form:<br />\n“Who can deny the existence of God?”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Nobody can deny the existence of God.", "option_1_eng": "", "option_2": "Everybody believes in God.", "option_2_eng": "", "option_3": "No one denies God’s existence.", "option_3_eng": "", "option_4": "God exists undoubtedly.", "option_4_eng": "", "answer": "1"}, {"id": 559822, "question": "Direction: (Que.96-99) Choose the correct article or determiner that best completes the sentence.<br />\nHe was appointed ______ Principal of the college, though he had once served as ______ vice-principal in another institution.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "a, the", "option_1_eng": "", "option_2": "the, a", "option_2_eng": "", "option_3": "no article, a", "option_3_eng": "", "option_4": "no article, the", "option_4_eng": "", "answer": "3"}, {"id": 559823, "question": "Direction: Choose the correct article or determiner that best completes the sentence.<br />\nThere is scarcely ______ hope left for the revival of the institution.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "many", "option_1_eng": "", "option_2": "some", "option_2_eng": "", "option_3": "any", "option_3_eng": "", "option_4": "few", "option_4_eng": "", "answer": "3"}, {"id": 559824, "question": "Direction: Choose the correct article or determiner that best completes the sentence.<br />\nThe committee finally arrived at ______ unanimous decision after hours of debate.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "a", "option_1_eng": "", "option_2": "an", "option_2_eng": "", "option_3": "the", "option_3_eng": "", "option_4": "no article", "option_4_eng": "", "answer": "1"}, {"id": 559825, "question": "Direction: Choose the correct article or determiner that best completes the sentence.<br />\n______ scholars attended the seminar on postcolonial discourse.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Much", "option_1_eng": "", "option_2": "Many a", "option_2_eng": "", "option_3": "Much of", "option_3_eng": "", "option_4": "A good many", "option_4_eng": "", "answer": "4"}, {"id": 559826, "question": "Direction: (Que.100-103) Choose the correct preposition that best fits the sentence context.<br />\nShe has great aversion ______ hypocrisy and pretension.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "for", "option_1_eng": "", "option_2": "with", "option_2_eng": "", "option_3": "to", "option_3_eng": "", "option_4": "against", "option_4_eng": "", "answer": "3"}, {"id": 559827, "question": "Direction: Choose the correct preposition that best fits the sentence context.<br />\nWe must not meddle ______ matters that do not concern us.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "at", "option_1_eng": "", "option_2": "with", "option_2_eng": "", "option_3": "into", "option_3_eng": "", "option_4": "for", "option_4_eng": "", "answer": "2"}, {"id": 559828, "question": "Direction: Choose the correct preposition that best fits the sentence context.<br />\nHe is notorious ______ arriving late at official meetings.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "for", "option_1_eng": "", "option_2": "about ", "option_2_eng": "", "option_3": "with", "option_3_eng": "", "option_4": "on", "option_4_eng": "", "answer": "1"}, {"id": 559829, "question": "Match the blank in List-I with the most suitable Preposition from List-II.<br />\n  List-I                                                 List-II<br />\n (A)  The students were debarred ___ appearing in the exam.  (P) on<br />\n (B)  He excels ___ logical reasoning.    (Q) in  <br />\n (C)  The report sheds light ___ administrative corruption.  (R) from<br />\n (D)  The minister hinted ___ policy changes.   (S) at<br />\n Choose the correct answer:<br />\n", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A-R, B-Q, C-P, D-S", "option_1_eng": "", "option_2": "A-P, B-Q, C-R, D-S", "option_2_eng": "", "option_3": "A-R, B-S, C-P, D-Q", "option_3_eng": "", "option_4": "A-Q, B-P, C-S, D-R", "option_4_eng": "", "answer": "1"}, {"id": 559830, "question": "Choose the most appropriate English translation:<br />\n ''यदि उसने समय पर आवेदन किया होता, तो उसे यह अवसर मिल सकता था।''", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "If he applied in time, he may get this opportunity.", "option_1_eng": "", "option_2": "Had he applied in time, he might have got this opportunity.", "option_2_eng": "", "option_3": "If he had apply in time, he could got this opportunity.", "option_3_eng": "", "option_4": "Had he been applying in time, he may have got this opportunity.", "option_4_eng": "", "answer": "2"}, {"id": 559831, "question": "Choose the most appropriate English translation:<br />\n''सीता अपने सभी भाई-बहनों को सफलता के चरमोत्कर्ष पर देखना चाहती है।''", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Sita desires that all her siblings are reaching success peak.", "option_1_eng": "", "option_2": "Sita is wanting all her siblings on the topmost success.", "option_2_eng": "", "option_3": "Sita wants to saw all her brothers and sisters in successful peak.", "option_3_eng": "", "option_4": "Sita wants to see all her brothers and sisters at the pinnacle of success.", "option_4_eng": "", "answer": "4"}, {"id": 559832, "question": "Choose the best English translation:<br />\n''मुझे नहीं पता था कि वह इतनी धाराप्रवाह अंग्रेजी बोल सकती थी।''", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "I did not know that she could speak English so fluently.", "option_1_eng": "", "option_2": "I do not know that she can speak so fluent English.", "option_2_eng": "", "option_3": "I had not know that she can spoke English fluently.", "option_3_eng": "", "option_4": "I knew she cannot speak English so fluently.", "option_4_eng": "", "answer": "1"}, {"id": 559833, "question": "Choose the correct Hindi translation:<br />\n“The matter is too complicated to be resolved immediately.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "मामला इतना सरल है कि तुरंत हल हो जाए।", "option_1_eng": "", "option_2": "मामला इतना जटिल है कि तुरंत हल नहीं किया जा सकता।", "option_2_eng": "", "option_3": "मामला इतना जटिल है कि तुरंत हल हो जाए।", "option_3_eng": "", "option_4": "मामला जटिल है जिसे तुरंत हल किया जा सकता।", "option_4_eng": "", "answer": "2"}, {"id": 559834, "question": "Choose the most appropriate Hindi translation:<br />\n“Kamal is a versatile person, whereas Lokesh is striving hard to fulfil his ambitions.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "कमल चतुर स्वभाव का व्यक्ति है जबकि लोकेश सफलता हेतु निरंतर मेहनत कर रहा है।", "option_1_eng": "", "option_2": "कमल प्रतिभाशाली व्यक्ति है जबकि लोकेश अपने लक्ष्यों को पाने हेतु नियमित कार्यरत है।", "option_2_eng": "", "option_3": "कमल हरफनमौला इंसान है वहीं दूसरी ओर लोकेश अपनी महत्त्वाकांक्षाओं की पूर्ति के लिए प्रयासरत है।", "option_3_eng": "", "option_4": "कमल सक्रिय प्रवृत्ति का इंसान है वहीं लोकेश अपने भविष्य के लिए संघर्षरत बना हुआ है।", "option_4_eng": "", "answer": "3"}, {"id": 559835, "question": "Which of the following sentences is/are grammatically correct with respect to Subject–Verb Agreement?<br />\n A. Each of the players have submitted their consent forms.<br />\n B. Neither the chairman nor the directors are willing to alter the policy.<br />\n C. The Arabian Nights is still admired for its imaginative narratives.<br />\n D. More than one employee were suspended after the audit.<br />\nOptions:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Only B and C", "option_1_eng": "", "option_2": "Only C", "option_2_eng": "", "option_3": "Only A and D", "option_3_eng": "", "option_4": "Only B", "option_4_eng": "", "answer": "1"}, {"id": 559836, "question": "Select the correct sentence(s) according to subject-verb-agreement:<br />\n A. The majority of the members supports the motion.<br />\n B. The majority of the members support the motion.<br />\n C. One-third of the city have been flooded.<br />\n D. One-third of the students has failed.<br />\nOptions:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Only B and C", "option_1_eng": "", "option_2": "Only B", "option_2_eng": "", "option_3": "Only C and D", "option_3_eng": "", "option_4": "Only A", "option_4_eng": "", "answer": "2"}, {"id": 559837, "question": "Choose the correct degree transformation.<br />\n“No other desert in India is as large as the Thar Desert.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The Thar Desert is larger than all deserts in India.", "option_1_eng": "", "option_2": "The Thar Desert is most large desert in India.", "option_2_eng": "", "option_3": "The Thar Desert is the largest desert in India.", "option_3_eng": "", "option_4": "The Thar Desert is larger from any other desert in India.", "option_4_eng": "", "answer": "3"}, {"id": 559838, "question": "Choose the correct connective:<br />\nHard work is essential, _______ talent alone cannot guarantee success.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "therefore ", "option_1_eng": "", "option_2": "unless", "option_2_eng": "", "option_3": "for", "option_3_eng": "", "option_4": "whether ", "option_4_eng": "", "answer": "3"}, {"id": 559839, "question": "Choose the most suitable word.<br />\nThe students were advised not to ____ from the main topic.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "deviate", "option_1_eng": "", "option_2": "deteriorate", "option_2_eng": "", "option_3": "dominate", "option_3_eng": "", "option_4": "devastate", "option_4_eng": "", "answer": "1"}, {"id": 559840, "question": "Match the following terms:<br />\n  List-I                    List-II<br />\n A. Circular           I. कार्यवृत्त<br />\n B. Proceedings     II. परिपत्र<br />\n C. Affidavit         III. शपथपत्र<br />\n D. Notification    IV. अधिसूचना<br />\n Options:<br />\n", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A-II, B-I, C-III, D-IV", "option_1_eng": "", "option_2": "A-IV, B-III, C-I, D-II", "option_2_eng": "", "option_3": "A-I, B-II, C-IV, D-III", "option_3_eng": "", "option_4": "A-III, B-IV, C-II, D-I", "option_4_eng": "", "answer": "1"}, {"id": 559841, "question": "Match List-I with List-II:<br />\n  List-I                              List-II<br />\n A. Curriculum Vitae     I. व्यवहार्यता प्रतिवेदन<br />\n B. Feasibility Report     II. जीवन-वृत्त<br />\n C. Arbitration              III. प्रत्यय-पत्र<br />\n D. Credentials             IV. पंचनिर्णय<br />\n Options:<br />\n", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A-II, B-I, C-III, D-IV", "option_1_eng": "", "option_2": "A-IV, B-II, C-I, D-III", "option_2_eng": "", "option_3": "A-IV, B-III, C-I, D-II", "option_3_eng": "", "option_4": "A-II, B-I, C-IV, D-III", "option_4_eng": "", "answer": "4"}, {"id": 559842, "question": "'परिशिष्ट' का सही English equivalent क्या है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Agenda", "option_1_eng": "", "option_2": "Circular", "option_2_eng": "", "option_3": "Appendix", "option_3_eng": "", "option_4": "Tribunal", "option_4_eng": "", "answer": "3"}, {"id": 559843, "question": "'स्थगन' का सही English term क्या है?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Mandate", "option_1_eng": "", "option_2": "Adjournment", "option_2_eng": "", "option_3": "Minute", "option_3_eng": "", "option_4": "Resolution", "option_4_eng": "", "answer": "2"}, {"id": 559844, "question": "Choose the word nearest in meaning to “Laconic”.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Verbose", "option_1_eng": "", "option_2": "Reserved", "option_2_eng": "", "option_3": "Brief", "option_3_eng": "", "option_4": "Elaborate", "option_4_eng": "", "answer": "3"}, {"id": 559845, "question": "Choose the synonym of “Esoteric”.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Common", "option_1_eng": "", "option_2": "Public", "option_2_eng": "", "option_3": "Mysterious", "option_3_eng": "", "option_4": "Specialised", "option_4_eng": "", "answer": "4"}, {"id": 559846, "question": "Choose the synonym of “Voracious”.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Moderate", "option_1_eng": "", "option_2": "Insatiable", "option_2_eng": "", "option_3": "Weak", "option_3_eng": "", "option_4": "Passive", "option_4_eng": "", "answer": "2"}, {"id": 559847, "question": "Match the following synonyms:<br />\n  List-I                     List-II<br />\n (A) Meticulous         (I) Generous<br />\n (B) Magnanimous     (II) Thorough<br />\n (C) Conspicuous      (III) Noticeable<br />\n (D) Resilient            (IV) Adaptable <br />\nOptions:<br />\n", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A-IV, B-III, C-II, D-I", "option_1_eng": "", "option_2": "A-II, B-I, C-III, D-IV", "option_2_eng": "", "option_3": "A-I, B-II, C-IV, D-III", "option_3_eng": "", "option_4": "A-III, B-IV, C-I, D-II", "option_4_eng": "", "answer": "2"}, {"id": 559848, "question": "Read the following passage and answer the questions that follow:<br />\n In recent years, several state governments in India have attempted to digitise public administration in order to reduce bureaucratic delay and increase transparency. While the policy appears progressive on paper, its implementation has exposed deep structural inequalities. In rural regions, many citizens remain unfamiliar with online procedures and depend heavily on cyber cafés or middlemen for accessing welfare schemes. Consequently, digitisation has occasionally created a new form of dependency rather than eliminating corruption altogether. Furthermore, officials often assume that technological access automatically ensures technological literacy, an assumption that ignores disparities in education and language proficiency. Critics argue that the rapid replacement of manual systems has marginalised elderly citizens who are uncomfortable with digital interfaces. Nevertheless, supporters maintain that digital governance minimises human discretion and thereby reduces opportunities for bribery and manipulation. They also emphasise that long-term administrative efficiency cannot be achieved without technological modernisation. The debate, therefore, is not whether digitisation is necessary, but whether sufficient institutional support exists to make it inclusive. Ultimately, the success of governance reforms depends less on software itself and more on the social conditions in which such reforms are introduced.<br />\n<br />\nQ. According to the passage, digitisation in rural regions has often resulted in:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Complete elimination of intermediaries", "option_1_eng": "", "option_2": "Increased administrative expenditure", "option_2_eng": "", "option_3": "A new form of dependency on cyber cafés and middlemen", "option_3_eng": "", "option_4": "Greater resistance from urban officials", "option_4_eng": "", "answer": "3"}, {"id": 559849, "question": "Read the following passage and answer the questions that follow:<br />\n In recent years, several state governments in India have attempted to digitise public administration in order to reduce bureaucratic delay and increase transparency. While the policy appears progressive on paper, its implementation has exposed deep structural inequalities. In rural regions, many citizens remain unfamiliar with online procedures and depend heavily on cyber cafés or middlemen for accessing welfare schemes. Consequently, digitisation has occasionally created a new form of dependency rather than eliminating corruption altogether. Furthermore, officials often assume that technological access automatically ensures technological literacy, an assumption that ignores disparities in education and language proficiency. Critics argue that the rapid replacement of manual systems has marginalised elderly citizens who are uncomfortable with digital interfaces. Nevertheless, supporters maintain that digital governance minimises human discretion and thereby reduces opportunities for bribery and manipulation. They also emphasise that long-term administrative efficiency cannot be achieved without technological modernisation. The debate, therefore, is not whether digitisation is necessary, but whether sufficient institutional support exists to make it inclusive. Ultimately, the success of governance reforms depends less on software itself and more on the social conditions in which such reforms are introduced.<br />\n<br />\nQ. The author criticizes the assumption that:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Technological access automatically guarantees technological literacy", "option_1_eng": "", "option_2": "Elderly citizens are opposed to modernisation", "option_2_eng": "", "option_3": "Manual systems are entirely corruption-free", "option_3_eng": "", "option_4": "Welfare schemes should remain offline", "option_4_eng": "", "answer": "1"}, {"id": 559850, "question": "Read the following passage and answer the questions that follow:<br />\n In recent years, several state governments in India have attempted to digitise public administration in order to reduce bureaucratic delay and increase transparency. While the policy appears progressive on paper, its implementation has exposed deep structural inequalities. In rural regions, many citizens remain unfamiliar with online procedures and depend heavily on cyber cafés or middlemen for accessing welfare schemes. Consequently, digitisation has occasionally created a new form of dependency rather than eliminating corruption altogether. Furthermore, officials often assume that technological access automatically ensures technological literacy, an assumption that ignores disparities in education and language proficiency. Critics argue that the rapid replacement of manual systems has marginalised elderly citizens who are uncomfortable with digital interfaces. Nevertheless, supporters maintain that digital governance minimises human discretion and thereby reduces opportunities for bribery and manipulation. They also emphasise that long-term administrative efficiency cannot be achieved without technological modernisation. The debate, therefore, is not whether digitisation is necessary, but whether sufficient institutional support exists to make it inclusive. Ultimately, the success of governance reforms depends less on software itself and more on the social conditions in which such reforms are introduced.<br />\n<br />\nQ. Which of the following best reflects the supporters’ viewpoint regarding digital governance?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "It primarily benefits private corporations", "option_1_eng": "", "option_2": "It reduces human discretion and opportunities for bribery", "option_2_eng": "", "option_3": "It should entirely replace educational reforms", "option_3_eng": "", "option_4": "It discourages administrative modernisation", "option_4_eng": "", "answer": "2"}, {"id": 559851, "question": "Which of the following can be logically inferred from the passage?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Digitisation alone is sufficient for successful governance reforms", "option_1_eng": "", "option_2": "Technological modernisation is unnecessary in democratic systems", "option_2_eng": "", "option_3": "Social and educational conditions influence the success of reforms", "option_3_eng": "", "option_4": "Rural citizens unanimously oppose online governance", "option_4_eng": "", "answer": "3"}, {"id": 559852, "question": "Match List-I with List-II on the basis of the passage:<br />\n  List-I                                        List-II<br />\n(A) Rural citizens                  (I) Reduction in bribery<br />\n(B) Supporters of digitisation  (II) Dependence on intermediaries<br />\n(C) Critics of rapid digitalisation  (III) Marginalisation of elderly people<br />\n(D) Digital governance modernisation (IV) Administrative     <br />\nOptions:<br />\n", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A–II, B–IV, C–III, D–I", "option_1_eng": "", "option_2": "A–I, B–III, C–II, D–IV", "option_2_eng": "", "option_3": "A–III, B–II, C–IV, D–I", "option_3_eng": "", "option_4": "A–II, B–I, C–IV, D–III", "option_4_eng": "", "answer": "1"}, {"id": 559853, "question": "Which of the following is an incorrect antonym pair?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Artificial — Natural", "option_1_eng": "", "option_2": "Commence — Conclude", "option_2_eng": "", "option_3": "Ancient — Antique", "option_3_eng": "", "option_4": "Frugal — Wasteful", "option_4_eng": "", "answer": "3"}, {"id": 559854, "question": "Which antonym pair is incorrectly matched?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Trivial — Significant", "option_1_eng": "", "option_2": "Fertile — Barren", "option_2_eng": "", "option_3": "Illuminate — Darken", "option_3_eng": "", "option_4": "Reluctant — Hesitant", "option_4_eng": "", "answer": "4"}, {"id": 559855, "question": "Match the following antonyms:<br />\n  List-I List-II<br />\n (A) Reticent (P) Impoverished<br />\n (B) Affluent (Q) Talkative<br />\n (C) Pragmatic (R) Impractical<br />\n (D) Belligerent (S) Conciliatory<br />\n Options:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A–Q, B–P, C–R, D–S", "option_1_eng": "", "option_2": "A–S, B–Q, C–P, D–R", "option_2_eng": "", "option_3": "A–P, B–R, C–S, D–Q", "option_3_eng": "", "option_4": "A–R, B–S, C–Q, D–P", "option_4_eng": "", "answer": "1"}, {"id": 559856, "question": "Direction: (Que. 130-133) Choose the correct one-word substitute for the given expression.<br />\nA person who deliberately sets fire to property:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Martinet", "option_1_eng": "", "option_2": "Iconoclast", "option_2_eng": "", "option_3": "Arsonist", "option_3_eng": "", "option_4": "Vigilante", "option_4_eng": "", "answer": "3"}, {"id": 559857, "question": "Direction: Choose the correct one-word substitute for the given expression.<br />\nOne who deserts one’s principles or party:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Apostate", "option_1_eng": "", "option_2": "Philistine", "option_2_eng": "", "option_3": "Fanatic", "option_3_eng": "", "option_4": "Martyr", "option_4_eng": "", "answer": "1"}, {"id": 559858, "question": "Direction: Choose the correct one-word substitute for the given expression.<br />\nA speech by an actor at the end of a play:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Monologue", "option_1_eng": "", "option_2": "Dialogue", "option_2_eng": "", "option_3": "Epilogue", "option_3_eng": "", "option_4": "Prologue", "option_4_eng": "", "answer": "3"}, {"id": 559859, "question": "Direction: Choose the correct one-word substitute for the given expression.<br />\nOne who is incapable of being tired out:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Dogmatic", "option_1_eng": "", "option_2": "Invincible", "option_2_eng": "", "option_3": "Indefatigable", "option_3_eng": "", "option_4": "Crusader", "option_4_eng": "", "answer": "3"}, {"id": 559860, "question": "Choose the correctly formed word using a suitable prefix:<br />\n“He remained _______ to all warnings and continued the experiment.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "attentive", "option_1_eng": "", "option_2": "inattentive", "option_2_eng": "", "option_3": "nonattentive", "option_3_eng": "", "option_4": "disattentive", "option_4_eng": "", "answer": "2"}, {"id": 559861, "question": "Identify the noun formed correctly from the word “refuse”.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "refusal", "option_1_eng": "", "option_2": "refusement", "option_2_eng": "", "option_3": "refusation", "option_3_eng": "", "option_4": "refusehood", "option_4_eng": "", "answer": "1"}, {"id": 559862, "question": "Choose the correctly formed noun from “conceive”.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "conceivement", "option_1_eng": "", "option_2": "conception", "option_2_eng": "", "option_3": "conceivance", "option_3_eng": "", "option_4": "conceivability", "option_4_eng": "", "answer": "2"}, {"id": 559863, "question": "Select the word formed using both prefix and suffix correctly.", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "disportionment", "option_1_eng": "", "option_2": "unproportionate", "option_2_eng": "", "option_3": "improportional", "option_3_eng": "", "option_4": "disproportionate", "option_4_eng": "", "answer": "4"}, {"id": 559864, "question": "Choose the correct pair to complete the sentence:<br />\n“Though the minister tried to ______ the issue, the media continued to ______ the facts.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "allude, elude", "option_1_eng": "", "option_2": "evade, elucidate", "option_2_eng": "", "option_3": "elicit, evade", "option_3_eng": "", "option_4": "illicit, illustrate", "option_4_eng": "", "answer": "2"}, {"id": 559865, "question": "Which sentence is grammatically and semantically correct?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "The complement paid him a nice compliment.", "option_1_eng": "", "option_2": "The desert was served in the dessert.", "option_2_eng": "", "option_3": "The council gave him wise counsel.", "option_3_eng": "", "option_4": "The moral of the workers was low.", "option_4_eng": "", "answer": "3"}, {"id": 559866, "question": "Fill in the blanks with suitable words:<br />\n “The committee decided to ______ the matter until a more ______ report was available.”", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "precede, credible", "option_1_eng": "", "option_2": "postpone, credible", "option_2_eng": "", "option_3": "proceed, credulous", "option_3_eng": "", "option_4": "preceed, creditable", "option_4_eng": "", "answer": "2"}, {"id": 559867, "question": "Read the following passage and answer the questions that follow:<br />\n The expansion of competitive examinations in India has generated an intense debate regarding the relationship between meritocracy and social equity. Advocates of standardised examinations argue that such tests provide an impartial mechanism for evaluating intellectual competence, thereby reducing the influence of nepotism and political patronage. However, critics contend that the notion of “equal opportunity” within competitive testing is largely theoretical because candidates do not begin from identical socio-economic conditions. Students from urban and financially privileged backgrounds frequently enjoy access to advanced coaching institutions, digital resources, and English-medium education, whereas many rural aspirants struggle even to obtain reliable study materials. Consequently, examination performance often reflects disparities in opportunity rather than differences in innate ability alone.<br />\n Moreover, the commercialisation of coaching culture has transformed education into a market-driven enterprise where success is increasingly associated with purchasing power. Some sociologists further argue that excessive dependence on objective-type examinations encourages rote memorisation while discouraging analytical reasoning and creativity. Despite these criticisms, defenders of competitive testing maintain that no alternative system has yet demonstrated greater transparency or administrative feasibility on a large scale. They emphasise that subjective recruitment mechanisms may invite arbitrariness and corruption. The controversy, therefore, does not revolve around whether examinations should exist, but around how the assessment process can be redesigned to balance fairness, accessibility, and intellectual rigour. Ultimately, the legitimacy of any examination system depends not merely on procedural uniformity but on its capacity to accommodate structural inequalities without compromising standards of excellence.<br />\n<br />\nQ. According to the passage, supporters of standardised examinations believe that such examinations:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Encourage commercialisation of education", "option_1_eng": "", "option_2": "Eliminate the need for administrative reforms", "option_2_eng": "", "option_3": "Provide an impartial method of assessing competence", "option_3_eng": "", "option_4": "Favour rural candidates over urban candidates", "option_4_eng": "", "answer": "3"}, {"id": 559868, "question": "Read the following passage and answer the questions that follow:<br />\n The expansion of competitive examinations in India has generated an intense debate regarding the relationship between meritocracy and social equity. Advocates of standardised examinations argue that such tests provide an impartial mechanism for evaluating intellectual competence, thereby reducing the influence of nepotism and political patronage. However, critics contend that the notion of “equal opportunity” within competitive testing is largely theoretical because candidates do not begin from identical socio-economic conditions. Students from urban and financially privileged backgrounds frequently enjoy access to advanced coaching institutions, digital resources, and English-medium education, whereas many rural aspirants struggle even to obtain reliable study materials. Consequently, examination performance often reflects disparities in opportunity rather than differences in innate ability alone.<br />\n Moreover, the commercialisation of coaching culture has transformed education into a market-driven enterprise where success is increasingly associated with purchasing power. Some sociologists further argue that excessive dependence on objective-type examinations encourages rote memorisation while discouraging analytical reasoning and creativity. Despite these criticisms, defenders of competitive testing maintain that no alternative system has yet demonstrated greater transparency or administrative feasibility on a large scale. They emphasise that subjective recruitment mechanisms may invite arbitrariness and corruption. The controversy, therefore, does not revolve around whether examinations should exist, but around how the assessment process can be redesigned to balance fairness, accessibility, and intellectual rigour. Ultimately, the legitimacy of any examination system depends not merely on procedural uniformity but on its capacity to accommodate structural inequalities without compromising standards of excellence.<br />\n<br />\nQ. Which of the following is presented as a criticism of competitive examinations?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "They completely ignore academic performance", "option_1_eng": "", "option_2": "They encourage analytical and creative thinking excessively", "option_2_eng": "", "option_3": "They reduce transparency in recruitment", "option_3_eng": "", "option_4": "They often reflect unequal socio-economic opportunities", "option_4_eng": "", "answer": "4"}, {"id": 559869, "question": "Read the following passage and answer the questions that follow:<br />\n The expansion of competitive examinations in India has generated an intense debate regarding the relationship between meritocracy and social equity. Advocates of standardised examinations argue that such tests provide an impartial mechanism for evaluating intellectual competence, thereby reducing the influence of nepotism and political patronage. However, critics contend that the notion of “equal opportunity” within competitive testing is largely theoretical because candidates do not begin from identical socio-economic conditions. Students from urban and financially privileged backgrounds frequently enjoy access to advanced coaching institutions, digital resources, and English-medium education, whereas many rural aspirants struggle even to obtain reliable study materials. Consequently, examination performance often reflects disparities in opportunity rather than differences in innate ability alone.<br />\n Moreover, the commercialisation of coaching culture has transformed education into a market-driven enterprise where success is increasingly associated with purchasing power. Some sociologists further argue that excessive dependence on objective-type examinations encourages rote memorisation while discouraging analytical reasoning and creativity. Despite these criticisms, defenders of competitive testing maintain that no alternative system has yet demonstrated greater transparency or administrative feasibility on a large scale. They emphasise that subjective recruitment mechanisms may invite arbitrariness and corruption. The controversy, therefore, does not revolve around whether examinations should exist, but around how the assessment process can be redesigned to balance fairness, accessibility, and intellectual rigour. Ultimately, the legitimacy of any examination system depends not merely on procedural uniformity but on its capacity to accommodate structural inequalities without compromising standards of excellence.<br />\n<br />\nQ. The phrase “market-driven enterprise” in the passage implies that education has become:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Entirely dependent upon government funding", "option_1_eng": "", "option_2": "Controlled primarily by political institutions", "option_2_eng": "", "option_3": "Increasingly influenced by financial capability", "option_3_eng": "", "option_4": "Free from social inequality", "option_4_eng": "", "answer": "3"}, {"id": 559870, "question": "Read the following passage and answer the questions that follow:<br />\n The expansion of competitive examinations in India has generated an intense debate regarding the relationship between meritocracy and social equity. Advocates of standardised examinations argue that such tests provide an impartial mechanism for evaluating intellectual competence, thereby reducing the influence of nepotism and political patronage. However, critics contend that the notion of “equal opportunity” within competitive testing is largely theoretical because candidates do not begin from identical socio-economic conditions. Students from urban and financially privileged backgrounds frequently enjoy access to advanced coaching institutions, digital resources, and English-medium education, whereas many rural aspirants struggle even to obtain reliable study materials. Consequently, examination performance often reflects disparities in opportunity rather than differences in innate ability alone.<br />\n Moreover, the commercialisation of coaching culture has transformed education into a market-driven enterprise where success is increasingly associated with purchasing power. Some sociologists further argue that excessive dependence on objective-type examinations encourages rote memorisation while discouraging analytical reasoning and creativity. Despite these criticisms, defenders of competitive testing maintain that no alternative system has yet demonstrated greater transparency or administrative feasibility on a large scale. They emphasise that subjective recruitment mechanisms may invite arbitrariness and corruption. The controversy, therefore, does not revolve around whether examinations should exist, but around how the assessment process can be redesigned to balance fairness, accessibility, and intellectual rigour. Ultimately, the legitimacy of any examination system depends not merely on procedural uniformity but on its capacity to accommodate structural inequalities without compromising standards of excellence.<br />\n<br />\nQ. Which of the following best describes the central argument of the passage?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Competitive examinations should be abolished immediately", "option_1_eng": "", "option_2": "Objective examinations are superior in every respect", "option_2_eng": "", "option_3": "Examination systems must balance fairness with social realities", "option_3_eng": "", "option_4": "Rural education has become more advanced than urban education", "option_4_eng": "", "answer": "3"}, {"id": 559871, "question": "Match List-I with List-II according to the passage:<br />\n  List-I List-II<br />\n (A) Urban privileged students  (I) Rote memorisation  <br />\n (B) Coaching culture resources (II) Access to advanced        <br />\n (C) Objective-type examinations (III) Administrative feasibility<br />\n (D) Defenders of competitive testing  (IV) Commercialisation of education<br />\nOptions:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "A–II, B–IV, C–I, D–III", "option_1_eng": "", "option_2": "A–IV, B–II, C–III, D–I", "option_2_eng": "", "option_3": "A–I, B–III, C–IV, D–II", "option_3_eng": "", "option_4": "A–III, B–I, C–II, D–IV", "option_4_eng": "", "answer": "1"}, {"id": 559872, "question": "In official correspondence, which part of a formal letter contains the reference number and date?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Subscription", "option_1_eng": "", "option_2": "Subject line", "option_2_eng": "", "option_3": "Heading", "option_3_eng": "", "option_4": "Salutation", "option_4_eng": "", "answer": "3"}, {"id": 559873, "question": "Which among the following is not an essential characteristic of a notice?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Brevity", "option_1_eng": "", "option_2": "Clarity", "option_2_eng": "", "option_3": "Formality", "option_3_eng": "", "option_4": "Obscurity ", "option_4_eng": "", "answer": "4"}, {"id": 559874, "question": "The most appropriate medium for notifying all departments about implementation of a new attendance system is:", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Circular", "option_1_eng": "", "option_2": "Notice", "option_2_eng": "", "option_3": "Official Letter ", "option_3_eng": "", "option_4": "Demi Official Letter ", "option_4_eng": "", "answer": "1"}, {"id": 559875, "question": "Which of the following is the correct sequence in a standard official letter?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Subject → Heading →  Salutation → Body", "option_1_eng": "", "option_2": "Heading → Salutation → Subject → Body", "option_2_eng": "", "option_3": "Heading → Subject → Salutation → Body", "option_3_eng": "", "option_4": "Subject → Heading →  Body → Salutation", "option_4_eng": "", "answer": "3"}, {"id": 559876, "question": "Which principle is most fundamental in government tendering process?", "question_eng": "", "marks": 1, "minus": 0, "positive_marks": 1, "negative_marks": 0, "option_1": "Secrecy and favouritism", "option_1_eng": "", "option_2": "Informal negotiation only", "option_2_eng": "", "option_3": "Personal discretion without records", "option_3_eng": "", "option_4": "Transparency and fair competition", "option_4_eng": "", "answer": "4"}];
+        let currentQuestion = 0;
+        let answers = {};
+        let markedForReview = {};
+        let submitted = false;
+        let totalTime = 180 * 60;
+        let testStarted = false;
+        let startTime = null;
+        let endTime = null;
+        
+        const hasEnglish = false;
+        let currentLanguage = hasEnglish ? (localStorage.getItem('kalam_lang') || 'bilingual') : 'hindi';
+        
+        function changeLanguage(lang) {
+            if (!hasEnglish) return;
+            currentLanguage = lang;
+            localStorage.setItem('kalam_lang', lang);
+            updateLangButtonEmoji();
+            showQuestion(currentQuestion);
+        }
+        
+        function cycleLanguage() {
+            if (!hasEnglish) return;
+            if (currentLanguage === 'bilingual') {
+                changeLanguage('hindi');
+            } else if (currentLanguage === 'hindi') {
+                changeLanguage('english');
+            } else {
+                changeLanguage('bilingual');
+            }
+        }
+        
+        function updateLangButtonEmoji() {
+            const langBtn = document.getElementById('lang-btn');
+            if (!langBtn) return;
+            if (currentLanguage === 'hindi') {
+                langBtn.textContent = '🇮🇳';
+                langBtn.title = 'Language: Hindi';
+            } else if (currentLanguage === 'english') {
+                langBtn.textContent = '🇬🇧';
+                langBtn.title = 'Language: English';
+            } else {
+                langBtn.textContent = '🌐';
+                langBtn.title = 'Language: Bilingual';
+            }
+        }
+        
+        // Initialize the test
+        window.onload = function() {
+            updateLangButtonEmoji();
+            // Show welcome screen by default
+            showWelcomeScreen();
+            
+            // Preload test content but don't show it
+            generateQuestionsGrid();
+            
+            // Hide text on small screens for bottom nav buttons
+            handleBottomNavResponsive();
+            window.addEventListener('resize', handleBottomNavResponsive);
+        };
+        
+        // Handle responsive bottom navigation
+        function handleBottomNavResponsive() {
+            const navTexts = document.querySelectorAll('.nav-btn-text');
+            if (window.innerWidth < 500) {
+                navTexts.forEach(el => el.style.display = 'none');
+            } else {
+                navTexts.forEach(el => el.style.display = 'inline');
+            }
+        }
+        
+        // Function to handle beforeunload event
+        function beforeUnloadHandler(e) {
+            if (testStarted && !submitted) {
+                e.preventDefault();
+                e.returnValue = 'You have an ongoing test. Are you sure you want to leave?';
+                showConfirmationModal();
+                return 'You have an ongoing test. Are you sure you want to leave?';
+            }
+        }
+        
+        // Prevent page refresh or close during test
+        window.addEventListener('beforeunload', beforeUnloadHandler);
+        
+        // Show welcome screen
+        function showWelcomeScreen() {
+            document.getElementById('welcome-screen').style.display = 'flex';
+            document.getElementById('test-content').style.display = 'none';
+            document.getElementById('bottom-nav').style.display = 'none';
+            document.getElementById('header-controls').style.display = 'none';
+            document.getElementById('header-app-name').textContent = 'Kalam Academy';
+        }
+        
+        // Show confirmation modal
+        function showConfirmationModal() {
+            document.getElementById('confirmation-modal').classList.add('show');
+        }
+        
+        // Hide confirmation modal
+        function hideConfirmationModal() {
+            document.getElementById('confirmation-modal').classList.remove('show');
+        }
+        
+        // Confirm exit
+        function confirmExit() {
+            window.removeEventListener('beforeunload', beforeUnloadHandler);
+            window.location.href = window.location.href;
+        }
+        
+        // Show submit confirmation modal
+        function showSubmitConfirmationModal() {
+            const attempted = Object.keys(answers).length;
+            const remaining = questions.length - attempted;
+            const marked = Object.keys(markedForReview).length;
+            
+            document.getElementById('submit-confirmation-message').innerHTML = `
+                You have attempted ${attempted} of ${questions.length} questions.<br>
+                ${remaining} questions are unattempted.<br>
+                ${marked} questions marked for review.
+            `;
+            
+            document.getElementById('submit-confirmation-modal').classList.add('show');
+        }
+        
+        // Hide submit confirmation modal
+        function hideSubmitConfirmationModal() {
+            document.getElementById('submit-confirmation-modal').classList.remove('show');
+        }
+        
+        // Start the test
+        function startTest() {
+            testStarted = true;
+            startTime = new Date();
+            // Push state to enable back button handling
+            history.pushState(null, document.title, window.location.href);
+            
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('test-content').style.display = 'block';
+            document.getElementById('bottom-nav').style.display = 'flex';
+            document.getElementById('header-controls').style.display = 'flex';
+            document.getElementById('header-app-name').textContent = 'Kalam Academy';
+            
+            initializeTest();
+            startTimer();
+            updateNextButton();
+            updateReviewButton();
+        }
+        
+        // Initialize test data
+        function initializeTest() {
+            // Show first question
+            showQuestion(0);
+            updateProgress();
+        }
+
+        // Generate questions grid for navigation
+        function generateQuestionsGrid() {
+            const grid = document.getElementById('questions-grid');
+            grid.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const box = document.createElement('div');
+                box.className = 'q-box';
+                box.textContent = index + 1;
+                box.onclick = () => {
+                    showQuestion(index);
+                    hideQuestionsModal();
+                };
+                box.id = `nav-box-${index}`;
+                grid.appendChild(box);
+            });
+        }
+        
+        // Show questions navigation modal
+        function showQuestionsModal() {
+            document.getElementById('questions-modal').classList.add('show');
+            updateQuestionsGrid();
+        }
+        
+        // Hide questions navigation modal
+        function hideQuestionsModal() {
+            document.getElementById('questions-modal').classList.remove('show');
+        }
+        
+        // Update questions grid with current status
+        function updateQuestionsGrid() {
+            questions.forEach((q, index) => {
+                const box = document.getElementById(`nav-box-${index}`);
+                if (!box) return;
+                
+                box.classList.remove('current', 'attempted', 'correct', 'incorrect', 'marked');
+                
+                if (index === currentQuestion) {
+                    box.classList.add('current');
+                }
+                
+                if (submitted) {
+                    const userAns = answers[q.id];
+                    if (userAns === q.answer) {
+                        box.classList.add('correct');
+                    } else if (userAns) {
+                        box.classList.add('incorrect');
+                    }
+                } else if (answers[q.id]) {
+                    box.classList.add('attempted');
+                }
+                
+                if (markedForReview[q.id]) {
+                    box.classList.add('marked');
+                }
+            });
+        }
+        
+        // Show a specific question
+        function showQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+            
+            currentQuestion = index;
+            const question = questions[index];
+            
+            // Update question counter
+            document.getElementById('question-counter').textContent = `Question ${index + 1} of ${questions.length}`;
+            
+            // Generate question HTML based on selected language
+            let qText = '';
+            const qHindi = question.question || '';
+            const qEnglish = question.question_eng || '';
+            
+            if (currentLanguage === 'hindi') {
+                qText = formatContent(qHindi);
+            } else if (currentLanguage === 'english') {
+                qText = formatContent(qEnglish || qHindi);
+            } else { // bilingual
+                if (qEnglish && qEnglish.trim() !== '') {
+                    qText = `<div class="lang-hindi">${formatContent(qHindi)}</div>
+                             <div class="lang-english border-top pt-2 mt-2">${formatContent(qEnglish)}</div>`;
+                } else {
+                    qText = formatContent(qHindi);
+                }
+            }
+            
+            let html = `
+                <div class="question-card">
+                    <div class="question-text">
+                        ${qText}
+                    </div>
+                    <div class="options" id="options-container">`;
+            
+            // Add options based on selected language
+            ['option_1', 'option_2', 'option_3', 'option_4'].forEach((optKey, i) => {
+                const optHindi = question[optKey] || '';
+                const optEnglish = question[`${optKey}_eng`] || '';
+                
+                if (!optHindi && !optEnglish) return;
+                
+                const optionNumber = (i + 1).toString();
+                const isCorrectAnswer = optionNumber === question.answer;
+                const isUserAnswer = answers[question.id] === optionNumber;
+                let optionClass = '';
+                let feedbackIcon = '';
+                
+                // When reviewing, add appropriate classes and feedback icons
+                if (submitted) {
+                    if (isCorrectAnswer) {
+                        optionClass += ' correct-answer';
+                        feedbackIcon = `<span class="feedback-icon correct-icon">✓</span>`;
+                    } 
+                    
+                    if (isUserAnswer) {
+                        if (isCorrectAnswer) {
+                            optionClass += ' correct-answer';
+                            feedbackIcon = `<span class="feedback-icon correct-icon">✓</span>`;
+                        } else {
+                            optionClass += ' incorrect';
+                            feedbackIcon = `<span class="feedback-icon incorrect-icon">✗</span>`;
+                        }
+                    }
+                }
+                
+                let optText = '';
+                if (currentLanguage === 'hindi') {
+                    optText = formatContent(optHindi);
+                } else if (currentLanguage === 'english') {
+                    optText = formatContent(optEnglish || optHindi);
+                } else { // bilingual
+                    if (optEnglish && optEnglish.trim() !== '') {
+                        optText = `<div class="lang-hindi">${formatContent(optHindi)}</div>
+                                   <div class="lang-english border-top pt-1 mt-1">${formatContent(optEnglish)}</div>`;
+                    } else {
+                        optText = formatContent(optHindi);
+                    }
+                }
+                
+                html += `
+                    <div class="option-item">
+                        <input class="option-input" type="radio" name="q${index}" 
+                            id="opt-${index}-${optionNumber}" value="${optionNumber}"
+                            data-option="${optionNumber}" data-correct="${isCorrectAnswer}"
+                            ${isUserAnswer ? 'checked' : ''}
+                            ${submitted ? 'disabled' : ''}
+                            onclick="toggleAnswer('${question.id}', '${optionNumber}', this)">
+                       <label class="option-label${optionClass}" for="opt-${index}-${optionNumber}">
+                            <span class="option-number">${optionNumber}</span>
+                            ${optText}
+                            ${feedbackIcon}
+                        </label>
+                    </div>`;
+            });
+            
+            // Add solution and marks info after submit — always show result/correct answer
+            if (submitted) {
+                const isCorrect = answers[question.id] === question.answer;
+                const posMarks = question.positive_marks ? parseFloat(question.positive_marks) : (0.67);
+                const negMarks = question.negative_marks ? parseFloat(question.negative_marks) : (0.33);
+                
+                const resultText = answers[question.id] ? 
+                    (isCorrect ? 
+                        `<span style="color: var(--success)">✓ Correct! (+${posMarks.toFixed(2)} marks)</span>` : 
+                        `<span style="color: var(--danger)">✗ Incorrect! (-${negMarks.toFixed(2)} marks)</span>`) : 
+                    `<span style="color: var(--gray)">⊘ Not Attempted (0.00 marks)</span>`;
+                
+                const correctAnswer = `Correct Answer: <strong>Option ${question.answer}</strong>`;
+                
+                // Add solution video button if available
+                let solutionVideoBtn = '';
+                if (question.solution_video) {
+                    solutionVideoBtn = `
+                        <a href="${question.solution_video}" target="_blank" class="solution-video-btn">
+                            <i class="fas fa-play"></i> Watch Solution Video
+                        </a>`;
+                }
+                
+                // Solution text — only include if available
+                let solText = '';
+                const solHindi = question.solution_text || '';
+                const solEnglish = question.solution_text_eng || '';
+                const hasSolution = solHindi.trim() !== '' || solEnglish.trim() !== '';
+                
+                if (hasSolution) {
+                    if (currentLanguage === 'hindi') {
+                        solText = formatContent(solHindi);
+                    } else if (currentLanguage === 'english') {
+                        solText = formatContent(solEnglish || solHindi);
+                    } else { // bilingual
+                        if (solEnglish && solEnglish.trim() !== '') {
+                            solText = `<div class="lang-hindi">${formatContent(solHindi)}</div>
+                                       <div class="lang-english border-top pt-2 mt-2">${formatContent(solEnglish)}</div>`;
+                        } else {
+                            solText = formatContent(solHindi);
+                        }
+                    }
+                }
+                
+                html += `
+                    <div class="solution-container">
+                        <div class="solution-title">${resultText}</div>
+                        <div class="correct-answer-indicator">${correctAnswer}</div>
+                        ${hasSolution ? `<div class="solution-text" style="margin-top:10px;border-top:1px solid rgba(108,92,231,0.15);padding-top:10px;">
+                            <div style="font-weight:600;color:var(--primary);margin-bottom:6px;"><i class="fas fa-lightbulb"></i> Explanation</div>
+                            ${solText}
+                            ${solutionVideoBtn}
+                        </div>` : ''}
+                    </div>`;
+            }
+            
+            html += `</div></div>`;
+            
+            document.getElementById('questions-container').innerHTML = html;
+            
+            // Add review mode class if submitted
+            if (submitted) {
+                document.getElementById('options-container').classList.add('review-mode');
+            }
+            
+            // Trigger MathJax to typeset the dynamic content
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([document.getElementById('questions-container')]).catch(err => console.log('MathJax error:', err));
+            }
+            
+            // Update questions grid
+            updateQuestionsGrid();
+            updateNextButton();
+            updateReviewButton();
+        }
+        
+        // Update the next button to show submit on last question
+        function updateNextButton() {
+            if (!testStarted) return;
+            
+            const nextBtn = document.getElementById('next-btn');
+            if (currentQuestion === questions.length - 1) {
+                if (!submitted) {
+                    nextBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                    nextBtn.onclick = confirmSubmit;
+                    nextBtn.classList.remove('nav-btn-outline');
+                    nextBtn.classList.add('nav-btn-primary');
+                    if (window.innerWidth >= 500) {
+                        nextBtn.innerHTML = '<span>Submit</span><i class="fas fa-paper-plane"></i>';
+                    }
+                } else {
+                    nextBtn.style.display = 'none';
+                }
+            } else {
+                nextBtn.style.display = 'flex';
+                nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                nextBtn.onclick = nextQuestion;
+                nextBtn.classList.remove('nav-btn-primary');
+                nextBtn.classList.add('nav-btn-outline');
+                if (window.innerWidth >= 500) {
+                    nextBtn.innerHTML = '<span>Next</span><i class="fas fa-chevron-right"></i>';
+                }
+            }
+        }
+        
+        // Update the review button state
+        function updateReviewButton() {
+            if (!testStarted || submitted) return;
+            
+            const reviewBtn = document.getElementById('review-btn');
+            const isMarked = markedForReview[questions[currentQuestion].id];
+            
+            if (isMarked) {
+                reviewBtn.innerHTML = '<i class="fas fa-star"></i>';
+                reviewBtn.classList.add('active');
+                if (window.innerWidth >= 500) {
+                    reviewBtn.innerHTML = '<i class="fas fa-star"></i><span>Marked for Review</span>';
+                }
+            } else {
+                reviewBtn.innerHTML = '<i class="far fa-star"></i>';
+                reviewBtn.classList.remove('active');
+                if (window.innerWidth >= 500) {
+                    reviewBtn.innerHTML = '<i class="far fa-star"></i><span>Mark for Review</span>';
+                }
+            }
+        }
+        
+        function formatContent(text) {
+            if (!text) return '';
+            // Ensure images don't overflow and have responsive styling
+            text = text.replace(/<img\s+([^>]*?)>/g, function(match, attrs) {
+                // Check if image already has max-width in style
+                if (/max-width/i.test(attrs)) {
+                    return '<img ' + attrs + '>';
+                }
+                // Add responsive image styling
+                if (/style\s*=\s*["']([^"']*)["']/i.test(attrs)) {
+                    return match.replace(/style\s*=\s*["']([^"']*)["']/i, 'style="max-width:100%;height:auto;$1"');
+                }
+                return '<img ' + attrs + ' style="max-width:100%;height:auto;">';
+            });
+            
+            // Ensure tables are also responsive
+            text = text.replace(/<table\s+([^>]*?)>/g, function(match, attrs) {
+                if (/style\s*=\s*["']([^"']*)["']/i.test(attrs)) {
+                    return match.replace(/style\s*=\s*["']([^"']*)["']/i, 'style="width:100%;max-width:100%;$1"');
+                }
+                return '<table ' + attrs + ' style="width:100%;max-width:100%;">';
+            });
+            
+            return text;
+        }
+        
+        // Toggle answer selection (allows unselecting by clicking again)
+        function toggleAnswer(qId, option, inputElement) {
+            if (submitted) return;
+            
+            // If clicking the already selected option, unselect it
+            if (answers[qId] === option) {
+                delete answers[qId];
+                inputElement.checked = false;
+            } else {
+                answers[qId] = option;
+            }
+            
+            updateProgress();
+            updateQuestionsGrid();
+            updateNextButton();
+        }
+        
+        // Toggle review status for current question
+        function toggleReview() {
+            if (submitted) return;
+            
+            const qId = questions[currentQuestion].id;
+            if (markedForReview[qId]) {
+                delete markedForReview[qId];
+            } else {
+                markedForReview[qId] = true;
+            }
+            
+            updateQuestionsGrid();
+            updateReviewButton();
+        }
+        
+        // Navigate to previous/next question
+        function prevQuestion() { 
+            if (currentQuestion > 0) showQuestion(currentQuestion - 1); 
+        }
+        
+        function nextQuestion() { 
+            if (currentQuestion < questions.length - 1) showQuestion(currentQuestion + 1); 
+        }
+        
+        // Update progress
+        function updateProgress() {
+            const attempted = Object.keys(answers).length;
+            // Update any progress indicators if needed
+        }
+        
+        // Start timer
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer-display');
+            let timeLeft = totalTime;
+            
+            const timerInterval = setInterval(() => {
+                if (timeLeft <= 0 || submitted) {
+                    clearInterval(timerInterval);
+                    if (!submitted) submitTest();
+                    return;
+                }
+                
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                
+                if (hours > 0) {
+                    timerDisplay.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                } else {
+                    timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+        
+        // Confirm before submitting
+        function confirmSubmit() {
+            if (submitted) return;
+            showSubmitConfirmationModal();
+        }
+        
+        // Submit test
+        function submitTest() {
+            if (submitted) return;
+            
+            submitted = true;
+            endTime = new Date();
+            hideSubmitConfirmationModal();
+            
+            let score = 0;
+            let positiveMarksTotal = 0;
+            let negativeMarksTotal = 0;
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+            let totalMarks = 100.5;
+            let marksPerQuestion = totalMarks / questions.length;
+            
+            questions.forEach((q, index) => {
+                const userAns = answers[q.id];
+                const positiveMarks = q.positive_marks ? parseFloat(q.positive_marks) : marksPerQuestion;
+                const negativeMarks = q.negative_marks ? parseFloat(q.negative_marks) : 0;
+                
+                if (!userAns) {
+                    unattemptedCount++;
+                } else if (userAns === q.answer) {
+                    correctCount++;
+                    positiveMarksTotal += positiveMarks;
+                    score += positiveMarks;
+                } else {
+                    incorrectCount++;
+                    negativeMarksTotal += negativeMarks;
+                    score -= negativeMarks;
+                }
+            });
+            
+            // Update positive and negative marks display
+            document.getElementById('positive-marks').textContent = positiveMarksTotal.toFixed(2);
+            document.getElementById('negative-marks').textContent = negativeMarksTotal.toFixed(2);
+            
+            // Calculate accuracy
+            const accuracy = correctCount / (correctCount + incorrectCount) * 100;
+            const accuracyText = isNaN(accuracy) ? '0%' : Math.round(accuracy) + '%';
+            
+            // Calculate time taken
+            const timeTakenMs = endTime - startTime;
+            const timeTakenMinutes = Math.floor(timeTakenMs / 60000);
+            const timeTakenSeconds = Math.floor((timeTakenMs % 60000) / 1000);
+            const avgTimePerQuestion = Math.floor(timeTakenMs / questions.length / 1000);
+            
+            // Final score: positive - negative (can be negative, shown as-is)
+            score = Math.round((positiveMarksTotal - negativeMarksTotal) * 100) / 100;
+            
+            // Score circle uses clamped value (can't show negative fill)
+            const displayScore = Math.max(0, score);
+            const scorePercent = Math.round((displayScore / totalMarks) * 100);
+            const circleRotation = (scorePercent / 100) * 360;
+            
+            // Update the score circle
+            const circleFill = document.getElementById('score-circle-fill');
+            circleFill.style.transform = `rotate(${Math.min(circleRotation, 180)}deg)`;
+            
+            if (circleRotation > 180) {
+                circleFill.style.borderColor = 'var(--primary) var(--primary) transparent transparent';
+                
+                // Remove any existing second half circle
+                const existingSecondHalf = document.getElementById('score-circle-fill-second');
+                if (existingSecondHalf) existingSecondHalf.remove();
+                
+                // Add a second half circle
+                const secondHalf = document.createElement('div');
+                secondHalf.className = 'score-circle-fill';
+                secondHalf.style.borderColor = 'transparent transparent var(--primary) var(--primary)';
+                secondHalf.style.transform = `rotate(${circleRotation - 180}deg)`;
+                secondHalf.id = 'score-circle-fill-second';
+                document.querySelector('.score-circle').appendChild(secondHalf);
+            } else {
+                circleFill.style.borderColor = 'var(--primary)';
+                const existingSecondHalf = document.getElementById('score-circle-fill-second');
+                if (existingSecondHalf) existingSecondHalf.remove();
+            }
+            
+            // Update result values
+            document.getElementById('score-value').textContent = score;
+            document.getElementById('score-percent').textContent = scorePercent + '%';
+            document.getElementById('correct-value').textContent = correctCount;
+            document.getElementById('incorrect-value').textContent = incorrectCount;
+            document.getElementById('unattempted-value').textContent = unattemptedCount;
+            document.getElementById('attempted-value').textContent = correctCount + incorrectCount;
+            document.getElementById('accuracy-value').textContent = accuracyText;
+            document.getElementById('reviewed-value').textContent = Object.keys(markedForReview).length;
+            
+            // Update detailed stats
+            document.getElementById('time-taken').textContent = `${timeTakenMinutes} min ${timeTakenSeconds} sec`;
+            document.getElementById('time-per-question').textContent = `${avgTimePerQuestion} sec`;
+            
+            // Show the results modal
+            document.getElementById('results-modal').classList.add('show');
+            
+            // Disable submit button
+            const submitBtn = document.getElementById('submit-btn');
+            // submitBtn.disabled = true; // Remove disabling
+            submitBtn.innerHTML = '<i class="fas fa-check"></i>';
+            submitBtn.style.backgroundColor = 'var(--success)';
+            submitBtn.onclick = showResultsModal; // Allow showing results again
+            submitBtn.title = 'Show Results';
+            
+            // Update next button
+            updateNextButton();
+            
+            // Refresh current question view to show solution
+            showQuestion(currentQuestion);
+        }
+        
+        // Review test after submission
+        function reviewTest() {
+            document.getElementById('results-modal').classList.remove('show');
+            currentQuestion = 0; // Start from first question
+            showQuestion(currentQuestion);
+        }
+        
+        // Add showResultsModal function
+        function showResultsModal() {
+            document.getElementById('results-modal').classList.add('show');
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') prevQuestion();
+            if (e.key === 'ArrowRight') nextQuestion();
+            if (e.key === 'Escape') hideQuestionsModal();
+        });
+        
+        // Handle clicks on links during test
+        document.addEventListener('click', function(e) {
+            if (testStarted && !submitted) {
+                const target = e.target.closest('a');
+                if (target && target.getAttribute('href') && !target.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    showConfirmationModal();
+                }
+            }
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('results-modal')) {
+                document.getElementById('results-modal').classList.remove('show');
+            }
+            if (event.target === document.getElementById('questions-modal')) {
+                hideQuestionsModal();
+            }
+            if (event.target === document.getElementById('confirmation-modal')) {
+                hideConfirmationModal();
+            }
+            if (event.target === document.getElementById('submit-confirmation-modal')) {
+                hideSubmitConfirmationModal();
+            }
+        });
+        
+        // Handle browser back button
+        window.addEventListener('popstate', function(e) {
+            if (testStarted && !submitted) {
+                e.preventDefault();
+                showConfirmationModal();
+                // Push a new state to prevent immediate navigation
+                history.pushState(null, document.title, window.location.href);
+            }
+        });
+    </script>
+</body>
+</html>
