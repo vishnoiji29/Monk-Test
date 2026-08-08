@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1c150e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23c1442d'/%3E%3Ctext x='50' y='67' font-size='56' text-anchor='middle' fill='%23fbf4e6' font-family='Georgia,serif' font-weight='700'%3E%E0%A4%AE%3C/text%3E%3C/svg%3E">
 <title>Monk Test — Practice Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,10 +48,26 @@
     --line-strong: rgba(28,21,14,0.20);
     --on-color:#fbf4e6;
     --appbar-h: 60px;
+    --bottomnav-h: 66px;
+    --chrome-bg: rgba(255,255,255,0.86);
+    --chrome-bg-strong: rgba(255,255,255,0.94);
+  }
+
+  html[data-theme="dark"]{
+    --ink:#15100b;
+    --ink-2:#201810;
+    --ink-3:#2b2115;
+    --paper:#f5ecdc;
+    --paper-dim:#a89880;
+    --line: rgba(255,255,255,0.08);
+    --line-strong: rgba(255,255,255,0.16);
+    --chrome-bg: rgba(21,16,11,0.86);
+    --chrome-bg-strong: rgba(21,16,11,0.94);
   }
 
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
+  html{ transition:background .25s ease; }
   body{
     background:var(--ink);
     color:var(--paper);
@@ -57,6 +75,7 @@
     min-height:100vh;
     -webkit-tap-highlight-color:transparent;
     overflow-x:hidden;
+    transition:background .25s ease, color .25s ease;
   }
   ::selection{background:var(--seal);color:var(--on-color);}
   a{color:inherit;text-decoration:none;}
@@ -79,13 +98,13 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .wrap{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:26px 20px 60px; }
+  .wrap{ position:relative; z-index:1; max-width:960px; margin:0 auto; padding:26px 20px calc(var(--bottomnav-h) + 30px); }
   .wrap.with-appbar{ padding-top:calc(var(--appbar-h) + 22px); }
 
   /* ---------- app bar (inner pages) ---------- */
   .appbar{
     position:fixed; top:0; left:0; right:0; height:var(--appbar-h); z-index:40;
-    background:rgba(255,255,255,0.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    background:var(--chrome-bg); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
     display:flex; align-items:center; gap:10px; padding:0 14px;
   }
@@ -95,6 +114,8 @@
     cursor:pointer; flex-shrink:0; transition:border-color .2s, color .2s;
   }
   .appbar-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .appbar-btn.active{ border-color:var(--gold); color:var(--gold); }
+  .appbar-btn.active svg{ fill:var(--gold); }
   .appbar-btn svg{ width:17px; height:17px; }
   .appbar-title{
     flex:1; min-width:0; font-family:'Fraunces',serif; font-weight:600; font-size:1rem;
@@ -127,7 +148,7 @@
   /* ---------- nav (home) ---------- */
   .nav{
     display:flex; align-items:center; justify-content:space-between;
-    padding-bottom:20px; margin-bottom:36px;
+    padding-bottom:20px; margin-bottom:30px;
   }
   .logo{ display:flex; align-items:center; gap:11px; cursor:pointer; }
   .logo-mark{
@@ -161,7 +182,7 @@
   .icon-btn svg{ width:16px; height:16px; }
 
   /* ---------- hero ---------- */
-  .hero{ text-align:center; padding:14px 0 36px; }
+  .hero{ text-align:center; padding:14px 0 30px; }
   .eyebrow{
     font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.2em;
     text-transform:uppercase; color:var(--gold);
@@ -202,7 +223,43 @@
   .stat-box span{ font-size:0.6rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--paper-dim); }
 
   /* ---------- divider ---------- */
-  .divider{ display:block; width:100%; max-width:340px; margin:46px auto; opacity:0.55; }
+  .divider{ display:block; width:100%; max-width:340px; margin:40px auto; opacity:0.55; }
+
+  /* ---------- personalised dashboard strip ---------- */
+  .dash-header{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    background:linear-gradient(160deg, var(--ink-2), var(--ink-3));
+    border:1px solid var(--line); border-radius:18px; padding:18px 20px; margin-bottom:30px;
+  }
+  .dash-greet{ font-family:'Fraunces',serif; font-weight:700; font-size:1.18rem; }
+  .dash-sub{ color:var(--paper-dim); font-size:0.82rem; margin-top:3px; }
+  .dash-stats{ display:flex; gap:10px; flex-wrap:wrap; }
+  .dstat{
+    display:flex; align-items:center; gap:6px; background:var(--ink); border:1px solid var(--line-strong);
+    border-radius:20px; padding:7px 14px; font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600;
+  }
+  .dstat svg{ width:15px; height:15px; }
+  .dstat.streak{ color:var(--seal); }
+  .dstat.xp{ color:var(--gold); }
+
+  .dash-section{ margin-bottom:34px; }
+  .dash-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .dash-head h2{ font-family:'Fraunces',serif; font-size:1.08rem; margin:0; font-weight:600; }
+
+  .cl-row{ display:flex; gap:12px; overflow-x:auto; padding:2px 2px 8px; scrollbar-width:none; margin:0 -2px; }
+  .cl-row::-webkit-scrollbar{ display:none; }
+  .cl-card{
+    flex:0 0 auto; width:152px; background:var(--ink-2); border:1px solid var(--line); border-radius:14px;
+    padding:14px; cursor:pointer; transition:border-color .2s, transform .2s;
+  }
+  .cl-card:hover{ border-color:var(--gold-dim); transform:translateY(-3px); }
+  .cl-icon{
+    width:32px; height:32px; border-radius:9px; background:rgba(211,172,104,0.1); border:1px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center; color:var(--gold); margin-bottom:12px;
+  }
+  .cl-icon svg{ width:15px; height:15px; }
+  .cl-card b{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-family:'Fraunces',serif; font-size:0.86rem; line-height:1.32; margin-bottom:5px; }
+  .cl-card span{ font-size:0.66rem; color:var(--paper-dim); }
 
   /* ---------- toolbar ---------- */
   .toolbar{ display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
@@ -299,6 +356,7 @@
     width:48px; height:48px; border-radius:13px; display:flex; align-items:center; justify-content:center;
     background:rgba(255,255,255,0.65); border:1px solid var(--line-strong); color:var(--gold);
   }
+  html[data-theme="dark"] .section-tile .st-icon{ background:rgba(255,255,255,0.08); }
   .section-tile .st-icon svg{ width:22px; height:22px; }
   .section-tile h3{ font-family:'Fraunces',serif; font-size:1.25rem; font-weight:700; margin:0; }
   .section-tile p{ font-size:0.82rem; color:var(--paper-dim); margin:0; line-height:1.5; }
@@ -306,28 +364,41 @@
     margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--gold);
     display:flex; align-items:center; gap:6px;
   }
+  .section-tile .st-progress{ height:5px; border-radius:4px; background:rgba(0,0,0,0.08); overflow:hidden; }
+  html[data-theme="dark"] .section-tile .st-progress{ background:rgba(255,255,255,0.08); }
+  .section-tile .st-progress i{ display:block; height:100%; background:linear-gradient(90deg, var(--seal), var(--gold)); }
 
   /* ---------- file list rows (tests / notes) ---------- */
   .file-list{ display:flex; flex-direction:column; gap:10px; }
   .file-row{
-    display:flex; align-items:center; gap:14px; padding:14px 16px;
+    display:flex; align-items:center; gap:10px; padding:14px 14px 14px 16px;
     background:var(--ink-2); border:1px solid var(--line); border-radius:13px; cursor:pointer;
     transition:border-color .2s, transform .2s, background .2s;
     opacity:0; transform:translateY(8px); animation:cardIn .4s ease forwards;
   }
   .file-row:hover{ border-color:var(--gold-dim); background:var(--ink-3); transform:translateX(2px); }
   .file-row .fr-icon{
-    width:38px; height:38px; border-radius:10px; flex-shrink:0;
+    width:38px; height:38px; border-radius:10px; flex-shrink:0; position:relative;
     display:flex; align-items:center; justify-content:center; color:var(--gold);
     background:rgba(211,172,104,0.09); border:1px solid var(--line-strong);
   }
   .file-row .fr-icon svg{ width:17px; height:17px; }
+  .fr-done{
+    position:absolute; bottom:-4px; right:-4px; width:16px; height:16px; border-radius:50%;
+    background:var(--moss); color:#fff; font-size:0.62rem; line-height:1; font-weight:700;
+    display:flex; align-items:center; justify-content:center; border:2px solid var(--ink-2);
+  }
   .file-row .fr-body{ flex:1; min-width:0; }
   .file-row .fr-body b{ display:block; font-family:'Fraunces',serif; font-weight:600; font-size:0.98rem; color:var(--paper); }
   .file-row .fr-body span{ font-size:0.72rem; color:var(--paper-dim); font-family:'JetBrains Mono',monospace; }
   .file-row .fr-arrow{ color:var(--paper-dim); flex-shrink:0; transition:transform .2s, color .2s; }
   .file-row .fr-arrow svg{ width:16px; height:16px; }
   .file-row:hover .fr-arrow{ color:var(--gold); transform:translateX(3px); }
+  .fr-bookmark{ background:transparent; border:none; color:var(--paper-dim); cursor:pointer; padding:7px; flex-shrink:0; display:flex; border-radius:8px; transition:.2s; }
+  .fr-bookmark:hover{ background:var(--ink-3); }
+  .fr-bookmark svg{ width:18px; height:18px; fill:none; stroke:currentColor; transition:.2s; }
+  .fr-bookmark.active{ color:var(--gold); }
+  .fr-bookmark.active svg{ fill:var(--gold); }
 
   /* ---------- viewer overlay (test / pdf) ---------- */
   .viewer{
@@ -335,7 +406,7 @@
   }
   .viewer-bar{
     height:var(--appbar-h); flex-shrink:0; display:flex; align-items:center; gap:10px; padding:0 12px;
-    background:rgba(255,255,255,0.92); border-bottom:1px solid var(--line); backdrop-filter:blur(14px);
+    background:var(--chrome-bg-strong); border-bottom:1px solid var(--line); backdrop-filter:blur(14px);
   }
   .viewer-title{ flex:1; min-width:0; }
   .viewer-title b{
@@ -345,7 +416,7 @@
   .viewer-title span{ font-size:0.64rem; color:var(--paper-dim); text-transform:uppercase; letter-spacing:0.05em; }
   .viewer-actions{ display:flex; gap:8px; }
   .viewer-frame-wrap{ flex:1; position:relative; background:var(--ink-3); }
-  .viewer-frame-wrap iframe{ width:100%; height:100%; border:0; background:var(--paper); }
+  .viewer-frame-wrap iframe{ width:100%; height:100%; border:0; background:#fff; }
   .viewer-loading{
     position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:12px; color:var(--paper-dim); background:var(--ink);
@@ -362,8 +433,8 @@
 
   /* ---------- search overlay ---------- */
   .search-overlay{
-    position:fixed; inset:0; z-index:90; background:rgba(255,255,255,0.97); backdrop-filter:blur(6px);
-    display:flex; flex-direction:column; padding:16px 18px 24px;
+    position:fixed; inset:0; z-index:90; background:var(--chrome-bg-strong); backdrop-filter:blur(6px);
+    display:flex; flex-direction:column; padding:16px 18px calc(var(--bottomnav-h) + 24px);
   }
   .search-overlay .toolbar{ margin-bottom:14px; }
   .search-results{ flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; }
@@ -398,9 +469,44 @@
   }
   @keyframes shimmer{ 0%{ background-position:100% 0; } 100%{ background-position:-100% 0; } }
 
+  /* ---------- progress view ---------- */
+  .prog-row{ margin-bottom:18px; }
+  .prog-row-top{ display:flex; justify-content:space-between; align-items:baseline; font-size:0.88rem; margin-bottom:7px; }
+  .prog-row-top b{ font-family:'Fraunces',serif; font-weight:600; }
+  .prog-row-top span{ color:var(--paper-dim); font-family:'JetBrains Mono',monospace; font-size:0.76rem; }
+  .prog-bar{ height:9px; border-radius:6px; background:var(--ink-2); border:1px solid var(--line); overflow:hidden; }
+  .prog-fill{ height:100%; background:linear-gradient(90deg, var(--seal), var(--gold)); border-radius:6px; transition:width .5s ease; }
+
+  /* ---------- bottom navigation ---------- */
+  .bottom-nav{
+    position:fixed; left:0; right:0; bottom:0; z-index:45; height:var(--bottomnav-h);
+    background:var(--chrome-bg-strong); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);
+    display:flex; align-items:stretch; justify-content:space-around;
+    padding-bottom:env(safe-area-inset-bottom, 0);
+  }
+  .bn-item{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    background:transparent; border:none; color:var(--paper-dim); cursor:pointer; font-size:0.62rem;
+    letter-spacing:0.02em; padding:6px 4px; transition:color .2s;
+  }
+  .bn-item svg{ width:20px; height:20px; transition:transform .2s; }
+  .bn-item.active{ color:var(--seal); }
+  .bn-item.active svg{ transform:translateY(-1px); }
+  .bn-dot{ position:absolute; }
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed; left:50%; bottom:calc(var(--bottomnav-h) + 16px); transform:translate(-50%, 12px); z-index:130;
+    background:var(--paper); color:var(--ink); padding:11px 20px; border-radius:30px; font-size:0.82rem;
+    font-weight:600; opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
+    box-shadow:0 12px 30px -8px rgba(0,0,0,0.4); max-width:86%; text-align:center;
+  }
+  .toast.show{ opacity:1; transform:translate(-50%, 0); }
+
   /* ---------- footer ---------- */
   footer{
-    margin-top:64px; padding-top:26px; border-top:1px solid var(--line);
+    margin-top:56px; padding-top:26px; border-top:1px solid var(--line);
     text-align:center;
   }
   .footer-mark{
@@ -441,6 +547,9 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
   </button>
   <div class="appbar-title" id="appbarTitle">—</div>
+  <button class="appbar-btn theme-toggle-btn" title="Theme badlein" aria-label="Toggle theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+  </button>
   <button class="appbar-btn" id="homeBtn" title="Home" aria-label="Home">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
   </button>
@@ -454,6 +563,9 @@
       <div class="logo-text"><b>Monk Test</b><span>Practice Platform</span></div>
     </div>
     <div class="nav-right">
+      <button class="icon-btn theme-toggle-btn" title="Theme badlein" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+      </button>
       <button class="icon-btn" id="searchToggle" title="Search" aria-label="Search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       </button>
@@ -492,6 +604,9 @@
       <span id="viewerTitleSub">—</span>
     </div>
     <div class="viewer-actions">
+      <button class="appbar-btn" id="viewerBookmarkBtn" title="Bookmark" aria-label="Bookmark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </button>
       <button class="appbar-btn" id="viewerOpenNew" title="Naye tab me kholein" aria-label="Open in new tab">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
       </button>
@@ -509,6 +624,26 @@
   </div>
 </div>
 
+<!-- bottom tab navigation -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="bn-item active" data-key="home" onclick="navigate([])">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
+    <span>Home</span>
+  </button>
+  <button class="bn-item" data-key="search" id="bnSearchBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <span>Khoj</span>
+  </button>
+  <button class="bn-item" data-key="bookmarks" onclick="navigate(['bookmarks'])">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    <span>Saved</span>
+  </button>
+  <button class="bn-item" data-key="progress" onclick="navigate(['progress'])">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 3 5-8"/></svg>
+    <span>Progress</span>
+  </button>
+</nav>
+
 <script>
 /* ============================================================
    CONFIG — sirf yahan values badalni hain
@@ -524,6 +659,10 @@ const ICON_SUBJECT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 const ICON_TEST = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
 const ICON_NOTE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>`;
 const ICON_CHEVRON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>`;
+const ICON_FLAME = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 17a2.5 2.5 0 0 0 2.5-2.5c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7.5 7.5 0 1 1-15 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`;
+const ICON_TROPHY = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3a2 2 0 0 1-2 4M7 5H4a2 2 0 0 0 2 4"/></svg>`;
+const SUN_SVG  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`;
+const MOON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>`;
 
 const contentEl   = document.getElementById('content');
 const appbar      = document.getElementById('appbar');
@@ -534,6 +673,118 @@ const wrapEl      = document.getElementById('wrap');
 let courses = {};        // { courseName: { subjects: { subjectName: { tests:[], notes:[] } } } }
 let loaded  = false;
 let loadErr = null;
+
+/* ============================================================
+   safe local storage wrapper (falls back to in-memory state
+   so the app still works if storage is blocked/unavailable)
+   ============================================================ */
+const store = {
+  _mem: {},
+  get(key, fallback){
+    try{
+      const raw = localStorage.getItem(key);
+      return raw === null ? fallback : JSON.parse(raw);
+    }catch(e){
+      return (key in this._mem) ? this._mem[key] : fallback;
+    }
+  },
+  set(key, value){
+    try{ localStorage.setItem(key, JSON.stringify(value)); }
+    catch(e){ this._mem[key] = value; }
+  }
+};
+
+/* ============================================================
+   bookmarks / progress / xp / streak
+   ============================================================ */
+function getBookmarks(){ return store.get('mt_bookmarks', {}); }
+function isBookmarked(path){ return !!getBookmarks()[path]; }
+function toggleBookmark(path, meta){
+  const b = getBookmarks();
+  if(b[path]){ delete b[path]; } else if(meta){ b[path] = meta; }
+  store.set('mt_bookmarks', b);
+  return !!b[path];
+}
+function getAttempted(){ return store.get('mt_attempted', {}); }
+function isAttempted(path){ return !!getAttempted()[path]; }
+function markAttempted(path){
+  const a = getAttempted();
+  if(!a[path]){
+    a[path] = true;
+    store.set('mt_attempted', a);
+    addXP(10);
+  }
+}
+function getXP(){ return store.get('mt_xp', 0); }
+function addXP(n){ store.set('mt_xp', getXP() + n); }
+function getLevel(xp){ return Math.floor(xp / 100) + 1; }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function updateStreak(){
+  const s = store.get('mt_streak', {count:0, last:null});
+  const today = todayStr();
+  if(s.last === today) return s;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+  s.count = (s.last === yesterday) ? s.count + 1 : 1;
+  s.last = today;
+  store.set('mt_streak', s);
+  return s;
+}
+function getRecents(){ return store.get('mt_recents', []); }
+function pushRecent(meta){
+  let r = getRecents().filter(x => x.path !== meta.path);
+  r.unshift(Object.assign({}, meta, {ts: Date.now()}));
+  r = r.slice(0, 8);
+  store.set('mt_recents', r);
+}
+
+/* ============================================================
+   toast
+   ============================================================ */
+function toast(msg){
+  let t = document.getElementById('toastEl');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'toastEl'; t.className = 'toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ============================================================
+   theme
+   ============================================================ */
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  store.set('mt_theme', t);
+  document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+    btn.innerHTML = t === 'dark' ? SUN_SVG : MOON_SVG;
+  });
+}
+document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(cur);
+  });
+});
+applyTheme(store.get('mt_theme', 'light'));
+
+/* ============================================================
+   bottom nav helper
+   ============================================================ */
+function setActiveNav(key){
+  document.querySelectorAll('.bn-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.key === key);
+  });
+}
+document.getElementById('bnSearchBtn').addEventListener('click', () => {
+  searchOverlay.style.display = 'flex';
+  globalSearch.value = '';
+  globalSearch.focus();
+  renderSearchResults();
+});
 
 /* ============================================================
    helpers
@@ -593,8 +844,8 @@ function flattenAll(){
   Object.keys(courses).forEach(courseName => {
     Object.keys(courses[courseName].subjects).forEach(subjectName => {
       const subj = courses[courseName].subjects[subjectName];
-      subj.tests.forEach((t,i) => items.push({ type:'tests', course:courseName, subject:subjectName, name:t.name, index:i }));
-      subj.notes.forEach((n,i) => items.push({ type:'notes', course:courseName, subject:subjectName, name:n.name, index:i }));
+      subj.tests.forEach((t,i) => items.push({ type:'tests', course:courseName, subject:subjectName, name:t.name, index:i, path:t.path }));
+      subj.notes.forEach((n,i) => items.push({ type:'notes', course:courseName, subject:subjectName, name:n.name, index:i, path:n.path }));
     });
   });
   return items;
@@ -665,25 +916,66 @@ function skeletons(n){
 }
 
 /* ============================================================
+   dashboard bits (streak / xp / continue learning)
+   ============================================================ */
+function dashboardHeaderHTML(){
+  const streak = store.get('mt_streak', {count:0, last:null});
+  const xp = getXP();
+  const level = getLevel(xp);
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Suprabhat' : hour < 17 ? 'Namaste' : 'Shubh Sandhya';
+  return `
+    <div class="dash-header">
+      <div>
+        <div class="dash-greet">${greet} 👋</div>
+        <div class="dash-sub">Aaj bhi thoda practice ho jaaye?</div>
+      </div>
+      <div class="dash-stats">
+        <div class="dstat streak">${ICON_FLAME}<span>${streak.count} din</span></div>
+        <div class="dstat xp">${ICON_TROPHY}<span>Level ${level}</span></div>
+      </div>
+    </div>`;
+}
+function continueLearningHTML(){
+  const recents = getRecents().filter(r => {
+    const subj = courses[r.course] && courses[r.course].subjects[r.subject];
+    const items = subj ? subj[r.section] : null;
+    return items && items[r.index] && items[r.index].path === r.path;
+  });
+  if(recents.length === 0) return '';
+  return `
+    <div class="dash-section">
+      <div class="dash-head"><h2>Jahan chhoda tha</h2></div>
+      <div class="cl-row">
+        ${recents.map(r => `
+          <div class="cl-card" onclick='navigate(["course", ${JSON.stringify(r.course)}, "subject", ${JSON.stringify(r.subject)}, ${JSON.stringify(r.section)}, ${JSON.stringify(String(r.index))}])'>
+            <div class="cl-icon">${r.section === 'tests' ? ICON_TEST : ICON_NOTE}</div>
+            <b>${esc(r.name)}</b>
+            <span>${esc(r.subject)}</span>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+/* ============================================================
    view: HOME
    ============================================================ */
 function renderHome(){
   setChrome(false);
   const courseNames = Object.keys(courses);
-  const totalSubjects = courseNames.reduce((s,c)=>s+Object.keys(courses[c].subjects).length,0);
-  const totalTests = flattenAll().filter(i=>i.type==='tests').length;
-  const totalNotes = flattenAll().filter(i=>i.type==='notes').length;
+  let totalTests = 0, totalNotes = 0, totalSubjects = 0;
+  courseNames.forEach(c => {
+    const subs = courses[c].subjects;
+    totalSubjects += Object.keys(subs).length;
+    Object.values(subs).forEach(s => { totalTests += s.tests.length; totalNotes += s.notes.length; });
+  });
 
-  let body = '';
+  let body;
   if(!loaded){
-    body = `
-      ${heroHTML()}
-      <svg class="divider" viewBox="0 0 340 20" preserveAspectRatio="none"><path d="M2 12 Q 40 2, 80 11 T 160 10 T 240 13 T 338 8" fill="none" stroke="#d3ac68" stroke-width="1.6" stroke-linecap="round"/></svg>
-      ${skeletons(3)}`;
+    body = `${heroHTML()}${skeletons(3)}`;
   }else if(loadErr){
     body = `
       ${heroHTML()}
-      <svg class="divider" viewBox="0 0 340 20" preserveAspectRatio="none"><path d="M2 12 Q 40 2, 80 11 T 160 10 T 240 13 T 338 8" fill="none" stroke="#d3ac68" stroke-width="1.6" stroke-linecap="round"/></svg>
       ${stateBlock('⚠️','Load nahi ho paaya','Kuch der baad Refresh button dabayein, ya connection check karein.', true)}`;
   }else if(courseNames.length === 0){
     body = `
@@ -695,6 +987,8 @@ ${esc(ROOT_FOLDER)}/SSC CGL/History/notes/ch1.pdf</pre>`, true)}`;
     body = `
       ${heroHTML(totalTests + totalNotes, totalTests, totalNotes, courseNames.length, totalSubjects)}
       <svg class="divider" viewBox="0 0 340 20" preserveAspectRatio="none"><path d="M2 12 Q 40 2, 80 11 T 160 10 T 240 13 T 338 8" fill="none" stroke="#d3ac68" stroke-width="1.6" stroke-linecap="round"/></svg>
+      ${dashboardHeaderHTML()}
+      ${continueLearningHTML()}
       <div class="toolbar">
         <div class="search-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -831,6 +1125,8 @@ function renderSubjectView(courseName, subjectName){
   if(subj.tests.length === 0 && subj.notes.length === 0){
     body = stateBlock('📂','Is subject me abhi content nahi', 'Tests ya notes GitHub repo me daalein.');
   }else{
+    const doneTests = subj.tests.filter(t => isAttempted(t.path)).length;
+    const testsPct = subj.tests.length ? Math.round(doneTests / subj.tests.length * 100) : 0;
     body = `
       <div class="page-head">
         <div class="page-eyebrow">${esc(courseName)}</div>
@@ -842,7 +1138,8 @@ function renderSubjectView(courseName, subjectName){
           <div class="st-icon">${ICON_TEST}</div>
           <h3>Test Series</h3>
           <p>Topic-wise quiz attempt karein aur apni practice track karein.</p>
-          <div class="st-count">${subj.tests.length} Test${subj.tests.length!==1?'s':''} available ${ICON_CHEVRON}</div>
+          ${subj.tests.length ? `<div class="st-progress"><i style="width:${testsPct}%"></i></div>` : ''}
+          <div class="st-count">${subj.tests.length} Test${subj.tests.length!==1?'s':''}${subj.tests.length ? ` · ${doneTests} done` : ''} ${ICON_CHEVRON}</div>
         </div>
         <div class="section-tile notes" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, "notes"])'>
           <div class="st-icon">${ICON_NOTE}</div>
@@ -902,13 +1199,24 @@ function renderFileList(items, courseName, subjectName, section){
   if(!el) return;
   const icon = section === 'tests' ? ICON_TEST : ICON_NOTE;
   const tag  = section === 'tests' ? 'Quiz / Test' : 'PDF';
-  el.innerHTML = items.map((it, idx) => `
+  const attempted = getAttempted();
+  const bookmarks = getBookmarks();
+  el.innerHTML = items.map((it, idx) => {
+    const bm = !!bookmarks[it.path];
+    const done = section === 'tests' && attempted[it.path];
+    const meta = {course:courseName, subject:subjectName, section:section, index:idx, name:it.name, path:it.path};
+    return `
     <div class="file-row" data-name="${esc(it.name.toLowerCase())}" style="animation-delay:${idx*0.03}s"
       onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, ${JSON.stringify(section)}, ${JSON.stringify(String(idx))}])'>
-      <div class="fr-icon">${icon}</div>
+      <div class="fr-icon">${icon}${done ? '<span class="fr-done">✓</span>' : ''}</div>
       <div class="fr-body"><b>${esc(it.name)}</b><span>${tag}</span></div>
+      <button class="fr-bookmark ${bm?'active':''}" title="Bookmark" aria-label="Bookmark"
+        onclick='event.stopPropagation(); const on=toggleBookmark(${JSON.stringify(it.path)}, ${JSON.stringify(meta)}); this.classList.toggle("active", on); toast(on?"Bookmark add ho gaya":"Bookmark hata diya");'>
+        <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </button>
       <div class="fr-arrow">${ICON_CHEVRON}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 function applyListFilter(){
   const box = document.getElementById('listSearchBox');
@@ -919,15 +1227,146 @@ function applyListFilter(){
 }
 
 /* ============================================================
+   view: BOOKMARKS
+   ============================================================ */
+function renderBookmarksView(){
+  setChrome(true, 'Bookmarks', 'Saved tests & notes');
+  const b = getBookmarks();
+  const paths = Object.keys(b);
+  const trail = [{label:'Home',segments:[]},{label:'Bookmarks',segments:[]}];
+  let body;
+  if(paths.length === 0){
+    body = stateBlock('⭐','Koi bookmark nahi','Kisi test ya note ke saath star icon dabaakar use bookmark karein — yahan wapas milega.');
+  }else{
+    body = `
+      <div class="page-head">
+        <div class="page-eyebrow">Saved</div>
+        <h1>Bookmarks</h1>
+        <p>${paths.length} item${paths.length!==1?'s':''} saved.</p>
+      </div>
+      <div class="file-list" id="bookmarkList">
+        ${paths.map((p, idx) => {
+          const m = b[p];
+          return `
+          <div class="file-row" style="animation-delay:${idx*0.03}s" onclick='navigate(["course", ${JSON.stringify(m.course)}, "subject", ${JSON.stringify(m.subject)}, ${JSON.stringify(m.section)}, ${JSON.stringify(String(m.index))}])'>
+            <div class="fr-icon">${m.section === 'tests' ? ICON_TEST : ICON_NOTE}</div>
+            <div class="fr-body"><b>${esc(m.name)}</b><span>${esc(m.course)} · ${esc(m.subject)}</span></div>
+            <button class="fr-bookmark active" title="Bookmark hataayein" aria-label="Remove bookmark"
+              onclick='event.stopPropagation(); toggleBookmark(${JSON.stringify(p)}); renderBookmarksView(); toast("Bookmark hata diya");'>
+              <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+            <div class="fr-arrow">${ICON_CHEVRON}</div>
+          </div>`;
+        }).join('')}
+      </div>`;
+  }
+  contentEl.innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+}
+
+/* ============================================================
+   view: PROGRESS
+   ============================================================ */
+function renderProgressView(){
+  setChrome(true, 'Progress', 'Aapki practice ka hisaab');
+  const xp = getXP();
+  const level = getLevel(xp);
+  const streak = store.get('mt_streak', {count:0, last:null});
+  const attempted = getAttempted();
+  const attemptedCount = Object.keys(attempted).length;
+  const trail = [{label:'Home',segments:[]},{label:'Progress',segments:[]}];
+
+  const courseNames = Object.keys(courses);
+  let rows = '';
+  if(courseNames.length){
+    rows = courseNames.map(cName => {
+      const course = courses[cName];
+      let done = 0, total = 0;
+      Object.values(course.subjects).forEach(s => {
+        total += s.tests.length;
+        s.tests.forEach(t => { if(attempted[t.path]) done++; });
+      });
+      const pct = total ? Math.round(done / total * 100) : 0;
+      return `
+        <div class="prog-row">
+          <div class="prog-row-top"><b>${esc(cName)}</b><span>${done}/${total} tests</span></div>
+          <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
+        </div>`;
+    }).join('');
+  }
+
+  const body = `
+    <div class="page-head">
+      <div class="page-eyebrow">Overview</div>
+      <h1>Aapki Progress</h1>
+      <p>Streak banaye rakhein aur roz thoda practice karein.</p>
+    </div>
+    <div class="stats-row" style="max-width:100%">
+      <div class="stat-box"><b>${streak.count}</b><span>Day Streak</span></div>
+      <div class="stat-box"><b>${level}</b><span>Level</span></div>
+      <div class="stat-box"><b>${xp}</b><span>XP</span></div>
+      <div class="stat-box"><b>${attemptedCount}</b><span>Tests Done</span></div>
+    </div>
+    <div class="dash-section" style="margin-top:34px">
+      <div class="dash-head"><h2>Course-wise Progress</h2></div>
+      ${rows || stateBlock('📊','Abhi data nahi','Course load hone ke baad yahan dikhega.')}
+    </div>`;
+  contentEl.innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+}
+
+/* ============================================================
    view: VIEWER (open test html / note pdf)
    ============================================================ */
-const viewerEl      = document.getElementById('viewer');
-const viewerFrame    = document.getElementById('viewerFrame');
-const viewerLoading  = document.getElementById('viewerLoading');
-const viewerHint     = document.getElementById('viewerHint');
-const viewerHintLink = document.getElementById('viewerHintLink');
-const viewerTitleText= document.getElementById('viewerTitleText');
-const viewerTitleSub = document.getElementById('viewerTitleSub');
+const viewerEl        = document.getElementById('viewer');
+const viewerFrame      = document.getElementById('viewerFrame');
+const viewerLoading    = document.getElementById('viewerLoading');
+const viewerHint       = document.getElementById('viewerHint');
+const viewerHintLink   = document.getElementById('viewerHintLink');
+const viewerTitleText  = document.getElementById('viewerTitleText');
+const viewerTitleSub   = document.getElementById('viewerTitleSub');
+const viewerBookmarkBtn= document.getElementById('viewerBookmarkBtn');
+
+let currentViewerItem = null; // { path, meta }
+
+function renderViewerBookmarkIcon(){
+  if(!currentViewerItem) return;
+  viewerBookmarkBtn.classList.toggle('active', isBookmarked(currentViewerItem.path));
+}
+viewerBookmarkBtn.addEventListener('click', () => {
+  if(!currentViewerItem) return;
+  const on = toggleBookmark(currentViewerItem.path, currentViewerItem.meta);
+  renderViewerBookmarkIcon();
+  toast(on ? 'Bookmark add ho gaya' : 'Bookmark hata diya');
+});
+
+/* Robust HTML loading: many CDNs / raw hosts can serve .html with a
+   text/plain (or download) content-type, which makes the browser show
+   the raw source code instead of rendering it inside the iframe.
+   To fix this reliably we fetch the file ourselves, inject a <base>
+   tag so relative links/assets still resolve correctly, then load it
+   into the iframe as a same-document Blob with an explicit
+   text/html type — this guarantees it always renders, regardless of
+   what content-type header the origin server sent. */
+async function loadTestIntoFrame(url){
+  try{
+    const res = await fetch(url, { cache: 'no-store' });
+    if(!res.ok) throw new Error('fetch failed: ' + res.status);
+    let html = await res.text();
+    const baseHref = url.slice(0, url.lastIndexOf('/') + 1);
+    if(/<head[^>]*>/i.test(html)){
+      html = html.replace(/<head[^>]*>/i, m => `${m}\n<base href="${baseHref}">`);
+    }else if(/<html[^>]*>/i.test(html)){
+      html = html.replace(/<html[^>]*>/i, m => `${m}\n<head><base href="${baseHref}"></head>`);
+    }else{
+      html = `<base href="${baseHref}">` + html;
+    }
+    const blob = new Blob([html], { type: 'text/html' });
+    viewerFrame.src = URL.createObjectURL(blob);
+  }catch(err){
+    // fallback: try loading the raw url directly
+    viewerFrame.src = url;
+    toast('Preview load karne me dikkat aa rahi hai — "Naye tab" try karein');
+  }
+}
 
 function openViewer(courseName, subjectName, section, index){
   const course = courses[courseName];
@@ -946,9 +1385,20 @@ function openViewer(courseName, subjectName, section, index){
   viewerHintLink.href = url;
   viewerHint.style.display = section === 'notes' ? 'block' : 'none';
 
+  const meta = {course:courseName, subject:subjectName, section:section, index:index, name:item.name, path:item.path};
+  currentViewerItem = { path: item.path, meta: meta };
+  renderViewerBookmarkIcon();
+  pushRecent(meta);
+
   viewerLoading.style.display = 'flex';
-  viewerFrame.src = url;
   viewerEl.style.display = 'flex';
+
+  if(section === 'tests'){
+    markAttempted(item.path);
+    loadTestIntoFrame(url);
+  }else{
+    viewerFrame.src = url;
+  }
   return true;
 }
 document.getElementById('viewerFrame').addEventListener('load', () => {
@@ -960,9 +1410,13 @@ document.getElementById('viewerOpenNew').addEventListener('click', () => {
 });
 document.getElementById('viewerReload').addEventListener('click', () => {
   viewerLoading.style.display = 'flex';
-  const src = viewerFrame.src;
-  viewerFrame.src = 'about:blank';
-  setTimeout(()=>{ viewerFrame.src = src; }, 30);
+  if(currentViewerItem && currentViewerItem.meta.section === 'tests'){
+    loadTestIntoFrame(rawUrl(currentViewerItem.path));
+  }else{
+    const src = viewerFrame.src;
+    viewerFrame.src = 'about:blank';
+    setTimeout(()=>{ viewerFrame.src = src; }, 30);
+  }
 });
 
 /* ============================================================
@@ -1004,6 +1458,7 @@ function render(){
   const seg = currentRoute();
   viewerEl.style.display = 'none';
   searchOverlay.style.display = 'none';
+  setActiveNav('home');
 
   if(!loaded){
     if(seg.length === 0){ renderHome(); } else { setChrome(true, 'Load ho raha hai…'); contentEl.innerHTML = `<div class="view">${skeletons(3)}</div>`; }
@@ -1012,6 +1467,12 @@ function render(){
 
   if(seg.length === 0){
     renderHome();
+  }else if(seg[0] === 'bookmarks'){
+    renderBookmarksView();
+    setActiveNav('bookmarks');
+  }else if(seg[0] === 'progress'){
+    renderProgressView();
+    setActiveNav('progress');
   }else if(seg[0] === 'course' && seg.length === 2){
     renderCourseView(seg[1]);
   }else if(seg[0] === 'course' && seg[2] === 'subject' && seg.length === 4){
@@ -1031,6 +1492,7 @@ function render(){
   }
 }
 
+updateStreak();
 loadAll();
 </script>
 </body>
