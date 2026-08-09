@@ -1,2462 +1,2222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <meta name="theme-color" content="#0b0a0a" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='28' fill='%23d4a373'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='%230b0a0a' font-family='Inter, sans-serif' font-weight='700'%3EM%3C/text%3E%3C/svg%3E" />
-  <title>Monk · advanced practice</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    /* ─── reset & base ─── */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --bg-primary: #0b0a0a;
-      --bg-secondary: #131110;
-      --bg-card: #1c1917;
-      --bg-card-hover: #24201e;
-      --bg-elevated: #282320;
-      --bg-input: #1c1917;
-      --text-primary: #f2ede8;
-      --text-secondary: #b8ada4;
-      --text-muted: #7a7068;
-      --accent: #d4a373;
-      --accent-soft: rgba(212, 163, 115, 0.12);
-      --accent-glow: rgba(212, 163, 115, 0.2);
-      --gold: #d4a373;
-      --gold-dim: #b8895e;
-      --green: #7ba389;
-      --border: #2c2722;
-      --border-light: #3a342e;
-      --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.6);
-      --shadow-glow: 0 0 60px rgba(212, 163, 115, 0.04);
-      --radius-xl: 28px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --radius-sm: 10px;
-      --appbar-h: 68px;
-      --bottomnav-h: 74px;
-      --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    html[data-theme="light"] {
-      --bg-primary: #f6f2ed;
-      --bg-secondary: #ede8e2;
-      --bg-card: #ffffff;
-      --bg-card-hover: #f8f5f0;
-      --bg-elevated: #f0ebe5;
-      --bg-input: #f0ebe5;
-      --text-primary: #1a1614;
-      --text-secondary: #6b625a;
-      --text-muted: #9a8f86;
-      --accent: #b87c4a;
-      --accent-soft: rgba(184, 124, 74, 0.1);
-      --accent-glow: rgba(184, 124, 74, 0.15);
-      --gold: #b87c4a;
-      --gold-dim: #9e6a3e;
-      --green: #5f8b72;
-      --border: #e0d8d0;
-      --border-light: #e8e2da;
-      --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.06);
-      --shadow-glow: 0 0 60px rgba(184, 124, 74, 0.04);
-    }
-    body {
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      transition: background var(--transition), color var(--transition);
-    }
-    ::selection {
-      background: var(--accent);
-      color: #0b0a0a;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    button {
-      font: inherit;
-      cursor: pointer;
-      border: none;
-      background: none;
-      color: inherit;
-    }
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="theme-color" content="#f7f1e4" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23b45309'/%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='%23fff8ea' font-family='Inter, sans-serif' font-weight='800'%3EM%3C/text%3E%3C/svg%3E" />
+    <title>Monk Quiz — Test Series</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #f7f1e4;
+            --bg-card: #fffdf8;
+            --bg-soft: #efe4cd;
+            --bg-hover: #f6ecd8;
+            --text: #2a1d0f;
+            --text-secondary: #6b5a44;
+            --text-muted: #9c8a6f;
+            --accent: #b45309;
+            --accent-soft: rgba(180, 83, 9, 0.09);
+            --accent-glow: rgba(180, 83, 9, 0.20);
+            --accent-dark: #7c2d12;
+            --accent2: #9a3412;
+            --green: #15803d;
+            --green-soft: rgba(21, 128, 61, 0.12);
+            --orange: #b45309;
+            --orange-soft: rgba(180, 83, 9, 0.12);
+            --red: #b91c1c;
+            --red-soft: rgba(185, 28, 28, 0.10);
+            --border: #e6d7b8;
+            --border-light: #eee1c3;
+            --shadow-sm: 0 1px 3px rgba(90, 62, 20, 0.06);
+            --shadow-md: 0 4px 18px rgba(90, 62, 20, 0.09);
+            --shadow-lg: 0 14px 38px rgba(90, 62, 20, 0.14);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 6px;
+            --bottomnav-h: 68px;
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        html[data-theme="dark"] {
+            --bg: #17120a;
+            --bg-card: #241b10;
+            --bg-soft: #2c2114;
+            --bg-hover: #362a19;
+            --text: #f5ecd9;
+            --text-secondary: #cbb595;
+            --text-muted: #8f7c60;
+            --accent: #e08a2c;
+            --accent-soft: rgba(224, 138, 44, 0.14);
+            --accent-glow: rgba(224, 138, 44, 0.22);
+            --accent-dark: #b45309;
+            --border: #3a2c1a;
+            --border-light: #2f2415;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.5);
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            transition: background var(--transition), color var(--transition);
+        }
+        ::selection {
+            background: var(--accent);
+            color: #fff;
+        }
+        button {
+            font: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
 
-    /* ─── scroll ─── */
-    ::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 10px;
-    }
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
 
-    /* ─── layout ─── */
-    .app-wrap {
-      max-width: 1024px;
-      margin: 0 auto;
-      padding: 20px 22px calc(var(--bottomnav-h) + 32px);
-      position: relative;
-      z-index: 1;
-    }
-    .app-wrap.with-appbar {
-      padding-top: calc(var(--appbar-h) + 28px);
-    }
+        .app-wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 16px 20px calc(var(--bottomnav-h) + 24px);
+            position: relative;
+            z-index: 1;
+        }
 
-    /* ─── app bar ─── */
-    .appbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--appbar-h);
-      z-index: 50;
-      background: rgba(11, 10, 10, 0.82);
-      backdrop-filter: blur(24px) saturate(1.4);
-      -webkit-backdrop-filter: blur(24px) saturate(1.4);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 18px;
-      gap: 14px;
-      transition: background var(--transition), border var(--transition);
-    }
-    html[data-theme="light"] .appbar {
-      background: rgba(246, 242, 237, 0.85);
-      border-bottom-color: var(--border);
-    }
-    .appbar-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      transition: all var(--transition);
-      flex-shrink: 0;
-    }
-    .appbar-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-soft);
-      transform: scale(1.02);
-    }
-    .appbar-btn svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .appbar-title {
-      flex: 1;
-      min-width: 0;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: flex;
-      flex-direction: column;
-      line-height: 1.3;
-      letter-spacing: -0.02em;
-    }
-    .appbar-title .sub {
-      font-size: 0.62rem;
-      font-weight: 400;
-      color: var(--text-secondary);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      opacity: 0.7;
-    }
-    .appbar-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
+        /* ─── bottom nav ─── */
+        .bottom-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 50;
+            height: var(--bottomnav-h);
+            background: rgba(255, 253, 248, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            align-items: stretch;
+            justify-content: space-around;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+            transition: background var(--transition), border var(--transition);
+        }
+        html[data-theme="dark"] .bottom-nav {
+            background: rgba(23, 18, 10, 0.94);
+            border-top-color: var(--border);
+        }
+        .bn-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: color var(--transition);
+            padding: 6px 0;
+            background: transparent;
+            position: relative;
+        }
+        .bn-item svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            transition: all var(--transition);
+        }
+        .bn-item.active {
+            color: var(--accent);
+        }
+        .bn-item.active svg {
+            transform: translateY(-2px);
+        }
+        .bn-item .bn-dot {
+            position: absolute;
+            top: 5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .bn-item.active .bn-dot {
+            opacity: 1;
+        }
 
-    /* ─── bottom nav ─── */
-    .bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 50;
-      height: var(--bottomnav-h);
-      background: rgba(11, 10, 10, 0.88);
-      backdrop-filter: blur(24px) saturate(1.4);
-      -webkit-backdrop-filter: blur(24px) saturate(1.4);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: stretch;
-      justify-content: space-around;
-      padding-bottom: env(safe-area-inset-bottom, 0);
-      transition: background var(--transition), border var(--transition);
-    }
-    html[data-theme="light"] .bottom-nav {
-      background: rgba(246, 242, 237, 0.9);
-      border-top-color: var(--border);
-    }
-    .bn-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      font-size: 0.56rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color var(--transition);
-      padding: 6px 0;
-      border-radius: 0;
-      background: transparent;
-      position: relative;
-    }
-    .bn-item svg {
-      width: 24px;
-      height: 24px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      transition: all var(--transition);
-    }
-    .bn-item.active {
-      color: var(--accent);
-    }
-    .bn-item.active svg {
-      transform: translateY(-2px);
-      filter: drop-shadow(0 4px 12px var(--accent-glow));
-    }
-    .bn-item .bn-dot {
-      position: absolute;
-      top: 6px;
-      right: 50%;
-      transform: translateX(50%);
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-    .bn-item.active .bn-dot {
-      opacity: 1;
-    }
+        /* ─── home nav ─── */
+        .home-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 0 14px 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: default;
+        }
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(145deg, var(--accent), var(--accent-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #fff;
+            box-shadow: 0 4px 12px var(--accent-glow);
+            flex-shrink: 0;
+        }
+        .logo-text strong {
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: -0.03em;
+        }
+        .logo-text span {
+            display: block;
+            font-size: 0.5rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.7;
+        }
+        .home-actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+        .icon-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .icon-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .pill-status {
+            font-size: 0.5rem;
+            font-weight: 600;
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 3px 10px;
+            border-radius: 30px;
+            border: 1px solid rgba(22, 163, 74, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .pill-status::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.7);
+            }
+        }
 
-    /* ─── home nav ─── */
-    .home-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4px 0 18px 0;
-      margin-bottom: 4px;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: default;
-    }
-    .logo-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      background: linear-gradient(145deg, var(--accent), var(--gold-dim));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 1.3rem;
-      color: #0b0a0a;
-      box-shadow: 0 8px 28px var(--accent-glow);
-      flex-shrink: 0;
-    }
-    .logo-text {
-      line-height: 1.2;
-    }
-    .logo-text strong {
-      display: block;
-      font-weight: 800;
-      font-size: 1.15rem;
-      letter-spacing: -0.03em;
-    }
-    .logo-text span {
-      display: block;
-      font-size: 0.58rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      opacity: 0.7;
-    }
-    .home-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .pill-status {
-      font-size: 0.58rem;
-      font-weight: 600;
-      color: var(--green);
-      background: rgba(123, 163, 137, 0.15);
-      padding: 4px 14px;
-      border-radius: 30px;
-      border: 1px solid rgba(123, 163, 137, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    .pill-status::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.4;
-        transform: scale(0.8);
-      }
-    }
-    .icon-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all var(--transition);
-    }
-    .icon-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-soft);
-      transform: scale(1.02);
-    }
-    .icon-btn svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
+        /* ─── page head ─── */
+        .page-head {
+            margin-bottom: 20px;
+        }
+        .page-eyebrow {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .page-eyebrow::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .page-head h1 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin: 0 0 2px;
+        }
+        .page-head p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin: 0;
+        }
 
-    /* ─── breadcrumb ─── */
-    .crumbs {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 22px;
-      padding: 0 2px;
-    }
-    .crumbs a {
-      color: var(--text-secondary);
-      transition: color var(--transition);
-    }
-    .crumbs a:hover {
-      color: var(--accent);
-    }
-    .crumbs .sep {
-      opacity: 0.25;
-      font-weight: 300;
-    }
-    .crumbs .current {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
+        /* ─── breadcrumb ─── */
+        .crumbs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            padding: 0 2px;
+        }
+        .crumbs a {
+            color: var(--text-secondary);
+            transition: color var(--transition);
+        }
+        .crumbs a:hover {
+            color: var(--accent);
+        }
+        .crumbs .sep {
+            opacity: 0.25;
+            font-weight: 300;
+        }
+        .crumbs .current {
+            color: var(--text);
+            font-weight: 600;
+        }
 
-    /* ─── page head ─── */
-    .page-head {
-      margin-bottom: 30px;
-    }
-    .page-eyebrow {
-      font-size: 0.58rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .page-eyebrow::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    .page-head h1 {
-      font-size: clamp(1.8rem, 5.5vw, 2.6rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin: 0 0 6px;
-    }
-    .page-head p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      font-weight: 400;
-      margin: 0;
-    }
+        /* ─── grid ─── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 22px 20px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-xs);
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        .card .card-icon svg {
+            width: 19px;
+            height: 19px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .card .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .card .badge {
+            font-size: 0.52rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            background: var(--accent-soft);
+            padding: 3px 10px;
+            border-radius: 30px;
+            border: 1px solid var(--accent-glow);
+            white-space: nowrap;
+        }
+        .card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 0;
+            line-height: 1.25;
+        }
+        .card .meta {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        .card .meta .dot {
+            opacity: 0.3;
+        }
+        .card .meta svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .card .action {
+            margin-top: 4px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-top: 1px solid var(--border-light);
+            padding-top: 14px;
+            transition: all var(--transition);
+        }
+        .card .action svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+            transition: transform var(--transition);
+        }
+        .card:hover .action svg {
+            transform: translateX(4px);
+        }
+        .card .progress-mini {
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card .progress-mini .bar {
+            flex: 1;
+            height: 4px;
+            border-radius: 4px;
+            background: var(--border);
+            overflow: hidden;
+        }
+        .card .progress-mini .bar i {
+            display: block;
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        }
+        .card .progress-mini span {
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
 
-    /* ─── hero ─── */
-    .hero {
-      text-align: center;
-      padding: 12px 0 24px;
-      position: relative;
-    }
-    .hero .eyebrow {
-      font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-    .hero-icon-wrap {
-      width: 88px;
-      height: 88px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      background: var(--accent-soft);
-      border: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: var(--accent);
-      box-shadow: var(--shadow-glow);
-      transition: all var(--transition);
-    }
-    .hero h1 {
-      font-size: clamp(2.6rem, 8vw, 4.2rem);
-      font-weight: 900;
-      letter-spacing: -0.05em;
-      line-height: 1.02;
-      margin: 0 0 14px;
-      background: linear-gradient(to right, var(--text-primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero h1 em {
-      font-style: italic;
-      background: var(--accent-soft);
-      padding: 0 8px;
-      border-radius: 8px;
-      -webkit-text-fill-color: var(--accent);
-    }
-    .hero p {
-      max-width: 480px;
-      margin: 0 auto 28px;
-      color: var(--text-secondary);
-      font-size: 1rem;
-      line-height: 1.65;
-      font-weight: 400;
-    }
+        /* ─── course card with banner (batch style) ─── */
+        .course-card {
+            padding: 0 0 18px;
+            gap: 0;
+        }
+        .course-banner-wrap {
+            position: relative;
+            width: 100%;
+            height: 128px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 55%, var(--accent-dark) 100%);
+        }
+        .course-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .course-banner.ph {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .course-banner.ph span {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff8ea;
+        }
+        .course-banner.ph span svg {
+            width: 24px;
+            height: 24px;
+        }
+        .course-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(20, 14, 5, 0.55);
+            color: #fff8ea;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(6px);
+        }
+        .course-body {
+            padding: 16px 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
 
-    /* ─── dashboard strip ─── */
-    .dash-strip {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin: 28px 0 32px;
-      box-shadow: var(--shadow-card);
-      transition: all var(--transition);
-    }
-    .dash-strip:hover {
-      border-color: var(--border-light);
-    }
-    .dash-greet {
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
-    }
-    .dash-greet small {
-      display: block;
-      font-weight: 400;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
-    }
-    .dash-badges {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .dbadge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      background: var(--bg-secondary);
-      padding: 6px 16px;
-      border-radius: 30px;
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      transition: all var(--transition);
-    }
-    .dbadge:hover {
-      border-color: var(--accent);
-      color: var(--text-primary);
-    }
-    .dbadge svg {
-      width: 15px;
-      height: 15px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .dbadge.streak {
-      color: var(--accent);
-    }
-    .dbadge.xp {
-      color: var(--gold);
-    }
+        /* ─── subject list (step 2) ─── */
+        .subject-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .subject-row {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+        .subject-row:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+        .subject-row .sub-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .subject-row-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .subject-row-info h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .subject-row-info span {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+        .subject-row-arrow {
+            color: var(--accent);
+            flex-shrink: 0;
+            display: flex;
+        }
+        .subject-row-arrow svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+        }
 
-    /* ─── section headers ─── */
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      margin-top: 34px;
-    }
-    .section-header h2 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .section-header .see-all {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: all var(--transition);
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      border: 1px solid transparent;
-    }
-    .section-header .see-all:hover {
-      border-color: var(--border);
-      background: var(--accent-soft);
-    }
-    .section-header .see-all svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
+        /* ─── test list (step 3) ─── */
+        .test-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .test-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 16px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+        .test-item:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        .test-item-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .test-item-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .test-item-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .test-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .test-info h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .test-info .test-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+        }
+        .test-info .test-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .test-info .test-meta svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .done-chip {
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        .test-action {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .test-action .price {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text);
+        }
+        .btn-primary {
+            background: linear-gradient(145deg, var(--accent), var(--accent-dark));
+            color: #fff8ea;
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.78rem;
+            transition: all var(--transition);
+            box-shadow: 0 2px 12px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+        .btn-block {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 11px 20px;
+            font-size: 0.85rem;
+        }
+        .btn-block svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+        }
+        .btn-secondary {
+            background: var(--bg-soft);
+            color: var(--text-secondary);
+            padding: 8px 18px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.78rem;
+            border: 1px solid var(--border-light);
+            transition: all var(--transition);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            padding: 8px 18px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.78rem;
+            border: 1.5px solid var(--accent);
+            transition: all var(--transition);
+        }
+        .btn-outline:hover {
+            background: var(--accent);
+            color: #fff;
+        }
 
-    /* ─── scroll row ─── */
-    .scroll-row {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      padding: 4px 2px 14px;
-      scrollbar-width: none;
-      margin: 0 -6px;
-    }
-    .scroll-row::-webkit-scrollbar {
-      display: none;
-    }
-    .scroll-card {
-      flex: 0 0 160px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 18px 16px;
-      transition: all var(--transition);
-      box-shadow: var(--shadow-card);
-      cursor: default;
-    }
-    .scroll-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    }
-    html[data-theme="light"] .scroll-card:hover {
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-    }
-    .scroll-card .sc-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-    .scroll-card .sc-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .scroll-card b {
-      display: block;
-      font-weight: 600;
-      font-size: 0.85rem;
-      line-height: 1.3;
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .scroll-card span {
-      font-size: 0.62rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
+        /* ─── test series card (step 1) ─── */
+        .series-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            position: relative;
+        }
+        .series-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .series-card .series-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .series-card .series-header .code {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--orange);
+            background: var(--orange-soft);
+            padding: 2px 10px;
+            border-radius: 30px;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+        .series-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .series-card .series-desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .series-card .series-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+        }
+        .series-card .series-stats span {
+            background: var(--bg-soft);
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .series-card .series-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-top: 1px solid var(--border-light);
+            padding-top: 14px;
+            margin-top: 4px;
+        }
+        .series-card .series-footer .price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+        .series-card .series-footer .enroll {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-    /* ─── grid ─── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: all var(--transition);
-      box-shadow: var(--shadow-card);
-      cursor: default;
-    }
-    .card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-    }
-    html[data-theme="light"] .card:hover {
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
-    }
-    .card .card-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .card .card-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .card .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .card .badge {
-      font-size: 0.54rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      background: var(--accent-soft);
-      padding: 3px 12px;
-      border-radius: 30px;
-      border: 1px solid rgba(212, 163, 115, 0.15);
-    }
-    .card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0;
-      line-height: 1.25;
-    }
-    .card .meta {
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 500;
-    }
-    .card .meta svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .card .action {
-      margin-top: 4px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-      transition: all var(--transition);
-    }
-    .card .action svg {
-      width: 15px;
-      height: 15px;
-      stroke: currentColor;
-      stroke-width: 2.5;
-      fill: none;
-      transition: transform var(--transition);
-    }
-    .card:hover .action svg {
-      transform: translateX(4px);
-    }
+        /* ─── quiz interface ─── */
+        .quiz-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            box-shadow: var(--shadow-md);
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .quiz-header .q-counter {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .quiz-header .q-counter strong {
+            color: var(--text);
+        }
+        .quiz-header .timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--red);
+            background: var(--red-soft);
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(220, 38, 38, 0.15);
+        }
+        .quiz-question {
+            padding: 24px 0 18px;
+        }
+        .quiz-question .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .q-image-wrap {
+            margin: -6px 0 18px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            background: var(--bg-soft);
+            max-width: 100%;
+        }
+        .q-image-wrap img {
+            display: block;
+            max-width: 100%;
+            max-height: 340px;
+            margin: 0 auto;
+            cursor: zoom-in;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .quiz-options .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+            cursor: pointer;
+            background: var(--bg-card);
+        }
+        .quiz-options .option:hover {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .quiz-options .option .radio {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all var(--transition);
+        }
+        .quiz-options .option .radio.selected {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+        .quiz-options .option .radio.selected::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #fff;
+        }
+        .quiz-options .option .label {
+            font-size: 0.92rem;
+            font-weight: 500;
+        }
+        .quiz-options .option .letter {
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            width: 20px;
+        }
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .quiz-footer .nav-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .quiz-footer .nav-btns button {
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all var(--transition);
+        }
+        .quiz-footer .nav-btns .prev {
+            background: var(--bg-soft);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+        .quiz-footer .nav-btns .prev:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .quiz-footer .nav-btns .next {
+            background: var(--accent);
+            color: #fff;
+        }
+        .quiz-footer .nav-btns .next:hover {
+            background: var(--accent-dark);
+            transform: translateX(2px);
+        }
+        .quiz-footer .submit-btn {
+            background: var(--green);
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.82rem;
+            transition: all var(--transition);
+            box-shadow: 0 2px 12px rgba(22, 163, 74, 0.25);
+        }
+        .quiz-footer .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.3);
+        }
 
-    /* ─── section tiles ─── */
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-    .section-tile {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 26px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: all var(--transition);
-      box-shadow: var(--shadow-card);
-      cursor: default;
-    }
-    .section-tile:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-    }
-    html[data-theme="light"] .section-tile:hover {
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
-    }
-    .section-tile .st-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-    }
-    .section-tile .st-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .section-tile h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0;
-    }
-    .section-tile p {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
-    }
-    .section-tile .st-count {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 6px;
-    }
-    .section-tile .st-progress {
-      height: 4px;
-      border-radius: 6px;
-      background: var(--border);
-      overflow: hidden;
-      margin: 2px 0;
-    }
-    .section-tile .st-progress i {
-      display: block;
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--gold));
-      border-radius: 6px;
-    }
+        /* ─── quiz meta strip (title / negative mark / attempt count) ─── */
+        .quiz-meta-strip {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .quiz-meta-strip .qm-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+        }
+        .quiz-meta-strip .qm-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .neg-mark-badge {
+            font-size: 0.66rem;
+            font-weight: 700;
+            background: var(--red-soft);
+            color: var(--red);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .attempt-badge {
+            font-size: 0.66rem;
+            font-weight: 700;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .quiz-progress-track {
+            height: 4px;
+            border-radius: 3px;
+            background: var(--bg-soft);
+            overflow: hidden;
+            margin-top: 12px;
+        }
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            transition: width 1s linear, background 0.3s ease;
+            border-radius: 3px;
+        }
+        .quiz-progress-fill.warn { background: linear-gradient(90deg, var(--orange), #d97706); }
+        .quiz-progress-fill.danger { background: linear-gradient(90deg, var(--red), #b91c1c); }
 
-    /* ─── file list ─── */
-    .file-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .file-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 16px 12px 18px;
-      transition: all var(--transition);
-      box-shadow: var(--shadow-card);
-      cursor: default;
-    }
-    .file-row:hover {
-      border-color: var(--accent);
-      background: var(--bg-card-hover);
-      transform: translateX(4px);
-    }
-    .file-row .fr-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      flex-shrink: 0;
-      position: relative;
-    }
-    .file-row .fr-icon svg {
-      width: 17px;
-      height: 17px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .file-row .fr-body {
-      flex: 1;
-      min-width: 0;
-    }
-    .file-row .fr-body b {
-      display: block;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    .file-row .fr-body span {
-      font-size: 0.64rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-    .file-row .fr-arrow {
-      color: var(--text-muted);
-      flex-shrink: 0;
-      transition: all var(--transition);
-    }
-    .file-row .fr-arrow svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .file-row:hover .fr-arrow {
-      color: var(--accent);
-      transform: translateX(4px);
-    }
-    .fr-bookmark {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      padding: 6px;
-      border-radius: var(--radius-sm);
-      transition: all var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .fr-bookmark:hover {
-      background: var(--bg-secondary);
-    }
-    .fr-bookmark svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      transition: all var(--transition);
-    }
-    .fr-bookmark.active {
-      color: var(--gold);
-    }
-    .fr-bookmark.active svg {
-      fill: var(--gold);
-    }
-    .fr-done {
-      position: absolute;
-      bottom: -4px;
-      right: -4px;
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      background: var(--green);
-      color: #0b0a0a;
-      font-size: 0.5rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--bg-card);
-    }
+        /* ─── font size toolbar ─── */
+        .quiz-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .quiz-toolbar button {
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            transition: all var(--transition);
+        }
+        .quiz-toolbar button:hover, .quiz-toolbar button.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
 
-    /* ─── toolbar ─── */
-    .toolbar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .search-wrap {
-      flex: 1;
-      min-width: 180px;
-      position: relative;
-    }
-    .search-wrap svg {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      color: var(--text-muted);
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      pointer-events: none;
-    }
-    .search {
-      width: 100%;
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 16px 12px 44px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      transition: all var(--transition);
-      font-family: 'Inter', sans-serif;
-    }
-    .search:focus {
-      border-color: var(--accent);
-      outline: none;
-      box-shadow: 0 0 0 4px var(--accent-soft);
-    }
-    .search::placeholder {
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-    .sort-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 0 18px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all var(--transition);
-    }
-    .sort-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-soft);
-    }
-    .sort-btn svg {
-      width: 15px;
-      height: 15px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
+        /* ─── question palette ─── */
+        .quiz-palette {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 6px;
+            padding: 4px 2px 10px;
+            margin-top: 4px;
+            scrollbar-width: thin;
+        }
+        .qp-box {
+            flex: 0 0 auto;
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            border: 1.5px solid var(--border-light);
+            background: var(--bg-soft);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+        .qp-box:hover { border-color: var(--accent); }
+        .qp-box.current { background: var(--text); border-color: var(--text); color: var(--bg); transform: scale(1.1); }
+        .qp-box.answered { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+        .qp-box.bookmarked::after {
+            content: '';
+            position: absolute;
+            top: -3px; right: -3px;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--orange);
+            border: 1.5px solid var(--bg-card);
+        }
+        .qp-box.correct { background: var(--green); border-color: var(--green); color: #fff; }
+        .qp-box.incorrect { background: var(--red); border-color: var(--red); color: #fff; }
 
-    /* ─── viewer ─── */
-    .viewer {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: var(--bg-primary);
-      display: flex;
-      flex-direction: column;
-    }
-    .viewer-bar {
-      height: var(--appbar-h);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 16px;
-      background: rgba(11, 10, 10, 0.92);
-      backdrop-filter: blur(24px) saturate(1.4);
-      border-bottom: 1px solid var(--border);
-      transition: background var(--transition), border var(--transition);
-    }
-    html[data-theme="light"] .viewer-bar {
-      background: rgba(246, 242, 237, 0.92);
-    }
-    .viewer-title {
-      flex: 1;
-      min-width: 0;
-    }
-    .viewer-title b {
-      display: block;
-      font-weight: 600;
-      font-size: 0.9rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .viewer-title span {
-      font-size: 0.58rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .viewer-frame-wrap {
-      flex: 1;
-      position: relative;
-      background: var(--bg-secondary);
-    }
-    .viewer-frame-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #fff;
-    }
-    .viewer-loading {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      background: var(--bg-primary);
-      color: var(--text-secondary);
-    }
-    .spinner {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2.5px solid var(--border);
-      border-top-color: var(--accent);
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-    .note-panel {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px;
-      background: var(--bg-primary);
-    }
-    .note-card {
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 36px 28px 32px;
-      box-shadow: var(--shadow-card);
-    }
-    .note-card .nc-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 18px;
-      border-radius: var(--radius-md);
-      background: var(--accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-    }
-    .note-card .nc-icon svg {
-      width: 28px;
-      height: 28px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .note-card h2 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin: 0 0 4px;
-      letter-spacing: -0.02em;
-    }
-    .note-card p {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      margin: 0 0 22px;
-    }
-    .note-open-btn {
-      width: 100%;
-      background: linear-gradient(145deg, var(--accent), var(--gold-dim));
-      color: #0b0a0a;
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 15px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 8px 28px var(--accent-glow);
-      transition: all var(--transition);
-    }
-    .note-open-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 36px var(--accent-glow);
-    }
-    .note-open-btn svg {
-      width: 17px;
-      height: 17px;
-      stroke: currentColor;
-      stroke-width: 2.5;
-      fill: none;
-    }
-    .note-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 14px;
-    }
-    .note-actions button {
-      flex: 1;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 10px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all var(--transition);
-    }
-    .note-actions button:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-soft);
-    }
-    .note-actions button.active {
-      color: var(--gold);
-      border-color: var(--gold);
-    }
-    .note-actions svg {
-      width: 15px;
-      height: 15px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
+        /* ─── option review states ─── */
+        .quiz-options .option.selected {
+            animation: optPulse 0.3s ease;
+        }
+        @keyframes optPulse { 0%{ transform:scale(0.98); } 60%{ transform:scale(1.01); } 100%{ transform:scale(1); } }
+        .quiz-options .option.selected {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .quiz-options .option.correct {
+            border-color: var(--green) !important;
+            background: var(--green-soft) !important;
+        }
+        .quiz-options .option.correct .radio { border-color: var(--green); background: var(--green); }
+        .quiz-options .option.incorrect {
+            border-color: var(--red) !important;
+            background: var(--red-soft) !important;
+        }
+        .quiz-options .option.incorrect .radio { border-color: var(--red); background: var(--red); }
+        .quiz-options .option.disabled { cursor: default; }
+        .quiz-explanation {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-soft);
+            border-left: 3px solid var(--accent);
+            font-size: 0.82rem;
+            line-height: 1.55;
+        }
+        .quiz-explanation b { color: var(--accent); }
 
-    /* ─── progress rows ─── */
-    .prog-row {
-      margin-bottom: 18px;
-    }
-    .prog-row-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 0.82rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-    .prog-row-top span {
-      color: var(--text-secondary);
-      font-weight: 400;
-      font-size: 0.72rem;
-    }
-    .prog-bar {
-      height: 6px;
-      border-radius: 6px;
-      background: var(--border);
-      overflow: hidden;
-    }
-    .prog-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--gold));
-      border-radius: 6px;
-      transition: width 0.7s ease;
-    }
+        /* ─── action bar (bookmark / submit) ─── */
+        .quiz-actionbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .bookmark-toggle {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-light);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bookmark-toggle.active {
+            border-color: var(--orange);
+            color: var(--orange);
+            background: var(--orange-soft);
+        }
 
-    /* ─── states ─── */
-    .state {
-      text-align: center;
-      padding: 48px 20px;
-      color: var(--text-secondary);
-      grid-column: 1 / -1;
-    }
-    .state h3 {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--text-primary);
-      margin: 12px 0 6px;
-    }
-    .state p {
-      font-size: 0.85rem;
-      line-height: 1.6;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .state pre {
-      text-align: left;
-      font-size: 0.65rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 14px 16px;
-      max-width: 420px;
-      margin: 12px auto 0;
-      color: var(--text-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      line-height: 1.7;
-      overflow: auto;
-    }
-    .retry-btn {
-      margin-top: 18px;
-      background: var(--accent);
-      color: #0b0a0a;
-      border: none;
-      border-radius: var(--radius-md);
-      padding: 12px 28px;
-      font-weight: 700;
-      font-size: 0.82rem;
-      box-shadow: 0 6px 24px var(--accent-glow);
-      transition: all var(--transition);
-    }
-    .retry-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px var(--accent-glow);
-    }
+        /* ─── result panel ─── */
+        .result-panel { text-align: center; }
+        .result-score {
+            font-size: 2.4rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin: 6px 0 2px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .result-sub {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 18px;
+        }
+        .result-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 480px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+        .result-stat {
+            background: var(--bg-soft);
+            border-radius: var(--radius-sm);
+            padding: 12px 6px;
+        }
+        .result-stat b { display: block; font-size: 1.15rem; font-weight: 800; }
+        .result-stat span { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+        .result-stat.green b { color: var(--green); }
+        .result-stat.red b { color: var(--red); }
+        .result-stat.orange b { color: var(--orange); }
+        .result-charts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .result-charts .chart-box {
+            background: var(--bg-soft);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            height: 190px;
+        }
+        .result-charts h6 {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .result-actions button, .result-actions a {
+            padding: 9px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .btn-review { background: var(--text); color: var(--bg); }
+        .btn-review:hover { transform: translateY(-2px); }
+        .btn-back { background: var(--bg-soft); color: var(--text-secondary); border: 1px solid var(--border-light); }
 
-    /* ─── search overlay ─── */
-    .search-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 90;
-      background: rgba(11, 10, 10, 0.96);
-      backdrop-filter: blur(20px) saturate(1.2);
-      display: flex;
-      flex-direction: column;
-      padding: 18px 20px calc(var(--bottomnav-h) + 28px);
-    }
-    html[data-theme="light"] .search-overlay {
-      background: rgba(246, 242, 237, 0.96);
-    }
-    .search-overlay .toolbar {
-      margin-bottom: 14px;
-    }
-    .search-results {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .sr-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      transition: all var(--transition);
-      cursor: default;
-    }
-    .sr-item:hover {
-      border-color: var(--accent);
-      background: var(--bg-card-hover);
-      transform: translateX(4px);
-    }
-    .sr-item .fr-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .sr-item .fr-icon svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .sr-item .fr-body b {
-      display: block;
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-    .sr-item .fr-body span {
-      font-size: 0.64rem;
-      color: var(--text-secondary);
-    }
-    .sr-item .fr-arrow {
-      color: var(--text-muted);
-    }
-    .sr-item .fr-arrow svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-    }
-    .sr-item:hover .fr-arrow {
-      color: var(--accent);
-    }
+        .quiz-loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .quiz-loading .spinner {
+            width: 30px; height: 30px;
+            border: 3px solid var(--border-light);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ─── skeletons ─── */
-    .skel {
-      height: 140px;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border) 37%, var(--bg-secondary) 63%);
-      background-size: 400% 100%;
-      animation: shimmer 1.5s ease infinite;
-    }
-    @keyframes shimmer {
-      0% {
-        background-position: 100% 0;
-      }
-      100% {
-        background-position: -100% 0;
-      }
-    }
+        @media (max-width: 480px) {
+            .result-stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-charts { grid-template-columns: 1fr; }
+        }
 
-    /* ─── toast ─── */
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: calc(var(--bottomnav-h) + 24px);
-      transform: translate(-50%, 20px);
-      z-index: 130;
-      background: var(--bg-elevated);
-      color: var(--text-primary);
-      padding: 12px 26px;
-      border-radius: 30px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-      max-width: 86%;
-      text-align: center;
-      border: 1px solid var(--border);
-    }
-    .toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
+        /* ─── toast ─── */
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(var(--bottomnav-h) + 20px);
+            transform: translate(-50%, 16px);
+            z-index: 130;
+            background: var(--text);
+            color: var(--bg);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+            max-width: 86%;
+            text-align: center;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
 
-    /* ─── footer ─── */
-    .app-footer {
-      margin-top: 52px;
-      padding-top: 22px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-    .app-footer strong {
-      color: var(--accent);
-      font-weight: 700;
-    }
+        /* ─── footer ─── */
+        .app-footer {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .app-footer strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
 
-    /* ─── utilities ─── */
-    .view {
-      animation: viewIn 0.35s ease forwards;
-    }
-    @keyframes viewIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .fade-in {
-      animation: fadeIn 0.4s ease forwards;
-    }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        /* ─── utilities ─── */
+        .view {
+            animation: viewIn 0.3s ease forwards;
+        }
+        @keyframes viewIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .mt-2 {
+            margin-top: 8px;
+        }
+        .mt-4 {
+            margin-top: 16px;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-    @media (max-width: 480px) {
-      .app-wrap {
-        padding-left: 14px;
-        padding-right: 14px;
-      }
-      .hero-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .section-grid {
-        grid-template-columns: 1fr;
-      }
-      .dash-strip {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-      .dash-badges {
-        justify-content: center;
-      }
-      .scroll-card {
-        flex: 0 0 140px;
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-  </style>
+        @media (max-width: 480px) {
+            .app-wrap {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .card {
+                padding: 16px 14px 14px;
+            }
+            .card h3 {
+                font-size: 0.92rem;
+            }
+            .course-card {
+                padding: 0 0 16px;
+            }
+            .course-body {
+                padding: 14px 16px 0;
+            }
+            .subject-row {
+                padding: 14px 14px;
+            }
+            .quiz-container {
+                padding: 16px 14px;
+            }
+            .quiz-question .q-text {
+                font-size: 0.95rem;
+            }
+            .test-item {
+                padding: 14px 16px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .test-action {
+                justify-content: flex-end;
+            }
+            .series-card .series-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .home-actions .pill-status {
+                display: none;
+            }
+            .logo-text span {
+                display: none;
+            }
+            .quiz-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .quiz-footer .nav-btns {
+                justify-content: center;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- toast -->
-  <div class="toast" id="toastEl"></div>
+    <!-- toast -->
+    <div class="toast" id="toastEl"></div>
 
-  <!-- app bar -->
-  <div class="appbar" id="appbar" style="display:none">
-    <button class="appbar-btn" id="backBtn" aria-label="Back">
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    </button>
-    <div class="appbar-title" id="appbarTitle">—</div>
-    <div class="appbar-actions">
-      <button class="appbar-btn theme-toggle-btn" aria-label="Theme">
-        <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
-      </button>
-      <button class="appbar-btn" id="homeBtn" aria-label="Home">
-        <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
-      </button>
+    <!-- main wrap -->
+    <div class="app-wrap" id="wrap">
+
+        <!-- home nav -->
+        <nav class="home-nav" id="homeNav">
+            <div class="logo" onclick="navigate([])">
+                <div class="logo-mark">M</div>
+                <div class="logo-text"><strong>Monk Quiz</strong><span>test series platform</span></div>
+            </div>
+            <div class="home-actions">
+                <button class="icon-btn theme-toggle-btn" aria-label="Theme">
+                    <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+                </button>
+                <div class="pill-status">Live</div>
+            </div>
+        </nav>
+
+        <!-- content -->
+        <div id="content"></div>
+
+        <!-- footer -->
+        <footer class="app-footer">
+            <span>Monk Quiz · test series platform</span> &mdash; crafted by <strong>KD Khilery</strong>
+        </footer>
     </div>
-  </div>
 
-  <!-- main wrap -->
-  <div class="app-wrap" id="wrap">
-
-    <!-- home nav -->
-    <nav class="home-nav" id="homeNav">
-      <div class="logo" onclick="navigate([])">
-        <div class="logo-mark">M</div>
-        <div class="logo-text"><strong>Monk</strong><span>advanced practice</span></div>
-      </div>
-      <div class="home-actions">
-        <button class="icon-btn theme-toggle-btn" aria-label="Theme">
-          <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+    <!-- bottom nav -->
+    <nav class="bottom-nav" id="bottomNav">
+        <button class="bn-item active" data-key="home" onclick="navigate([])">
+            <span class="bn-dot"></span>
+            <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
+            <span>Home</span>
         </button>
-        <button class="icon-btn" id="searchToggle" aria-label="Search">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <button class="bn-item" data-key="tests" onclick="navigate(['tests'])">
+            <span class="bn-dot"></span>
+            <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span>Tests</span>
         </button>
-        <div class="pill-status">Live</div>
-      </div>
+        <button class="bn-item" data-key="saved" onclick="navigate(['saved'])">
+            <span class="bn-dot"></span>
+            <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            <span>Saved</span>
+        </button>
+        <button class="bn-item" data-key="progress" onclick="navigate(['progress'])">
+            <span class="bn-dot"></span>
+            <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 3 5-8"/></svg>
+            <span>Progress</span>
+        </button>
     </nav>
 
-    <!-- content -->
-    <div id="content"></div>
+    <script>
+        /* ─── CONFIG ─── */
+        const GITHUB_USER = "vishnoiji29";
+        const GITHUB_REPO = "Monk-Test";
+        const GITHUB_BRANCH = "main";
+        const ROOT_FOLDER = "courses";
 
-    <!-- footer -->
-    <footer class="app-footer">
-      <span>Monk · advanced practice platform</span> &mdash; crafted by <strong>KD Khilery</strong>
-    </footer>
-  </div>
+        const ICON_COURSE =
+            `<svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
+        const ICON_SUBJECT =
+            `<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>`;
+        const ICON_TEST =
+            `<svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
+        const ICON_NOTE =
+            `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>`;
+        const ICON_CHEVRON =
+            `<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>`;
+        const ICON_CLOCK =
+            `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`;
+        const ICON_QUESTION =
+            `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+        const ICON_STAR =
+            `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
 
-  <!-- search overlay -->
-  <div class="search-overlay" id="searchOverlay" style="display:none">
-    <div class="toolbar">
-      <div class="search-wrap">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input class="search" id="globalSearch" type="text" placeholder="Search courses, subjects, tests…" oninput="renderSearchResults()" />
-      </div>
-      <button class="sort-btn" onclick="closeSearch()">Close</button>
-    </div>
-    <div class="search-results" id="searchResults"></div>
-  </div>
+        const SUN_SVG =
+            `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`;
+        const MOON_SVG =
+            `<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>`;
 
-  <!-- viewer -->
-  <div class="viewer" id="viewer" style="display:none">
-    <div class="viewer-bar">
-      <button class="appbar-btn" id="viewerBack" aria-label="Back">
-        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      </button>
-      <div class="viewer-title">
-        <b id="viewerTitleText">—</b>
-        <span id="viewerTitleSub">—</span>
-      </div>
-      <div class="appbar-actions">
-        <button class="appbar-btn" id="viewerBookmarkBtn" aria-label="Bookmark">
-          <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-        </button>
-        <button class="appbar-btn" id="viewerCopyBtn" aria-label="Copy">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-        </button>
-        <button class="appbar-btn" id="viewerOpenNew" aria-label="Open">
-          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-        </button>
-        <button class="appbar-btn" id="viewerReload" aria-label="Reload">
-          <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="viewer-frame-wrap" id="viewerFrameWrap">
-      <div class="viewer-loading" id="viewerLoading"><div class="spinner"></div><span>Loading content…</span></div>
-      <iframe id="viewerFrame" src="about:blank" title="content"></iframe>
-    </div>
-    <div class="note-panel" id="viewerNotePanel" style="display:none">
-      <div class="note-card">
-        <div class="nc-icon">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
-        </div>
-        <h2 id="notePanelTitle">—</h2>
-        <p id="notePanelSub">—</p>
-        <button class="note-open-btn" id="notePanelOpenBtn">
-          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-          Open Notes
-        </button>
-        <div class="note-actions">
-          <button id="notePanelCopy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy</button>
-          <button id="notePanelBookmark"><svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Bookmark</button>
-        </div>
-      </div>
-    </div>
-  </div>
+        const store = {
+            _mem: {},
+            get(key, fallback) {
+                try {
+                    const raw = localStorage.getItem(key);
+                    return raw === null ? fallback : JSON.parse(raw);
+                } catch { return (key in this._mem) ? this._mem[key] : fallback; }
+            },
+            set(key, value) {
+                try { localStorage.setItem(key, JSON.stringify(value)); } catch { this._mem[key] = value; }
+            }
+        };
 
-  <!-- bottom nav -->
-  <nav class="bottom-nav" id="bottomNav">
-    <button class="bn-item active" data-key="home" onclick="navigate([])">
-      <span class="bn-dot"></span>
-      <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
-      <span>Home</span>
-    </button>
-    <button class="bn-item" data-key="search" id="bnSearchBtn">
-      <span class="bn-dot"></span>
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <span>Search</span>
-    </button>
-    <button class="bn-item" data-key="bookmarks" onclick="navigate(['bookmarks'])">
-      <span class="bn-dot"></span>
-      <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-      <span>Saved</span>
-    </button>
-    <button class="bn-item" data-key="progress" onclick="navigate(['progress'])">
-      <span class="bn-dot"></span>
-      <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 3 5-8"/></svg>
-      <span>Progress</span>
-    </button>
-  </nav>
+        let courses = {};
+        let loaded = false;
+        let loadErr = null;
 
-  <script>
-    /* ─── CONFIG ─── */
-    const GITHUB_USER = "vishnoiji29";
-    const GITHUB_REPO = "Monk-Test";
-    const GITHUB_BRANCH = "main";
-    const ROOT_FOLDER = "courses";
+        function getBookmarks() { return store.get('mt_bookmarks', {}); }
 
-    /* ─── icons ─── */
-    const ICON_COURSE =
-      `<svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
-    const ICON_SUBJECT =
-      `<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>`;
-    const ICON_TEST =
-      `<svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
-    const ICON_NOTE =
-      `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>`;
-    const ICON_CHEVRON =
-      `<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>`;
-    const ICON_FLAME =
-      `<svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 17a2.5 2.5 0 0 0 2.5-2.5c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7.5 7.5 0 1 1-15 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`;
-    const ICON_TROPHY =
-      `<svg viewBox="0 0 24 24"><path d="M8 21h10M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3a2 2 0 0 1-2 4M7 5H4a2 2 0 0 0 2 4"/></svg>`;
-    const SUN_SVG =
-      `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`;
-    const MOON_SVG =
-      `<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>`;
+        function isBookmarked(path) { return !!getBookmarks()[path]; }
 
-    /* ─── store ─── */
-    const store = {
-      _mem: {},
-      get(key, fallback) {
-        try {
-          const raw = localStorage.getItem(key);
-          return raw === null ? fallback : JSON.parse(raw);
-        } catch { return (key in this._mem) ? this._mem[key] : fallback; }
-      },
-      set(key, value) {
-        try { localStorage.setItem(key, JSON.stringify(value)); } catch { this._mem[key] = value; }
-      }
-    };
-
-    /* ─── state ─── */
-    let courses = {};
-    let loaded = false;
-    let loadErr = null;
-    let sortDesc = false;
-
-    /* ─── bookmarks & progress ─── */
-    function getBookmarks() { return store.get('mt_bookmarks', {}); }
-
-    function isBookmarked(path) { return !!getBookmarks()[path]; }
-
-    function toggleBookmark(path, meta) {
-      const b = getBookmarks();
-      if (b[path]) delete b[path];
-      else if (meta) b[path] = meta;
-      store.set('mt_bookmarks', b);
-      return !!b[path];
-    }
-
-    function getAttempted() { return store.get('mt_attempted', {}); }
-
-    function markAttempted(path) {
-      const a = getAttempted();
-      if (!a[path]) { a[path] = true;
-        store.set('mt_attempted', a);
-        addXP(10); }
-    }
-
-    function getXP() { return store.get('mt_xp', 0); }
-
-    function addXP(n) { store.set('mt_xp', getXP() + n); }
-
-    function getLevel(xp) { return Math.floor(xp / 100) + 1; }
-
-    function todayStr() { return new Date().toISOString().slice(0, 10); }
-
-    function updateStreak() {
-      const s = store.get('mt_streak', { count: 0, last: null });
-      const today = todayStr();
-      if (s.last === today) return s;
-      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-      s.count = (s.last === yesterday) ? s.count + 1 : 1;
-      s.last = today;
-      store.set('mt_streak', s);
-      return s;
-    }
-
-    function getRecents() { return store.get('mt_recents', []); }
-
-    function pushRecent(meta) {
-      let r = getRecents().filter(x => x.path !== meta.path);
-      r.unshift(Object.assign({}, meta, { ts: Date.now() }));
-      r = r.slice(0, 8);
-      store.set('mt_recents', r);
-    }
-
-    function toast(msg) {
-      const t = document.getElementById('toastEl');
-      t.textContent = msg;
-      t.classList.add('show');
-      clearTimeout(t._timer);
-      t._timer = setTimeout(() => t.classList.remove('show'), 2200);
-    }
-
-    async function copyLink(url) {
-      try { await navigator.clipboard.writeText(url);
-        toast('Link copied'); } catch { toast('Could not copy'); }
-    }
-
-    /* ─── theme ─── */
-    function applyTheme(t) {
-      document.documentElement.setAttribute('data-theme', t);
-      store.set('mt_theme', t);
-      document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
-        btn.innerHTML = t === 'dark' ? SUN_SVG : MOON_SVG;
-      });
-    }
-    document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        applyTheme(cur);
-      });
-    });
-    applyTheme(store.get('mt_theme', 'dark'));
-
-    /* ─── bottom nav ─── */
-    function setActiveNav(key) {
-      document.querySelectorAll('.bn-item').forEach(el => {
-        el.classList.toggle('active', el.dataset.key === key);
-      });
-    }
-    document.getElementById('bnSearchBtn').addEventListener('click', () => {
-      searchOverlay.style.display = 'flex';
-      globalSearch.value = '';
-      globalSearch.focus();
-      renderSearchResults();
-    });
-
-    /* ─── keyboard ─── */
-    document.addEventListener('keydown', (e) => {
-      const tag = (document.activeElement && document.activeElement.tagName) || '';
-      const typing = tag === 'INPUT' || tag === 'TEXTAREA';
-      if (e.key === '/' && !typing) {
-        e.preventDefault();
-        searchOverlay.style.display = 'flex';
-        globalSearch.value = '';
-        globalSearch.focus();
-        renderSearchResults();
-      } else if (e.key === 'Escape') {
-        if (searchOverlay.style.display === 'flex') closeSearch();
-        else if (viewerEl.style.display === 'flex') history.back();
-      }
-    });
-
-    /* ─── helpers ─── */
-    function toTitle(name) {
-      return name.replace(/\.html?$/i, '').replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-    }
-
-    function rawUrl(path) {
-      return `https://cdn.jsdelivr.net/gh/${GITHUB_USER}/${GITHUB_REPO}@${GITHUB_BRANCH}/` + path.split('/').map(encodeURIComponent).join('/');
-    }
-
-    function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;',
-        "'": '&#39;' }[c])); }
-
-    /* ─── fetch ─── */
-    async function fetchTree() {
-      const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
-      const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-      if (!res.ok) throw { status: res.status };
-      return res.json();
-    }
-
-    function buildStructure(tree) {
-      const files = (tree.tree || []).filter(f => f.type === 'blob' && f.path.startsWith(ROOT_FOLDER + '/'));
-      const out = {};
-      files.forEach(f => {
-        const rel = f.path.slice(ROOT_FOLDER.length + 1);
-        const parts = rel.split('/');
-        if (parts.length < 4) return;
-        const courseName = parts[0];
-        const subjectName = parts[1];
-        const sectionRaw = parts[2].toLowerCase();
-        const fileName = parts[parts.length - 1];
-        if (!/\.(html?|pdf)$/i.test(fileName)) return;
-        const sectionKey = sectionRaw.includes('note') ? 'notes' : 'tests';
-        out[courseName] = out[courseName] || { subjects: {} };
-        out[courseName].subjects[subjectName] = out[courseName].subjects[subjectName] || { tests: [], notes: [] };
-        out[courseName].subjects[subjectName][sectionKey].push({
-          name: toTitle(fileName),
-          path: f.path,
-          ext: fileName.split('.').pop().toLowerCase()
-        });
-      });
-      Object.values(out).forEach(course => {
-        Object.values(course.subjects).forEach(subj => {
-          subj.tests.sort((a, b) => a.name.localeCompare(b.name));
-          subj.notes.sort((a, b) => a.name.localeCompare(b.name));
-        });
-      });
-      return out;
-    }
-
-    function flattenAll() {
-      const items = [];
-      Object.keys(courses).forEach(courseName => {
-        Object.keys(courses[courseName].subjects).forEach(subjectName => {
-          const subj = courses[courseName].subjects[subjectName];
-          subj.tests.forEach((t, i) => items.push({ type: 'tests', course: courseName, subject: subjectName, name: t.name,
-            index: i, path: t.path }));
-          subj.notes.forEach((n, i) => items.push({ type: 'notes', course: courseName, subject: subjectName, name: n.name,
-            index: i, path: n.path }));
-        });
-      });
-      return items;
-    }
-
-    async function loadAll() {
-      loaded = false;
-      loadErr = null;
-      render();
-      try {
-        const tree = await fetchTree();
-        courses = buildStructure(tree);
-        loaded = true;
-      } catch (err) {
-        loadErr = err;
-        loaded = true;
-      }
-      render();
-    }
-
-    /* ─── open note direct ─── */
-    function openNoteDirect(courseName, subjectName, idx, segments) {
-      const course = courses[courseName];
-      const subj = course && course.subjects[subjectName];
-      const item = subj && subj.notes[idx];
-      if (item) window.open(rawUrl(item.path), '_blank', 'noopener');
-      navigate(segments);
-    }
-
-    /* ─── router ─── */
-    function currentRoute() {
-      const h = location.hash.replace(/^#\/?/, '');
-      if (!h) return [];
-      return h.split('/').filter(Boolean).map(decodeURIComponent);
-    }
-
-    function navigate(segments) {
-      location.hash = '/' + segments.map(encodeURIComponent).join('/');
-    }
-    window.addEventListener('hashchange', render);
-
-    /* ─── UI helpers ─── */
-    function setChrome(showAppbar, title, sub) {
-      const appbar = document.getElementById('appbar');
-      const homeNav = document.getElementById('homeNav');
-      const wrap = document.getElementById('wrap');
-      const titleEl = document.getElementById('appbarTitle');
-      if (showAppbar) {
-        appbar.style.display = 'flex';
-        homeNav.style.display = 'none';
-        wrap.classList.add('with-appbar');
-        titleEl.innerHTML = sub ? `${esc(title)}<span class="sub">${esc(sub)}</span>` : esc(title);
-      } else {
-        appbar.style.display = 'none';
-        homeNav.style.display = 'flex';
-        wrap.classList.remove('with-appbar');
-      }
-    }
-
-    function crumbsHTML(trail) {
-      return `<div class="crumbs">` + trail.map((c, i) => {
-        const isLast = i === trail.length - 1;
-        if (isLast) return `<span class="current">${esc(c.label)}</span>`;
-        return `<a href="javascript:void(0)" onclick='navigate(${JSON.stringify(c.segments)})'>${esc(c.label)}</a><span class="sep">›</span>`;
-      }).join('') + `</div>`;
-    }
-
-    function stateBlock(icon, title, text, retry) {
-      return `<div class="state"><div style="font-size:2.4rem">${icon}</div><h3>${esc(title)}</h3><p>${text}</p>${retry ? `<button class="retry-btn" onclick="loadAll()">Retry</button>` : ''}</div>`;
-    }
-
-    function skeletons(n) {
-      return `<div class="grid">` + Array.from({ length: n }).map(() => `<div class="skel"></div>`).join('') + `</div>`;
-    }
-
-    /* ─── dashboard ─── */
-    function dashboardHTML() {
-      const streak = store.get('mt_streak', { count: 0, last: null });
-      const xp = getXP();
-      const level = getLevel(xp);
-      const hour = new Date().getHours();
-      const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-      return `
-        <div class="dash-strip">
-          <div class="dash-greet">${greet} 👋<small>Ready for a focused session?</small></div>
-          <div class="dash-badges">
-            <div class="dbadge streak">${ICON_FLAME}<span>${streak.count} day${streak.count !== 1 ? 's' : ''}</span></div>
-            <div class="dbadge xp">${ICON_TROPHY}<span>Level ${level}</span></div>
-          </div>
-        </div>`;
-    }
-
-    function continueLearningHTML() {
-      const recents = getRecents().filter(r => {
-        const subj = courses[r.course] && courses[r.course].subjects[r.subject];
-        const items = subj ? subj[r.section] : null;
-        return items && items[r.index] && items[r.index].path === r.path;
-      });
-      if (recents.length === 0) return '';
-      return `
-        <div class="section-header"><h2>Continue learning</h2></div>
-        <div class="scroll-row">
-          ${recents.map(r => {
-            const segs = ["course", r.course, "subject", r.subject, r.section, String(r.index)];
-            const onclick = r.section === 'notes'
-              ? `openNoteDirect(${JSON.stringify(r.course)}, ${JSON.stringify(r.subject)}, ${r.index}, ${JSON.stringify(segs)})`
-              : `navigate(${JSON.stringify(segs)})`;
-            return `
-              <div class="scroll-card" onclick='${onclick}'>
-                <div class="sc-icon">${r.section === 'tests' ? ICON_TEST : ICON_NOTE}</div>
-                <b>${esc(r.name)}</b>
-                <span>${esc(r.subject)}</span>
-              </div>`;
-          }).join('')}
-        </div>`;
-    }
-
-    /* ─── HOME ─── */
-    function renderHome() {
-      setChrome(false);
-      const courseNames = Object.keys(courses);
-      let totalTests = 0,
-        totalNotes = 0,
-        totalSubjects = 0;
-      courseNames.forEach(c => {
-        const subs = courses[c].subjects;
-        totalSubjects += Object.keys(subs).length;
-        Object.values(subs).forEach(s => { totalTests += s.tests.length;
-          totalNotes += s.notes.length; });
-      });
-
-      let body;
-      if (!loaded) {
-        body = `${heroHTML()}${skeletons(3)}`;
-      } else if (loadErr) {
-        body = `${heroHTML()}${stateBlock('⚠️', 'Could not load courses', 'Tap Retry in a moment, or check your connection.', true)}`;
-      } else if (courseNames.length === 0) {
-        body =
-          `${heroHTML()}<div style="margin:24px 0">${stateBlock('📜', 'No courses available yet', `Add files to the GitHub repo under <b>${esc(ROOT_FOLDER)}/&lt;Course&gt;/&lt;Subject&gt;/tests/</b> and <b>notes/</b> folders.<pre>${esc(ROOT_FOLDER)}/SSC CGL/History/tests/ch1.html\n${esc(ROOT_FOLDER)}/SSC CGL/History/notes/ch1.pdf</pre>`, true)}</div>`;
-      } else {
-        body = `
-          ${heroHTML()}
-          ${dashboardHTML()}
-          ${continueLearningHTML()}
-          <div class="section-header"><h2>Explore courses</h2></div>
-          <div class="toolbar">
-            <div class="search-wrap">
-              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-              <input class="search" id="homeSearchBox" type="text" placeholder="Search courses…" oninput="applyHomeFilter()">
-            </div>
-            <button class="sort-btn" onclick="loadAll()"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg> Refresh</button>
-          </div>
-          <div class="grid" id="courseGrid"></div>`;
-      }
-      document.getElementById('content').innerHTML = `<div class="view">${body}</div>`;
-      if (loaded && !loadErr && courseNames.length) renderCourseGrid(courseNames);
-    }
-
-    function heroHTML() {
-      return `
-        <div class="hero">
-          <div class="eyebrow">Deep focus · no distractions</div>
-          <div class="hero-icon-wrap">M</div>
-          <h1>Practice like a <em>monk</em>.</h1>
-          <p>Pick a course, choose a subject — test series or notes, exactly what you need.</p>
-        </div>`;
-    }
-
-    function renderCourseGrid(courseNames) {
-      const grid = document.getElementById('courseGrid');
-      if (!grid) return;
-      grid.innerHTML = courseNames.map((name, idx) => {
-        const subjCount = Object.keys(courses[name].subjects).length;
-        let t = 0,
-          n = 0;
-        Object.values(courses[name].subjects).forEach(s => { t += s.tests.length;
-          n += s.notes.length; });
-        return `
-          <div class="card" style="animation-delay:${idx * 0.04}s" onclick='navigate(["course", ${JSON.stringify(name)}])'>
-            <div class="card-top">
-              <div class="card-icon">${ICON_COURSE}</div>
-              <span class="badge">${subjCount} subject${subjCount !== 1 ? 's' : ''}</span>
-            </div>
-            <h3>${esc(name)}</h3>
-            <div class="meta">${ICON_TEST} ${t} Tests <span style="opacity:0.3">·</span> ${ICON_NOTE} ${n} Notes</div>
-            <div class="action">Explore ${ICON_CHEVRON}</div>
-          </div>`;
-      }).join('');
-    }
-
-    function applyHomeFilter() {
-      const q = document.getElementById('homeSearchBox').value.trim().toLowerCase();
-      const names = Object.keys(courses).filter(n => n.toLowerCase().includes(q));
-      const grid = document.getElementById('courseGrid');
-      if (names.length === 0) { grid.innerHTML = stateBlock('🔍', 'Nothing found', 'Try a different keyword.'); return; }
-      renderCourseGrid(names);
-    }
-
-    /* ─── COURSE ─── */
-    function renderCourseView(courseName) {
-      const course = courses[courseName];
-      setChrome(true, courseName, 'Course');
-      if (!course) {
-        document.getElementById('content').innerHTML =
-          `<div class="view">${crumbsHTML([{ label: 'Home', segments: [] }, { label: courseName, segments: [] }])}${stateBlock('❓', 'Course not found', 'This course does not exist.')}</div>`;
-        return;
-      }
-      const subjectNames = Object.keys(course.subjects);
-      const trail = [{ label: 'Home', segments: [] }, { label: courseName, segments: ['course', courseName] }];
-      let body;
-      if (subjectNames.length === 0) {
-        body = stateBlock('📁', 'No subjects yet', 'Add subject folders inside this course in the GitHub repo.');
-      } else {
-        body = `
-          <div class="page-head"><div class="page-eyebrow">Course</div><h1>${esc(courseName)}</h1><p>Choose a subject — each one has both a Test Series and Notes.</p></div>
-          <div class="grid">
-            ${subjectNames.map((s, idx) => {
-              const subj = course.subjects[s];
-              return `
-                <div class="card" style="animation-delay:${idx * 0.04}s" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(s)}])'>
-                  <div class="card-top"><div class="card-icon">${ICON_SUBJECT}</div><span class="badge">Subject</span></div>
-                  <h3>${esc(s)}</h3>
-                  <div class="meta">${ICON_TEST} ${subj.tests.length} Tests <span style="opacity:0.3">·</span> ${ICON_NOTE} ${subj.notes.length} Notes</div>
-                  <div class="action">Open ${ICON_CHEVRON}</div>
-                </div>`;
-            }).join('')}
-          </div>`;
-      }
-      document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
-    }
-
-    /* ─── SUBJECT ─── */
-    function renderSubjectView(courseName, subjectName) {
-      const course = courses[courseName];
-      const subj = course && course.subjects[subjectName];
-      setChrome(true, subjectName, courseName);
-      const trail = [
-        { label: 'Home', segments: [] },
-        { label: courseName, segments: ['course', courseName] },
-        { label: subjectName, segments: ['course', courseName, 'subject', subjectName] }
-      ];
-      if (!subj) {
-        document.getElementById('content').innerHTML =
-          `<div class="view">${crumbsHTML(trail)}${stateBlock('❓', 'Subject not found', 'This subject does not exist.')}</div>`;
-        return;
-      }
-      let body;
-      if (subj.tests.length === 0 && subj.notes.length === 0) {
-        body = stateBlock('📂', 'No content yet', 'Add tests or notes to this subject in the GitHub repo.');
-      } else {
-        const doneTests = subj.tests.filter(t => getAttempted()[t.path]).length;
-        const testsPct = subj.tests.length ? Math.round(doneTests / subj.tests.length * 100) : 0;
-        body = `
-          <div class="page-head"><div class="page-eyebrow">${esc(courseName)}</div><h1>${esc(subjectName)}</h1><p>Practice with the Test Series, or revise with the Notes.</p></div>
-          <div class="section-grid">
-            <div class="section-tile" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, "tests"])'>
-              <div class="st-icon">${ICON_TEST}</div>
-              <h3>Test Series</h3>
-              <p>Attempt topic-wise quizzes and track your practice.</p>
-              ${subj.tests.length ? `<div class="st-progress"><i style="width:${testsPct}%"></i></div>` : ''}
-              <div class="st-count">${subj.tests.length} Test${subj.tests.length !== 1 ? 's' : ''}${subj.tests.length ? ` · ${doneTests} done` : ''} ${ICON_CHEVRON}</div>
-            </div>
-            <div class="section-tile" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, "notes"])'>
-              <div class="st-icon">${ICON_NOTE}</div>
-              <h3>Notes</h3>
-              <p>Read chapter-wise notes — opens instantly in a new tab.</p>
-              <div class="st-count">${subj.notes.length} Note${subj.notes.length !== 1 ? 's' : ''} available ${ICON_CHEVRON}</div>
-            </div>
-          </div>`;
-      }
-      document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
-    }
-
-    /* ─── LIST ─── */
-    function renderListView(courseName, subjectName, section) {
-      const course = courses[courseName];
-      const subj = course && course.subjects[subjectName];
-      const isTests = section === 'tests';
-      setChrome(true, isTests ? 'Test Series' : 'Notes', `${courseName} · ${subjectName}`);
-      const trail = [
-        { label: 'Home', segments: [] },
-        { label: courseName, segments: ['course', courseName] },
-        { label: subjectName, segments: ['course', courseName, 'subject', subjectName] },
-        { label: isTests ? 'Test Series' : 'Notes', segments: [] }
-      ];
-      if (!subj) {
-        document.getElementById('content').innerHTML =
-          `<div class="view">${crumbsHTML(trail)}${stateBlock('❓', 'Subject not found', 'This subject does not exist.')}</div>`;
-        return;
-      }
-      const items = isTests ? subj.tests : subj.notes;
-      let body;
-      if (items.length === 0) {
-        body = stateBlock(isTests ? '📝' : '📄', `No ${isTests ? 'tests' : 'notes'} yet`, `Add files to this subject's ${isTests ? 'tests' : 'notes'} folder.`);
-      } else {
-        body = `
-          <div class="page-head"><div class="page-eyebrow">${esc(courseName)} · ${esc(subjectName)}</div><h1>${isTests ? 'Test Series' : 'Notes'}</h1><p>${items.length} item${items.length !== 1 ? 's' : ''} available.</p></div>
-          <div class="toolbar">
-            <div class="search-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input class="search" id="listSearchBox" type="text" placeholder="Search ${isTests ? 'tests' : 'notes'}…" oninput="applyListFilter()"></div>
-            <button class="sort-btn" onclick="toggleSort(${JSON.stringify(courseName)}, ${JSON.stringify(subjectName)}, ${JSON.stringify(section)})"><svg viewBox="0 0 24 24"><path d="M3 7h11M3 12h7M3 17h4"/><path d="M17 4v16M17 4l-3 3M17 4l3 3"/></svg> <span id="sortLabel">A–Z</span></button>
-          </div>
-          <div class="file-list" id="fileList"></div>`;
-      }
-      document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
-      if (items.length) renderFileList(items, courseName, subjectName, section);
-    }
-
-    function toggleSort(courseName, subjectName, section) {
-      sortDesc = !sortDesc;
-      const label = document.getElementById('sortLabel');
-      if (label) label.textContent = sortDesc ? 'Z–A' : 'A–Z';
-      const subj = courses[courseName].subjects[subjectName];
-      const items = section === 'tests' ? subj.tests : subj.notes;
-      renderFileList(items, courseName, subjectName, section);
-    }
-
-    function renderFileList(items, courseName, subjectName, section) {
-      const el = document.getElementById('fileList');
-      if (!el) return;
-      const icon = section === 'tests' ? ICON_TEST : ICON_NOTE;
-      const tag = section === 'tests' ? 'Quiz' : 'PDF Notes';
-      const attempted = getAttempted();
-      const bookmarks = getBookmarks();
-      const ordered = items.map((it, idx) => ({ it, idx }));
-      if (sortDesc) ordered.reverse();
-      el.innerHTML = ordered.map(({ it, idx }, i) => {
-        const bm = !!bookmarks[it.path];
-        const done = section === 'tests' && attempted[it.path];
-        const meta = { course: courseName, subject: subjectName, section: section, index: idx, name: it.name,
-        path: it.path };
-        const segs = ["course", courseName, "subject", subjectName, section, String(idx)];
-        const onclick = section === 'notes'
-          ? `openNoteDirect(${JSON.stringify(courseName)}, ${JSON.stringify(subjectName)}, ${idx}, ${JSON.stringify(segs)})`
-          : `navigate(${JSON.stringify(segs)})`;
-        return `
-          <div class="file-row" data-name="${esc(it.name.toLowerCase())}" style="animation-delay:${i * 0.03}s" onclick='${onclick}'>
-            <div class="fr-icon">${icon}${done ? '<span class="fr-done">✓</span>' : ''}</div>
-            <div class="fr-body"><b>${esc(it.name)}</b><span>${tag}</span></div>
-            <button class="fr-bookmark ${bm ? 'active' : ''}" aria-label="Bookmark" onclick='event.stopPropagation(); const on=toggleBookmark(${JSON.stringify(it.path)}, ${JSON.stringify(meta)}); this.classList.toggle("active", on); toast(on?"Bookmark added":"Bookmark removed");'>
-              <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-            </button>
-            <div class="fr-arrow">${ICON_CHEVRON}</div>
-          </div>`;
-      }).join('');
-    }
-
-    function applyListFilter() {
-      const box = document.getElementById('listSearchBox');
-      const q = box.value.trim().toLowerCase();
-      document.querySelectorAll('#fileList .file-row').forEach(row => {
-        row.style.display = row.dataset.name.includes(q) ? '' : 'none';
-      });
-    }
-
-    /* ─── BOOKMARKS ─── */
-    function renderBookmarksView() {
-      setChrome(true, 'Bookmarks', 'Saved tests & notes');
-      const b = getBookmarks();
-      const paths = Object.keys(b);
-      const trail = [{ label: 'Home', segments: [] }, { label: 'Bookmarks', segments: [] }];
-      let body;
-      if (paths.length === 0) {
-        body = stateBlock('⭐', 'No bookmarks yet', 'Tap the star icon on any test or note to save it here.');
-      } else {
-        body = `
-          <div class="page-head"><div class="page-eyebrow">Saved</div><h1>Bookmarks</h1><p>${paths.length} item${paths.length !== 1 ? 's' : ''} saved.</p></div>
-          <div class="file-list">
-            ${paths.map((p, idx) => {
-              const m = b[p];
-              const segs = ["course", m.course, "subject", m.subject, m.section, String(m.index)];
-              const onclick = m.section === 'notes'
-                ? `openNoteDirect(${JSON.stringify(m.course)}, ${JSON.stringify(m.subject)}, ${m.index}, ${JSON.stringify(segs)})`
-                : `navigate(${JSON.stringify(segs)})`;
-              return `
-                <div class="file-row" style="animation-delay:${idx * 0.03}s" onclick='${onclick}'>
-                  <div class="fr-icon">${m.section === 'tests' ? ICON_TEST : ICON_NOTE}</div>
-                  <div class="fr-body"><b>${esc(m.name)}</b><span>${esc(m.course)} · ${esc(m.subject)}</span></div>
-                  <button class="fr-bookmark active" aria-label="Remove" onclick='event.stopPropagation(); toggleBookmark(${JSON.stringify(p)}); renderBookmarksView(); toast("Bookmark removed");'>
-                    <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                  </button>
-                  <div class="fr-arrow">${ICON_CHEVRON}</div>
-                </div>`;
-            }).join('')}
-          </div>`;
-      }
-      document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
-    }
-
-    /* ─── PROGRESS ─── */
-    function renderProgressView() {
-      setChrome(true, 'Progress', 'Your practice, at a glance');
-      const xp = getXP();
-      const level = getLevel(xp);
-      const streak = store.get('mt_streak', { count: 0, last: null });
-      const attempted = getAttempted();
-      const attemptedCount = Object.keys(attempted).length;
-      const trail = [{ label: 'Home', segments: [] }, { label: 'Progress', segments: [] }];
-      const courseNames = Object.keys(courses);
-      let rows = '';
-      if (courseNames.length) {
-        rows = courseNames.map(cName => {
-          const course = courses[cName];
-          let done = 0,
-            total = 0;
-          Object.values(course.subjects).forEach(s => {
-            total += s.tests.length;
-            s.tests.forEach(t => { if (attempted[t.path]) done++; });
-          });
-          const pct = total ? Math.round(done / total * 100) : 0;
-          return `
-            <div class="prog-row">
-              <div class="prog-row-top"><b>${esc(cName)}</b><span>${done}/${total} tests</span></div>
-              <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
-            </div>`;
-        }).join('');
-      }
-      const body = `
-        <div class="page-head"><div class="page-eyebrow">Overview</div><h1>Your Progress</h1><p>Keep the streak alive and practice a little every day.</p></div>
-        <div class="hero-stats" style="max-width:100%">
-          <div class="stat"><b>${streak.count}</b><span>Streak</span></div>
-          <div class="stat"><b>${level}</b><span>Level</span></div>
-          <div class="stat"><b>${xp}</b><span>XP</span></div>
-          <div class="stat"><b>${attemptedCount}</b><span>Tests Done</span></div>
-        </div>
-        <div style="margin-top:32px">
-          <div class="section-header"><h2>Course-wise progress</h2></div>
-          ${rows || stateBlock('📊', 'No data yet', 'This will fill in once courses have loaded.')}
-        </div>`;
-      document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
-    }
-
-    /* ─── VIEWER ─── */
-    const viewerEl = document.getElementById('viewer');
-    const viewerFrame = document.getElementById('viewerFrame');
-    const viewerFrameWrap = document.getElementById('viewerFrameWrap');
-    const viewerLoading = document.getElementById('viewerLoading');
-    const viewerTitleText = document.getElementById('viewerTitleText');
-    const viewerTitleSub = document.getElementById('viewerTitleSub');
-    const viewerBookmarkBtn = document.getElementById('viewerBookmarkBtn');
-    const viewerNotePanel = document.getElementById('viewerNotePanel');
-    const notePanelTitle = document.getElementById('notePanelTitle');
-    const notePanelSub = document.getElementById('notePanelSub');
-    const notePanelOpenBtn = document.getElementById('notePanelOpenBtn');
-    const notePanelCopy = document.getElementById('notePanelCopy');
-    const notePanelBookmark = document.getElementById('notePanelBookmark');
-    const viewerReloadBtn = document.getElementById('viewerReload');
-
-    let currentViewerItem = null;
-    let currentViewerUrl = '';
-    let viewerLoadTimer = null;
-
-    function renderViewerBookmarkIcon() {
-      if (!currentViewerItem) return;
-      const on = isBookmarked(currentViewerItem.path);
-      viewerBookmarkBtn.classList.toggle('active', on);
-      notePanelBookmark.classList.toggle('active', on);
-    }
-    viewerBookmarkBtn.addEventListener('click', () => {
-      if (!currentViewerItem) return;
-      const on = toggleBookmark(currentViewerItem.path, currentViewerItem.meta);
-      renderViewerBookmarkIcon();
-      toast(on ? 'Bookmark added' : 'Bookmark removed');
-    });
-    notePanelBookmark.addEventListener('click', () => {
-      if (!currentViewerItem) return;
-      const on = toggleBookmark(currentViewerItem.path, currentViewerItem.meta);
-      renderViewerBookmarkIcon();
-      toast(on ? 'Bookmark added' : 'Bookmark removed');
-    });
-    document.getElementById('viewerCopyBtn').addEventListener('click', () => { if (currentViewerUrl) copyLink(currentViewerUrl); });
-    notePanelCopy.addEventListener('click', () => { if (currentViewerUrl) copyLink(currentViewerUrl); });
-    notePanelOpenBtn.addEventListener('click', () => { if (currentViewerUrl) window.open(currentViewerUrl, '_blank',
-        'noopener'); });
-
-    async function loadTestIntoFrame(url) {
-      clearTimeout(viewerLoadTimer);
-      viewerLoadTimer = setTimeout(() => { viewerLoading.style.display = 'none'; }, 12000);
-      try {
-        const res = await fetch(url, { cache: 'no-store' });
-        if (!res.ok) throw new Error('fetch failed: ' + res.status);
-        let html = await res.text();
-        const baseHref = url.slice(0, url.lastIndexOf('/') + 1);
-        if (/<head[^>]*>/i.test(html)) {
-          html = html.replace(/<head[^>]*>/i, m => `${m}\n<base href="${baseHref}">`);
-        } else if (/<html[^>]*>/i.test(html)) {
-          html = html.replace(/<html[^>]*>/i, m => `${m}\n<head><base href="${baseHref}"></head>`);
-        } else {
-          html = `<base href="${baseHref}">` + html;
+        function toggleBookmark(path, meta) {
+            const b = getBookmarks();
+            if (b[path]) delete b[path];
+            else if (meta) b[path] = meta;
+            store.set('mt_bookmarks', b);
+            return !!b[path];
         }
-        const blob = new Blob([html], { type: 'text/html' });
-        viewerFrame.src = URL.createObjectURL(blob);
-      } catch {
-        viewerFrame.src = url;
-        toast('Trouble loading — try "Open in new tab"');
-      }
-    }
 
-    function openViewer(courseName, subjectName, section, index) {
-      const course = courses[courseName];
-      const subj = course && course.subjects[subjectName];
-      const items = subj ? (section === 'tests' ? subj.tests : subj.notes) : [];
-      const item = items[index];
-      if (!item) { viewerEl.style.display = 'none'; return false; }
-      const url = rawUrl(item.path);
-      currentViewerUrl = url;
-      viewerTitleText.textContent = item.name;
-      viewerTitleSub.textContent = `${courseName} · ${subjectName}`;
-      const meta = { course: courseName, subject: subjectName, section: section, index: index, name: item.name,
-        path: item.path };
-      currentViewerItem = { path: item.path, meta: meta };
-      renderViewerBookmarkIcon();
-      pushRecent(meta);
-      viewerEl.style.display = 'flex';
-      if (section === 'tests') {
-        viewerFrameWrap.style.display = 'block';
-        viewerNotePanel.style.display = 'none';
-        viewerReloadBtn.style.display = '';
-        viewerLoading.style.display = 'flex';
-        markAttempted(item.path);
-        loadTestIntoFrame(url);
-      } else {
-        viewerFrameWrap.style.display = 'none';
-        viewerNotePanel.style.display = 'flex';
-        viewerReloadBtn.style.display = 'none';
-        notePanelTitle.textContent = item.name;
-        notePanelSub.textContent = `${courseName} · ${subjectName}`;
-      }
-      return true;
-    }
-    viewerFrame.addEventListener('load', () => { clearTimeout(viewerLoadTimer);
-      viewerLoading.style.display = 'none'; });
-    document.getElementById('viewerBack').addEventListener('click', () => history.back());
-    document.getElementById('viewerOpenNew').addEventListener('click', () => { if (currentViewerUrl) window.open(currentViewerUrl,
-        '_blank', 'noopener'); });
-    viewerReloadBtn.addEventListener('click', () => {
-      viewerLoading.style.display = 'flex';
-      if (currentViewerItem && currentViewerItem.meta.section === 'tests') loadTestIntoFrame(currentViewerUrl);
-    });
+        function getAttempted() { return store.get('mt_attempted', {}); }
 
-    /* ─── SEARCH ─── */
-    const searchOverlay = document.getElementById('searchOverlay');
-    const globalSearch = document.getElementById('globalSearch');
-    document.getElementById('searchToggle').addEventListener('click', () => {
-      searchOverlay.style.display = 'flex';
-      globalSearch.value = '';
-      globalSearch.focus();
-      renderSearchResults();
-    });
+        function markAttempted(path) {
+            const a = getAttempted();
+            if (!a[path]) { a[path] = true;
+                store.set('mt_attempted', a);
+                addXP(10); }
+        }
 
-    function closeSearch() { searchOverlay.style.display = 'none'; }
+        function getXP() { return store.get('mt_xp', 0); }
 
-    function renderSearchResults() {
-      const q = globalSearch.value.trim().toLowerCase();
-      const resultsEl = document.getElementById('searchResults');
-      if (!q) { resultsEl.innerHTML = `<div class="state"><p>Type a course, subject, test or notes name.</p></div>`; return; }
-      const all = flattenAll().filter(i =>
-        i.name.toLowerCase().includes(q) || i.course.toLowerCase().includes(q) || i.subject.toLowerCase().includes(q)
-      ).slice(0, 40);
-      if (all.length === 0) { resultsEl.innerHTML = `<div class="state"><p>Nothing found. Try another keyword.</p></div>`; return; }
-      resultsEl.innerHTML = all.map(i => {
-        const segs = ["course", i.course, "subject", i.subject, i.type, String(i.index)];
-        const onclick = i.type === 'notes'
-          ? `closeSearch(); openNoteDirect(${JSON.stringify(i.course)}, ${JSON.stringify(i.subject)}, ${i.index}, ${JSON.stringify(segs)})`
-          : `closeSearch(); navigate(${JSON.stringify(segs)})`;
-        return `
-          <div class="sr-item" onclick='${onclick}'>
-            <div class="fr-icon">${i.type === 'tests' ? ICON_TEST : ICON_NOTE}</div>
-            <div class="fr-body"><b>${esc(i.name)}</b><span>${esc(i.course)} · ${esc(i.subject)}</span></div>
-            <div class="fr-arrow">${ICON_CHEVRON}</div>
-          </div>`;
-      }).join('');
-    }
+        function addXP(n) { store.set('mt_xp', getXP() + n); }
 
-    /* ─── MASTER RENDER ─── */
-    document.getElementById('backBtn').addEventListener('click', () => history.back());
-    document.getElementById('homeBtn').addEventListener('click', () => navigate([]));
+        function getLevel(xp) { return Math.floor(xp / 100) + 1; }
 
-    function render() {
-      const seg = currentRoute();
-      viewerEl.style.display = 'none';
-      searchOverlay.style.display = 'none';
-      setActiveNav('home');
-      if (!loaded) {
-        if (seg.length === 0) renderHome();
-        else { setChrome(true, 'Loading…');
-          document.getElementById('content').innerHTML = `<div class="view">${skeletons(3)}</div>`; }
-        return;
-      }
-      if (seg.length === 0) renderHome();
-      else if (seg[0] === 'bookmarks') { renderBookmarksView();
-        setActiveNav('bookmarks'); } else if (seg[0] === 'progress') { renderProgressView();
-        setActiveNav('progress'); } else if (seg[0] === 'course' && seg.length === 2) renderCourseView(seg[1]);
-      else if (seg[0] === 'course' && seg[2] === 'subject' && seg.length === 4) renderSubjectView(seg[1], seg[3]);
-      else if (seg[0] === 'course' && seg[2] === 'subject' && seg.length === 5 && (seg[4] === 'tests' || seg[4] === 'notes'))
-        renderListView(seg[1], seg[3], seg[4]);
-      else if (seg[0] === 'course' && seg[2] === 'subject' && seg.length === 6 && (seg[4] === 'tests' || seg[4] === 'notes')) {
-        renderListView(seg[1], seg[3], seg[4]);
-        const ok = openViewer(seg[1], seg[3], seg[4], parseInt(seg[5], 10));
-        if (!ok) document.getElementById('content').innerHTML += stateBlock('❓', 'Item not found',
-          'This test or note does not exist.');
-      } else {
-        setChrome(true, 'Not found');
-        document.getElementById('content').innerHTML = `<div class="view">${stateBlock('❓', 'Page not found', 'Go back to Home.')}</div>`;
-      }
-    }
+        function todayStr() { return new Date().toISOString().slice(0, 10); }
 
-    updateStreak();
-    loadAll();
-  </script>
+        function updateStreak() {
+            const s = store.get('mt_streak', { count: 0, last: null });
+            const today = todayStr();
+            if (s.last === today) return s;
+            const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+            s.count = (s.last === yesterday) ? s.count + 1 : 1;
+            s.last = today;
+            store.set('mt_streak', s);
+            return s;
+        }
+
+        function getRecents() { return store.get('mt_recents', []); }
+
+        function pushRecent(meta) {
+            let r = getRecents().filter(x => x.path !== meta.path);
+            r.unshift(Object.assign({}, meta, { ts: Date.now() }));
+            r = r.slice(0, 8);
+            store.set('mt_recents', r);
+        }
+
+        function toast(msg) {
+            const t = document.getElementById('toastEl');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+        }
+
+        function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;',
+                "'": '&#39;' }[c])); }
+
+        function toTitle(name) {
+            return name.replace(/\.html?$/i, '').replace(/\.pdf$/i, '').replace(/\.json$/i, '').replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c
+            .toUpperCase());
+        }
+
+        function rawUrl(path) {
+            return `https://cdn.jsdelivr.net/gh/${GITHUB_USER}/${GITHUB_REPO}@${GITHUB_BRANCH}/` + path.split('/').map(
+                encodeURIComponent).join('/');
+        }
+
+        async function fetchTree() {
+            const url =
+                `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
+            const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+            if (!res.ok) throw { status: res.status };
+            return res.json();
+        }
+
+        const IMG_EXT_RE = /\.(png|jpe?g|webp|gif|avif)$/i;
+
+        function buildStructure(tree) {
+            const files = (tree.tree || []).filter(f => f.type === 'blob' && f.path.startsWith(ROOT_FOLDER + '/'));
+            const out = {};
+            const courseBannerCandidates = {};
+            files.forEach(f => {
+                const rel = f.path.slice(ROOT_FOLDER.length + 1);
+                const parts = rel.split('/');
+                const fileName = parts[parts.length - 1];
+
+                // course-level cover image, e.g. courses/SI Tiger Batch/cover.jpg
+                if (parts.length === 2 && IMG_EXT_RE.test(fileName)) {
+                    const courseName = parts[0];
+                    courseBannerCandidates[courseName] = courseBannerCandidates[courseName] || [];
+                    courseBannerCandidates[courseName].push(f.path);
+                    return;
+                }
+
+                if (parts.length < 4) return;
+                const courseName = parts[0];
+                const subjectName = parts[1];
+                const sectionRaw = parts[2].toLowerCase();
+                if (!/\.(html?|pdf|json)$/i.test(fileName)) return;
+                const sectionKey = sectionRaw.includes('note') ? 'notes' : 'tests';
+                out[courseName] = out[courseName] || { subjects: {}, banner: null };
+                out[courseName].subjects[subjectName] = out[courseName].subjects[subjectName] || { tests: [],
+                    notes: [] };
+                out[courseName].subjects[subjectName][sectionKey].push({
+                    name: toTitle(fileName),
+                    path: f.path,
+                    ext: fileName.split('.').pop().toLowerCase()
+                });
+            });
+            Object.keys(courseBannerCandidates).forEach(courseName => {
+                out[courseName] = out[courseName] || { subjects: {}, banner: null };
+                const candidates = courseBannerCandidates[courseName];
+                const preferred = candidates.find(p => /(cover|banner|thumb|thumbnail)/i.test(p));
+                out[courseName].banner = rawUrl(preferred || candidates[0]);
+            });
+            Object.values(out).forEach(course => {
+                course.banner = course.banner || null;
+                Object.values(course.subjects).forEach(subj => {
+                    subj.tests.sort((a, b) => a.name.localeCompare(b.name));
+                    subj.notes.sort((a, b) => a.name.localeCompare(b.name));
+                });
+            });
+            return out;
+        }
+
+        async function loadAll() {
+            loaded = false;
+            loadErr = null;
+            render();
+            try {
+                const tree = await fetchTree();
+                courses = buildStructure(tree);
+                loaded = true;
+            } catch (err) {
+                loadErr = err;
+                loaded = true;
+            }
+            render();
+        }
+
+        function applyTheme(t) {
+            document.documentElement.setAttribute('data-theme', t);
+            store.set('mt_theme', t);
+            document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+                btn.innerHTML = t === 'dark' ? SUN_SVG : MOON_SVG;
+            });
+        }
+        document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                applyTheme(cur);
+            });
+        });
+        applyTheme(store.get('mt_theme', 'light'));
+
+        function setActiveNav(key) {
+            document.querySelectorAll('.bn-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.key === key);
+            });
+        }
+
+        function currentRoute() {
+            const h = location.hash.replace(/^#\/?/, '');
+            if (!h) return [];
+            return h.split('/').filter(Boolean).map(decodeURIComponent);
+        }
+
+        function navigate(segments) {
+            location.hash = '/' + segments.map(encodeURIComponent).join('/');
+        }
+        window.addEventListener('hashchange', render);
+
+        function crumbsHTML(trail) {
+            return `<div class="crumbs">` + trail.map((c, i) => {
+                const isLast = i === trail.length - 1;
+                if (isLast) return `<span class="current">${esc(c.label)}</span>`;
+                return `<a href="javascript:void(0)" onclick='navigate(${JSON.stringify(c.segments)})'>${esc(c.label)}</a><span class="sep">›</span>`;
+            }).join('') + `</div>`;
+        }
+
+        function stateBlock(icon, title, text, retry) {
+            return `<div style="text-align:center;padding:40px 20px;color:var(--text-secondary);grid-column:1/-1;"><div style="font-size:2.2rem">${icon}</div><h3 style="font-weight:700;font-size:1.05rem;color:var(--text);margin:10px 0 4px;">${esc(title)}</h3><p style="font-size:0.82rem;line-height:1.6;max-width:380px;margin:0 auto;">${text}</p>${retry ? `<button class="retry-btn" style="margin-top:16px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 24px;font-weight:700;font-size:0.8rem;box-shadow:0 4px 16px var(--accent-glow);transition:all var(--transition);" onclick="loadAll()">Retry</button>` : ''}</div>`;
+        }
+
+        function skeletons(n) {
+            return `<div class="grid">` + Array.from({ length: n }).map(() =>
+                `<div style="height:130px;border-radius:var(--radius);background:linear-gradient(90deg,var(--bg-soft) 25%,var(--border-light) 37%,var(--bg-soft) 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite;"></div>`
+                ).join('') + `</div>`;
+        }
+
+        /* ─── HOME ─── */
+        function renderHome() {
+            const courseNames = Object.keys(courses);
+            let body;
+            if (!loaded) {
+                body = skeletons(3);
+            } else if (loadErr) {
+                body = stateBlock('⚠️', 'Could not load courses', 'Tap Retry in a moment.', true);
+            } else if (courseNames.length === 0) {
+                body = stateBlock('📜', 'No courses yet', `Add files to ${ROOT_FOLDER}/<Course>/<Subject>/tests/`);
+            } else {
+                const attempted = getAttempted();
+                body = `
+                    <div class="page-head"><div class="page-eyebrow">Test Series</div><h1>Choose Your Series</h1><p>Select a series to start practicing</p></div>
+                    <div class="grid">
+                        ${courseNames.map((name, idx) => {
+                            const subjCount = Object.keys(courses[name].subjects).length;
+                            let t=0,n=0,done=0;
+                            Object.values(courses[name].subjects).forEach(s=>{
+                                t+=s.tests.length; n+=s.notes.length;
+                                s.tests.forEach(tst=>{ if(attempted[tst.path]) done++; });
+                            });
+                            const pct = t ? Math.round(done/t*100) : 0;
+                            const banner = courses[name].banner;
+                            const bannerHTML = banner
+                                ? `<img class="course-banner" src="${esc(banner)}" alt="${esc(name)}" loading="lazy" onerror="this.parentElement.classList.add('ph')" />`
+                                : `<div class="course-banner ph"><span>${ICON_COURSE}</span></div>`;
+                            return `
+                                <div class="card course-card" style="animation-delay:${idx*0.04}s" onclick='navigate(["course", ${JSON.stringify(name)}])'>
+                                    <div class="course-banner-wrap">${bannerHTML}<span class="badge course-badge">${subjCount} subjects</span></div>
+                                    <div class="course-body">
+                                        <h3>${esc(name)}</h3>
+                                        <div class="meta">${ICON_TEST} ${t} Tests · ${ICON_NOTE} ${n} Notes</div>
+                                        <div class="progress-mini"><div class="bar"><i style="width:${pct}%"></i></div><span>${pct}% done</span></div>
+                                        <div class="action">Explore Batch ${ICON_CHEVRON}</div>
+                                    </div>
+                                </div>`;
+                        }).join('')}
+                    </div>`;
+            }
+            document.getElementById('content').innerHTML = `<div class="view">${body}</div>`;
+        }
+
+        /* ─── COURSE → SUBJECTS (Step 2) ─── */
+        function renderCourseView(courseName) {
+            const course = courses[courseName];
+            if (!course) {
+                document.getElementById('content').innerHTML =
+                    `<div class="view">${crumbsHTML([{label:'Home',segments:[]},{label:courseName,segments:[]}])}${stateBlock('❓','Not found','')}</div>`;
+                return;
+            }
+            const subjects = Object.keys(course.subjects);
+            const trail = [{ label: 'Home', segments: [] }, { label: courseName, segments: ['course', courseName] }];
+            let body;
+            if (subjects.length === 0) {
+                body = stateBlock('📁', 'No subjects', 'Add subject folders.');
+            } else {
+                body = `
+                    <div class="page-head"><div class="page-eyebrow">Step 2 of 3</div><h1>Subjects</h1><p>Pick your subject to continue</p></div>
+                    <div class="subject-list">
+                        ${subjects.map(s => `
+                            <div class="subject-row" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(s)}])'>
+                                <div class="sub-icon">${s.charAt(0).toUpperCase()}</div>
+                                <div class="subject-row-info">
+                                    <h3>${esc(s)}</h3>
+                                    <span>${course.subjects[s].tests.length} tests · ${course.subjects[s].notes.length} notes</span>
+                                </div>
+                                <div class="subject-row-arrow">${ICON_CHEVRON}</div>
+                            </div>
+                        `).join('')}
+                    </div>`;
+            }
+            document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+        }
+
+        /* ─── SUBJECT → TESTS (Step 3) ─── */
+        function renderSubjectView(courseName, subjectName) {
+            const course = courses[courseName];
+            const subj = course && course.subjects[subjectName];
+            const trail = [
+                { label: 'Home', segments: [] },
+                { label: courseName, segments: ['course', courseName] },
+                { label: subjectName, segments: ['course', courseName, 'subject', subjectName] }
+            ];
+            if (!subj) {
+                document.getElementById('content').innerHTML =
+                    `<div class="view">${crumbsHTML(trail)}${stateBlock('❓','Not found','')}</div>`;
+                return;
+            }
+            const tests = subj.tests;
+            let body;
+            if (tests.length === 0) {
+                body = stateBlock('📝', 'No tests yet', 'Add test files to this subject.');
+            } else {
+                const attempted = getAttempted();
+                body = `
+                    <div class="page-head"><div class="page-eyebrow">Step 3 of 3</div><h1>Available Tests</h1><p>Select a test to start</p></div>
+                    <div class="test-list">
+                        ${tests.map((t, idx) => {
+                            const done = !!attempted[t.path];
+                            const isJson = t.ext === 'json';
+                            return `
+                            <div class="test-item" onclick='navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, "test", ${String(idx)}])'>
+                                <div class="test-item-top">
+                                    <div class="test-item-icon">${ICON_TEST}</div>
+                                    <div class="test-info">
+                                        <h3>${esc(t.name)}</h3>
+                                        <div class="test-meta">
+                                            <span>${isJson ? ICON_QUESTION + ' Objective Test' : '📄 Reference File'}</span>
+                                            ${done ? '<span class="done-chip">✓ Attempted</span>' : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn-primary btn-block" onclick='event.stopPropagation(); navigate(["course", ${JSON.stringify(courseName)}, "subject", ${JSON.stringify(subjectName)}, "test", ${String(idx)}])'>${isJson ? (done ? 'Retake Test' : 'Attempt Test') : 'Open File'} ${ICON_CHEVRON}</button>
+                            </div>`;
+                        }).join('')}
+                    </div>`;
+            }
+            document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+        }
+
+        /* ─── TEST → QUIZ INTERFACE ─── */
+        function renderTestView(courseName, subjectName, testIndex) {
+            const course = courses[courseName];
+            const subj = course && course.subjects[subjectName];
+            const tests = subj ? subj.tests : [];
+            const test = tests[parseInt(testIndex)];
+            const trail = [
+                { label: 'Home', segments: [] },
+                { label: courseName, segments: ['course', courseName] },
+                { label: subjectName, segments: ['course', courseName, 'subject', subjectName] },
+                { label: test ? test.name : 'Test', segments: [] }
+            ];
+            if (!test) {
+                document.getElementById('content').innerHTML =
+                    `<div class="view">${crumbsHTML(trail)}${stateBlock('❓','Test not found','')}</div>`;
+                return;
+            }
+            const crumbs = crumbsHTML(trail);
+            window._testMeta = { courseName, subjectName, testIndex, testName: test.name, path: test.path };
+
+            if (test.ext !== 'json') {
+                // Legacy note/pdf-style file: no structured quiz data, offer to open it directly
+                document.getElementById('content').innerHTML = `<div class="view">${crumbs}${stateBlock('📄', test.name, 'This file opens outside the quiz engine.')}
+                    <div style="text-align:center;margin-top:-8px;"><a class="btn-outline" style="padding:9px 22px;border-radius:var(--radius-sm);display:inline-block;" href="${rawUrl(test.path)}" target="_blank" rel="noopener">Open File →</a></div></div>`;
+                markAttempted(test.path);
+                return;
+            }
+
+            document.getElementById('content').innerHTML = `<div class="view">${crumbs}
+                <div class="quiz-loading"><div class="spinner"></div>Loading test…</div></div>`;
+
+            fetch(rawUrl(test.path))
+                .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+                .then(data => {
+                    if (!data.questions || data.questions.length === 0) throw new Error('This test has no questions yet');
+                    initQuizEngine(data, crumbs);
+                })
+                .catch(err => {
+                    document.getElementById('content').innerHTML = `<div class="view">${crumbs}${stateBlock('⚠️', 'Could not load test', esc(err.message), true)}</div>`;
+                });
+        }
+
+        /* ─── QUIZ ENGINE (real data, admin-panel feature parity) ─── */
+        const QZ = {
+            title: '', timeLimit: 60, negativeMark: 0, questions: [], answers: [], bookmarks: [],
+            timePerQ: [], current: 0, submitted: false, reviewMode: false, fontLevel: 0,
+            qStart: null, endTime: null, timerInterval: null, crumbsHTML: ''
+        };
+
+        function shuffleArr(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+            return a;
+        }
+
+        function initQuizEngine(data, crumbs) {
+            QZ.title = data.title || window._testMeta.testName;
+            QZ.timeLimit = data.timeLimit || 60;
+            QZ.negativeMark = data.negativeMark || 0;
+            let qs = data.questions.map(q => ({ ...q, question: (q.question != null ? q.question : q.text) || '', options: [...q.options] }));
+            if (data.shuffleQuestions) qs = shuffleArr(qs);
+            if (data.shuffleOptions) {
+                qs = qs.map(q => {
+                    const order = shuffleArr(q.options.map((_, i) => i));
+                    return { ...q, options: order.map(i => q.options[i]), correctIndex: order.indexOf(q.correctIndex) };
+                });
+            }
+            QZ.questions = qs;
+            QZ.answers = Array(qs.length).fill(null);
+            QZ.bookmarks = Array(qs.length).fill(false);
+            QZ.timePerQ = Array(qs.length).fill(0);
+            QZ.current = 0;
+            QZ.submitted = false;
+            QZ.reviewMode = false;
+            QZ.fontLevel = 0;
+            QZ.qStart = Date.now();
+            QZ.endTime = Date.now() + QZ.timeLimit * 60000;
+            QZ.crumbsHTML = crumbs;
+
+            document.getElementById('content').innerHTML = `<div class="view">${crumbs}
+                <div class="quiz-container">
+                    <div class="quiz-meta-strip">
+                        <div>
+                            <div class="qm-title">${esc(QZ.title)}</div>
+                            <div class="qm-sub">${esc(window._testMeta.subjectName)} · ${QZ.questions.length} Questions</div>
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                            ${QZ.negativeMark > 0 ? `<span class="neg-mark-badge">✕ −${QZ.negativeMark} per wrong</span>` : ''}
+                            <span class="attempt-badge" id="attemptBadge">0 / ${QZ.questions.length} answered</span>
+                            <div class="timer" id="quizTimer">⏱ --:--</div>
+                        </div>
+                    </div>
+                    <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill" style="width:100%"></div></div>
+
+                    <div class="quiz-toolbar">
+                        <button onclick="changeQuizFont(-1)">A−</button>
+                        <button onclick="changeQuizFont(1)">A+</button>
+                    </div>
+
+                    <div id="quizQuestions"></div>
+
+                    <div class="quiz-palette" id="quizPalette"></div>
+
+                    <div class="quiz-actionbar">
+                        <button class="bookmark-toggle" id="bookmarkToggle" onclick="toggleQuizBookmark()">☆ Flag for review</button>
+                        <div class="nav-btns">
+                            <button class="prev" id="qPrevBtn" onclick="navQuizQuestion(-1)">← Prev</button>
+                            <button class="next" id="qNextBtn" onclick="navQuizQuestion(1)">Next →</button>
+                        </div>
+                        <button class="submit-btn" onclick="submitQuizEngine()">Submit</button>
+                    </div>
+                </div>
+                <div id="resultWrap" style="margin-top:16px;"></div>
+            </div>`;
+
+            renderPalette();
+            renderQuizQuestion(0);
+            startQuizTimer();
+            markAttempted(window._testMeta.path);
+            pushRecent({ course: window._testMeta.courseName, subject: window._testMeta.subjectName, section: 'tests',
+                index: parseInt(window._testMeta.testIndex), name: window._testMeta.testName, path: window._testMeta.path });
+        }
+
+        function renderPalette() {
+            const el = document.getElementById('quizPalette');
+            if (!el) return;
+            el.innerHTML = QZ.questions.map((q, i) => {
+                let cls = 'qp-box';
+                if (QZ.submitted) {
+                    if (QZ.answers[i] === null) cls += '';
+                    else cls += (QZ.answers[i] === q.correctIndex ? ' correct' : ' incorrect');
+                } else if (QZ.answers[i] !== null) cls += ' answered';
+                if (i === QZ.current) cls += ' current';
+                if (QZ.bookmarks[i]) cls += ' bookmarked';
+                return `<div class="${cls}" onclick="goToQuizQuestion(${i})">${i + 1}</div>`;
+            }).join('');
+        }
+
+        function renderQuizQuestion(idx) {
+            QZ.current = idx;
+            const q = QZ.questions[idx];
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+            const selected = QZ.answers[idx];
+            const optionsHTML = q.options.map((opt, oi) => {
+                let cls = 'option';
+                if (QZ.submitted) {
+                    cls += ' disabled';
+                    if (oi === q.correctIndex) cls += ' correct';
+                    else if (oi === selected) cls += ' incorrect';
+                } else if (oi === selected) cls += ' selected';
+                return `<div class="${cls}" ${QZ.submitted ? '' : `onclick="selectQuizOption(${oi})"`}>
+                    <span class="letter">${letters[oi]}.</span>
+                    <span class="label">${esc(opt)}</span>
+                    <div class="radio ${oi === selected ? 'selected' : ''}"></div>
+                </div>`;
+            }).join('');
+            const explanationHTML = (QZ.submitted && q.explanation) ?
+                `<div class="quiz-explanation"><b>Explanation:</b> ${esc(q.explanation)}</div>` : '';
+            document.getElementById('quizQuestions').innerHTML = `
+                <div class="quiz-question">
+                    <div class="q-text">Q${idx + 1}. ${esc(q.question)}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    ${explanationHTML}
+                </div>`;
+            applyQuizFont();
+            const bmBtn = document.getElementById('bookmarkToggle');
+            if (bmBtn) {
+                bmBtn.classList.toggle('active', QZ.bookmarks[idx]);
+                bmBtn.textContent = QZ.bookmarks[idx] ? '★ Flagged' : '☆ Flag for review';
+                bmBtn.style.display = QZ.submitted ? 'none' : 'flex';
+            }
+            document.getElementById('qPrevBtn').style.opacity = idx === 0 ? '0.4' : '1';
+            document.getElementById('qNextBtn').textContent = idx === QZ.questions.length - 1 ? (QZ.submitted ? 'Latest →' : 'Next →') : 'Next →';
+            renderPalette();
+        }
+
+        window.selectQuizOption = function(oi) {
+            if (QZ.submitted) return;
+            if (QZ._advanceTimer) { clearTimeout(QZ._advanceTimer); QZ._advanceTimer = null; }
+            QZ.answers[QZ.current] = oi;
+            renderQuizQuestion(QZ.current);
+            updateAttemptBadge();
+            // Auto-advance to next question shortly after an option is picked
+            const isLast = QZ.current === QZ.questions.length - 1;
+            if (!isLast) {
+                const thisQ = QZ.current;
+                QZ._advanceTimer = setTimeout(() => {
+                    QZ._advanceTimer = null;
+                    // Only advance if still on the same question and still selected
+                    if (!QZ.submitted && QZ.current === thisQ && QZ.answers[thisQ] === oi) {
+                        recordTimeSpent();
+                        renderQuizQuestion(thisQ + 1);
+                    }
+                }, 500);
+            }
+        };
+
+        window.goToQuizQuestion = function(i) {
+            recordTimeSpent();
+            renderQuizQuestion(i);
+        };
+
+        window.navQuizQuestion = function(dir) {
+            const newIdx = QZ.current + dir;
+            if (newIdx < 0 || newIdx >= QZ.questions.length) return;
+            recordTimeSpent();
+            renderQuizQuestion(newIdx);
+        };
+
+        function recordTimeSpent() {
+            const now = Date.now();
+            QZ.timePerQ[QZ.current] += (now - QZ.qStart) / 1000;
+            QZ.qStart = now;
+        }
+
+        window.toggleQuizBookmark = function() {
+            QZ.bookmarks[QZ.current] = !QZ.bookmarks[QZ.current];
+            renderQuizQuestion(QZ.current);
+        };
+
+        function updateAttemptBadge() {
+            const answered = QZ.answers.filter(a => a !== null).length;
+            const badge = document.getElementById('attemptBadge');
+            if (badge) badge.textContent = `${answered} / ${QZ.questions.length} answered`;
+        }
+
+        window.changeQuizFont = function(delta) {
+            QZ.fontLevel = Math.max(-4, Math.min(6, QZ.fontLevel + delta));
+            applyQuizFont();
+        };
+        function applyQuizFont() {
+            const step = QZ.fontLevel * 0.06;
+            const qSize = Math.max(0.85, Math.min(1.5, 1.1 + step)).toFixed(2);
+            const optSize = Math.max(0.72, Math.min(1.25, 0.92 + step)).toFixed(2);
+            document.querySelectorAll('.quiz-question .q-text').forEach(el => el.style.fontSize = qSize + 'rem');
+            document.querySelectorAll('.quiz-options .label').forEach(el => el.style.fontSize = optSize + 'rem');
+        }
+
+        function startQuizTimer() {
+            if (QZ.timerInterval) clearInterval(QZ.timerInterval);
+            const duration = QZ.timeLimit * 60000;
+            const tick = () => {
+                const left = QZ.endTime - Date.now();
+                const timerEl = document.getElementById('quizTimer');
+                const fillEl = document.getElementById('quizProgressFill');
+                if (left <= 0) {
+                    clearInterval(QZ.timerInterval);
+                    if (timerEl) timerEl.textContent = '⏱ 00:00';
+                    toast('⏰ Time is up! Auto-submitting…');
+                    submitQuizEngine();
+                    return;
+                }
+                const mins = Math.floor(left / 60000).toString().padStart(2, '0');
+                const secs = Math.floor((left % 60000) / 1000).toString().padStart(2, '0');
+                if (timerEl) timerEl.textContent = `⏱ ${mins}:${secs}`;
+                if (fillEl) {
+                    fillEl.style.width = `${(left / duration) * 100}%`;
+                    fillEl.className = 'quiz-progress-fill' + (left < duration * 0.15 ? ' danger' : left < duration * 0.35 ? ' warn' : '');
+                }
+            };
+            tick();
+            QZ.timerInterval = setInterval(tick, 1000);
+        }
+
+        window.submitQuizEngine = function() {
+            if (QZ.submitted) return;
+            clearInterval(QZ.timerInterval);
+            recordTimeSpent();
+            QZ.submitted = true;
+            let correct = 0, incorrect = 0, unattempted = 0, negTotal = 0;
+            QZ.answers.forEach((a, i) => {
+                if (a === null) unattempted++;
+                else if (a === QZ.questions[i].correctIndex) correct++;
+                else { incorrect++; negTotal += QZ.negativeMark; }
+            });
+            const score = correct - negTotal;
+            const pct = Math.round((score / QZ.questions.length) * 100);
+            document.getElementById('quizPalette').scrollIntoView && null;
+
+            document.getElementById('resultWrap').innerHTML = `
+                <div class="quiz-container result-panel">
+                    <div class="result-score">${score.toFixed(2)} <span style="font-size:1rem;color:var(--text-muted);">/ ${QZ.questions.length}</span></div>
+                    <div class="result-sub">Your Score · ${pct}%</div>
+                    <div class="result-stats-grid">
+                        <div class="result-stat green"><b>${correct}</b><span>Correct</span></div>
+                        <div class="result-stat red"><b>${incorrect}</b><span>Incorrect</span></div>
+                        <div class="result-stat orange"><b>${unattempted}</b><span>Skipped</span></div>
+                        <div class="result-stat"><b>−${negTotal.toFixed(2)}</b><span>Penalty</span></div>
+                    </div>
+                    <div class="result-charts">
+                        <div class="chart-box"><h6>Performance</h6><canvas id="perfChart"></canvas></div>
+                        <div class="chart-box"><h6>Time per Question</h6><canvas id="timeChart"></canvas></div>
+                    </div>
+                    <div class="result-actions">
+                        <button class="btn-review" onclick="reviewQuizAnswers()">🔍 View Solutions</button>
+                        <a class="btn-back" href="javascript:void(0)" onclick='navigate(["course", ${JSON.stringify(window._testMeta.courseName)}, "subject", ${JSON.stringify(window._testMeta.subjectName)}])'>← Back to tests</a>
+                    </div>
+                </div>`;
+
+            const perfCtx = document.getElementById('perfChart').getContext('2d');
+            new Chart(perfCtx, { type: 'doughnut', data: { labels: ['Correct', 'Incorrect', 'Skipped'],
+                datasets: [{ data: [correct, incorrect, unattempted], backgroundColor: ['#16a34a', '#dc2626', '#f59e0b'] }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } } });
+
+            const timeCtx = document.getElementById('timeChart').getContext('2d');
+            new Chart(timeCtx, { type: 'bar', data: { labels: QZ.questions.map((_, i) => 'Q' + (i + 1)),
+                datasets: [{ label: 'Seconds', data: QZ.timePerQ.map(t => Math.round(t)), backgroundColor: '#b45309' }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true }, x: { ticks: { font: { size: 9 } } } } } });
+
+            addXP(Math.max(0, correct * 5));
+            renderQuizQuestion(QZ.current);
+            toast(`✅ Test submitted! ${correct}/${QZ.questions.length} correct`);
+        };
+
+        window.reviewQuizAnswers = function() {
+            QZ.reviewMode = true;
+            document.getElementById('resultWrap').style.display = 'none';
+            renderQuizQuestion(0);
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        /* ─── SAVED ─── */
+        function renderSavedView() {
+            const b = getBookmarks();
+            const paths = Object.keys(b);
+            const trail = [{ label: 'Home', segments: [] }, { label: 'Saved', segments: [] }];
+            let body;
+            if (paths.length === 0) {
+                body = stateBlock('⭐', 'No bookmarks yet', 'Tap the star on any test to save it.');
+            } else {
+                body = `
+                    <div class="page-head"><h1>Saved Tests</h1><p>${paths.length} bookmarks</p></div>
+                    <div class="test-list">
+                        ${paths.map((p, idx) => {
+                            const m = b[p];
+                            return `
+                                <div class="test-item" onclick='navigate(["course", ${JSON.stringify(m.course)}, "subject", ${JSON.stringify(m.subject)}, "test", ${String(m.index)}])'>
+                                    <div class="test-info"><h3>${esc(m.name)}</h3><div class="test-meta"><span>${esc(m.course)} · ${esc(m.subject)}</span></div></div>
+                                    <div class="test-action"><button class="btn-outline" onclick='event.stopPropagation(); toggleBookmark(${JSON.stringify(p)}); renderSavedView(); toast("Removed");'>Remove</button></div>
+                                </div>`;
+                        }).join('')}
+                    </div>`;
+            }
+            document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+        }
+
+        /* ─── PROGRESS ─── */
+        function renderProgressView() {
+            const xp = getXP();
+            const level = getLevel(xp);
+            const streak = store.get('mt_streak', { count: 0, last: null });
+            const attempted = getAttempted();
+            const count = Object.keys(attempted).length;
+            const trail = [{ label: 'Home', segments: [] }, { label: 'Progress', segments: [] }];
+            const body = `
+                <div class="page-head"><h1>Your Progress</h1><p>Keep the streak alive</p></div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:500px;margin:0 auto 24px;">
+                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${streak.count}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">Streak</span></div>
+                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${level}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">Level</span></div>
+                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${xp}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">XP</span></div>
+                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${count}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">Tests Done</span></div>
+                </div>
+                <div style="text-align:center;color:var(--text-secondary);font-size:0.85rem;">🏆 Keep practicing to level up!</div>
+            `;
+            document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
+        }
+
+        /* ─── MASTER RENDER ─── */
+        function render() {
+            const seg = currentRoute();
+            setActiveNav('home');
+            if (!loaded) {
+                document.getElementById('content').innerHTML = `<div class="view">${skeletons(3)}</div>`;
+                return;
+            }
+            if (seg.length === 0) renderHome();
+            else if (seg[0] === 'saved') { renderSavedView();
+                setActiveNav('saved'); } else if (seg[0] === 'progress') { renderProgressView();
+                setActiveNav('progress'); } else if (seg[0] === 'tests') { renderHome();
+                setActiveNav('tests'); } else if (seg[0] === 'course' && seg.length === 2) renderCourseView(seg[1]);
+            else if (seg[0] === 'course' && seg[2] === 'subject' && seg.length === 4) renderSubjectView(seg[1], seg[3]);
+            else if (seg[0] === 'course' && seg[2] === 'subject' && seg[4] === 'test' && seg.length === 6)
+                renderTestView(seg[1], seg[3], seg[5]);
+            else {
+                document.getElementById('content').innerHTML =
+                    `<div class="view">${stateBlock('❓', 'Page not found', 'Go back to Home.')}</div>`;
+            }
+        }
+
+        updateStreak();
+        loadAll();
+    </script>
 </body>
 </html>
