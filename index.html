@@ -177,6 +177,22 @@
         .bn-item.active .bn-dot {
             opacity: 1;
         }
+        .bn-item .bn-badge {
+            position: absolute;
+            top: 4px;
+            right: 50%;
+            margin-right: -13px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--red, #dc2626);
+            box-shadow: 0 0 0 2px var(--bg-card, #fff);
+            animation: bnBadgePulse 1.8s ease-in-out infinite;
+        }
+        @keyframes bnBadgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
 
         /* ─── home nav ─── */
         .home-nav {
@@ -895,80 +911,117 @@
         }
         .pdf-fallback-strip a { color: var(--accent); font-weight: 700; text-decoration: none; }
 
-        /* ─── telegram-style news feed ─── */
+        /* ─── premium channel-style updates feed ─── */
         .news-feed-head {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin: 30px 0 16px;
-            padding-top: 22px;
-            border-top: 1px dashed var(--border);
+            margin: 4px 0 18px;
         }
         .news-feed-head .nf-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
             background: linear-gradient(145deg, var(--accent), var(--accent-dark));
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            box-shadow: 0 4px 14px var(--accent-glow);
+            box-shadow: 0 6px 16px var(--accent-glow);
         }
-        .news-feed-head .nf-icon i { color: #fff8ea; font-size: 1rem; }
-        .news-feed-head h2 { font-size: 1.02rem; font-weight: 800; letter-spacing: -0.01em; }
+        .news-feed-head .nf-icon i { color: #fff8ea; font-size: 1.05rem; }
+        .news-feed-head h2 { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.01em; }
         .news-feed-head p { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
-        .news-feed { display: flex; flex-direction: column; gap: 12px; }
+        .news-feed { display: flex; flex-direction: column; gap: 14px; }
         .news-card {
             position: relative;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            padding: 14px 16px 14px 18px;
+            border-radius: 16px;
             box-shadow: var(--shadow-sm);
             overflow: hidden;
             animation: fadeSlideUp 0.4s ease both;
+            transition: box-shadow var(--transition), transform var(--transition);
         }
-        .news-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+        .news-card:active { transform: scale(0.995); }
+        .news-card.pinned {
+            border-color: var(--accent);
+            box-shadow: 0 6px 22px var(--accent-glow);
         }
-        .news-card.pinned::before { background: linear-gradient(180deg, var(--red), #7c1d1d); }
-        .news-card-top {
+        .news-card-chan {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 9px;
+            padding: 12px 14px 10px;
         }
-        .news-card-title {
-            font-size: 0.88rem;
-            font-weight: 800;
-            letter-spacing: -0.01em;
+        .news-card-chan .nc-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: linear-gradient(145deg, var(--accent), var(--accent-dark));
+            color: #fff8ea;
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-        .news-pin-badge {
-            font-size: 0.58rem;
+            justify-content: center;
+            font-size: 0.78rem;
             font-weight: 800;
-            color: var(--red);
-            background: var(--red-soft);
-            padding: 2px 7px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
             flex-shrink: 0;
+            box-shadow: 0 3px 10px var(--accent-glow);
         }
+        .news-card-chan .nc-chan-meta { flex: 1; min-width: 0; }
+        .news-card-chan .nc-chan-name {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .news-card-chan .nc-chan-name svg { width: 12px; height: 12px; flex-shrink: 0; color: var(--accent); }
         .news-card-date {
-            font-size: 0.64rem;
+            font-size: 0.63rem;
             color: var(--text-muted);
             font-weight: 600;
             white-space: nowrap;
             flex-shrink: 0;
+        }
+        .news-pin-badge {
+            font-size: 0.56rem;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, var(--red), #a11d1d);
+            padding: 3px 9px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .news-card-media {
+            position: relative;
+            width: 100%;
+            max-height: 340px;
+            overflow: hidden;
+            background: var(--bg-alt, rgba(0,0,0,0.03));
+            cursor: zoom-in;
+        }
+        .news-card-media img {
+            width: 100%;
+            height: 100%;
+            max-height: 340px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+        .news-card-media:active img { transform: scale(1.02); }
+        .news-card-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            padding: 12px 16px 0;
+            color: var(--text-primary);
         }
         .news-card-body {
             font-size: 0.82rem;
@@ -976,6 +1029,7 @@
             color: var(--text-secondary);
             white-space: pre-line;
             word-break: break-word;
+            padding: 6px 16px 14px;
         }
         .news-card-body a { color: var(--accent); font-weight: 600; text-decoration: none; }
         .news-card-body a:hover { text-decoration: underline; }
@@ -990,6 +1044,28 @@
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        /* fullscreen tap-to-zoom lightbox for update photos */
+        .news-lightbox {
+            position: fixed; inset: 0; z-index: 999;
+            background: rgba(10, 8, 4, 0.94);
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px;
+            animation: fadeSlideUp 0.2s ease both;
+            touch-action: pinch-zoom pan-x pan-y;
+        }
+        .news-lightbox img {
+            max-width: 100%; max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            touch-action: pinch-zoom pan-x pan-y;
+        }
+        .news-lightbox-close {
+            position: absolute; top: max(16px, env(safe-area-inset-top)); right: 16px;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.12); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; backdrop-filter: blur(8px);
         }
 
         /* ─── test series card (step 1) ─── */
@@ -1612,6 +1688,12 @@
             <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
             <span>Tests</span>
         </button>
+        <button class="bn-item" data-key="progress" onclick="navigate(['progress'])">
+            <span class="bn-dot"></span>
+            <span class="bn-badge" id="bnUpdatesBadge" style="display:none;"></span>
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>Updates</span>
+        </button>
         <button class="bn-item" data-key="notes" onclick="navigate(['notes'])">
             <span class="bn-dot"></span>
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
@@ -1621,11 +1703,6 @@
             <span class="bn-dot"></span>
             <svg viewBox="0 0 24 24"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
             <span>Saved</span>
-        </button>
-        <button class="bn-item" data-key="progress" onclick="navigate(['progress'])">
-            <span class="bn-dot"></span>
-            <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 3 5-8"/></svg>
-            <span>Progress</span>
         </button>
     </nav>
 
@@ -1638,9 +1715,12 @@
         const NEWS_FOLDER = "news";
         const PDF_EXT_RE = /\.pdf$/i;
         function pdfViewerUrl(path) {
-            // Google's document viewer gives a fast, "Drive-like" reading surface (pinch-zoom,
-            // page thumbnails, search) for any public URL without needing our own PDF.js bundle.
-            return `https://docs.google.com/viewer?embedded=true&url=` + encodeURIComponent(rawUrl(path));
+            // Stream the PDF straight from the CDN into the browser's own native PDF engine.
+            // This opens instantly (no round-trip through a third-party conversion service like
+            // Google Docs Viewer, which has to fully download+convert the file first — slow on
+            // big notes) and gives real two-finger pinch-to-zoom + native scrolling, since it's
+            // the same PDF renderer used when a person opens a PDF link directly.
+            return rawUrl(path) + '#view=FitH&toolbar=1&navpanes=0';
         }
 
         const ICON_COURSE =
@@ -1901,7 +1981,8 @@
                                 title: data.title || nf.fallbackTitle,
                                 body: data.body || '',
                                 date: data.date || nf.dateFromName,
-                                pinned: !!data.pinned
+                                pinned: !!data.pinned,
+                                image: normalizeNewsImage(data.image)
                             };
                         }
                         const raw = (await res.text()).replace(/\r\n/g, '\n').trim();
@@ -1911,7 +1992,7 @@
                             title = lines[0].replace(/^#+\s*/, '').trim() || title;
                             body = lines.slice(1).join('\n').trim() || raw;
                         }
-                        return { title, body, date: nf.dateFromName, pinned: /^pin(ned)?[-_]/i.test(nf.path.slice(NEWS_FOLDER.length + 1)) };
+                        return { title, body, date: nf.dateFromName, pinned: /^pin(ned)?[-_]/i.test(nf.path.slice(NEWS_FOLDER.length + 1)), image: null };
                     } catch { return null; }
                 }));
                 newsCache = items.filter(Boolean);
@@ -1922,16 +2003,47 @@
             return newsCache;
         }
 
-        function newsCardHTML(item) {
+        // A relative "image" value in a news JSON post (as written by the admin panel) is a repo
+        // path like "news/images/xyz.jpg" — resolve it to a raw URL. Absolute http(s) URLs pass through.
+        function normalizeNewsImage(value) {
+            if (!value || typeof value !== 'string') return null;
+            if (/^https?:\/\//i.test(value)) return value;
+            return rawUrl(value);
+        }
+
+        function newsCardHTML(item, idx) {
             const dateLabel = item.date ? new Date(item.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+            const mediaHTML = item.image
+                ? `<div class="news-card-media" onclick="openNewsImage('${esc(item.image)}')"><img src="${esc(item.image)}" alt="${esc(item.title)}" loading="lazy" onerror="this.closest('.news-card-media').style.display='none'" /></div>`
+                : '';
             return `
                 <div class="news-card${item.pinned ? ' pinned' : ''}">
-                    <div class="news-card-top">
-                        <div class="news-card-title">${item.pinned ? '<span class="news-pin-badge">📌 Pinned</span>' : ''}${esc(item.title)}</div>
+                    <div class="news-card-chan">
+                        <div class="nc-avatar">M</div>
+                        <div class="nc-chan-meta">
+                            <div class="nc-chan-name">Monk Quiz Updates <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6z"/></svg></div>
+                        </div>
+                        ${item.pinned ? '<span class="news-pin-badge">📌 Pinned</span>' : ''}
                         ${dateLabel ? `<span class="news-card-date">${dateLabel}</span>` : ''}
                     </div>
+                    ${mediaHTML}
+                    <div class="news-card-title">${esc(item.title)}</div>
                     <div class="news-card-body">${linkifyNews(item.body)}</div>
                 </div>`;
+        }
+
+        function openNewsImage(url) {
+            const box = document.createElement('div');
+            box.className = 'news-lightbox';
+            box.onclick = (e) => { if (e.target === box) closeNewsImage(); };
+            box.innerHTML = `<div class="news-lightbox-close" onclick="closeNewsImage()"><i class="fas fa-xmark"></i></div><img src="${esc(url)}" alt="" />`;
+            document.body.appendChild(box);
+            document.body.style.overflow = 'hidden';
+            window._newsLightbox = box;
+        }
+        function closeNewsImage() {
+            if (window._newsLightbox) { window._newsLightbox.remove(); window._newsLightbox = null; }
+            document.body.style.overflow = '';
         }
 
         async function renderNewsFeed() {
@@ -1967,6 +2079,7 @@
                 loaded = true;
             }
             render();
+            refreshUpdatesBadge();
         }
 
         function applyTheme(t) {
@@ -2801,25 +2914,37 @@
         }
 
         /* ─── PROGRESS ─── */
+        function latestNewsDate(items) {
+            let max = '';
+            (items || []).forEach(i => { if (i.date && i.date > max) max = i.date; });
+            return max;
+        }
+        async function refreshUpdatesBadge() {
+            const badge = document.getElementById('bnUpdatesBadge');
+            if (!badge) return;
+            if (!newsFiles || newsFiles.length === 0) { badge.style.display = 'none'; return; }
+            const items = await fetchNewsFeed();
+            if (!items || !items.length) { badge.style.display = 'none'; return; }
+            const latest = latestNewsDate(items);
+            const seen = store.get('mt_updates_seen', '');
+            badge.style.display = (latest && latest > seen) ? 'block' : 'none';
+        }
+        function markUpdatesSeen() {
+            fetchNewsFeed().then(items => {
+                const latest = latestNewsDate(items || []);
+                if (latest) store.set('mt_updates_seen', latest);
+                const badge = document.getElementById('bnUpdatesBadge');
+                if (badge) badge.style.display = 'none';
+            });
+        }
+
         function renderProgressView() {
-            const xp = getXP();
-            const level = getLevel(xp);
-            const streak = store.get('mt_streak', { count: 0, last: null });
-            const attempted = getAttempted();
-            const count = Object.keys(attempted).length;
-            const trail = [{ label: 'Home', segments: [] }, { label: 'Progress', segments: [] }];
+            const trail = [{ label: 'Home', segments: [] }, { label: 'Updates', segments: [] }];
             const body = `
-                <div class="page-head"><h1>Your Progress</h1><p>Keep the streak alive</p></div>
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:500px;margin:0 auto 24px;">
-                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${streak.count}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">Streak</span></div>
-                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${level}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">Level</span></div>
-                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${xp}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">XP</span></div>
-                    <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius-sm);padding:16px 8px;text-align:center;"><b style="display:block;font-size:1.4rem;font-weight:800;">${count}</b><span style="font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;">Tests Done</span></div>
-                </div>
-                <div style="text-align:center;color:var(--text-secondary);font-size:0.85rem;">🏆 Keep practicing to level up!</div>
+                <div class="page-head"><div class="page-eyebrow">Straight from the academy</div><h1>Updates</h1><p>Exam alerts, notices &amp; study news</p></div>
                 <div class="news-feed-head">
                     <div class="nf-icon"><i class="fab fa-telegram-plane"></i></div>
-                    <div><h2>Latest Updates</h2><p>Exam alerts &amp; notes, straight from the academy</p></div>
+                    <div><h2>Latest Updates</h2><p>New posts appear here first</p></div>
                 </div>
                 <div class="news-feed" id="newsFeedList">
                     <div class="news-empty"><div class="spinner" style="width:22px;height:22px;border:3px solid var(--border-light);border-top-color:var(--accent);border-radius:50%;margin:0 auto 10px;animation:spin 0.8s linear infinite;"></div>Loading updates…</div>
@@ -2827,6 +2952,7 @@
             `;
             document.getElementById('content').innerHTML = `<div class="view">${crumbsHTML(trail)}${body}</div>`;
             renderNewsFeed();
+            markUpdatesSeen();
         }
 
         /* ─── MASTER RENDER ─── */
