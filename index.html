@@ -168,6 +168,14 @@
            Instead: a small floating back control overlaid in the corner. */
         .html-test-view { position:fixed; inset:0; z-index:2500; background: var(--bg); display:none; flex-direction:column; }
         .html-test-frame { flex:1 1 auto; width:100%; height:100%; border:none; background:#fff; }
+        .html-test-error { flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; padding:32px 24px; color:var(--ink); background:var(--bg); }
+        .html-test-error i { font-size:2rem; color:var(--danger,#dc2626); margin-bottom:4px; }
+        .html-test-error .hte-title { font-weight:800; font-size:1rem; }
+        .html-test-error .hte-msg { font-size:0.8rem; color:var(--muted); max-width:340px; }
+        .html-test-error .hte-path { font-family:'JetBrains Mono',monospace; font-size:0.66rem; color:var(--muted); background:var(--card); border:1px dashed var(--line); border-radius:8px; padding:8px 10px; max-width:92vw; word-break:break-all; margin-top:4px; }
+        .html-test-error .hte-actions { display:flex; gap:10px; margin-top:14px; }
+        .html-test-error .hte-actions .btn { border-radius:20px; }
+        #htmlTestRetryBtn { background: linear-gradient(135deg, var(--tiger-500), var(--tiger-700)); color:#fff; border:none; }
         .html-test-loading { flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; text-align:center; padding:24px; color:var(--muted); background:var(--bg); }
         .quiz-header .subline { font-size:0.72rem; color:#c7d2e6; position:relative; z-index:1; }
         .quiz-header .timer { background:rgba(255,255,255,0.12); padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.85rem; position:relative; z-index:1; }
@@ -345,10 +353,21 @@
 
     <!-- ══════════ HTML TEST VIEW (renders external .html tests inline, in-app) ══════════ -->
     <div class="html-test-view" id="htmlTestView" style="display:none;">
-        <!-- No floating back control here on purpose — the hash router makes the
-             device/browser Back button navigate correctly, so a duplicate in-app
-             button was redundant (and was overlapping the test's own header). -->
+        <!-- No floating back control on the normal (loaded) state on purpose — the hash
+             router makes the device/browser Back button navigate correctly, and a duplicate
+             in-app button would overlap the test's own header. The error state below is the
+             one exception: if nothing loaded, the person needs a visible way back. -->
         <iframe class="html-test-frame" id="htmlTestFrame" title="Test"></iframe>
+        <div class="html-test-error" id="htmlTestError" style="display:none;">
+            <i class="fas fa-triangle-exclamation"></i>
+            <div class="hte-title">Test load nahi ho paya</div>
+            <div class="hte-msg" id="htmlTestErrorMsg"></div>
+            <div class="hte-path" id="htmlTestErrorPath"></div>
+            <div class="hte-actions">
+                <button class="btn btn-outline-secondary btn-sm" onclick="history.back()"><i class="fas fa-arrow-left me-1"></i>Back to test list</button>
+                <button class="btn btn-sm" id="htmlTestRetryBtn"><i class="fas fa-rotate me-1"></i>Retry</button>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -617,14 +636,20 @@
                 `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${encPath}`
             ];
             let lastErr;
+            const attempted = [];
             for (const mirrorUrl of mirrors) {
                 try {
                     const res = await fetch(mirrorUrl, { cache: 'no-store' });
                     if (!res.ok) throw new Error('HTTP ' + res.status);
                     return await res.text();
-                } catch (err) { lastErr = err; }
+                } catch (err) {
+                    attempted.push({ url: mirrorUrl, message: err.message });
+                    lastErr = err;
+                }
             }
-            throw lastErr || new Error('Unknown fetch error');
+            const finalErr = lastErr || new Error('Unknown fetch error');
+            finalErr.attempted = attempted;
+            throw finalErr;
         }
 
         // Renders a fetched .html test inside the iframe via `srcdoc`. This is the
@@ -635,11 +660,22 @@
         // directly, so it always renders as a page, never as source text.
         async function loadHtmlTestFrame(path) {
             const frame = document.getElementById('htmlTestFrame');
+            const errPanel = document.getElementById('htmlTestError');
             frame.srcdoc = '';
+            frame.style.display = 'block';
+            errPanel.style.display = 'none';
             try {
                 frame.srcdoc = await fetchRepoFile(path);
             } catch (err) {
-                showToast('Test load nahi ho paya: ' + err.message, 'error');
+                frame.style.display = 'none';
+                errPanel.style.display = 'flex';
+                document.getElementById('htmlTestErrorMsg').textContent =
+                    (err.message.includes('404'))
+                        ? 'Yeh file GitHub par is exact path par nahi mili (404). Ho sakta hai path galat ho ya file abhi publish na hui ho.'
+                        : ('Error: ' + err.message);
+                const attemptedLines = (err.attempted || []).map(a => `${a.message.padEnd(9)} ${a.url}`).join('\n');
+                document.getElementById('htmlTestErrorPath').textContent = `Tried:\n${attemptedLines || path}`;
+                document.getElementById('htmlTestRetryBtn').onclick = () => loadHtmlTestFrame(path);
             }
         }
 
