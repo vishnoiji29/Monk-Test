@@ -383,16 +383,38 @@
         // ══════════════════════════════════════════════
         let nav = { level: 'courses', course: null, subject: null }; // levels: courses | subjects | tests
 
-        async function fetchRepoTree() {
+        // jsdelivr's package-listing API mirrors the GitHub repo tree without the
+        // strict 60-requests/hour limit that unauthenticated api.github.com enforces
+        // per IP — that limit is the most common reason the WHOLE app (not just one
+        // test) suddenly stops loading anything after a bit of testing/traffic.
+        async function fetchRepoFileListFromJsdelivr() {
+            const { owner, repo, branch } = SRC;
+            const res = await fetch(`https://data.jsdelivr.com/v1/packages/gh/${owner}/${repo}@${branch}?structure=flat`, { cache: 'no-store' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            return (data.files || []).map(f => f.name.replace(/^\/+/, ''));
+        }
+
+        async function fetchRepoFileListFromGithubApi() {
             const { owner, repo, branch } = SRC;
             const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`;
             const res = await fetch(url);
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const data = await res.json();
-            const files = (data.tree || []).filter(f => f.type === 'blob' && f.path.startsWith('courses/'));
+            return (data.tree || []).filter(f => f.type === 'blob').map(f => f.path);
+        }
+
+        async function fetchRepoTree() {
+            let allPaths;
+            try {
+                allPaths = await fetchRepoFileListFromJsdelivr();
+            } catch (err) {
+                allPaths = await fetchRepoFileListFromGithubApi(); // fallback (e.g. a brand-new repo jsdelivr hasn't indexed yet)
+            }
+            const files = allPaths.filter(p => p.startsWith('courses/'));
             const tree = {};
-            files.forEach(f => {
-                const rel = f.path.slice('courses/'.length);
+            files.forEach(path => {
+                const rel = path.slice('courses/'.length);
                 const parts = rel.split('/');
                 if (parts.length < 4) return;
                 const courseName = parts[0], subjectName = parts[1], section = parts[2], fileName = parts[parts.length - 1];
@@ -401,7 +423,7 @@
                 if (section === 'tests' && /\.(json|html?)$/i.test(fileName)) {
                     tree[courseName].subjects[subjectName].tests.push({
                         name: fileName.replace(/\.(json|html?)$/i, ''),
-                        path: f.path,
+                        path: path,
                         type: /\.(html?)$/i.test(fileName) ? 'html' : 'json'
                     });
                 }
@@ -455,8 +477,14 @@
             let hash = '#' + view;
             if (st.course) hash += '/' + encodeURIComponent(st.course);
             if (st.subject) hash += '/' + encodeURIComponent(st.subject);
-            if (st.path) hash += '/' + encodeURIComponent(st.path);
-            if (st.name) hash += '/' + encodeURIComponent(st.name);
+            // path/name are double-encoded: on a FRESH page load (pasted/shared link),
+            // some mobile browsers auto-decode one level of %-escaping in the URL
+            // fragment before our JS ever reads it — a single encodeURIComponent()
+            // here turns %2F (encoded '/') into a literal '/', which then gets
+            // wrongly split apart by parseHashToState(). Encoding twice means even
+            // after one browser-level decode, what's left is still safely escaped.
+            if (st.path) hash += '/' + encodeURIComponent(encodeURIComponent(st.path));
+            if (st.name) hash += '/' + encodeURIComponent(encodeURIComponent(st.name));
             history.pushState(st, '', hash);
         }
 
@@ -501,12 +529,23 @@
         // page (course / subject / test list / html test) instead of always
         // landing on the courses list — this is what makes "copy this page's
         // link and open it" actually reopen the same page.
+        function safeDecode(s) { try { return decodeURIComponent(s); } catch (e) { return s; } }
+        function safeDecode2x(s) {
+            try { return decodeURIComponent(decodeURIComponent(s)); }
+            catch (e) { return safeDecode(s); }
+        }
         function parseHashToState() {
-            const parts = location.hash.replace(/^#/, '').split('/').filter(Boolean).map(decodeURIComponent);
-            const view = parts[0] || 'courses';
-            if (view === 'subjects') return { view, course: parts[1] || null };
-            if (view === 'tests') return { view, course: parts[1] || null, subject: parts[2] || null };
-            if (view === 'quiz' || view === 'html') return { view, course: parts[1] || null, subject: parts[2] || null, path: parts[3] || null, name: parts[4] || null };
+            const parts = location.hash.replace(/^#/, '').split('/').filter(Boolean);
+            const view = parts[0] ? safeDecode(parts[0]) : 'courses';
+            if (view === 'subjects') return { view, course: parts[1] ? safeDecode(parts[1]) : null };
+            if (view === 'tests') return { view, course: parts[1] ? safeDecode(parts[1]) : null, subject: parts[2] ? safeDecode(parts[2]) : null };
+            if (view === 'quiz' || view === 'html') return {
+                view,
+                course: parts[1] ? safeDecode(parts[1]) : null,
+                subject: parts[2] ? safeDecode(parts[2]) : null,
+                path: parts[3] ? safeDecode2x(parts[3]) : null,
+                name: parts[4] ? safeDecode2x(parts[4]) : null
+            };
             return { view: 'courses' };
         }
 
