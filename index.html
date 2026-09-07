@@ -41,7 +41,7 @@
         /* ── Hero header ── */
         .hero-card {
             position: relative; overflow:hidden; border-radius: 26px; margin: 10px 0 16px;
-            background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-950) 100%);
+            background: linear-gradient(135deg, #1d3f72 0%, #0a1830 100%);
             color:#fff; padding: 20px 20px 18px; box-shadow: 0 20px 45px rgba(8,15,30,0.35);
         }
         .hero-card::before {
@@ -139,7 +139,7 @@
         }
         .browse-empty i, .browse-error i { font-size:2.2rem; margin-bottom:12px; display:block; color: var(--tiger-500); }
         .browse-error i { color:var(--danger); }
-        .browse-loading .spinner-ring, .html-test-loading .spinner-ring {
+        .browse-loading .spinner-ring {
             width:38px; height:38px; border-radius:50%; border:3px solid var(--line); border-top-color: var(--tiger-500);
             margin:0 auto 14px; animation: spin 0.8s linear infinite;
         }
@@ -156,7 +156,7 @@
         /* ── Quiz container (engine) ── */
         .quiz-container { max-width:800px; margin: 10px auto; background:var(--card); border-radius:24px; box-shadow:0 20px 50px rgba(15,30,51,0.16); overflow:hidden; animation:fadeIn 0.35s ease-out; touch-action:pan-y; border: 1px solid var(--line); }
         @keyframes fadeIn { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
-        .quiz-header { background: linear-gradient(135deg, var(--navy-900), var(--navy-950)); color:#fff; padding:14px 16px 12px; position:relative; }
+        .quiz-header { background: linear-gradient(135deg, #1d3f72, #0a1830); color:#fff; padding:14px 16px 12px; position:relative; }
         .quiz-header::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 100% 0%, rgba(245,158,11,0.25), transparent 55%); pointer-events:none; }
         .quiz-header .back-link { color: var(--gold-400); font-size:0.72rem; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px; margin-bottom:6px; position:relative; z-index:1; }
         .quiz-brand-mini { display:inline-flex; align-items:center; gap:6px; padding:4px 10px 4px 6px; border-radius:20px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); backdrop-filter: blur(6px); position:relative; z-index:1; margin-bottom:6px; flex:0 0 auto; }
@@ -164,12 +164,13 @@
         .quiz-brand-mini .qbm-text { font-size:0.64rem; font-weight:700; letter-spacing:0.4px; color: var(--gold-400); text-transform:uppercase; white-space:nowrap; }
 
         /* ── Inline HTML test view (fills screen, renders test via iframe srcdoc) ── */
+        /* No wrapper header here on purpose — these test files ship their own complete
+           app-top-bar / quiz-header. Adding another bar on top double-headers the page.
+           Instead: a small floating back control overlaid in the corner. */
         .html-test-view { position:fixed; inset:0; z-index:2500; background: var(--bg); display:none; flex-direction:column; }
-        .html-test-bar { display:flex; align-items:center; gap:10px; padding:12px 14px; background: linear-gradient(135deg, var(--navy-900), var(--navy-950)); color:#fff; flex:0 0 auto; box-shadow: 0 4px 14px rgba(8,15,30,0.3); }
-        .html-test-bar .htb-back { cursor:pointer; display:flex; align-items:center; gap:6px; font-size:0.78rem; font-weight:600; color: var(--gold-400); flex:0 0 auto; white-space:nowrap; }
-        .html-test-bar .htb-title { font-size:0.82rem; font-weight:700; flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-        .html-test-bar .quiz-brand-mini { margin-bottom:0; }
-        .html-test-frame { flex:1 1 auto; width:100%; border:none; background:#fff; }
+        .html-test-frame { flex:1 1 auto; width:100%; height:100%; border:none; background:#fff; }
+        .html-test-fab { position:fixed; top:12px; left:12px; z-index:2600; display:flex; align-items:center; gap:6px; padding:7px 12px 7px 9px; border-radius:20px; background:rgba(15,23,42,0.82); color:#fff; border:1px solid rgba(255,255,255,0.16); backdrop-filter: blur(8px); box-shadow:0 8px 20px rgba(8,15,30,0.3); font-size:0.72rem; font-weight:600; cursor:pointer; }
+        .html-test-fab i { color: var(--gold-400); font-size:0.75rem; }
         .html-test-loading { flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; text-align:center; padding:24px; color:var(--muted); background:var(--bg); }
         .quiz-header .subline { font-size:0.72rem; color:#c7d2e6; position:relative; z-index:1; }
         .quiz-header .timer { background:rgba(255,255,255,0.12); padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.85rem; position:relative; z-index:1; }
@@ -195,7 +196,8 @@
         .option-btn.incorrect { background-color:var(--danger-bg) !important; border-color:var(--danger) !important; color:#7f1d1d !important; }
         .option-btn.incorrect .opt-letter { background:var(--danger) !important; color:#fff !important; }
         .quiz-pagination { display:flex; gap:6px; overflow-x:auto; padding:4px 2px 10px; }
-        .quiz-pagination .page-box { flex:0 0 auto; width:31px; height:31px; border-radius:9px; border:1.5px solid var(--line); background:var(--card); display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; cursor:pointer; color:var(--ink); }
+        .quiz-pagination .page-box { flex:0 0 auto; width:31px; height:31px; border-radius:10px; border:1.5px solid var(--line); background:var(--card); display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; cursor:pointer; color:var(--ink); box-shadow:0 1px 2px rgba(15,30,51,0.05); transition:transform 0.12s ease; }
+        .quiz-pagination .page-box:active { transform:scale(0.9); }
         html[data-theme="dark"] .quiz-pagination .page-box { background:#0d1729; border-color:var(--line); color:var(--ink); }
         .quiz-pagination .page-box.active { border-color: var(--tiger-500); box-shadow: 0 0 0 2px rgba(245,158,11,0.2); }
         .quiz-pagination .page-box.answered { background: var(--tiger-500); border-color: var(--tiger-500); color:#fff; }
@@ -203,8 +205,15 @@
         .quiz-pagination .page-box.correct { background: var(--success); border-color: var(--success); color:#fff; }
         .quiz-pagination .page-box.incorrect { background: var(--danger); border-color: var(--danger); color:#fff; }
         .action-bar { display:flex; gap:6px; padding:0 2px 4px; }
+        .action-bar { display:flex; align-items:center; gap:8px; padding:2px 2px 6px; }
+        .action-icon-btn { flex:0 0 auto; width:42px; height:42px; border-radius:13px; display:flex; align-items:center; justify-content:center; font-size:0.88rem; border:1.5px solid var(--line); background:var(--card); color:var(--ink); transition:transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease; box-shadow:0 1px 3px rgba(15,30,51,0.06); padding:0; }
+        .action-icon-btn:active { transform:scale(0.92); }
+        .action-icon-btn:disabled { opacity:0.4; }
+        .action-icon-btn.bm-active { background:#fff7e6; border-color:var(--tiger-500); color:var(--tiger-700); }
+        html[data-theme="dark"] .action-icon-btn { background:#0d1729; border-color:var(--line); color:var(--ink); }
+        html[data-theme="dark"] .action-icon-btn.bm-active { background:rgba(245,158,11,0.16); }
         .btn-compact { flex:1; font-size:0.76rem; padding:9px 6px; border-radius:12px; }
-        .btn-submit { flex:1.3; font-size:0.8rem; font-weight:700; padding:9px 6px; border-radius:12px; background:linear-gradient(135deg, var(--tiger-500), var(--tiger-700)); border:none; color:#fff; box-shadow: 0 6px 16px rgba(245,158,11,0.3); }
+        .btn-submit { flex:1; font-size:0.82rem; font-weight:700; padding:10px 10px; border-radius:13px; background:linear-gradient(135deg, var(--tiger-500), var(--tiger-700)); border:none; color:#fff; box-shadow: 0 8px 18px rgba(245,158,11,0.32); display:flex; align-items:center; justify-content:center; gap:6px; }
         .explanation { background:#eef6ff; border-radius:12px; padding:9px 11px; font-size:0.8rem; color:#1e3a5f; }
         html[data-theme="dark"] .explanation { background:#0d1e33; color:#bcd4f0; }
         .analysis-panel { display:flex; flex-direction:column; gap:8px; }
@@ -267,7 +276,7 @@
             <div id="viewTest">
                 <div class="quiz-header shadow-sm">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="back-link mb-0" onclick="exitQuizToBrowse()"><i class="fas fa-arrow-left"></i> Test list par wapas jaayein</div>
+                        <div class="back-link mb-0" onclick="exitQuizToBrowse()"><i class="fas fa-arrow-left"></i> Back to test list</div>
                         <div class="quiz-brand-mini"><span class="qbm-icon"><i class="fas fa-shield-alt"></i></span><span class="qbm-text">Monk Manthan</span></div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-1">
@@ -292,10 +301,10 @@
                     <div id="questionContainer"></div>
                     <div class="quiz-pagination" id="questionNav"></div>
                     <div class="action-bar">
-                        <button id="prevBtn" class="btn btn-outline-secondary btn-compact" onclick="navigate(-1)"><i class="fas fa-arrow-left"></i> <span class="btn-label">Prev</span></button>
-                        <button id="bookmarkBtn" class="btn btn-outline-warning btn-compact" onclick="toggleBookmark()"><i class="far fa-bookmark" id="bmIcon"></i> <span class="btn-label">Flag</span></button>
-                        <button id="submitBtn" class="btn btn-submit" onclick="submitQuiz()"><i class="fas fa-paper-plane"></i> <span class="btn-label">Submit</span></button>
-                        <button id="nextBtn" class="btn btn-outline-primary btn-compact" onclick="navigate(1)"><span class="btn-label">Next</span> <i class="fas fa-arrow-right"></i></button>
+                        <button id="prevBtn" class="action-icon-btn" onclick="navigate(-1)" title="Previous"><i class="fas fa-arrow-left"></i></button>
+                        <button id="bookmarkBtn" class="action-icon-btn" onclick="toggleBookmark()" title="Flag"><i class="far fa-bookmark" id="bmIcon"></i></button>
+                        <button id="submitBtn" class="btn-submit" onclick="submitQuiz()"><i class="fas fa-paper-plane"></i> <span class="btn-label">Submit</span></button>
+                        <button id="nextBtn" class="action-icon-btn" onclick="navigate(1)" title="Next"><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
 
@@ -340,13 +349,8 @@
 
     <!-- ══════════ HTML TEST VIEW (renders external .html tests inline, in-app) ══════════ -->
     <div class="html-test-view" id="htmlTestView" style="display:none;">
-        <div class="html-test-bar">
-            <div class="htb-back" onclick="exitHtmlTestToBrowse()"><i class="fas fa-arrow-left"></i> Wapas</div>
-            <div class="htb-title" id="htmlTestTitle">Test</div>
-            <div class="quiz-brand-mini"><span class="qbm-icon"><i class="fas fa-shield-alt"></i></span><span class="qbm-text">Monk Manthan</span></div>
-        </div>
-        <iframe class="html-test-frame" id="htmlTestFrame" title="Test" style="display:none;"></iframe>
-        <div class="html-test-loading" id="htmlTestLoading"><div class="spinner-ring"></div>Test load ho raha hai...</div>
+        <div class="html-test-fab" onclick="exitHtmlTestToBrowse()"><i class="fas fa-arrow-left"></i> Back</div>
+        <iframe class="html-test-frame" id="htmlTestFrame" title="Test"></iframe>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -415,10 +419,60 @@
             else if (level === 'subjects') { nav.level = 'subjects'; nav.subject = null; }
             else if (level === 'tests') { nav.level = 'tests'; }
             renderCurrentLevel();
+            pushViewState(level === 'courses' ? 'courses' : level);
         }
 
-        function openCourse(courseName) { nav = { level: 'subjects', course: courseName, subject: null }; renderCurrentLevel(); }
-        function openSubject(subjectName) { nav.level = 'tests'; nav.subject = subjectName; renderCurrentLevel(); }
+        function openCourse(courseName) { nav = { level: 'subjects', course: courseName, subject: null }; renderCurrentLevel(); pushViewState('subjects'); }
+        function openSubject(subjectName) { nav.level = 'tests'; nav.subject = subjectName; renderCurrentLevel(); pushViewState('tests'); }
+
+        // ══════════════════════════════════════════════
+        // ── Hash router: gives every page (course/subject/test) its own
+        // link (#tests/Course/Subject etc.) and makes the browser/hardware
+        // Back button return to the previous in-app page instead of exiting ──
+        // ══════════════════════════════════════════════
+        let isHistoryNav = false;
+
+        function pushViewState(view, extra) {
+            if (isHistoryNav) return;
+            const st = Object.assign({ view, course: nav.course, subject: nav.subject }, extra || {});
+            let hash = '#' + view;
+            if (st.course) hash += '/' + encodeURIComponent(st.course);
+            if (st.subject) hash += '/' + encodeURIComponent(st.subject);
+            if (st.name) hash += '/' + encodeURIComponent(st.name);
+            history.pushState(st, '', hash);
+        }
+
+        function restoreView(st) {
+            isHistoryNav = true;
+            clearInterval(state.timerInterval);
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('htmlTestView').style.display = 'none';
+            document.getElementById('htmlTestFrame').srcdoc = '';
+
+            if (!st || st.view === 'courses') {
+                nav = { level: 'courses', course: null, subject: null };
+            } else if (st.view === 'subjects') {
+                nav = { level: 'subjects', course: st.course, subject: null };
+            } else if (st.view === 'html' && st.path) {
+                nav = { level: 'tests', course: st.course, subject: st.subject };
+                document.getElementById('heroCard').style.display = 'none';
+                document.getElementById('browseView').style.display = 'none';
+                document.getElementById('htmlTestView').style.display = 'flex';
+                loadHtmlTestFrame(st.path);
+                isHistoryNav = false;
+                return;
+            } else { // 'tests' or 'quiz' (mid-quiz progress can't be restored — land on the test list)
+                nav = { level: 'tests', course: st.course, subject: st.subject };
+            }
+            document.getElementById('heroCard').style.display = 'block';
+            document.getElementById('browseView').style.display = 'block';
+            renderCurrentLevel();
+            window.scrollTo({ top: 0, behavior: 'auto' });
+            isHistoryNav = false;
+        }
+
+        window.addEventListener('popstate', e => restoreView(e.state));
+        history.replaceState({ view: 'courses' }, '', '#courses');
 
         function renderCurrentLevel() {
             updateCrumb();
@@ -498,47 +552,63 @@
             if (testCard) { startTest(testCard.dataset.path, testCard.dataset.name, testCard.dataset.type); return; }
         });
 
-        document.getElementById('htmlTestLoading').addEventListener('click', function(e) {
-            const retryBtn = e.target.closest('.html-test-retry-btn');
-            if (retryBtn) { startTest(retryBtn.dataset.path, retryBtn.dataset.name, 'html'); }
-        });
-
         // ══════════════════════════════════════════════
         // ── Loading a published test (public raw content, no token) ──
         // ══════════════════════════════════════════════
-        async function startTest(path, name, type) {
-            const { owner, repo, branch } = SRC;
-            const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path.split('/').map(encodeURIComponent).join('/')}`;
 
+        // Fetches a file from the repo, trying jsdelivr's CDN mirror first
+        // (fast, and not blocked/throttled like raw.githubusercontent.com is on
+        // some Indian mobile networks), falling back to raw.githubusercontent.com
+        // if jsdelivr hasn't cached a very recently pushed file yet.
+        async function fetchRepoFile(path) {
+            const { owner, repo, branch } = SRC;
+            const encPath = path.split('/').map(encodeURIComponent).join('/');
+            const mirrors = [
+                `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${encPath}`,
+                `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${encPath}`
+            ];
+            let lastErr;
+            for (const mirrorUrl of mirrors) {
+                try {
+                    const res = await fetch(mirrorUrl, { cache: 'no-store' });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    return await res.text();
+                } catch (err) { lastErr = err; }
+            }
+            throw lastErr || new Error('Unknown fetch error');
+        }
+
+        // Renders a fetched .html test inside the iframe via `srcdoc`. This is the
+        // key fix for "html test opens as raw code": setting `iframe.src` to a URL
+        // makes the browser trust that *server's* Content-Type header to decide
+        // whether to render or show plain text — and GitHub-adjacent hosts don't
+        // reliably send `text/html`. `srcdoc` instead hands the browser real HTML
+        // directly, so it always renders as a page, never as source text.
+        async function loadHtmlTestFrame(path) {
+            const frame = document.getElementById('htmlTestFrame');
+            frame.srcdoc = '';
+            try {
+                frame.srcdoc = await fetchRepoFile(path);
+            } catch (err) {
+                showToast('Test load nahi ho paya: ' + err.message, 'error');
+            }
+        }
+
+        async function startTest(path, name, type) {
             if (type === 'html') {
-                document.getElementById('htmlTestTitle').textContent = name;
                 document.getElementById('heroCard').style.display = 'none';
                 document.getElementById('browseView').style.display = 'none';
-                const frame = document.getElementById('htmlTestFrame');
-                const loading = document.getElementById('htmlTestLoading');
-                frame.style.display = 'none';
-                frame.srcdoc = '';
-                loading.style.display = 'flex';
                 document.getElementById('htmlTestView').style.display = 'flex';
+                pushViewState('html', { path, name });
                 window.scrollTo({ top: 0, behavior: 'auto' });
-                try {
-                    const res = await fetch(url, { cache: 'no-store' });
-                    if (!res.ok) throw new Error('HTTP ' + res.status);
-                    const html = await res.text();
-                    frame.srcdoc = html;
-                    frame.onload = () => { loading.style.display = 'none'; frame.style.display = 'block'; };
-                } catch (err) {
-                    loading.innerHTML = `<i class="fas fa-triangle-exclamation" style="font-size:1.6rem;color:var(--tiger-500);"></i>Test load nahi ho paya.<br><small>${escHtml(err.message)}</small>
-                        <button class="btn btn-sm btn-outline-primary mt-2 html-test-retry-btn" data-path="${escHtml(path)}" data-name="${escHtml(name)}"><i class="fas fa-rotate me-1"></i>Retry</button>`;
-                }
+                loadHtmlTestFrame(path);
                 return;
             }
 
             showToast('Loading "' + name + '"...', 'info');
             try {
-                const res = await fetch(url, { cache: 'no-store' });
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                const json = await res.json();
+                const text = await fetchRepoFile(path);
+                const json = JSON.parse(text);
                 quizData.title = json.title || name;
                 quizData.timeLimit = json.timeLimit || 60;
                 quizData.negativeMark = json.negativeMark || 0;
@@ -552,27 +622,15 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 initQuizState();
                 renderTest();
+                pushViewState('quiz', { name });
             } catch (err) {
                 showToast('Test load nahi ho paya: ' + err.message, 'error');
             }
         }
 
-        function exitQuizToBrowse() {
-            clearInterval(state.timerInterval);
-            document.getElementById('quizContainer').style.display = 'none';
-            document.getElementById('heroCard').style.display = 'block';
-            document.getElementById('browseView').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function exitQuizToBrowse() { history.back(); }
 
-        function exitHtmlTestToBrowse() {
-            const frame = document.getElementById('htmlTestFrame');
-            frame.srcdoc = ''; // stop any timers/audio running inside the embedded test
-            document.getElementById('htmlTestView').style.display = 'none';
-            document.getElementById('heroCard').style.display = 'block';
-            document.getElementById('browseView').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function exitHtmlTestToBrowse() { history.back(); }
 
         // ══════════════════════════════════════════════
         // ── Quiz engine ──
@@ -744,6 +802,7 @@
             const question = state.activeQuestions[idx];
             const bmIcon = document.getElementById('bmIcon');
             bmIcon.className = state.bookmarks[idx] ? 'fas fa-bookmark text-warning' : 'far fa-bookmark';
+            document.getElementById('bookmarkBtn').classList.toggle('bm-active', !!state.bookmarks[idx]);
             const showMetaRow = !quizData.hideQuestionNumber || state.bookmarks[idx];
             let html = `<div class="card question-card shadow-sm"><div class="card-body p-3">`;
             if (showMetaRow) {
