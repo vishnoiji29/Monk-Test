@@ -460,7 +460,13 @@
                 loadHtmlTestFrame(st.path);
                 isHistoryNav = false;
                 return;
-            } else { // 'tests' or 'quiz' (mid-quiz progress can't be restored — land on the test list)
+            } else if (st.view === 'quiz' && st.path) {
+                // Mid-quiz progress can't be restored, but the quiz itself reopens fresh from Q1.
+                nav = { level: 'tests', course: st.course, subject: st.subject };
+                loadQuizTest(st.path, st.name, st.course, st.subject);
+                isHistoryNav = false;
+                return;
+            } else { // 'tests' (or a 'quiz'/'html' entry with no path — e.g. malformed link)
                 nav = { level: 'tests', course: st.course, subject: st.subject };
             }
             document.getElementById('heroCard').style.display = 'block';
@@ -503,6 +509,14 @@
             } else if (st.view === 'tests' && st.course) {
                 history.pushState(st, '', originalHash);
                 nav = { level: 'tests', course: st.course, subject: st.subject };
+            } else if (st.view === 'quiz' && st.path) {
+                // Mid-quiz progress (answers/timer) can't be resumed from a link, but the
+                // quiz itself can still be opened fresh from Q1 — so the shared link keeps
+                // working as "this exact page", not a fallback to the test list.
+                if (st.course && st.subject) history.pushState({ view: 'tests', course: st.course, subject: st.subject }, '', '#tests/' + encodeURIComponent(st.course) + '/' + encodeURIComponent(st.subject));
+                history.pushState(st, '', originalHash);
+                nav = { level: 'tests', course: st.course, subject: st.subject };
+                loadQuizTest(st.path, st.name, st.course, st.subject);
             } else {
                 nav = { level: 'courses', course: null, subject: null };
             }
@@ -629,6 +643,31 @@
             }
         }
 
+        async function loadQuizTest(path, name, courseLabel, subjectLabel) {
+            try {
+                const text = await fetchRepoFile(path);
+                const json = JSON.parse(text);
+                quizData.title = json.title || name;
+                quizData.timeLimit = json.timeLimit || 60;
+                quizData.negativeMark = json.negativeMark || 0;
+                quizData.questions = json.questions || [];
+                state.shuffleQuestions = !!json.shuffleQuestions;
+                state.shuffleOptions = !!json.shuffleOptions;
+                document.getElementById('quizSubline').textContent = `${courseLabel || nav.course || ''} · ${subjectLabel || nav.subject || ''}`;
+                document.getElementById('heroCard').style.display = 'none';
+                document.getElementById('browseView').style.display = 'none';
+                document.getElementById('htmlTestView').style.display = 'none';
+                document.getElementById('quizContainer').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                initQuizState();
+                renderTest();
+                return true;
+            } catch (err) {
+                showToast('Test load nahi ho paya: ' + err.message, 'error');
+                return false;
+            }
+        }
+
         async function startTest(path, name, type) {
             if (type === 'html') {
                 document.getElementById('heroCard').style.display = 'none';
@@ -640,26 +679,8 @@
                 return;
             }
 
-            try {
-                const text = await fetchRepoFile(path);
-                const json = JSON.parse(text);
-                quizData.title = json.title || name;
-                quizData.timeLimit = json.timeLimit || 60;
-                quizData.negativeMark = json.negativeMark || 0;
-                quizData.questions = json.questions || [];
-                state.shuffleQuestions = !!json.shuffleQuestions;
-                state.shuffleOptions = !!json.shuffleOptions;
-                document.getElementById('quizSubline').textContent = `${nav.course} · ${nav.subject}`;
-                document.getElementById('heroCard').style.display = 'none';
-                document.getElementById('browseView').style.display = 'none';
-                document.getElementById('quizContainer').style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                initQuizState();
-                renderTest();
-                pushViewState('quiz', { path, name });
-            } catch (err) {
-                showToast('Test load nahi ho paya: ' + err.message, 'error');
-            }
+            const ok = await loadQuizTest(path, name);
+            if (ok) pushViewState('quiz', { path, name });
         }
 
         function exitQuizToBrowse() { history.back(); }
