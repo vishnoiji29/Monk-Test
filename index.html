@@ -40,9 +40,9 @@
 
         /* ── Hero header ── */
         .hero-card {
-            position: relative; overflow:hidden; border-radius: 26px; margin: 10px 0 16px;
-            background: linear-gradient(135deg, #1d3f72 0%, #0a1830 100%);
-            color:#fff; padding: 20px 20px 18px; box-shadow: 0 20px 45px rgba(8,15,30,0.35);
+            position: relative; overflow:hidden; border-radius: 20px; margin: 8px 0 14px;
+            background: linear-gradient(135deg, #c2660a 0%, #9a4508 55%, #5c2205 100%);
+            color:#fff; padding: 13px 16px 12px; box-shadow: 0 14px 30px rgba(154,52,18,0.32);
         }
         .hero-card::before {
             content:''; position:absolute; inset:0;
@@ -54,31 +54,31 @@
             background: radial-gradient(circle, rgba(255,205,122,0.18), transparent 70%); pointer-events:none;
         }
         .hero-top { display:flex; align-items:center; justify-content:space-between; gap:10px; position:relative; z-index:1; }
-        .hero-brand { display:flex; align-items:center; gap:12px; }
+        .hero-brand { display:flex; align-items:center; gap:10px; }
         .hero-icon {
-            width:46px; height:46px; border-radius:14px; flex:0 0 auto;
-            background: linear-gradient(135deg, var(--gold-400), var(--tiger-700));
-            display:flex; align-items:center; justify-content:center; font-size:1.25rem; color:#3a1f00;
-            box-shadow: 0 6px 16px rgba(245,158,11,0.4);
+            width:38px; height:38px; border-radius:12px; flex:0 0 auto;
+            background: rgba(255,255,255,0.16);
+            display:flex; align-items:center; justify-content:center; font-size:1.05rem; color:#fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.25);
         }
-        .hero-brand .ht1 { font-weight:800; font-size:1.02rem; letter-spacing:0.3px; }
-        .hero-brand .ht2 { font-weight:600; font-size:0.68rem; letter-spacing:1.2px; color: var(--gold-400); text-transform:uppercase; }
-        .hero-actions { display:flex; align-items:center; gap:6px; }
+        .hero-brand .ht1 { font-weight:800; font-size:0.94rem; letter-spacing:0.3px; }
+        .hero-brand .ht2 { font-weight:600; font-size:0.62rem; letter-spacing:1.1px; color: #fff5e0; text-transform:uppercase; opacity:0.9; }
+        .hero-actions { display:flex; align-items:center; gap:5px; }
         .hero-icon-btn {
-            width:34px; height:34px; border-radius:10px; border:1px solid rgba(255,255,255,0.18);
-            background: rgba(255,255,255,0.08); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.82rem;
+            width:30px; height:30px; border-radius:9px; border:1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.1); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.76rem;
             backdrop-filter: blur(6px);
         }
-        .hero-links { display:flex; gap:8px; margin-top:14px; position:relative; z-index:1; flex-wrap:wrap; }
+        .hero-links { display:flex; gap:7px; margin-top:10px; position:relative; z-index:1; flex-wrap:wrap; }
         .hero-link-btn {
-            display:flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:600; padding:7px 12px; border-radius:20px;
-            text-decoration:none; color:#fff; border:1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.08); backdrop-filter: blur(6px);
+            display:flex; align-items:center; gap:5px; font-size:0.68rem; font-weight:600; padding:6px 11px; border-radius:18px;
+            text-decoration:none; color:#fff; border:1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); backdrop-filter: blur(6px);
         }
-        .hero-link-btn.telegram { background: rgba(34,158,217,0.28); border-color: rgba(34,158,217,0.4); }
-        .hero-link-btn.instagram { background: linear-gradient(135deg, rgba(245,133,41,0.35), rgba(221,42,123,0.35)); border-color: rgba(221,42,123,0.4); }
-        .hero-stats { display:flex; gap:18px; margin-top:16px; position:relative; z-index:1; }
-        .hero-stat .hs-num { font-weight:800; font-size:1.15rem; color: var(--gold-400); line-height:1; }
-        .hero-stat .hs-label { font-size:0.66rem; color:#c7d2e6; margin-top:2px; letter-spacing:0.3px; }
+        .hero-link-btn.telegram { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.28); }
+        .hero-link-btn.instagram { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.28); }
+        .hero-stats { display:flex; gap:14px; margin-top:10px; position:relative; z-index:1; }
+        .hero-stat .hs-num { font-weight:800; font-size:1rem; color: #fff; line-height:1; }
+        .hero-stat .hs-label { font-size:0.63rem; color:rgba(255,255,255,0.82); margin-top:2px; letter-spacing:0.3px; }
 
         /* ── Breadcrumb ── */
         .browse-crumb { display:flex; align-items:center; flex-wrap:wrap; gap:6px; font-size:0.78rem; font-weight:600; margin-bottom:14px; }
@@ -112,7 +112,7 @@
             width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#fff; flex:0 0 auto;
             box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
-        .browse-card.course .bc-icon { background:linear-gradient(135deg, var(--navy-700), var(--navy-950)); }
+        .browse-card.course .bc-icon { background:linear-gradient(135deg, #c2660a, #5c2205); }
         .browse-card.subject .bc-icon { background:linear-gradient(135deg, #7c6cf0, #4834d4); }
         .browse-card.test .bc-icon { background:linear-gradient(135deg, var(--gold-400), var(--tiger-700)); color:#3a1f00; }
         .browse-card .bc-body { flex:1 1 auto; min-width:0; }
@@ -156,12 +156,11 @@
         /* ── Quiz container (engine) ── */
         .quiz-container { max-width:800px; margin: 10px auto; background:var(--card); border-radius:24px; box-shadow:0 20px 50px rgba(15,30,51,0.16); overflow:hidden; animation:fadeIn 0.35s ease-out; touch-action:pan-y; border: 1px solid var(--line); }
         @keyframes fadeIn { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
-        .quiz-header { background: linear-gradient(135deg, #1d3f72, #0a1830); color:#fff; padding:14px 16px 12px; position:relative; }
+        .quiz-header { background: linear-gradient(135deg, #c2660a 0%, #9a4508 55%, #5c2205 100%); color:#fff; padding:12px 16px 10px; position:relative; }
         .quiz-header::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 100% 0%, rgba(245,158,11,0.25), transparent 55%); pointer-events:none; }
-        .quiz-header .back-link { color: var(--gold-400); font-size:0.72rem; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px; margin-bottom:6px; position:relative; z-index:1; }
-        .quiz-brand-mini { display:inline-flex; align-items:center; gap:6px; padding:4px 10px 4px 6px; border-radius:20px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); backdrop-filter: blur(6px); position:relative; z-index:1; margin-bottom:6px; flex:0 0 auto; }
-        .quiz-brand-mini .qbm-icon { width:18px; height:18px; border-radius:6px; background: linear-gradient(135deg, var(--gold-400), var(--tiger-700)); display:flex; align-items:center; justify-content:center; font-size:0.58rem; color:#3a1f00; flex:0 0 auto; box-shadow:0 3px 8px rgba(245,158,11,0.35); }
-        .quiz-brand-mini .qbm-text { font-size:0.64rem; font-weight:700; letter-spacing:0.4px; color: var(--gold-400); text-transform:uppercase; white-space:nowrap; }
+        .quiz-brand-mini { display:inline-flex; align-items:center; gap:5px; padding:3px 8px 3px 5px; border-radius:16px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.2); backdrop-filter: blur(6px); position:relative; z-index:1; margin-bottom:5px; flex:0 0 auto; }
+        .quiz-brand-mini .qbm-icon { width:15px; height:15px; border-radius:5px; background: rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:#c2410c; flex:0 0 auto; }
+        .quiz-brand-mini .qbm-text { font-size:0.58rem; font-weight:700; letter-spacing:0.3px; color: #fff; text-transform:uppercase; white-space:nowrap; }
 
         /* ── Inline HTML test view (fills screen, renders test via iframe srcdoc) ── */
         /* No wrapper header here on purpose — these test files ship their own complete
@@ -169,8 +168,6 @@
            Instead: a small floating back control overlaid in the corner. */
         .html-test-view { position:fixed; inset:0; z-index:2500; background: var(--bg); display:none; flex-direction:column; }
         .html-test-frame { flex:1 1 auto; width:100%; height:100%; border:none; background:#fff; }
-        .html-test-fab { position:fixed; top:12px; left:12px; z-index:2600; display:flex; align-items:center; gap:6px; padding:7px 12px 7px 9px; border-radius:20px; background:rgba(15,23,42,0.82); color:#fff; border:1px solid rgba(255,255,255,0.16); backdrop-filter: blur(8px); box-shadow:0 8px 20px rgba(8,15,30,0.3); font-size:0.72rem; font-weight:600; cursor:pointer; }
-        .html-test-fab i { color: var(--gold-400); font-size:0.75rem; }
         .html-test-loading { flex:1 1 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; text-align:center; padding:24px; color:var(--muted); background:var(--bg); }
         .quiz-header .subline { font-size:0.72rem; color:#c7d2e6; position:relative; z-index:1; }
         .quiz-header .timer { background:rgba(255,255,255,0.12); padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.85rem; position:relative; z-index:1; }
@@ -275,8 +272,7 @@
         <div class="quiz-container" id="quizContainer" style="display:none;">
             <div id="viewTest">
                 <div class="quiz-header shadow-sm">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="back-link mb-0" onclick="exitQuizToBrowse()"><i class="fas fa-arrow-left"></i> Back to test list</div>
+                    <div class="d-flex justify-content-end align-items-center">
                         <div class="quiz-brand-mini"><span class="qbm-icon"><i class="fas fa-shield-alt"></i></span><span class="qbm-text">Monk Manthan</span></div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-1">
@@ -349,7 +345,9 @@
 
     <!-- ══════════ HTML TEST VIEW (renders external .html tests inline, in-app) ══════════ -->
     <div class="html-test-view" id="htmlTestView" style="display:none;">
-        <div class="html-test-fab" onclick="exitHtmlTestToBrowse()"><i class="fas fa-arrow-left"></i> Back</div>
+        <!-- No floating back control here on purpose — the hash router makes the
+             device/browser Back button navigate correctly, so a duplicate in-app
+             button was redundant (and was overlapping the test's own header). -->
         <iframe class="html-test-frame" id="htmlTestFrame" title="Test"></iframe>
     </div>
 
@@ -438,6 +436,7 @@
             let hash = '#' + view;
             if (st.course) hash += '/' + encodeURIComponent(st.course);
             if (st.subject) hash += '/' + encodeURIComponent(st.subject);
+            if (st.path) hash += '/' + encodeURIComponent(st.path);
             if (st.name) hash += '/' + encodeURIComponent(st.name);
             history.pushState(st, '', hash);
         }
@@ -472,7 +471,42 @@
         }
 
         window.addEventListener('popstate', e => restoreView(e.state));
-        history.replaceState({ view: 'courses' }, '', '#courses');
+
+        // Read the URL as it was opened/pasted, and jump straight to that exact
+        // page (course / subject / test list / html test) instead of always
+        // landing on the courses list — this is what makes "copy this page's
+        // link and open it" actually reopen the same page.
+        function parseHashToState() {
+            const parts = location.hash.replace(/^#/, '').split('/').filter(Boolean).map(decodeURIComponent);
+            const view = parts[0] || 'courses';
+            if (view === 'subjects') return { view, course: parts[1] || null };
+            if (view === 'tests') return { view, course: parts[1] || null, subject: parts[2] || null };
+            if (view === 'quiz' || view === 'html') return { view, course: parts[1] || null, subject: parts[2] || null, path: parts[3] || null, name: parts[4] || null };
+            return { view: 'courses' };
+        }
+
+        function applyInitialState() {
+            const st = parseHashToState();
+            history.replaceState({ view: 'courses' }, '', '#courses'); // a root entry so Back never exits abruptly
+            if (st.view === 'html' && st.path) {
+                if (st.course && st.subject) history.pushState({ view: 'tests', course: st.course, subject: st.subject }, '', '#tests/' + encodeURIComponent(st.course) + '/' + encodeURIComponent(st.subject));
+                history.pushState(st, '', location.hash);
+                nav = { level: 'tests', course: st.course, subject: st.subject };
+                document.getElementById('heroCard').style.display = 'none';
+                document.getElementById('browseView').style.display = 'none';
+                document.getElementById('htmlTestView').style.display = 'flex';
+                loadHtmlTestFrame(st.path);
+            } else if (st.view === 'subjects' && st.course) {
+                history.pushState(st, '', location.hash);
+                nav = { level: 'subjects', course: st.course, subject: null };
+            } else if (st.view === 'tests' && st.course) {
+                history.pushState(st, '', location.hash);
+                nav = { level: 'tests', course: st.course, subject: st.subject };
+            } else {
+                nav = { level: 'courses', course: null, subject: null };
+            }
+        }
+        applyInitialState();
 
         function renderCurrentLevel() {
             updateCrumb();
@@ -605,7 +639,6 @@
                 return;
             }
 
-            showToast('Loading "' + name + '"...', 'info');
             try {
                 const text = await fetchRepoFile(path);
                 const json = JSON.parse(text);
@@ -622,7 +655,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 initQuizState();
                 renderTest();
-                pushViewState('quiz', { name });
+                pushViewState('quiz', { path, name });
             } catch (err) {
                 showToast('Test load nahi ho paya: ' + err.message, 'error');
             }
