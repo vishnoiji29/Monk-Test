@@ -125,6 +125,11 @@
             display:flex; align-items:center; justify-content:center; font-size:0.75rem; transition: all 0.2s ease;
         }
         .browse-card:hover .bc-arrow { background: var(--tiger-500); color:#fff; transform: translateX(2px); }
+        .browse-card .bc-link-btn {
+            width:30px; height:30px; border-radius:10px; background: var(--bg); color:var(--muted); flex:0 0 auto; border:1px solid var(--line);
+            display:flex; align-items:center; justify-content:center; font-size:0.72rem; transition: all 0.15s ease;
+        }
+        .browse-card .bc-link-btn:active { transform: scale(0.9); background: var(--tiger-500); color:#fff; }
 
         .browse-search { position:relative; margin-bottom:14px; }
         .browse-search input {
@@ -158,9 +163,6 @@
         @keyframes fadeIn { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
         .quiz-header { background: linear-gradient(135deg, #c2660a 0%, #9a4508 55%, #5c2205 100%); color:#fff; padding:12px 16px 10px; position:relative; }
         .quiz-header::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 100% 0%, rgba(245,158,11,0.25), transparent 55%); pointer-events:none; }
-        .quiz-brand-mini { display:inline-flex; align-items:center; gap:5px; padding:3px 8px 3px 5px; border-radius:16px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.2); backdrop-filter: blur(6px); position:relative; z-index:1; margin-bottom:5px; flex:0 0 auto; }
-        .quiz-brand-mini .qbm-icon { width:15px; height:15px; border-radius:5px; background: rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:#c2410c; flex:0 0 auto; }
-        .quiz-brand-mini .qbm-text { font-size:0.58rem; font-weight:700; letter-spacing:0.3px; color: #fff; text-transform:uppercase; white-space:nowrap; }
 
         /* ── Inline HTML test view (fills screen, renders test via iframe srcdoc) ── */
         /* No wrapper header here on purpose — these test files ship their own complete
@@ -280,12 +282,18 @@
         <div class="quiz-container" id="quizContainer" style="display:none;">
             <div id="viewTest">
                 <div class="quiz-header shadow-sm">
-                    <div class="d-flex justify-content-end align-items-center">
-                        <div class="quiz-brand-mini"><span class="qbm-icon"><i class="fas fa-shield-alt"></i></span><span class="qbm-text">Monk Manthan</span></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-1">
-                        <h6 class="m-0 fw-bold text-truncate me-2 text-white" id="quizTitleHead">Test</h6>
+                    <div class="hero-top">
+                        <div class="hero-brand">
+                            <div class="hero-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div>
+                                <div class="ht1">Monk Manthan</div>
+                                <div class="ht2">Test Series</div>
+                            </div>
+                        </div>
                         <div id="timer" class="timer"><i class="fas fa-clock me-1"></i><span id="minutes">00</span>:<span id="seconds">00</span></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <h6 class="m-0 fw-bold text-truncate me-2 text-white" id="quizTitleHead">Test</h6>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-1">
                         <span class="subline" id="quizSubline">Monk Manthan · Test Series</span>
@@ -639,6 +647,7 @@
                     <div class="browse-card test" data-path="${escHtml(t.path)}" data-name="${escHtml(t.name)}" data-type="${escHtml(t.type)}">
                         <div class="bc-icon"><i class="fas fa-file-circle-check"></i></div>
                         <div class="bc-body"><div class="bc-title">${escHtml(t.name)}</div><div class="bc-sub"><span class="bc-badge live"><i class="fas fa-circle" style="font-size:5px;"></i> Live</span> ${t.type === 'html' ? 'Opens directly' : 'Tap to start'}</div></div>
+                        <button class="bc-link-btn" data-copy-path="${escHtml(t.path)}" data-copy-name="${escHtml(t.name)}" data-copy-type="${escHtml(t.type)}" title="Copy this test's direct link"><i class="fas fa-link"></i></button>
                         <div class="bc-arrow"><i class="fas fa-play"></i></div>
                     </div>`).join('') + `</div>`;
             }
@@ -651,6 +660,8 @@
         // double-quoted strings, which collided with the double-quoted onclick
         // attribute itself and silently broke every card's click handler.
         document.getElementById('browseContent').addEventListener('click', function(e) {
+            const linkBtn = e.target.closest('.bc-link-btn');
+            if (linkBtn) { copyTestLink(linkBtn.dataset.copyPath, linkBtn.dataset.copyName, linkBtn.dataset.copyType); return; }
             const courseCard = e.target.closest('.browse-card.course');
             if (courseCard) { openCourse(courseCard.dataset.course); return; }
             const subjectCard = e.target.closest('.browse-card.subject');
@@ -658,6 +669,27 @@
             const testCard = e.target.closest('.browse-card.test');
             if (testCard) { startTest(testCard.dataset.path, testCard.dataset.name, testCard.dataset.type); return; }
         });
+
+        // Builds the exact same self-contained deep-link the app's own router understands —
+        // opening it lands straight on this one test, full-screen, nothing else (no home
+        // page, no course list): see applyInitialState()/restoreView().
+        function buildTestLink(path, name, type) {
+            const view = type === 'html' ? 'html' : 'quiz';
+            const hash = '#' + view + '/' + encodeURIComponent(nav.course || '') + '/' + encodeURIComponent(nav.subject || '') + '/' + encodeURIComponent(encodeURIComponent(path)) + '/' + encodeURIComponent(encodeURIComponent(name));
+            return location.origin + location.pathname + hash;
+        }
+
+        async function copyTestLink(path, name, type) {
+            const link = buildTestLink(path, name, type);
+            try {
+                await navigator.clipboard.writeText(link);
+                showToast('Test link copied!', 'success');
+            } catch (err) {
+                // clipboard API can be unavailable (older browser, non-https, permissions) —
+                // fall back to a manual copy path instead of silently failing.
+                window.prompt('Copy this link:', link);
+            }
+        }
 
         // ══════════════════════════════════════════════
         // ── Loading a published test (public raw content, no token) ──
