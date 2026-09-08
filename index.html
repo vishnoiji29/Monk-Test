@@ -406,7 +406,7 @@
         async function fetchRepoFileListFromGithubApi() {
             const { owner, repo, branch } = SRC;
             const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`;
-            const res = await fetch(url);
+            const res = await fetch(url, { cache: 'no-store' });
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const data = await res.json();
             return (data.tree || []).filter(f => f.type === 'blob').map(f => f.path);
@@ -415,9 +415,14 @@
         async function fetchRepoTree() {
             let allPaths;
             try {
-                allPaths = await fetchRepoFileListFromJsdelivr();
+                // GitHub API first: always reflects the latest push immediately.
+                // jsdelivr is faster/higher-limit but CDN-caches repo content, so a
+                // freshly added course can take a while to show up through it —
+                // it's kept only as a fallback for when the GitHub API itself is
+                // unreachable or rate-limited (60 req/hr, unauthenticated).
+                allPaths = await fetchRepoFileListFromGithubApi();
             } catch (err) {
-                allPaths = await fetchRepoFileListFromGithubApi(); // fallback (e.g. a brand-new repo jsdelivr hasn't indexed yet)
+                allPaths = await fetchRepoFileListFromJsdelivr();
             }
             const files = allPaths.filter(p => p.startsWith('courses/'));
             const tree = {};
